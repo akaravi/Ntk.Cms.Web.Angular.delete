@@ -1,0 +1,13 @@
+/.vs/
+/.vs/*
+/.idea/
+/.idea/*
+tempkey.rsa
+.vscode/*
+node_modules
+node_modules/*
+dist
+npm-debug.log
+yarn-error.log
+
+

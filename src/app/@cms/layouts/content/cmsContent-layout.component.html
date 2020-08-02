@@ -1,0 +1,39 @@
+<div
+  #wrapper
+  class="wrapper"
+  [ngClass]="{
+    'nav-collapsed': iscollapsed,
+    'menu-collapsed': iscollapsed,
+    'sidebar-sm': isSidebar_sm,
+    'sidebar-lg': isSidebar_lg
+  }"
+  [dir]="options.direction"
+>
+  <div
+    #appSidebar
+    appSidebar
+    class="app-sidebar"
+    (toggleHideSidebar)="toggleHideSidebar($event)"
+    [ngClass]="{ 'hide-sidebar': hideSidebar }"
+    data-active-color="white"
+    [attr.data-background-color]="bgColor"
+    [attr.data-image]="bgImage"
+  >
+    <app-cms-sidebar></app-cms-sidebar>
+    <div class="sidebar-background" #sidebarBgImage></div>
+  </div>
+  <app-cms-navbar (toggleHideSidebar)="toggleHideSidebar($event)"></app-cms-navbar>
+  <div class="main-panel">
+    <div class="main-content">
+      <div class="content-wrapper">
+        <div class="container-fluid">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <app-cms-footer></app-cms-footer>
+  </div>
+  <app-cms-notification-sidebar></app-cms-notification-sidebar>
+  <app-cms-customizer (directionEvent)="getOptions($event)"></app-cms-customizer>
+</div>
+

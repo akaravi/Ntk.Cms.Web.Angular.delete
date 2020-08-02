@@ -15,7 +15,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
 
   getModuleCotrolerUrl()
   {
-     return 'CoreSite';
+     return 'CoreSite/';
   }
 
   ngOnDestroy() {
@@ -29,7 +29,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
   ServiceWebScreenshot<TOut>(model: any) {
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/WebScreenshot/" ,model, { headers: this.getHeaders() })
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "WebScreenshot" ,model, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
           return this.errorExcptionResultCheck<TOut>(ret);
@@ -39,7 +39,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
   ServiceAddFirstSite<TOut>(model: any) {
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AddFirstSite/" ,model, { headers: this.getHeaders() })
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "AddFirstSite" ,model, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
           return this.errorExcptionResultCheck<TOut>(ret);
@@ -50,7 +50,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
     if (model == null) model = new FilterModel();
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/GetAllWithAlias", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "GetAllWithAlias", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -65,7 +65,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
     if (model == null) model = new FilterModel();
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/GetAllChildWithAlias", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "GetAllChildWithAlias", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -80,7 +80,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
     if (model == null) model = new FilterModel();
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/SearchNew", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "SearchNew", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -94,7 +94,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
   ServiceSearch<TOut>(model: CoreSiteSearchModel) {
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Search", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "Search", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -108,7 +108,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
   ServiceDomain<TOut>() {
  
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/Domain",  {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + "Domain",  {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -122,7 +122,7 @@ export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
   ServiceDomains<TOut>(id: number) {
  
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/Domains/" + id, { headers: this.getHeaders() })
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + "Domains/" + id, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
           return this.errorExcptionResultCheck<TOut>(ret);

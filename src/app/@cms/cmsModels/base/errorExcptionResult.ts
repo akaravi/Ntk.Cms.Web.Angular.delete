@@ -27,10 +27,10 @@ export class ResultAccessModel {
   AccessDeleteRowOtherCreatedBy = false;
 
   //Fields: Array<string>;
-  AccessSearchField: Array<string>;
-  AccessWatchField: Array<string>;
-  AccessEditField: Array<string>;
-  AccessAddField: Array<string>;
+  // AccessSearchField: Array<string>;
+  // AccessWatchField: Array<string>;
+  // AccessEditField: Array<string>;
+  // AccessAddField: Array<string>;
   FieldsInfo: Array<FieldInfoModel>;
 }
 export class FieldInfoModel {
@@ -47,6 +47,6 @@ export class FieldInfoModel {
   AccessWatchField: boolean=false;
   AccessEditField: boolean=false;
   AccessAddField: boolean=false;
-  AccessGridViewField: boolean=false;
+  
   fieldsInfo: Array<FieldInfoModel>;
 }

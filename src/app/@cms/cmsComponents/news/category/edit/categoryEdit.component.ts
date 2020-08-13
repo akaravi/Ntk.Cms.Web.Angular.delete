@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-news-category-edit',
@@ -11,5 +11,12 @@ export class NewsCategoryEditComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  @Input()
+  set options(model: any) {
+    this.dateModleInput = model;
+  }
+  get options(): any {
+    return this.dateModleInput;
+  }
+  private dateModleInput: any;
 }

@@ -16,6 +16,15 @@ import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.servi
   styleUrls: ["./categorySelect.component.scss"],
 })
 export class NewsCategorySelectComponent implements OnInit {
+  constructor(
+    private alertService: ToastrService,
+    private publicHelper: PublicHelper,
+    private categoryService: NewsCategoryService
+  ) {}
+
+  ngOnInit() {
+    this.DataGetAllCategory();
+  }
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -64,15 +73,7 @@ export class NewsCategorySelectComponent implements OnInit {
     //scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
-  constructor(
-    private alertService: ToastrService,
-    private publicHelper: PublicHelper,
-    private categoryService: NewsCategoryService
-  ) {}
-
-  ngOnInit() {
-    this.DataGetAllCategory();
-  }
+  
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
     this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(

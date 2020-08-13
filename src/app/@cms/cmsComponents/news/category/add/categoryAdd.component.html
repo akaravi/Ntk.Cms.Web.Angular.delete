@@ -15,32 +15,38 @@
         </div>
         <div class="card-content">
           <div class="px-3">
-            <form class="form form-horizontal">
+          <form (ngSubmit)="onFormSubmit()" #vform="ngForm" class="form form-horizontal">
+            
               <div class="form-body">
                 <h4 class="form-section"><i class="ft-user"></i> اطلاعات الزامی</h4>
+
                 <div class="form-group row">
-                  <label class="col-md-3 label-control" for="projectinput1">وضعیت:</label>
+                  <label class="col-md-3 label-control" for="Title">عنوان : </label>
+                  <div class="col-md-9">
+                  <input  [(ngModel)]="dataModelCategory.Title" type="text" class="form-control" name="Title" #Title="ngModel" required minlength="5" maxlength="50"  placeholder="عنوان" />
+                  </div>
+                  <small class="form-text text-muted danger" *ngIf="Title.errors?.required">خطای: مورد نیاز</small>
+                  <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength">خطای: حداقل پنج کاراکتر</small>
+                  <small class="form-text text-muted danger" *ngIf="Title.errors?.maxlength">خطای: حداکثر پنجاه کاراکتر</small>
+                </div>
+
+            
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Status">وضعیت:</label>
                   <div class="col-md-9">
                     <fieldset class="form-group">
-                      <select class="form-control" id="basicSelect">
-                        <option *ngFor="let item of dataCoreEnumService.ListItems; index as i;" value="{{item.Value}}" >{{item.Key}}</option>
-                          
-                        
+                      <select  [(ngModel)]="dataModelCategory.RecordStatus"  name="RecordStatus" class="form-control">
+                        <option *ngFor="let item of dataResultCoreEnum.ListItems; index as i;" value="{{item.Value}}" >{{item.Key}}</option>                        
                       </select>
                   </fieldset>            
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-md-3 label-control" for="projectinput2">عنوان : </label>
-                  <div class="col-md-9">
-                    <input type="text" id="projectinput2" class="form-control" name="lname">
-                  </div>
-                </div>
+            
 
                 <div class="form-group row">
-                  <label class="col-md-3 label-control" for="projectinput9">توضیحات : </label>
+                  <label class="col-md-3 label-control" for="Description">توضیحات : </label>
                   <div class="col-md-9">
-                    <textarea id="projectinput9" rows="5" class="form-control" name="comment"></textarea>
+                    <textarea [(ngModel)]="dataModelCategory.Description"  name="Description" rows="5" class="form-control"></textarea>
                   </div>
                 </div>
 
@@ -57,12 +63,26 @@
               </div>
 
               <div class="form-actions">
+                <small class="form-text text-muted " *ngIf="vform.submitted && dataResultCategory.Status==0">در حال ثبت اطلاعات صبر کنید </small>
+              </div>
+              <div class="form-actions" *ngIf="vform.submitted && dataResultCategory.Status>0">
+                <small class="form-text text-muted " *ngIf="dataResultCategory.IsSuccess">ثبت با موفقیت انجام شد</small>
+                <small class="form-text text-muted " *ngIf="!dataResultCategory.IsSuccess">
+                  برروز خطا در ثبت اطلاعات
+                  
+                  {{dataResultCategory.ErrorMessage}}
+
+                </small>
+              </div>
+                <div class="form-actions"  *ngIf="!vform.submitted">
+ 
                 <button type="button" class="btn btn-raised btn-warning mr-1">
                   <i class="ft-x"></i> انصراف
                 </button>
-                <button type="button" class="btn btn-raised btn-primary">
-                  <i class="fa fa-check-square-o"></i> ذخیره
-                </button>
+                  <button type="submit" class="btn btn-raised btn-primary" [disabled]="!vform.form.valid" >
+                    <i class="fa fa-check-square-o"></i> ذخیره
+                  </button>
+
               </div>
             </form>
           </div>

@@ -22,6 +22,7 @@ import {
 } from "angular-tree-component";
 import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
 import { PersianCalendarService } from "app/@cms/cmsCommon/pipe/PersianDatePipe/persian-date.service";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: "app-news-content-List",
@@ -29,10 +30,25 @@ import { PersianCalendarService } from "app/@cms/cmsCommon/pipe/PersianDatePipe/
   styleUrls: ["./contentList.component.scss"],
 })
 export class NewsContentListComponent implements OnInit {
+  constructor(
+    private alertService: ToastrService,
+    private publicHelper: PublicHelper,
+    private contentService: NewsContentService,
+    private categoryService: NewsCategoryService,
+    private modalService: NgbModal
+  ) {
+    
+  }
+  ngOnInit() {
+    this.DataViewModelConetnt();
+    this.DataGetAllConetnt();
+    this.DataGetAllCategory();
+  }
   filteModelConetnt = new FilterModel();
   filteModelCategory = new FilterModel();
-  dataModelConetnt: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataResultConetnt: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataResultConetntViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   // Table Column Titles
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
@@ -43,6 +59,7 @@ export class NewsContentListComponent implements OnInit {
   };
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
+  
   columnsConetnt: TableColumn[] = [
     {
       prop: "Id",
@@ -109,21 +126,47 @@ export class NewsContentListComponent implements OnInit {
     onActionSelect: (x) => this.onActionCategorySelect(x),
   };
   optionsCategorySelectData: any;
-  constructor(
-    private alertService: ToastrService,
-    private publicHelper: PublicHelper,
-    private contentService: NewsContentService,
-    private categoryService: NewsCategoryService
-  ) {
-    
-  }
+ 
   LocaleDate(model) {
     const d = new Date(model);
     return d.toLocaleDateString("fa-Ir");
   }
-  ngOnInit() {
-    this.DataGetAllConetnt();
-    this.DataGetAllCategory();
+ 
+  closeResult: string;
+    // Open default modal
+    open(content) {
+      this.modalService.open(content).result.then((result) => {
+          this.closeResult = `بسته شدن با: ${result}`;
+      }, (reason) => {
+          this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
+      });
+  }
+      // This function is used in open
+      private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'با فشردن ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'با کلیک کردن یک backdrop';
+        } else {
+            return `با: ${reason}`;
+        }
+    }
+
+  DataViewModelConetnt() {
+        this.contentService.ServiceViewModel().subscribe(
+      (next) => {
+        if (next.IsSuccess) {
+          this.dataResultConetntViewModel = next;
+          this.optionsSearch.setAccess(next.Access);        
+        }
+      },
+      (error) => {
+        this.alertService.error(
+          this.publicHelper.CheckError(error),
+          "برروی خطا در دریافت اطلاعات"
+        );
+      }
+    );
   }
 
   DataGetAllConetnt() {
@@ -133,9 +176,8 @@ export class NewsContentListComponent implements OnInit {
     this.contentService.ServiceGetAll(this.filteModelConetnt).subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataModelConetnt = next;
+          this.dataResultConetnt = next;
           this.tableContentloading = false;
-          this.optionsSearch.setResultAccess(next.resultAccess);        
         }
       },
       (error) => {
@@ -151,7 +193,7 @@ export class NewsContentListComponent implements OnInit {
     this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataModelCategory = next;
+          this.dataResultCategory = next;
         }
       },
       (error) => {

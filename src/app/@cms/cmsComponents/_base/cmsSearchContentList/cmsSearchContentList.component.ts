@@ -1,6 +1,6 @@
 import {  Component,  ViewChild,  OnInit,  OnDestroy,  Input,  Injectable,} from "@angular/core";
 import { FilterDataModel } from "app/@cms/cmsModels/base/filterModel";
-import { ResultAccessModel } from "app/@cms/cmsModels/base/errorExcptionResult";
+import { AccessModel } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { RuleSet, QueryBuilderFieldMap, Field, Rule } from "ngx-query-builder";
 import { ClauseType } from "app/@cms/cmsModels/Enums/clauseType.enum";
 
@@ -16,7 +16,7 @@ export class CmsSearchContentListComponent implements OnInit {
   @Input()
   set options(model: any) {
     this.optionsData = model;
-    model.setResultAccess = (x) => this.setResultAccess(x);
+    model.setAccess = (x) => this.setAccess(x);
   }
   get options(): any {
     return this.optionsData;
@@ -58,17 +58,17 @@ export class CmsSearchContentListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-  setResultAccess(model: ResultAccessModel) {
-    this.optionsData.resultAccess = model;
+  setAccess(model: AccessModel) {
+    this.optionsData.Access = model;
     this.setFields();
   }
   setFields() {
     if (
       this.optionsData &&
-      this.optionsData.resultAccess &&
-      this.optionsData.resultAccess.FieldsInfo 
+      this.optionsData.Access &&
+      this.optionsData.Access.FieldsInfo 
     ) {
-      this.optionsData.resultAccess.FieldsInfo.forEach((column, index) => {
+      this.optionsData.Access.FieldsInfo.forEach((column, index) => {
         if (!column.AccessSearchField)
           return;
         if (

@@ -1,5 +1,5 @@
 export class ErrorExcptionResultBase {
-  Status: number;
+  Status: number=0;
   token: string;
   IsSuccess: boolean = false;
   errors: Map<string, Array<string>>;
@@ -11,9 +11,9 @@ export class ErrorExcptionResult<T> extends ErrorExcptionResultBase {
   CurrentPageNumber: number;
   TotalRowCount: number;
   RowPerPage: number;
-  resultAccess: ResultAccessModel = new ResultAccessModel();
+  Access: AccessModel = new AccessModel();
 }
-export class ResultAccessModel {
+export class AccessModel {
   AccessDeleteRow = false;
   AccessWatchRow = false;
   AccessEditRow = false;

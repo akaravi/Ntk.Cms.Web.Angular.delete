@@ -22,7 +22,8 @@ import {
 } from "angular-tree-component";
 import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
 import { PersianCalendarService } from "app/@cms/cmsCommon/pipe/PersianDatePipe/persian-date.service";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 
 @Component({
   selector: "app-news-content-List",
@@ -36,30 +37,36 @@ export class NewsContentListComponent implements OnInit {
     private contentService: NewsContentService,
     private categoryService: NewsCategoryService,
     private modalService: NgbModal
-  ) {
-    
-  }
+  ) {}
   ngOnInit() {
+    
+    this.optionsCategorySelect.actions = {onActionSelect: (x) => this.onActionCategorySelect(x)};
+    
+    
+
+
+
     this.DataViewModelConetnt();
     this.DataGetAllConetnt();
-    this.DataGetAllCategory();
+    
   }
   filteModelConetnt = new FilterModel();
   filteModelCategory = new FilterModel();
   dataResultConetnt: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultConetntViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataResultConetntViewModel: ErrorExcptionResult<
+    any
+  > = new ErrorExcptionResult<any>();
   // Table Column Titles
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
-  optionsSearch: any={
+  optionsSearch: any = {
     onSubmit: (model) => this.onSubmitOptionsSearch(model),
     //AccessSearchField : Array<string>,
-
   };
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
-  
+
   columnsConetnt: TableColumn[] = [
     {
       prop: "Id",
@@ -122,42 +129,49 @@ export class NewsContentListComponent implements OnInit {
     //scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
-  optionsCategorySelect: any = {
-    onActionSelect: (x) => this.onActionCategorySelect(x),
-  };
+  optionsCategorySelect: ComponentOptionModel =new ComponentOptionModel();
   optionsCategorySelectData: any;
- 
+
   LocaleDate(model) {
     const d = new Date(model);
     return d.toLocaleDateString("fa-Ir");
   }
- 
+
   closeResult: string;
-    // Open default modal
-    open(content) {
-      this.modalService.open(content).result.then((result) => {
-          this.closeResult = `بسته شدن با: ${result}`;
-      }, (reason) => {
-          this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
-      });
+  // Open default modal
+  open(content) {
+    this.modalService.open(content).result.then(
+      (result) => {
+        this.closeResult = `بسته شدن با: ${result}`;
+        this.onActionCategoryReload();
+      },
+      (reason) => {
+        this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
+        this.onActionCategoryReload();
+      }
+    );
+
   }
-      // This function is used in open
-      private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'با فشردن ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'با کلیک کردن یک backdrop';
-        } else {
-            return `با: ${reason}`;
-        }
+  onActionCategoryReload() {
+    this.optionsCategorySelect.methods.ActionReload();
+  }
+  // This function is used in open
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return "با فشردن ESC";
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return "با کلیک کردن یک backdrop";
+    } else {
+      return `با: ${reason}`;
     }
+  }
 
   DataViewModelConetnt() {
-        this.contentService.ServiceViewModel().subscribe(
+    this.contentService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataResultConetntViewModel = next;
-          this.optionsSearch.setAccess(next.Access);        
+          this.optionsSearch.setAccess(next.Access);
         }
       },
       (error) => {
@@ -170,7 +184,6 @@ export class NewsContentListComponent implements OnInit {
   }
 
   DataGetAllConetnt() {
-    
     this.tableContentSelected = [];
     this.tableContentloading = true;
     this.contentService.ServiceGetAll(this.filteModelConetnt).subscribe(
@@ -189,21 +202,21 @@ export class NewsContentListComponent implements OnInit {
       }
     );
   }
-  DataGetAllCategory() {
-    this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataResultCategory = next;
-        }
-      },
-      (error) => {
-        this.alertService.error(
-          this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
-        );
-      }
-    );
-  }
+  // DataGetAllCategory() {
+  //   this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
+  //     (next) => {
+  //       if (next.IsSuccess) {
+  //         this.dataResultCategory = next;
+  //       }
+  //     },
+  //     (error) => {
+  //       this.alertService.error(
+  //         this.publicHelper.CheckError(error),
+  //         "برروی خطا در دریافت اطلاعات"
+  //       );
+  //     }
+  //   );
+  // }
   onActionCategorySelect(model: any) {
     this.filteModelConetnt = new FilterModel();
     this.optionsCategorySelectData = null;
@@ -248,10 +261,9 @@ export class NewsContentListComponent implements OnInit {
 
   onActionbuttonReload() {
     this.DataGetAllConetnt();
-    this.DataGetAllCategory();
   }
   onSubmitOptionsSearch(model: any) {
-    this.filteModelConetnt.Filters=  model;
+    this.filteModelConetnt.Filters = model;
     this.DataGetAllConetnt();
   }
 }

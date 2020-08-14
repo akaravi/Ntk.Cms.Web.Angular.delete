@@ -14,6 +14,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CmsSearchContentListComponent } from '../_base/cmsSearchContentList/cmsSearchContentList.component';
 import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
+import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
 //
     NewsCategoryAddComponent,
     NewsCategoryEditComponent,
+    NewsCategoryDeleteComponent,
     NewsCategoryListComponent,
     NewsCategorySelectComponent,
     CmsSearchContentListComponent,

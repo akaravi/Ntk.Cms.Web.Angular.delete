@@ -19,12 +19,11 @@
             <app-news-category-select [options]="optionsCategorySelect" ></app-news-category-select>
             <hr>
             <p>
-              <span *ngIf="optionsCategorySelectData"  >
-                <a (click)='onActionCategorySelect()'>همه</a> | 
-                <a (click)="open(contentCategoryEdit)">ویرایش</a> | 
-              </span>
+                <a (click)='onActionCategorySelect()' *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> | 
+                <a (click)="open(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
+                <a (click)="open(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> | 
+                <a (click)="open(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>              
                 <!-- <a [routerLink]="['/news/category/add']" [queryParams]="{id:optionsCategorySelectData?.Id}">اضافه</a> -->
-                <a (click)="open(contentCategoryAdd)">اضافه</a>
             </p>
             <p>عمل : {{closeResult}}</p>
 
@@ -112,12 +111,28 @@
       </button>
     </div>
     <div class="modal-body">
-      <p><app-news-category-edit [options]="{id:optionsCategorySelectData?.Id}" ></app-news-category-edit></p>
+      <p><app-news-category-edit [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-edit></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
     </div>
   </ng-template>
+<!--Modal ends-->
+<!--Modal starts-->
+<ng-template #contentCategoryDelete let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">حذف</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><app-news-category-delete [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-delete></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+  </div>
+</ng-template>
 <!--Modal ends-->
 <!--Modal starts-->
 <ng-template #contentCategoryAdd let-c="close" let-d="dismiss">

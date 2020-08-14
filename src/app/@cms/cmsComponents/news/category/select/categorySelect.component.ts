@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
 import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
+import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 
 @Component({
   selector: "app-news-category-select",
@@ -24,15 +25,19 @@ export class NewsCategorySelectComponent implements OnInit {
 
   ngOnInit() {
     this.DataGetAllCategory();
+    
+    this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
+    
   }
   @Input()
-  set options(model: any) {
-    this.dateModleInput = model;
+  set options(modelInput: ComponentOptionModel) {
+    this.dateModleInput = modelInput;  
   }
-  get options(): any {
+  get options(): ComponentOptionModel {
     return this.dateModleInput;
   }
-  private dateModleInput: any;
+  private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
+  
 
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
@@ -91,9 +96,9 @@ export class NewsCategorySelectComponent implements OnInit {
     );
   }
   onActionSelect(model: any) {
-    if (this.dateModleInput && this.dateModleInput.onActionSelect) {
-      this.dateModleInput.onActionSelect(model);
-      this.dateModleInput.Select=model;
+    if (this.dateModleInput && this.dateModleInput.actions && this.dateModleInput.actions.onActionSelect) {
+      this.dateModleInput.actions.onActionSelect(model);
+      this.dateModleInput.dataModel={Select:model};
     }
     // this.filteModelConetnt = new FilterModel();
     // if (model && model.data) {
@@ -104,5 +109,9 @@ export class NewsCategorySelectComponent implements OnInit {
     //   this.filteModelConetnt.Filters.push(aaa as FilterDataModel);
     // }
     // this.DataGetAllConetnt();
+  }
+  onActionReload(){
+    this.DataGetAllCategory()
+
   }
 }

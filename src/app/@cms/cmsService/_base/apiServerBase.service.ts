@@ -262,7 +262,7 @@ export class ApiServerBaseService implements OnDestroy {
   // }
   ServiceDelete<TOut>(id: any) {
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Delete",id, {
+      .delete(this.baseUrl + this.getModuleCotrolerUrl() + "/"+id, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -276,8 +276,7 @@ export class ApiServerBaseService implements OnDestroy {
   ServiceDeleteList<TOut>(ids: Array<any>) {
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList",
-        ids,
+        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids,
         {
           headers: this.getHeaders(),
         }

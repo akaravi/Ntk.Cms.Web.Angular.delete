@@ -18,7 +18,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
 
   getModuleCotrolerUrl()
   {
-     return 'CoreEnum/';
+     return 'CoreEnum';
   }
 
   ngOnDestroy() {
@@ -28,7 +28,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
   
   ServiceEnumRecordStatus() {
  
-    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + 'EnumRecordStatus', { headers: this.getHeaders() }).pipe(
+    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + '/EnumRecordStatus', { headers: this.getHeaders() }).pipe(
       map((ret: ErrorExcptionResult<enumModel>) => {
         if (ret) {
           return ret;
@@ -38,7 +38,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
   }
   ServiceEnumLocationType() {
  
-    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + 'EnumLocationType', { headers: this.getHeaders() }).pipe(
+    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + '/EnumLocationType', { headers: this.getHeaders() }).pipe(
       map((ret: ErrorExcptionResult<enumModel>) => {
         if (ret) {
           return ret;
@@ -48,7 +48,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
   }
   ServiceEnumUserLanguage() {
  
-    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + 'EnumUserLanguage', { headers: this.getHeaders() }).pipe(
+    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + '/EnumUserLanguage', { headers: this.getHeaders() }).pipe(
       map((ret: ErrorExcptionResult<enumModel>) => {
         if (ret) {
           return ret;
@@ -58,7 +58,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
   }
   ServiceEnumGender() {
  
-    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + 'EnumGender', { headers: this.getHeaders() }).pipe(
+    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + '/EnumGender', { headers: this.getHeaders() }).pipe(
       map((ret: ErrorExcptionResult<enumModel>) => {
         if (ret) {
           return ret;
@@ -68,7 +68,7 @@ export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
   }
   ServiceEnumMenuPlaceType() {
  
-    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + 'EnumMenuPlaceType', { headers: this.getHeaders() }).pipe(
+    return this.http.get(this.baseUrl + this.getModuleCotrolerUrl() + '/EnumMenuPlaceType', { headers: this.getHeaders() }).pipe(
       map((ret: ErrorExcptionResult<MenuPlaceType>) => {
         if (ret) {
           return ret;

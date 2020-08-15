@@ -260,9 +260,9 @@ export class ApiServerBaseService implements OnDestroy {
   //       })
   //     );
   // }
-  ServiceDelete<TOut>(model: any) {
+  ServiceDelete<TOut>(id: any) {
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteId", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Delete",id, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -273,11 +273,11 @@ export class ApiServerBaseService implements OnDestroy {
         })
       );
   }
-  ServiceDeleteList<TOut>(model: Array<any>) {
+  ServiceDeleteList<TOut>(ids: Array<any>) {
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteListId",
-        model,
+        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList",
+        ids,
         {
           headers: this.getHeaders(),
         }

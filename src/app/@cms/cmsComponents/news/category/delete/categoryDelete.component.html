@@ -40,7 +40,7 @@
                   <label class="col-md-3 label-control" for="Status">عنوان دسته بندی:</label>
                   <div class="col-md-9">
                     <fieldset class="form-group">
-                      <select [(ngModel)]="dataModel.NewCatId" name="NewCatId" #RecordStatus="ngModel" onchange="onFormChangeNewCatId()" required
+                      <select [(ngModel)]="dataModel.NewCatId" name="NewCatId" #RecordStatus="ngModel" (change)="onFormChangeNewCatId()" required
                         class="form-control">
                         <option *ngFor="let item of dataResultCategoryAllData.ListItems; index as i;"
                           value="{{item.Id}}">

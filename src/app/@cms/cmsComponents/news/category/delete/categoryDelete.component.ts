@@ -151,6 +151,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     }
     else{
     this.formInfo.disabledButtonSubmitted = false;
+    this.formInfo.formError ="";
     }
   }
   DataDelete() {

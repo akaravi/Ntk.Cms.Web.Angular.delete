@@ -3,14 +3,14 @@ import { Subscription, Observable } from 'rxjs';
 import { AuthRenewTokenModel } from 'app/@cms/cmsModels/core/authModel';
 import { map, catchError, retry } from "rxjs/operators";
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { ApiServerBaseService } from '../_base/apiServerBase.service';
+import { ApiServerBase } from '../_base/apiServerBase.service';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { CoreSiteSearchModel } from 'app/@cms/cmsModels/core/coreSiteModel';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CoreSiteService extends ApiServerBaseService implements OnDestroy {
+export class CoreSiteService extends ApiServerBase implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

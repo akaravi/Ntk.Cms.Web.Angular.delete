@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ApiServerBaseService } from '../_base/apiServerBase.service';
+import { ApiServerBase } from '../_base/apiServerBase.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CoreUserBadLoginService extends ApiServerBaseService implements OnDestroy {
+export class CoreUserBadLoginService extends ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   getModuleCotrolerUrl()
   {

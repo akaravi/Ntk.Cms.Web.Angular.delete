@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { Subscription, Observable, BehaviorSubject } from "rxjs";
-import { ApiServerBaseService } from "../_base/apiServerBase.service";
+import { ApiServerBase } from "../_base/apiServerBase.service";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { catchError, map, retry } from "rxjs/operators";
@@ -9,7 +9,7 @@ import { AuthService } from "app/@theme/shared/auth/auth.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreUserService extends ApiServerBaseService implements OnDestroy {
+export class CoreUserService extends ApiServerBase implements OnDestroy {
   CorrectUser = new BehaviorSubject<CoreUser>(null);
   CorrectUserObs = this.CorrectUser.asObservable();
   subManager = new Subscription();

@@ -8,12 +8,12 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
 import { MenuPlaceType } from 'app/@cms/cmsModels/Enums/menuPlaceType.enum';
 import { enumModel } from 'app/@cms/cmsModels/base/enumModel';
-import { ApiServerBaseService } from '../_base/apiServerBase.service';
+import { ApiServerBase } from '../_base/apiServerBase.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CoreEnumService extends ApiServerBaseService implements OnDestroy {
+export class CoreEnumService extends ApiServerBase implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

@@ -16,7 +16,7 @@ import { environment } from "environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class ApiServerConfigSiteBaseService implements OnDestroy {
+export class ApiServerConfigSiteBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry =environment. cmsServerConfig.configApiRetry;

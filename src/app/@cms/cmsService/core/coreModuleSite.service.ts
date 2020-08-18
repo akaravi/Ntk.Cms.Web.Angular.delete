@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ApiServerBaseService } from '../_base/apiServerBase.service';
+import { ApiServerBase } from '../_base/apiServerBase.service';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { map, catchError, retry } from "rxjs/operators";
@@ -8,7 +8,7 @@ import { map, catchError, retry } from "rxjs/operators";
 @Injectable({
   providedIn: 'root',
 })
-export class CoreModuleSiteService extends ApiServerBaseService implements OnDestroy {
+export class CoreModuleSiteService extends ApiServerBase implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

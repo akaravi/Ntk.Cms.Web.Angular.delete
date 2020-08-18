@@ -194,19 +194,19 @@ export class ApiServerBase implements OnDestroy {
         })
       );
   }
-  ServiceAddBatch<TOut>(model: Array<any>) {
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AddBatch", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
-        })
-      );
-  }
+  // ServiceAddBatch<TOut>(model: Array<any>) {
+  //   return this.http
+  //     .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AddBatch", model, {
+  //       headers: this.getHeaders(),
+  //     })
+  //     .pipe(
+  //       retry(this.configApiRetry),
+  //       catchError(this.handleError),
+  //       map((ret: ErrorExcptionResult<TOut>) => {
+  //         return this.errorExcptionResultCheck<TOut>(ret);
+  //       })
+  //     );
+  // }
   ServiceEdit<TOut>(model: any) {
     return this.http
       .put(this.baseUrl + this.getModuleCotrolerUrl() + "/Edit", model, {
@@ -220,19 +220,19 @@ export class ApiServerBase implements OnDestroy {
         })
       );
   }
-  ServiceEditBatch<TOut>(model: Array<any>) {
-    return this.http
-      .put(this.baseUrl + this.getModuleCotrolerUrl() + "/Edit", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
-        })
-      );
-  }
+  // ServiceEditBatch<TOut>(model: Array<any>) {
+  //   return this.http
+  //     .put(this.baseUrl + this.getModuleCotrolerUrl() + "/Edit", model, {
+  //       headers: this.getHeaders(),
+  //     })
+  //     .pipe(
+  //       retry(this.configApiRetry),
+  //       catchError(this.handleError),
+  //       map((ret: ErrorExcptionResult<TOut>) => {
+  //         return this.errorExcptionResultCheck<TOut>(ret);
+  //       })
+  //     );
+  // }
   // ServiceDelete<TOut>(model: any) {
   //   return this.http
   //     .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Delete", model, {
@@ -273,20 +273,20 @@ export class ApiServerBase implements OnDestroy {
         })
       );
   }
-  ServiceDeleteList<TOut>(ids: Array<any>) {
-    return this.http
-      .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids,
-        {
-          headers: this.getHeaders(),
-        }
-      )
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
-        })
-      );
-  }
+  // ServiceDeleteList<TOut>(ids: Array<any>) {
+  //   return this.http
+  //     .post(
+  //       this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids,
+  //       {
+  //         headers: this.getHeaders(),
+  //       }
+  //     )
+  //     .pipe(
+  //       retry(this.configApiRetry),
+  //       catchError(this.handleError),
+  //       map((ret: ErrorExcptionResult<TOut>) => {
+  //         return this.errorExcptionResultCheck<TOut>(ret);
+  //       })
+  //     );
+  // }
 }

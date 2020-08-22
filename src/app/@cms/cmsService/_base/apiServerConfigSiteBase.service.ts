@@ -109,11 +109,11 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         })
       );
   }
-  ServiceSiteStorageSave<TOut>(id: number, model: any) {
+  ServiceSiteStorageSave<TOut>(Siteid: number, model: any) {
  
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteStorage/" + id,
+        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteStorage/" + Siteid,
         model,
         {
           headers: this.getHeaders(),
@@ -142,10 +142,10 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         })
       );
   }
-  ServiceSiteSave<TOut>(id: number, model: any) {
+  ServiceSiteSave<TOut>(Siteid: number, model: any) {
  
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Site/" + id, model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Site/" + Siteid, model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -156,10 +156,10 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         })
       );
   }
-  ServiceSiteAccess<TOut>(id: number) {
+  ServiceSiteAccess<TOut>(Siteid: number) {
  
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + id, {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + Siteid, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -170,11 +170,11 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         })
       );
   }
-  ServiceSiteAccessSave<TOut>(id: number, model: any) {
+  ServiceSiteAccessSave<TOut>(Siteid: number, model: any) {
  
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + id,
+        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + Siteid,
         model,
         {
           headers: this.getHeaders(),
@@ -188,11 +188,11 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         })
       );
   }
-  ServiceSiteAccessDefault<TOut>(id: number) {
+  ServiceSiteAccessDefault<TOut>(Siteid: number) {
  
     return this.http
       .get(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccessDefault/" + id,
+        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccessDefault/" + Siteid,
         {
           headers: this.getHeaders(),
         }

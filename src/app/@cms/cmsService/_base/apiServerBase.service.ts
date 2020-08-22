@@ -273,20 +273,20 @@ export class ApiServerBase implements OnDestroy {
         })
       );
   }
-  // ServiceDeleteList<TOut>(ids: Array<any>) {
-  //   return this.http
-  //     .post(
-  //       this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids,
-  //       {
-  //         headers: this.getHeaders(),
-  //       }
-  //     )
-  //     .pipe(
-  //       retry(this.configApiRetry),
-  //       catchError(this.handleError),
-  //       map((ret: ErrorExcptionResult<TOut>) => {
-  //         return this.errorExcptionResultCheck<TOut>(ret);
-  //       })
-  //     );
-  // }
+  ServiceDeleteList<TOut>(ids: Array<any>) {
+    return this.http
+      .post(
+        this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids,
+        {
+          headers: this.getHeaders(),
+        }
+      )
+      .pipe(
+        retry(this.configApiRetry),
+        catchError(this.handleError),
+        map((ret: ErrorExcptionResult<TOut>) => {
+          return this.errorExcptionResultCheck<TOut>(ret);
+        })
+      );
+  }
 }

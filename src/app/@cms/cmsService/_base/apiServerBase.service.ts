@@ -155,7 +155,7 @@ export class ApiServerBase implements OnDestroy {
     if (model == null) model = new FilterModel();
 
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/PostCount", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Count", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -183,7 +183,7 @@ export class ApiServerBase implements OnDestroy {
   }
   ServiceAdd<TOut>(model: any) {
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Add", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -209,7 +209,7 @@ export class ApiServerBase implements OnDestroy {
   // }
   ServiceEdit<TOut>(model: any) {
     return this.http
-      .put(this.baseUrl + this.getModuleCotrolerUrl() + "/Edit", model, {
+      .put(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
         headers: this.getHeaders(),
       })
       .pipe(

@@ -1,4 +1,6 @@
 export class AuthUserSignInModel {
+  captchaKey: string;
+  captchaText: string;
   Email: string;
   Password: string;
   IsRemember: boolean;
@@ -13,6 +15,8 @@ export class AuthRenewTokenModel {
   lang: string;
 }
 export class AuthUserSignUpModel {
+  captchaKey: string;
+  captchaText: string;
   email: string;
   mobile: string;
   Password: string;
@@ -32,6 +36,8 @@ export class AuthUserChangePasswordModel {
 }
 export class AuthUserForgetPasswordModel
 {
+  captchaKey: string;
+  captchaText: string;
   email:string;
 }
 

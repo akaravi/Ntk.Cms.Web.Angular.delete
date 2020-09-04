@@ -8,6 +8,7 @@ import * as fromStore from '../../../../cmsStore';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
+import { CaptchaModel } from 'app/@cms/cmsModels/base/CaptchaModel';
 
 @Component({
   selector: 'app-cms-forgot-password',
@@ -18,12 +19,14 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
   @ViewChild('f', { static: false }) loginForm: NgForm;
   subManager = new Subscription();
   model: any = {};
+  captchaModel: CaptchaModel = new CaptchaModel();
+
   returnUrl: any = '';
   _cmsUiConfig=environment.cmsUiConfig;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: CmsAuthService,
+    private cmsAuthService: CmsAuthService,
     private alertService: ToastrService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
@@ -36,19 +39,21 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
         (params) => (this.returnUrl = params.return)
       )
     );
+    this.onCaptchaOrder();
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
   // On submit click, reset form fields
   onSubmit() {
+    this.model.captchaKey= this.captchaModel.Key;
     this.subManager.add(
-      this.authService.ServiceForgetPassword(this.model).subscribe(
+      this.cmsAuthService.ServiceForgetPassword(this.model).subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.store.dispatch(new fromStore.InitHub());
             if (this.returnUrl === null || this.returnUrl === undefined) {
-              this.returnUrl = this.authService.getLoginUrl();
+              this.returnUrl = this.cmsAuthService.getLoginUrl();
             }
             this.router.navigate([this.returnUrl]);
           }
@@ -57,6 +62,21 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
           this.alertService.error(
             this.publicHelper.CheckError(error),
             'خطا در بازیابی پسورد'
+          );
+        }
+      )
+    );
+  }
+  onCaptchaOrder() {
+    this.subManager.add(
+      this.cmsAuthService.ServiceCaptcha().subscribe(
+        (next) => {
+          this.captchaModel = next.Item;
+        },
+        (error) => {
+          this.alertService.error(
+            this.publicHelper.CheckError(error),
+            "خطا در دریافت عکس کپچا"
           );
         }
       )

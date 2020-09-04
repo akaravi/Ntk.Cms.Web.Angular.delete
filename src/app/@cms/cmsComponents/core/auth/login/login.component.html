@@ -16,12 +16,18 @@
                   <p class="card-text mb-3">
                     خوش آمدید، لطفا به حساب کاربری خود وارد شوید.
                   </p>
-                  <form #loginForm="ngForm"  (ngSubmit)="onSubmit()" aria-labelledby="title">
+                  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" aria-labelledby="title">
 
-                    <input [(ngModel)]="model.Email" type="text" class="form-control mb-3" placeholder="نام کاربری" name="emial"
-                      />
-                    <input  [(ngModel)]="model.Password" type="password" class="form-control mb-3" placeholder="رمز عبور" name="password"
-                      />
+                    <input [(ngModel)]="model.Email" type="text" class="form-control mb-3" placeholder="نام کاربری"
+                      name="emial" />
+                    <input [(ngModel)]="model.Password" type="password" class="form-control mb-3" placeholder="رمز عبور"
+                      name="password" />
+
+                      
+                      <img src="{{captchaModel.image}}" (click)="onCaptchaOrder()">
+                      <input [(ngModel)]="model.captchaText"   type="captchaText" name="captchaText" class="form-control mb-3"
+                      placeholder="محتوای عکس" />
+
                     <div class="d-flex justify-content-between mt-2">
                       <div class="remember-me">
                         <div class="custom-control custom-checkbox custom-control-inline mb-3">
@@ -49,13 +55,13 @@
                           <a [routerLink]="['/auth/register']" class="text-decoration-none">ثبت نام</a>
                         </button>
                       </div>
-                     
+
                     </div>
 
 
                   </form>
                   <hr class="m-0" />
-    
+
                 </div>
               </div>
             </div>

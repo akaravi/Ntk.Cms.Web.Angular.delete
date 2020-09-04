@@ -8,7 +8,10 @@ import * as fromStore from "../../cmsStore";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { Subscription, BehaviorSubject } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { ErrorExcptionResult, ErrorExcptionResultBase } from "app/@cms/cmsModels/base/errorExcptionResult";
+import {
+  ErrorExcptionResult,
+  ErrorExcptionResultBase,
+} from "app/@cms/cmsModels/base/errorExcptionResult";
 import {
   AuthRenewTokenModel,
   AuthUserSignOutModel,
@@ -20,10 +23,10 @@ import {
 import { environment } from "environments/environment";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { CoreUser } from "app/@cms/cmsModels/core/coreUser";
+import { CaptchaModel } from "app/@cms/cmsModels/base/CaptchaModel";
 
 @Injectable()
 export class CmsAuthService implements OnDestroy {
-
   CorrectTokenInfo = new BehaviorSubject<TokenInfoModel>(null);
   CorrectTokenInfoObs = this.CorrectTokenInfo.asObservable();
 
@@ -39,7 +42,7 @@ export class CmsAuthService implements OnDestroy {
     private http: HttpClient,
     private alertService: ToastrService,
     private router: Router,
-    private store: Store<fromStore.State>,
+    private store: Store<fromStore.State>
   ) {
     this.tokenString = localStorage.getItem("token");
     if (this.loggedIn()) {
@@ -52,20 +55,19 @@ export class CmsAuthService implements OnDestroy {
     this.subManager.unsubscribe();
   }
   CheckToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-    if (!token || token === 'null') {
+    if (!token || token === "null") {
       this.alertService.warning(
-        'لطفا مجددا وارد حساب کاربری خود شوید',
-        'نیاز به ورود مجدد'
+        "لطفا مجددا وارد حساب کاربری خود شوید",
+        "نیاز به ورود مجدد"
       );
       this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-
     }
     return token;
   }
   SetCorrectTokenInfo(model: TokenInfoModel) {
-    if(model==null) model=new TokenInfoModel();
+    if (model == null) model = new TokenInfoModel();
     this.CorrectTokenInfo.next(model);
   }
   CorrectTokenInfoRenew() {
@@ -75,9 +77,7 @@ export class CmsAuthService implements OnDestroy {
           this.SetCorrectTokenInfo(next.Item);
         }
       },
-      (error) => {
-
-      }
+      (error) => {}
     );
   }
 
@@ -85,6 +85,20 @@ export class CmsAuthService implements OnDestroy {
     const token = this.CheckToken();
     const headers = { Authorization: token };
     return headers;
+  }
+  ServiceCaptcha() {
+    return this.http.get(this.baseUrl + "captcha").pipe(
+      map((ret: ErrorExcptionResult<CaptchaModel>) => {
+        if (ret) {
+          if (ret.IsSuccess) {
+            
+          } else {
+            this.alertService.error(ret.ErrorMessage, "خطا در دریافت  کلید عکس کپتچا");
+          }
+          return ret;
+        }
+      })
+    );
   }
   ServiceSignupUser(model: AuthUserSignUpModel) {
     return this.http.post(this.baseUrl + "signup", model).pipe(
@@ -125,7 +139,7 @@ export class CmsAuthService implements OnDestroy {
   }
 
   ServiceRenewToken(model: AuthRenewTokenModel) {
-    if(model==null) model=new AuthRenewTokenModel();
+    if (model == null) model = new AuthRenewTokenModel();
     return this.http
       .post(this.baseUrl + "renewToken", model, { headers: this.getHeaders() })
       .pipe(
@@ -150,21 +164,28 @@ export class CmsAuthService implements OnDestroy {
       );
   }
   ServiceChangePassword(model: AuthUserChangePasswordModel) {
-    return this.http.post(this.baseUrl + "changePassword", model, { headers: this.getHeaders() }).pipe(
-      map((ret: ErrorExcptionResult<TokenInfoModel>) => {
-        if (ret) {
-          if (ret.IsSuccess) {
-            this.alertService.success("تغییر پسورد با موفقیت انجام شد", "موفق");
-          } else {
-            this.alertService.error(
-              ret.ErrorMessage,
-              "خطا در تغییر  پسورد حساب کاربری"
-            );
-          }
-          return ret;
-        }
+    return this.http
+      .post(this.baseUrl + "changePassword", model, {
+        headers: this.getHeaders(),
       })
-    );
+      .pipe(
+        map((ret: ErrorExcptionResult<TokenInfoModel>) => {
+          if (ret) {
+            if (ret.IsSuccess) {
+              this.alertService.success(
+                "تغییر پسورد با موفقیت انجام شد",
+                "موفق"
+              );
+            } else {
+              this.alertService.error(
+                ret.ErrorMessage,
+                "خطا در تغییر  پسورد حساب کاربری"
+              );
+            }
+            return ret;
+          }
+        })
+      );
   }
   ServiceForgetPassword(model: AuthUserForgetPasswordModel) {
     return this.http.post(this.baseUrl + "forgetPassword", model).pipe(
@@ -183,8 +204,7 @@ export class CmsAuthService implements OnDestroy {
       })
     );
   }
-  ServiceLogout( model: AuthUserSignOutModel = new AuthUserSignOutModel()
-  ) {
+  ServiceLogout(model: AuthUserSignOutModel = new AuthUserSignOutModel()) {
     return this.http
       .post(this.baseUrl + "signOut", model, { headers: this.getHeaders() })
       .pipe(

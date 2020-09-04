@@ -8,6 +8,7 @@ import * as fromStore from '../../../../cmsStore';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { AuthUserSignInModel } from 'app/@cms/cmsModels/core/authModel';
+import { CaptchaModel } from 'app/@cms/cmsModels/base/CaptchaModel';
 
 @Component({
   selector: 'app-cms-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   subManager = new Subscription();
   model: AuthUserSignInModel = new AuthUserSignInModel();
   returnUrl: any = '';
+  captchaModel: CaptchaModel = new CaptchaModel();
 
   constructor(
     private router: Router,
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         (params) => (this.returnUrl = params.return)
       )
     );
+    this.onCaptchaOrder();
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();
@@ -45,6 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // On submit button click
   onSubmit() {
+    this.model.captchaKey= this.captchaModel.Key;
     this.subManager.add(
       this.cmsAuthService.ServiceSigninUser(this.model).subscribe(
         (next) => {
@@ -62,5 +66,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
     );
   }
- 
+  onCaptchaOrder() {
+    this.subManager.add(
+      this.cmsAuthService.ServiceCaptcha().subscribe(
+        (next) => {
+          this.captchaModel =  next.Item;
+        },
+        (error) => {
+          this.alertService.error(
+            this.publicHelper.CheckError(error),
+            "خطا در دریافت عکس کپچا"
+          );
+        }
+      )
+    );
+  }
 }

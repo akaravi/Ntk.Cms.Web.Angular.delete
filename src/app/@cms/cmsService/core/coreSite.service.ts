@@ -36,7 +36,7 @@ export class CoreSiteService extends ApiServerBase implements OnDestroy {
         },catchError(this.handleError))
       );
   }
-  ServiceAddFirstSite<TOut>(model: any) {
+  ServiceAddFirstSite<TOut>(model: coreSiteAddFirstSiteDtoModel) {
  
     return this.http
       .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AddFirstSite" ,model, { headers: this.getHeaders() })

@@ -8,7 +8,7 @@ import * as fromStore from '../../../../cmsStore';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { AuthUserSignInModel } from 'app/@cms/cmsModels/core/authModel';
-import { CaptchaModel } from 'app/@cms/cmsModels/base/CaptchaModel';
+import { CaptchaModel } from 'app/@cms/cmsModels/base/captchaModel';
 
 @Component({
   selector: 'app-cms-login',

@@ -12,6 +12,8 @@ import { CoreSiteService } from "../../../../cmsService/core/coreSite.service";
 import { CoreSiteCategoryModuleService } from "../../../../cmsService/core/coreSiteCategoryModule.service";
 import { CoreModuleService } from "../../../../cmsService/core/coreModule.service";
 import { CoreSiteCategoryService } from "../../../../cmsService/core/coreSiteCategory.service";
+import { CaptchaModel } from 'app/@cms/cmsModels/base/CaptchaModel';
+import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
 
 @Component({
   selector: "app-cms-site-add",
@@ -28,12 +30,15 @@ export class CoreSiteAddComponent implements OnInit {
   dataModelCategory: ErrorExcptionResult<any>;
 
   selectedDomain: any;
+  captchaModel: CaptchaModel = new CaptchaModel();
 
   constructor(
     private alertService: ToastrService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
+    private cmsAuthService: CmsAuthService,
+
     private coreModuleService: CoreModuleService,
     private coreSiteCategoryService: CoreSiteCategoryService
   ) {}
@@ -52,6 +57,7 @@ export class CoreSiteAddComponent implements OnInit {
     this.GetModelInfo();
     this.GetDomainList();
     this.CoreSiteCategoryGetAll();
+    this.onCaptchaOrder();
   }
   GetDomainList() {
     this.coreSiteService.ServiceDomains(0).subscribe(
@@ -132,6 +138,8 @@ export class CoreSiteAddComponent implements OnInit {
     let AddFirstSite = false;
     if (this.dateModleInput && this.dateModleInput.AddFirstSite)
       AddFirstSite = true;
+      this.dataModel.Item.captchaKey= this.captchaModel.Key;
+
     if (AddFirstSite) {
       this.subManager.add(
         this.coreSiteService.ServiceAddFirstSite(this.dataModel.Item).subscribe(
@@ -162,5 +170,20 @@ export class CoreSiteAddComponent implements OnInit {
         )
       );
     }
+  }
+  onCaptchaOrder() {
+    this.subManager.add(
+      this.cmsAuthService.ServiceCaptcha().subscribe(
+        (next) => {
+          this.captchaModel =  next.Item;
+        },
+        (error) => {
+          this.alertService.error(
+            this.publicHelper.CheckError(error),
+            "خطا در دریافت عکس کپچا"
+          );
+        }
+      )
+    );
   }
 }

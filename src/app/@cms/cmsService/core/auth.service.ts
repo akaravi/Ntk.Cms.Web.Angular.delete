@@ -121,13 +121,13 @@ export class CmsAuthService implements OnDestroy {
         if (ret) {
           if (ret.IsSuccess) {
             this.store.dispatch(new fromStore.EditLoggedUser(ret.Item));
-            const decodedToken = this.jwtHelper.decodeToken(ret.token);
+            const decodedToken = this.jwtHelper.decodeToken(ret.Item.token);
             this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
             this.userRoles = decodedToken.role as Array<string>;
             this.alertService.success("با موفقیت وارد شدید", "موفق");
 
             this.SetCorrectTokenInfo(ret.Item);
-            localStorage.setItem("token", ret.token);
+            localStorage.setItem("token", ret.Item.token);
             localStorage.setItem("refreshToken", ret.Item.refresh_token);
           } else {
             this.alertService.error(ret.ErrorMessage, "خطا در ورود");
@@ -147,13 +147,13 @@ export class CmsAuthService implements OnDestroy {
           if (ret) {
             if (ret.IsSuccess) {
               this.store.dispatch(new fromStore.EditLoggedUser(ret.Item));
-              const decodedToken = this.jwtHelper.decodeToken(ret.token);
+              const decodedToken = this.jwtHelper.decodeToken(ret.Item.token);
               this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
               this.userRoles = decodedToken.role as Array<string>;
               //this.alertService.success("با موفقیت وارد شدید", "موفق");
 
               this.SetCorrectTokenInfo(ret.Item);
-              localStorage.setItem("token", ret.token);
+              localStorage.setItem("token", ret.Item.token);
               localStorage.setItem("refreshToken", ret.Item.refresh_token);
             } else {
               this.alertService.error(ret.ErrorMessage, "خطا در دریافت توکن");

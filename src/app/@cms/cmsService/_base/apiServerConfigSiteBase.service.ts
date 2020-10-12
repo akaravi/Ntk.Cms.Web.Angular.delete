@@ -44,9 +44,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
   errorExcptionResultCheck<TOut>(model: ErrorExcptionResult<TOut>) {
     if (model) {
       if (model.IsSuccess) {
-        if (model.token && model.token !== "null") {
-          localStorage.setItem("token", model.token);
-        }
+
       } else {
         this.alertService.error(model.ErrorMessage, "خطا در دریافت از سرور");
       }

@@ -44,10 +44,7 @@ export class ApiServerBase implements OnDestroy {
   errorExcptionResultCheck<TOut>(model: ErrorExcptionResult<TOut>) {
     if (model) {
       if (model.IsSuccess) {
-        if (model.token && model.token !== "null") {
-          localStorage.setItem("token", model.token);
-          //localStorage.setItem("refreshToken", model.Item.refresh_token);
-        }
+    
       } else {
         this.alertService.error(model.ErrorMessage, "خطا در دریافت از سرور");
       }

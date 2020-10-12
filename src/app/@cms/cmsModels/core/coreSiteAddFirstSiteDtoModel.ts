@@ -1,4 +1,4 @@
-export class coreSiteAddFirstSiteDtoModel {
+export class CoreSiteAddFirstSiteDtoModel {
   captchaKey: string;
   captchaText: string;
   Domain: string;

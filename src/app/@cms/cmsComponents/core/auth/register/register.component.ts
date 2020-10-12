@@ -9,7 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { environment } from "environments/environment";
 import { AuthUserSignUpModel } from "app/@cms/cmsModels/core/authModel";
-import { CaptchaModel } from "app/@cms/cmsModels/base/CaptchaModel";
+import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
 
 @Component({
   selector: "app-cms-register-page",

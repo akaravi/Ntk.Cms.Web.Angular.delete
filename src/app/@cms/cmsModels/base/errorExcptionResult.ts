@@ -1,6 +1,5 @@
 export class ErrorExcptionResultBase {
   Status: number=0;
-  token: string;
   IsSuccess: boolean = true;
   errors: Map<string, Array<string>>;
   ErrorMessage: string;

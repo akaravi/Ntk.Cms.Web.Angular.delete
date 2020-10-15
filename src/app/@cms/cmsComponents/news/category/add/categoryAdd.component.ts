@@ -53,8 +53,10 @@ export class NewsCategoryAddComponent implements OnInit {
   dataModelCategory: baseEntityCategory<number> = new baseEntityCategory<
     number
   >();
-  parentId: any;
+  parentId: number;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  
+
   formInfo:FormInfoModel=new FormInfoModel();
   
   DataGetAllCoreEnum() {

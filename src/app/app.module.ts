@@ -27,6 +27,7 @@ import { CmsComponent } from './@cms/cms.component';
 import { ThemeComponent } from './@theme/theme.component';
 
 
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false,
@@ -68,7 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
     AuthGuard,
     CmsAuthService,
     CmsAuthGuard,
-
+    
     DragulaService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

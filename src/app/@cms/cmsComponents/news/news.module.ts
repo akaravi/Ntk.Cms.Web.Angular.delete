@@ -15,6 +15,7 @@ import { CmsSearchContentListComponent } from '../_base/cmsSearchContentList/cms
 import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
 import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -24,6 +25,8 @@ import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.co
     NgxDatatableModule,
     TreeModule.forRoot(),
     NgxQueryBuilderModule,
+
+    QuillModule
   ],
   declarations: [
     NewsContentAddComponent,

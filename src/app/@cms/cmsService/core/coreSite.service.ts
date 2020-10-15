@@ -6,11 +6,8 @@ import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult
 import { ApiServerBase } from '../_base/apiServerBase.service';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { CoreSiteSearchModel } from 'app/@cms/cmsModels/core/coreSiteModel';
-<<<<<<< HEAD
-import { coreSiteAddFirstSiteDtoModel } from 'app/@cms/cmsModels/core/coreSiteAddFirstSiteDtoModel';
-=======
 import { CoreSiteAddFirstSiteDtoModel } from 'app/@cms/cmsModels/core/coreSiteAddFirstSiteDtoModel';
->>>>>>> 5a4e5f6ddaa719c513ac389c5a977e1493da6c29
+
 
 @Injectable({
   providedIn: 'root',

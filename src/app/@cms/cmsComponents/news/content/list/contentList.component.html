@@ -20,10 +20,9 @@
             <hr>
             <p>
                 <a (click)='onActionCategorySelect()' *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> | 
-                <a (click)="open(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
-                <a (click)="open(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> | 
-                <a (click)="open(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>              
-                <!-- <a [routerLink]="['/news/category/add']" [queryParams]="{id:optionsCategorySelectData?.Id}">اضافه</a> -->
+                <a (click)="openModal(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
+                <a (click)="openModal(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> | 
+                <a (click)="openModal(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>              
             </p>
             <p>عمل : {{closeResult}}</p>
 
@@ -46,6 +45,7 @@
         <a  *ngIf="dataResultConetnt?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
         <a  *ngIf="dataResultConetnt?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
     
+        
 
         <a  (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
         <a  (click)="onActionbuttonExport()" class="btn btn-raised mr-1 shadow-z-2 btn-primary">خروجی فایل</a>
@@ -150,3 +150,19 @@
 </div>
 </ng-template>
 <!--Modal ends-->
+<!--Modal starts-->
+<ng-template #contentContentAdd let-c="close" let-d="dismiss">
+  <div class="modal-header">
+  <h4 class="modal-title">جدید</h4>
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <p><app-news-content-add [options]="{linkCategoryId:optionsCategorySelectData?.Id}" ></app-news-content-add></p>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+  </div>
+  </ng-template>
+  <!--Modal ends-->

@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  TemplateRef,
+  ElementRef,
+} from "@angular/core";
 import {
   FilterModel,
   FilterDataModel,
@@ -23,7 +29,7 @@ import {
 import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
 import { PersianCalendarService } from "app/@cms/cmsCommon/pipe/PersianDatePipe/persian-date.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 
 @Component({
   selector: "app-news-content-List",
@@ -38,17 +44,15 @@ export class NewsContentListComponent implements OnInit {
     private categoryService: NewsCategoryService,
     private modalService: NgbModal
   ) {}
+  @ViewChild("contentContentAdd", { static: false })
+  contentContentAdd: ElementRef;
   ngOnInit() {
-    
-    this.optionsCategorySelect.actions = {onActionSelect: (x) => this.onActionCategorySelect(x)};
-    
-    
-
-
+    this.optionsCategorySelect.actions = {
+      onActionSelect: (x) => this.onActionCategorySelect(x),
+    };
 
     this.DataViewModelConetnt();
     this.DataGetAllConetnt();
-    
   }
   filteModelConetnt = new FilterModel();
   filteModelCategory = new FilterModel();
@@ -129,7 +133,7 @@ export class NewsContentListComponent implements OnInit {
     //scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
-  optionsCategorySelect: ComponentOptionModel =new ComponentOptionModel();
+  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
   optionsCategorySelectData: any;
 
   LocaleDate(model) {
@@ -139,7 +143,7 @@ export class NewsContentListComponent implements OnInit {
 
   closeResult: string;
   // Open default modal
-  open(content) {
+  openModal(content) {
     this.modalService.open(content).result.then(
       (result) => {
         this.closeResult = `بسته شدن با: ${result}`;
@@ -150,7 +154,6 @@ export class NewsContentListComponent implements OnInit {
         this.onActionCategoryReload();
       }
     );
-
   }
   onActionCategoryReload() {
     this.optionsCategorySelect.methods.ActionReload();
@@ -253,7 +256,22 @@ export class NewsContentListComponent implements OnInit {
     console.log("onActionSelect Event", event);
     console.log("tableContentSelected Event", this.tableContentSelected);
   }
-  onActionbuttonNewRow() {}
+  private modals: any[] = [];
+
+  onActionbuttonNewRow() {
+    if (
+      this.dataResultConetnt?.Access?.AccessAddRow &&
+      this.optionsCategorySelectData
+    ) {
+      this.openModal(this.contentContentAdd);
+    } else {
+      this.alertService.error(
+        "دسته بندی انتخاب نشده است",
+        "برروی خطا "
+      );
+      this
+    }
+  }
   onActionbuttonEditRow() {}
   onActionbuttonDeleteRow() {}
   onActionbuttonStatus() {}

@@ -259,9 +259,8 @@ export class NewsContentListComponent implements OnInit {
   private modals: any[] = [];
 
   onActionbuttonNewRow() {
-    if (
-      this.dataResultConetnt?.Access?.AccessAddRow &&
-      this.optionsCategorySelectData
+    if (this.dataResultConetnt!=null&& this.dataResultConetnt.Access&& this.dataResultConetnt.Access.AccessAddRow &&
+      this.optionsCategorySelectData!=null
     ) {
       this.openModal(this.contentContentAdd);
     } else {
@@ -269,7 +268,6 @@ export class NewsContentListComponent implements OnInit {
         "دسته بندی انتخاب نشده است",
         "برروی خطا "
       );
-      this
     }
   }
   onActionbuttonEditRow() {}

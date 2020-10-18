@@ -14,7 +14,7 @@ import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApi
 import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: "app-smsMainApiPathCompanyList",
+  selector: "app-sms-main-api-path-company-list",
   templateUrl: "./smsMainApiPathCompanyList.component.html",
   styleUrls: ["./smsMainApiPathCompanyList.component.scss"],
 })
@@ -149,5 +149,10 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
       this.filteModelContent.SortColumn = sort.prop;
     }
     this.DataGetAllContent();
+  }
+  onActionSelect(event) {
+    //your code here
+    console.log("onActionSelect Event", event);
+    console.log("tableContentSelected Event", this.tableContentSelected);
   }
 }

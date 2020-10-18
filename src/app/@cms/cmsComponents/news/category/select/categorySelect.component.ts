@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
+import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 
 @Component({
   selector: "app-news-category-select",
@@ -39,7 +40,7 @@ export class NewsCategorySelectComponent implements OnInit {
   
 
   filteModelCategory = new FilterModel();
-  dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelCategory: ErrorExcptionResult<NewsCategoryModel> = new ErrorExcptionResult<NewsCategoryModel>();
   optionsModelTree: ITreeOptions = {
     idField: "id",
     displayField: "Title",
@@ -80,7 +81,7 @@ export class NewsCategorySelectComponent implements OnInit {
   
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
-    this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
+    this.categoryService.ServiceGetAll<NewsCategoryModel>(this.filteModelCategory).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelCategory = next;

@@ -12,7 +12,7 @@ import { CoreSiteService } from "../../../../cmsService/core/coreSite.service";
 import { CoreSiteCategoryModuleService } from "../../../../cmsService/core/coreSiteCategoryModule.service";
 import { CoreModuleService } from "../../../../cmsService/core/coreModule.service";
 import { CoreSiteCategoryService } from "../../../../cmsService/core/coreSiteCategory.service";
-import { CaptchaModel } from 'app/@cms/cmsModels/base/CaptchaModel';
+import { CaptchaModel } from 'app/@cms/cmsModels/base/captchaModel';
 import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
 
 @Component({

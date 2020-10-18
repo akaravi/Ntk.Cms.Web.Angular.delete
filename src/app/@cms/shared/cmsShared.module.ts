@@ -20,6 +20,7 @@ import { SidebarLinkDirective } from 'app/@cms/shared/directives/sidebarlink.dir
 import { SidebarListDirective } from 'app/@cms/shared/directives/sidebarlist.directive';
 import { SidebarAnchorToggleDirective } from 'app/@cms/shared/directives/sidebaranchortoggle.directive';
 import { SidebarToggleDirective } from 'app/@cms/shared/directives/sidebartoggle.directive';
+import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAccessAdmin/cmsTokenAccessAdmin.component';
 //import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { SidebarToggleDirective } from 'app/@cms/shared/directives/sidebartoggle
         CmsNotificationSidebarComponent,
         //ToggleFullscreenDirective,
         SidebarDirective,
+        
 
     ],
     imports: [
@@ -54,7 +56,8 @@ import { SidebarToggleDirective } from 'app/@cms/shared/directives/sidebartoggle
         SidebarLinkDirective,
         SidebarListDirective,
         SidebarAnchorToggleDirective,
-        SidebarToggleDirective
+        SidebarToggleDirective,
+        CmsTokenAccessAdminComponent
     ]
 })
 export class CmsSharedModule { }

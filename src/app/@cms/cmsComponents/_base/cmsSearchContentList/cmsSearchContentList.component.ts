@@ -1,4 +1,11 @@
-import {  Component,  ViewChild,  OnInit,  OnDestroy,  Input,  Injectable,} from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+  Input,
+  Injectable,
+} from "@angular/core";
 import { FilterDataModel } from "app/@cms/cmsModels/base/filterModel";
 import { AccessModel } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { RuleSet, QueryBuilderFieldMap, Field, Rule } from "ngx-query-builder";
@@ -16,6 +23,7 @@ export class CmsSearchContentListComponent implements OnInit {
   @Input()
   set options(model: any) {
     this.optionsData = model;
+    if (this.optionsData.hidden==null) this.optionsData.hidden = true;
     model.setAccess = (x) => this.setAccess(x);
   }
   get options(): any {
@@ -66,11 +74,10 @@ export class CmsSearchContentListComponent implements OnInit {
     if (
       this.optionsData &&
       this.optionsData.Access &&
-      this.optionsData.Access.FieldsInfo 
+      this.optionsData.Access.FieldsInfo
     ) {
       this.optionsData.Access.FieldsInfo.forEach((column, index) => {
-        if (!column.AccessSearchField)
-          return;
+        if (!column.AccessSearchField) return;
         if (
           column.FieldType === "System.Int32" ||
           column.FieldType === "System.Int64"
@@ -119,9 +126,8 @@ export class CmsSearchContentListComponent implements OnInit {
   getRules() {
     this.Filters = new Array<FilterDataModel>();
     var clauseType: ClauseType = ClauseType.And;
-    if (!this.query || !this.query .condition)
-      return;
-      
+    if (!this.query || !this.query.condition) return;
+
     if (this.query.condition == "or") clauseType = ClauseType.Or;
     this.query.rules.forEach((column, index) => {
       var ruleSet = column as RuleSet;
@@ -132,8 +138,8 @@ export class CmsSearchContentListComponent implements OnInit {
         ruleSet.rules &&
         ruleSet.rules.length > 0
       ) {
-        var Filter=new FilterDataModel();
-        Filter.Filters =this.getRulesSetChild(ruleSet);
+        var Filter = new FilterDataModel();
+        Filter.Filters = this.getRulesSetChild(ruleSet);
         Filter.ClauseType = clauseType;
         this.Filters.push(Filter);
       } else if (rule) {
@@ -142,8 +148,6 @@ export class CmsSearchContentListComponent implements OnInit {
         this.Filters.push(Filter);
       }
     });
-
-    
   }
   getRulesChild(rule: Rule): FilterDataModel {
     var searchType = this.getSearchType(rule.operator);
@@ -166,8 +170,8 @@ export class CmsSearchContentListComponent implements OnInit {
         ruleSet.rules &&
         ruleSet.rules.length > 0
       ) {
-        var Filter=new FilterDataModel();
-        Filter.Filters =this.getRulesSetChild(ruleSet);
+        var Filter = new FilterDataModel();
+        Filter.Filters = this.getRulesSetChild(ruleSet);
         Filter.ClauseType = clauseType;
         Filters.push(Filter);
       } else if (rule) {
@@ -178,7 +182,7 @@ export class CmsSearchContentListComponent implements OnInit {
     });
     return Filters;
   }
-  
+
   onSubmit() {
     //this.model = { name: "ali" };
     this.getRules();

@@ -34,7 +34,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleHideSidebar = new EventEmitter<Object>();
 
   public config: any = {};
-  TokenInfo: TokenInfoModel=new TokenInfoModel();
+  TokenInfo: TokenInfoModel = new TokenInfoModel();
   constructor(
     public translate: TranslateService,
     private layoutService: LayoutService,
@@ -59,18 +59,21 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     this.cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
+      //console.log("TokenInfo Navbar:",vlaue);
       this.TokenInfo = vlaue;
     });
   }
 
   ngOnInit() {
     this.config = this.configService.templateConf;
-    if(this.TokenInfo==null || this.TokenInfo.UserId==null || this.TokenInfo.UserId==0 )
-    {
+    if (
+      this.TokenInfo == null ||
+      this.TokenInfo.UserId == null ||
+      this.TokenInfo.UserId == 0
+    ) {
       this.cmsAuthService.CorrectTokenInfoRenew();
     }
   }
-
   ngAfterViewInit() {
     if (this.config.layout.dir) {
       setTimeout(() => {

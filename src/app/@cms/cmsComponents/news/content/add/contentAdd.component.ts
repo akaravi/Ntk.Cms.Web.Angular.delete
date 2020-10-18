@@ -98,16 +98,17 @@ export class NewsContentAddComponent implements OnInit {
           if (next.IsSuccess) {
             this.formInfo.formAlert = "ثبت با موفقت انجام شد";
           } else {
-            this.formInfo.formAlert = "برروز خطا";
-            this.formInfo.formError = next.ErrorMessage;
+            var title = "برروز خطا ";
+            var message =next.ErrorMessage;
+            this.alertService.error(message, title);
           }
         },
         (error) => {
           this.formInfo.formSubmitted = false;
-          this.alertService.error(
-            this.publicHelper.CheckError(error),
-            "برروی خطا در دریافت اطلاعات"
-          );
+          
+          var title = "برروی خطا در دریافت اطلاعات";
+          var message =this.publicHelper.CheckError(error);
+          this.alertService.error(message, title);
         }
       );
       

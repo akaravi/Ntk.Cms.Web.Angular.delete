@@ -61,6 +61,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
           if (next.IsSuccess) {
             this.router.navigate([environment.cmsUiConfig.Pathdashboard]);
             this.coreCpMainMenuService.ServiceGetMenu(null);
+            
           }
         },
         (error) => {

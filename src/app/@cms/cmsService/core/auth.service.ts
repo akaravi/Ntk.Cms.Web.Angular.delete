@@ -47,9 +47,10 @@ export class CmsAuthService implements OnDestroy {
     this.tokenString = localStorage.getItem("token");
     if (this.loggedIn()) {
       const decode = this.jwtHelper.decodeToken(this.tokenString);
-      this.userRoles = decode.role as Array<string>;
-      this.userName = decode.unique_name;
+      //this.userRoles = decode.role as Array<string>;
+      //this.userName = decode.unique_name;
     }
+    
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();
@@ -69,6 +70,12 @@ export class CmsAuthService implements OnDestroy {
   SetCorrectTokenInfo(model: TokenInfoModel) {
     if (model == null) model = new TokenInfoModel();
     this.CorrectTokenInfo.next(model);
+    this.store.dispatch(new fromStore.EditLoggedUser(model));
+    const decodedToken = this.jwtHelper.decodeToken(model.token);
+    this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
+    this.userRoles = decodedToken.role as Array<string>;
+    localStorage.setItem("token", model.token);
+    localStorage.setItem("refreshToken", model.refresh_token);
   }
   CorrectTokenInfoRenew() {
     this.ServiceRenewToken(null).subscribe(
@@ -91,9 +98,11 @@ export class CmsAuthService implements OnDestroy {
       map((ret: ErrorExcptionResult<CaptchaModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
-            
           } else {
-            this.alertService.error(ret.ErrorMessage, "خطا در دریافت  کلید عکس کپتچا");
+            this.alertService.error(
+              ret.ErrorMessage,
+              "خطا در دریافت  کلید عکس کپتچا"
+            );
           }
           return ret;
         }
@@ -120,15 +129,9 @@ export class CmsAuthService implements OnDestroy {
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
-            this.store.dispatch(new fromStore.EditLoggedUser(ret.Item));
-            const decodedToken = this.jwtHelper.decodeToken(ret.Item.token);
-            this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
-            this.userRoles = decodedToken.role as Array<string>;
             this.alertService.success("با موفقیت وارد شدید", "موفق");
 
             this.SetCorrectTokenInfo(ret.Item);
-            localStorage.setItem("token", ret.Item.token);
-            localStorage.setItem("refreshToken", ret.Item.refresh_token);
           } else {
             this.alertService.error(ret.ErrorMessage, "خطا در ورود");
           }

@@ -41,9 +41,9 @@
       <hr >
       <div >
         
-        <a  *ngIf="dataResultConetnt?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
-        <a  *ngIf="dataResultConetnt?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
-        <a  *ngIf="dataResultConetnt?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+        <a  *ngIf="dataResultContent?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
+        <a  *ngIf="dataResultContent?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+        <a  *ngIf="dataResultContent?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
     
         
 
@@ -65,21 +65,21 @@
     <ngx-datatable
     #tableContent
         class="bootstrap"
-        [rows]="dataResultConetnt.ListItems"
-        [columns]="columnsConetnt"
-        [columnMode]="ColumnMode.force"
+        [rows]="dataResultContent.ListItems"
+        [columns]="columnsContent"
+        [columnMode]="columnMode.force"
         [headerHeight]="50"
         [footerHeight]="50"
         rowHeight="auto"
         [externalPaging]="true"
-        [count]="dataResultConetnt.TotalRowCount"
-        [offset]="dataResultConetnt.CurrentPageNumber-1"
-        [limit]="dataResultConetnt.RowPerPage"
+        [count]="dataResultContent.TotalRowCount"
+        [offset]="dataResultContent.CurrentPageNumber-1"
+        [limit]="dataResultContent.RowPerPage"
         [loadingIndicator]="tableContentloading"
         [externalSorting]="true"
         [sortType]="'single'"
         [selected]="tableContentSelected"
-        [selectionType]="SelectionType.single"
+        [selectionType]="selectionType.single"
         (page)="onActionSetPage($event)"
         (sort)="onActionSort($event)"
         (select)="onActionSelect($event)"

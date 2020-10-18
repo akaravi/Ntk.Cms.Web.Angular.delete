@@ -19,6 +19,7 @@ import { SmsMainApiPathCompanyAddComponent } from "./mainApiPathCompany/smsMainA
 import { SmsMainApiPathCompanyEditComponent } from "./mainApiPathCompany/smsMainApiPathCompanyEdit/smsMainApiPathCompanyEdit.component";
 import { SmsMainApiPathCompanyDeleteComponent } from "./mainApiPathCompany/smsMainApiPathCompanyDelete/smsMainApiPathCompanyDelete.component";
 import { SmsMainApiPathCompanySelectComponent } from "./mainApiPathCompany/smsMainApiPathCompanySelect/smsMainApiPathCompanySelect.component";
+import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
 
 @NgModule({
   imports: [
@@ -32,6 +33,8 @@ import { SmsMainApiPathCompanySelectComponent } from "./mainApiPathCompany/smsMa
     QuillModule,
   ],
   declarations: [
+    CmsSearchContentListComponent,
+    //
     SmsMainApiPathListComponent,
     SmsMainApiPathAddComponent,
     SmsMainApiPathEditComponent,
@@ -46,5 +49,7 @@ import { SmsMainApiPathCompanySelectComponent } from "./mainApiPathCompany/smsMa
   ],
   exports: [],
   //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  providers: [SmsMainApiPathCompanyService],
+
 })
 export class SmsModule {}

@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   ViewChild,
-  TemplateRef,
   ElementRef,
 } from "@angular/core";
 import {
@@ -13,7 +12,7 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
-import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
+
 import {
   DatatableComponent,
   ColumnMode,
@@ -41,7 +40,6 @@ export class NewsContentListComponent implements OnInit {
     private alertService: ToastrService,
     private publicHelper: PublicHelper,
     private contentService: NewsContentService,
-    private categoryService: NewsCategoryService,
     private modalService: NgbModal
   ) {}
   @ViewChild("contentContentAdd", { static: false })
@@ -51,19 +49,19 @@ export class NewsContentListComponent implements OnInit {
       onActionSelect: (x) => this.onActionCategorySelect(x),
     };
 
-    this.DataViewModelConetnt();
-    this.DataGetAllConetnt();
+    this.DataViewModelContent();
+    this.DataGetAllContent();
   }
-  filteModelConetnt = new FilterModel();
+  filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
-  dataResultConetnt: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataResultContent: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultConetntViewModel: ErrorExcptionResult<
+  dataResultContentViewModel: ErrorExcptionResult<
     any
   > = new ErrorExcptionResult<any>();
   // Table Column Titles
-  ColumnMode = ColumnMode;
-  SelectionType = SelectionType;
+  columnMode = ColumnMode;
+  selectionType = SelectionType;
   optionsSearch: any = {
     onSubmit: (model) => this.onSubmitOptionsSearch(model),
     //AccessSearchField : Array<string>,
@@ -71,7 +69,7 @@ export class NewsContentListComponent implements OnInit {
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
 
-  columnsConetnt: TableColumn[] = [
+  columnsContent: TableColumn[] = [
     {
       prop: "Id",
       name: "شناسه",
@@ -79,12 +77,12 @@ export class NewsContentListComponent implements OnInit {
     {
       prop: "CreatedDate",
       name: "ساخت",
-      pipe: { transform: this.LocaleDate },
+      pipe: { transform: this.publicHelper.LocaleDate },
     },
     {
       prop: "UpdatedDate",
       name: "ویرایش",
-      pipe: { transform: this.LocaleDate },
+      pipe: { transform: this.publicHelper.LocaleDate },
     },
     {
       prop: "Title",
@@ -136,10 +134,10 @@ export class NewsContentListComponent implements OnInit {
   optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
   optionsCategorySelectData: any;
 
-  LocaleDate(model) {
-    const d = new Date(model);
-    return d.toLocaleDateString("fa-Ir");
-  }
+  // LocaleDate(model) {
+  //   const d = new Date(model);
+  //   return d.toLocaleDateString("fa-Ir");
+  // }
 
   closeResult: string;
   // Open default modal
@@ -169,11 +167,11 @@ export class NewsContentListComponent implements OnInit {
     }
   }
 
-  DataViewModelConetnt() {
+  DataViewModelContent() {
     this.contentService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataResultConetntViewModel = next;
+          this.dataResultContentViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
       },
@@ -186,13 +184,13 @@ export class NewsContentListComponent implements OnInit {
     );
   }
 
-  DataGetAllConetnt() {
+  DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
-    this.contentService.ServiceGetAll(this.filteModelConetnt).subscribe(
+    this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataResultConetnt = next;
+          this.dataResultContent = next;
           this.tableContentloading = false;
         }
       },
@@ -221,7 +219,7 @@ export class NewsContentListComponent implements OnInit {
   //   );
   // }
   onActionCategorySelect(model: any) {
-    this.filteModelConetnt = new FilterModel();
+    this.filteModelContent = new FilterModel();
     this.optionsCategorySelectData = null;
     if (model && model.data) {
       this.optionsCategorySelectData = model.data;
@@ -230,26 +228,26 @@ export class NewsContentListComponent implements OnInit {
         PropertyName: "LinkCategoryId",
         IntValue1: model.data.Id,
       };
-      this.filteModelConetnt.Filters.push(aaa as FilterDataModel);
+      this.filteModelContent.Filters.push(aaa as FilterDataModel);
     }
-    this.DataGetAllConetnt();
+    this.DataGetAllContent();
   }
   onActionSetPage(model: any) {
-    this.filteModelConetnt.CurrentPageNumber = model.offset + 1;
-    this.DataGetAllConetnt();
+    this.filteModelContent.CurrentPageNumber = model.offset + 1;
+    this.DataGetAllContent();
   }
   onActionSort(event) {
     const sort = event.sorts[0];
 
     if (sort) {
       if (sort.dir === "desc") {
-        this.filteModelConetnt.SortType = SortType.Descending;
+        this.filteModelContent.SortType = SortType.Descending;
       } else {
-        this.filteModelConetnt.SortType = SortType.Ascending;
+        this.filteModelContent.SortType = SortType.Ascending;
       }
-      this.filteModelConetnt.SortColumn = sort.prop;
+      this.filteModelContent.SortColumn = sort.prop;
     }
-    this.DataGetAllConetnt();
+    this.DataGetAllContent();
   }
   onActionSelect(event) {
     //your code here
@@ -259,7 +257,7 @@ export class NewsContentListComponent implements OnInit {
   private modals: any[] = [];
 
   onActionbuttonNewRow() {
-    if (this.dataResultConetnt!=null&& this.dataResultConetnt.Access&& this.dataResultConetnt.Access.AccessAddRow &&
+    if (this.dataResultContent!=null&& this.dataResultContent.Access&& this.dataResultContent.Access.AccessAddRow &&
       this.optionsCategorySelectData!=null
     ) {
       this.openModal(this.contentContentAdd);
@@ -276,10 +274,10 @@ export class NewsContentListComponent implements OnInit {
   onActionbuttonExport() {}
 
   onActionbuttonReload() {
-    this.DataGetAllConetnt();
+    this.DataGetAllContent();
   }
   onSubmitOptionsSearch(model: any) {
-    this.filteModelConetnt.Filters = model;
-    this.DataGetAllConetnt();
+    this.filteModelContent.Filters = model;
+    this.DataGetAllContent();
   }
 }

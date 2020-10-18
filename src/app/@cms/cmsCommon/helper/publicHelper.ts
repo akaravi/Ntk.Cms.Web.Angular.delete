@@ -75,4 +75,10 @@ export class PublicHelper {
     }
     return 'Error';
   }
+
+
+  LocaleDate(model) {
+    const d = new Date(model);
+    return d.toLocaleDateString("fa-Ir");
+  }
 }

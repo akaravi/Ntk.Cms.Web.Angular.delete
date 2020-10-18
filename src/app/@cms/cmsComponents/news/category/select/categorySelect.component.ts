@@ -7,7 +7,6 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { TREE_ACTIONS, ITreeOptions, KEYS } from "angular-tree-component";
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
 import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 
@@ -100,15 +99,15 @@ export class NewsCategorySelectComponent implements OnInit {
       this.dateModleInput.actions.onActionSelect(model);
       this.dateModleInput.dataModel={Select:model};
     }
-    // this.filteModelConetnt = new FilterModel();
+    // this.filteModelContent = new FilterModel();
     // if (model && model.data) {
     //   var aaa = {
     //     PropertyName: "LinkCategoryId",
     //     IntValue1: model.data.Id,
     //   };
-    //   this.filteModelConetnt.Filters.push(aaa as FilterDataModel);
+    //   this.filteModelContent.Filters.push(aaa as FilterDataModel);
     // }
-    // this.DataGetAllConetnt();
+    // this.DataGetAllContent();
   }
   onActionReload(){
     this.DataGetAllCategory()

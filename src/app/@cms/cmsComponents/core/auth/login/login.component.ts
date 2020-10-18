@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, OnDestroy } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CmsAuthService } from "../../../../cmsService/core/auth.service";
-import { Subscription } from "rxjs";
+import { interval, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as fromStore from "../../../../cmsStore";
 import { ToastrService } from "ngx-toastr";
@@ -17,10 +17,6 @@ import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
 })
 export class LoginComponent implements OnInit, OnDestroy {
   @ViewChild("f", { static: false }) loginForm: NgForm;
-  subManager = new Subscription();
-  model: AuthUserSignInModel = new AuthUserSignInModel();
-  returnUrl: any = "";
-  captchaModel: CaptchaModel = new CaptchaModel();
 
   constructor(
     private router: Router,
@@ -30,6 +26,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}
+  subManager = new Subscription();
+  model: AuthUserSignInModel = new AuthUserSignInModel();
+  returnUrl: any = "";
+  captchaModel: CaptchaModel = new CaptchaModel();
+  //emit value in sequence every 10 second
+  source = interval(1000 * 60 * 5);
   ngOnInit() {
     this.model.IsRemember = false;
     this.model.Email = "amin@gmail.com";
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
     );
     this.onCaptchaOrder();
+    this.subManager = this.source.subscribe((val) => this.onCaptchaOrder());
+
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();

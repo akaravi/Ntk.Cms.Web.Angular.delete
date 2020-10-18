@@ -78,14 +78,27 @@ export class CmsAuthService implements OnDestroy {
     localStorage.setItem("refreshToken", model.refresh_token);
   }
   CorrectTokenInfoRenew() {
-    this.ServiceRenewToken(null).subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.SetCorrectTokenInfo(next.Item);
+    return this.http.get(this.baseUrl + "CorrectToken", { headers: this.getHeaders() }).pipe(
+      map((ret: ErrorExcptionResult<TokenInfoModel>) => {
+        if (ret) {
+          if (ret.IsSuccess) {
+            this.SetCorrectTokenInfo(ret.Item);
+            this.alertService.success("با موفقیت شناخته  شدید", "موفق");
+          } else {
+            this.alertService.error(ret.ErrorMessage, "خطا در شناخته شدن");
+          }
+          return ret;
         }
-      },
-      (error) => {}
-    );
+      })
+    ).toPromise();
+    // this.ServiceRenewToken(null).subscribe(
+    //   (next) => {
+    //     if (next.IsSuccess) {
+    //       this.SetCorrectTokenInfo(next.Item);
+    //     }
+    //   },
+    //   (error) => {}
+    // );
   }
 
   getHeaders() {

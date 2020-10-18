@@ -46,7 +46,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
           this.cmsAuthService.CorrectTokenInfo.next(next.Item);
           var title = "اطلاعات ";
           var message = "دسترسی تایید شد";
-          this.alertService.info(message, title);
+          this.alertService.success(message, title);
         } else {
           var title = "برروز خطا ";
           var message = next.ErrorMessage;
@@ -72,7 +72,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
         if (next.IsSuccess) {
           var title = "اطلاعات ";
           var message = "دسترسی تایید شد";
-          this.alertService.info(message, title);
+          this.alertService.success(message, title);
         } else {
           var title = "برروز خطا ";
           var message = next.ErrorMessage;

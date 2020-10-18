@@ -1,45 +1,42 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { NewsContentListComponent } from './content/list/contentList.component';
-import { NewsContentAddComponent } from './content/add/ContentAdd.component';
-import { NewsContentEditComponent } from './content/edit/ContentEdit.component';
-import { NewsContentSelectComponent } from './content/select/contentSelect.component';
-import { NewsCategoryListComponent } from './category/list/categoryList.component';
-import { NewsCategoryAddComponent } from './category/add/categoryAdd.component';
-import { NewsCategoryEditComponent } from './category/edit/categoryEdit.component';
-import { NewsCategorySelectComponent } from './category/select/categorySelect.component';
-
+import { SmsMainApiPathListComponent } from './mainApiPath/smsMainApiPathList/smsMainApiPathList.component';
+import { SmsMainApiPathAddComponent } from './mainApiPath/smsMainApiPathAdd/smsMainApiPathAdd.component';
+import { SmsMainApiPathEditComponent } from './mainApiPath/smsMainApiPathEdit/smsMainApiPathEdit.component';
+import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/smsMainApiPathCompanyList/smsMainApiPathCompanyList.component';
+import { SmsMainApiPathCompanyAddComponent } from './mainApiPathCompany/smsMainApiPathCompanyAdd/smsMainApiPathCompanyAdd.component';
+import { SmsMainApiPathCompanyEditComponent } from './mainApiPathCompany/smsMainApiPathCompanyEdit/smsMainApiPathCompanyEdit.component';
 const routes: Routes = [
   {
     path: "",
     children: [
       {
-        path: "content",
+        path: "mainapipath",
         children: [
           {
             path: "",
-            component: NewsContentListComponent,
+            component: SmsMainApiPathListComponent,
             data: {
               title: "login to Panle",
             },
           },
           {
             path: "list",
-            component: NewsContentListComponent,
+            component: SmsMainApiPathListComponent,
             data: {
               title: "login to Panle",
             },
           },
           {
             path: "add",
-            component: NewsContentAddComponent,
+            component: SmsMainApiPathAddComponent,
             data: {
               title: "Register New Acount",
             },
           },
           {
             path: "edit",
-            component: NewsContentEditComponent,
+            component: SmsMainApiPathEditComponent,
             data: {
               title: "forgot password You Acount",
             },
@@ -48,43 +45,36 @@ const routes: Routes = [
 
       },
       {
-        path: "category",
+        path: "mainapipathcompany",
         children: [
           {
             path: "",
-            component: NewsCategoryListComponent,
+            component: SmsMainApiPathCompanyListComponent,
             data: {
               title: "login to Panle",
             },
           },
           {
             path: "list",
-            component: NewsCategoryListComponent,
+            component: SmsMainApiPathCompanyListComponent,
             data: {
               title: "login to Panle",
             },
           },
           {
             path: "add",
-            component: NewsCategoryAddComponent,
+            component: SmsMainApiPathCompanyAddComponent,
             data: {
               title: "Register New Acount",
             },
           },
           {
             path: "edit",
-            component: NewsCategoryEditComponent,
+            component: SmsMainApiPathCompanyEditComponent,
             data: {
               title: "forgot password You Acount",
             },
-          },
-          {
-            path: "select",
-            component: NewsCategorySelectComponent,
-            data: {
-              title: "forgot password You Acount",
-            },
-          },
+          }
         ],
       },
     ],
@@ -95,4 +85,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class NewsRoutes {}
+export class SmsRoutes {}

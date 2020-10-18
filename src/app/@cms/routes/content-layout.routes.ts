@@ -16,5 +16,10 @@ export const ContentLayoutROUTES: Routes = [
     canActivate: [CmsAuthGuard],
     loadChildren: () => import('../cmsComponents/news/news.module').then(m => m.NewsModule)
   },
+  {
+    path: 'sms',
+    canActivate: [CmsAuthGuard],
+    loadChildren: () => import('../cmsComponents/sms/sms.module').then(m => m.SmsModule)
+  },
   
 ];

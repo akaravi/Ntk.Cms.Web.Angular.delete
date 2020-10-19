@@ -23,7 +23,7 @@ import { SidebarToggleDirective } from 'app/@cms/shared/directives/sidebartoggle
 import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAccessAdmin/cmsTokenAccessAdmin.component';
 import { CmsSearchContentListComponent } from '../cmsComponents/_base/cmsSearchContentList/cmsSearchContentList.component';
 import { NgxQueryBuilderModule } from 'ngx-query-builder';
-//import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     exports: [
@@ -35,7 +35,6 @@ import { NgxQueryBuilderModule } from 'ngx-query-builder';
         CmsSidebarComponent,
         CmsCustomizerComponent,
         CmsNotificationSidebarComponent,
-        //ToggleFullscreenDirective,
         SidebarDirective,
         
         CmsSearchContentListComponent,
@@ -44,11 +43,12 @@ import { NgxQueryBuilderModule } from 'ngx-query-builder';
     ],
     imports: [
         RouterModule,
+        FormsModule ,
         CommonModule,
         NgbModule,
         TranslateModule,
         PerfectScrollbarModule,
-        
+        NgxQueryBuilderModule
     ],
     declarations: [
         CmsFooterComponent,
@@ -56,7 +56,6 @@ import { NgxQueryBuilderModule } from 'ngx-query-builder';
         CmsSidebarComponent,
         CmsCustomizerComponent,
         CmsNotificationSidebarComponent,
-        //ToggleFullscreenDirective,
         SidebarDirective,
         SidebarLinkDirective,
         SidebarListDirective,

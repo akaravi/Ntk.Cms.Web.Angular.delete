@@ -16,6 +16,14 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ["./categoryDelete.component.scss"],
 })
 export class NewsCategoryDeleteComponent implements OnInit {
+  
+  @Input()
+  set options(model: any) {
+    this.dateModleInput = model;
+  }
+  get options(): any {
+    return this.dateModleInput;
+  }
   constructor(
     private activatedRoute: ActivatedRoute,
     private coreEnumService: CoreEnumService,
@@ -42,21 +50,14 @@ export class NewsCategoryDeleteComponent implements OnInit {
     this.DataGetAll();
   }
 
-  @Input()
-  set options(model: any) {
-    this.dateModleInput = model;
-  }
-  get options(): any {
-    return this.dateModleInput;
-  }
   Id: any;
 
   private dateModleInput: any;
 
-  dataResultCategory: ErrorExcptionResult<
+  dataModelResultCategory: ErrorExcptionResult<
     baseEntityCategory<number>
   > = new ErrorExcptionResult<baseEntityCategory<number>>();
-  dataResultCategoryAllData: ErrorExcptionResult<
+  dataModelResultCategoryAllData: ErrorExcptionResult<
     baseEntityCategory<number>
   > = new ErrorExcptionResult<baseEntityCategory<number>>();
 
@@ -71,7 +72,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
         .ServiceGetOneById<baseEntityCategory<number>>(this.Id)
         .subscribe(
           (next) => {
-            this.dataResultCategory = next;
+            this.dataModelResultCategory = next;
             if (!next.IsSuccess) {
               this.formInfo.formAlert = "برروز خطا";
               this.formInfo.formError = next.ErrorMessage;
@@ -102,7 +103,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
         .ServiceGetAll<baseEntityCategory<number>>(filterModel)
         .subscribe(
           (next) => {
-            this.dataResultCategoryAllData = next;
+            this.dataModelResultCategoryAllData = next;
             if (!next.IsSuccess) {
               this.formInfo.formAlert = "برروز خطا";
               this.formInfo.formError = next.ErrorMessage;
@@ -126,7 +127,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   }
   onFormMove() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = true;
       if (this.dataModel.NewCatId == this.Id) {
         this.formInfo.formAlert = "برروز خطا";
         this.formInfo.formError =
@@ -138,7 +139,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   }
   onFormDelete() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = false;
       this.DataDelete();
     }
   }
@@ -161,10 +162,11 @@ export class NewsCategoryDeleteComponent implements OnInit {
       .ServiceDelete<baseEntityCategory<number>>(this.Id)
       .subscribe(
         (next) => {
+          this.formInfo.formAllowSubmit = !next.IsSuccess;
           if (!next.IsSuccess) {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formError = next.ErrorMessage;
-            this.formInfo.formSubmitted = false;
+            
           } else {
           this.formInfo.formAlert = "حذف با موفقیت انجام شد";
           }
@@ -173,7 +175,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
         },
         (error) => {
           this.formInfo.formAlert = "برروز خطا";
-          this.formInfo.formSubmitted = false;
+          this.formInfo.formAllowSubmit = true;
           this.alertService.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
@@ -195,7 +197,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
         } else {
         this.formInfo.formAlert = "جابجایی با موفقیت انجام شد";
         }
-        this.formInfo.formSubmitted = false;
+        this.formInfo.formAllowSubmit = false;
         this.formInfo.disabledButtonSubmitted = false;
       },
       (error) => {
@@ -205,7 +207,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           "برروی خطا در دریافت اطلاعات"
         );
         this.formInfo.disabledButtonSubmitted = false;
-        this.formInfo.formSubmitted = false;
+        this.formInfo.formAllowSubmit = true;
       }
     );
   }

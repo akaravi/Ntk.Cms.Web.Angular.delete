@@ -5,7 +5,7 @@ import { ApiServerBase } from '../_base/apiServerBase.service';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsTagService extends ApiServerBase implements OnDestroy {
+export class NewsTagService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

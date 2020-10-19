@@ -49,7 +49,6 @@ export class CmsAuthService implements OnDestroy {
       //this.userRoles = decode.role as Array<string>;
       //this.userName = decode.unique_name;
     }
-    
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();
@@ -58,10 +57,9 @@ export class CmsAuthService implements OnDestroy {
     const token = localStorage.getItem("token");
 
     if (!token || token === "null") {
-      this.alertService.warning(
-        "لطفا مجددا وارد حساب کاربری خود شوید",
-        "نیاز به ورود مجدد"
-      );
+      let title = "تایید توکن";
+      let message = "لطفا مجددا وارد حساب کاربری خود شوید";
+      this.alertService.warning( message,title);
       this.router.navigate([environment.cmsUiConfig.Pathlogin]);
     }
     return token;
@@ -77,19 +75,31 @@ export class CmsAuthService implements OnDestroy {
     localStorage.setItem("refreshToken", model.refresh_token);
   }
   CorrectTokenInfoRenew() {
-    return this.http.get(this.baseUrl + "CorrectToken", { headers: this.getHeaders() }).pipe(
-      map((ret: ErrorExcptionResult<TokenInfoModel>) => {
-        if (ret) {
-          if (ret.IsSuccess) {
-            this.SetCorrectTokenInfo(ret.Item);
-            this.alertService.success("با موفقیت شناخته  شدید", "موفق");
-          } else {
-            this.alertService.error(ret.ErrorMessage, "خطا در شناخته شدن");
+    const token = localStorage.getItem("token");
+
+    if (!token || token === "null") return;
+    return this.http
+      .get(this.baseUrl + "CorrectToken", { headers: this.getHeaders() })
+      .pipe(
+        map((ret: ErrorExcptionResult<TokenInfoModel>) => {
+          if (ret) {
+            if (ret.IsSuccess) {
+              this.SetCorrectTokenInfo(ret.Item);
+              let title = "تایید توکن";
+              let message = "توکن شما مورد تایید سرور قرار گرفت";
+              this.alertService.success( message,title);
+            } else {
+              let title = "تایید توکن";
+              let message =
+                "توکن شما مورد تایید سرور نبود . مجددا وار حساب کاربری شوید";
+              this.alertService.error( message,title);
+              this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+            }
+            return ret;
           }
-          return ret;
-        }
-      })
-    ).toPromise();
+        })
+      )
+      .toPromise();
     // this.ServiceRenewToken(null).subscribe(
     //   (next) => {
     //     if (next.IsSuccess) {

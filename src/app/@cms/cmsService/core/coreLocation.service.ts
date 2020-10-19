@@ -8,7 +8,7 @@ import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 @Injectable({
   providedIn: 'root',
 })
-export class CoreLocationService extends ApiServerBase implements OnDestroy {
+export class CoreLocationService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

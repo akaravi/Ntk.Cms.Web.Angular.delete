@@ -15,19 +15,8 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./contentEdit.component.scss"],
 })
 export class NewsContentEditComponent implements OnInit {
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private newsContentService: NewsContentService,
-    public coreEnumService: CoreEnumService,
-    private alertService: ToastrService,
-    private publicHelper: PublicHelper
-  ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) this.coreEnumService.resultEnumRecordStatus = vlaue;
-      this.coreEnumService.ServiceEnumRecordStatus() ;
-    });
-  }
-  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false })
+  formGroup: FormGroup;
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -36,10 +25,24 @@ export class NewsContentEditComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private newsContentService: NewsContentService,
+    public coreEnumService: CoreEnumService,
+    private alertService: ToastrService,
+    private publicHelper: PublicHelper
+  ) {
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess)
+        this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus();
+    });
+  }
+
   formInfo: FormInfoModel = new FormInfoModel();
-  dataModelContent: NewsContentModel = new NewsContentModel();
-  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultContent: ErrorExcptionResult<
+  dataModel: NewsContentModel = new NewsContentModel();
+  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResult: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
   ContentId: number;
@@ -60,24 +63,10 @@ export class NewsContentEditComponent implements OnInit {
 
     // this.DataGetAllCoreEnum();
   }
-  // DataGetAllCoreEnum() {
-  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-  //     (next) => {
-  //       if (next.IsSuccess) {
-  //         this.dataResultCoreEnum = next;
-  //       }
-  //     },
-  //     (error) => {
-  //       this.alertService.error(
-  //         this.publicHelper.CheckError(error),
-  //         "برروی خطا در دریافت اطلاعات"
-  //       );
-  //     }
-  //   );
-  // }
+
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = false;
       this.DataEditContent();
     }
   }
@@ -98,23 +87,20 @@ export class NewsContentEditComponent implements OnInit {
       .ServiceGetOneById<NewsContentModel>(this.ContentId)
       .subscribe(
         (next) => {
-          
-          this.dataResultContent = next;
-          
+          this.dataModel = next.Item;
+
           if (next.IsSuccess) {
-            this.dataModelContent=next.Item;
+            this.dataModel = next.Item;
             this.formInfo.formAlert = "";
           } else {
             var title = "برروز خطا ";
-            var message =next.ErrorMessage;
+            var message = next.ErrorMessage;
             this.alertService.error(message, title);
           }
         },
         (error) => {
-          
-          
           var title = "برروی خطا در دریافت اطلاعات";
-          var message =this.publicHelper.CheckError(error);
+          var message = this.publicHelper.CheckError(error);
           this.alertService.error(message, title);
         }
       );
@@ -130,24 +116,24 @@ export class NewsContentEditComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.newsContentService
-      .ServiceEdit<NewsContentModel>(this.dataModelContent)
+      .ServiceEdit<NewsContentModel>(this.dataModel)
       .subscribe(
         (next) => {
-          //this.formInfo.formSubmitted = next.IsSuccess;
-          this.dataResultContent = next;
+          this.formInfo.formAllowSubmit = true;
+          this.dataModelResult = next;
           if (next.IsSuccess) {
             this.formInfo.formAlert = "ثبت با موفقت انجام شد";
           } else {
             var title = "برروز خطا ";
-            var message =next.ErrorMessage;
+            var message = next.ErrorMessage;
             this.alertService.error(message, title);
           }
         },
         (error) => {
-          this.formInfo.formSubmitted = false;
-         
+          this.formInfo.formAllowSubmit = true;
+
           var title = "برروی خطا در دریافت اطلاعات";
-          var message =this.publicHelper.CheckError(error);
+          var message = this.publicHelper.CheckError(error);
           this.alertService.error(message, title);
         }
       );

@@ -9,10 +9,11 @@ import { baseEntityCategory } from "app/@cms/cmsModels/base/baseEntityCategory";
 import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
-import { SmsMainApiCompany } from "app/@cms/cmsModels/sms/smsMainApiCompany";
+import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+
 
 @Component({
-  selector: "app-smsMainApiPathCompanyAdd",
+  selector: "app-sms-main-api-path-company-add",
   templateUrl: "./smsMainApiPathCompanyAdd.component.html",
   styleUrls: ["./smsMainApiPathCompanyAdd.component.scss"],
 })
@@ -40,41 +41,26 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
-  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResult: ErrorExcptionResult<SmsMainApiCompany> = new ErrorExcptionResult<
-    SmsMainApiCompany
+  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResult: ErrorExcptionResult<SmsMainApiCompanyModel> = new ErrorExcptionResult<
+  SmsMainApiCompanyModel
   >();
-  dataModel: SmsMainApiCompany = new SmsMainApiCompany();
+  dataModel: SmsMainApiCompanyModel = new SmsMainApiCompanyModel();
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-  // DataGetAllCoreEnum() {
-  //   if (this.dataResultCoreEnum && this.dataResultCoreEnum.IsSuccess&& this.dataResultCoreEnum.ListItems && this.dataResultCoreEnum.ListItems.length>0) return;
-  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-  //     (next) => {
-  //       if (next.IsSuccess) {
-  //         this.dataResultCoreEnum = next;
-  //       }
-  //     },
-  //     (error) => {
-  //       this.alertService.error(
-  //         this.publicHelper.CheckError(error),
-  //         "برروی خطا در دریافت اطلاعات"
-  //       );
-  //     }
-  //   );
-  // }
+
   DataAddContent() {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathCompanyService
-      .ServiceAdd<SmsMainApiCompany>(this.dataModel)
+      .ServiceAdd<SmsMainApiCompanyModel>(this.dataModel)
       .subscribe(
         (next) => {
-          this.formInfo.formSubmitted = next.IsSuccess;
-          this.dataResult = next;
+          this.formInfo.formAllowSubmit = !next.IsSuccess;
+          this.dataModelResult = next;
           if (next.IsSuccess) {
             this.formInfo.formAlert = "ثبت با موفقت انجام شد";
           } else {
@@ -83,7 +69,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
           }
         },
         (error) => {
-          this.formInfo.formSubmitted = false;
+          this.formInfo.formAllowSubmit = true;
           this.alertService.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
@@ -93,7 +79,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = false;
       this.DataAddContent();
     }
   }

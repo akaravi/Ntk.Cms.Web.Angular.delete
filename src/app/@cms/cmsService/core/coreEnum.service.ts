@@ -13,13 +13,9 @@ import { ApiServerBase } from "../_base/apiServerBase.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreEnumService extends ApiServerBase implements OnDestroy {
+export class CoreEnumService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
-  resultEnumRecordStatus = new ErrorExcptionResult<enumModel>();
-  resultEnumRecordStatusBSub = new BehaviorSubject<
-    ErrorExcptionResult<enumModel>
-  >(null);
-  resultEnumRecordStatusObs = this.resultEnumRecordStatusBSub.asObservable();
+  
   getModuleCotrolerUrl() {
     return "CoreEnum";
   }
@@ -27,7 +23,14 @@ export class CoreEnumService extends ApiServerBase implements OnDestroy {
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
-
+  ////
+  //resultEnumRecord
+  ////
+  resultEnumRecordStatus = new ErrorExcptionResult<enumModel>();
+  resultEnumRecordStatusBSub = new BehaviorSubject<
+    ErrorExcptionResult<enumModel>
+  >(null);
+  resultEnumRecordStatusObs = this.resultEnumRecordStatusBSub.asObservable();
   ServiceEnumRecordStatus() {
     if (
       this.resultEnumRecordStatus &&
@@ -52,7 +55,25 @@ export class CoreEnumService extends ApiServerBase implements OnDestroy {
       )
       .toPromise();
   }
+  ////
+  //resultEnumRecord
+  ////
+  ////
+  //EnumLocationType
+  ////
+  resultEnumLocationType = new ErrorExcptionResult<enumModel>();
+  resultEnumLocationTypeBSub = new BehaviorSubject<
+    ErrorExcptionResult<enumModel>
+  >(null);
+  resultEnumLocationTypeObs = this.resultEnumLocationTypeBSub.asObservable();
   ServiceEnumLocationType() {
+    if (
+      this.resultEnumLocationType &&
+      this.resultEnumLocationType.IsSuccess &&
+      this.resultEnumLocationType.ListItems &&
+      this.resultEnumLocationType.ListItems.length > 0
+    )
+      return;
     return this.http
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/EnumLocationType", {
         headers: this.getHeaders(),
@@ -65,7 +86,26 @@ export class CoreEnumService extends ApiServerBase implements OnDestroy {
         })
       );
   }
+  ////
+  //EnumLocationType
+  ////
+
+  ////
+  //EnumUserLanguage
+  ////
+  resultEnumUserLanguage = new ErrorExcptionResult<enumModel>();
+  resultEnumUserLanguageBSub = new BehaviorSubject<
+    ErrorExcptionResult<enumModel>
+  >(null);
+  resultEnumUserLanguageObs = this.resultEnumUserLanguageBSub.asObservable();
   ServiceEnumUserLanguage() {
+    if (
+      this.resultEnumUserLanguage &&
+      this.resultEnumUserLanguage.IsSuccess &&
+      this.resultEnumUserLanguage.ListItems &&
+      this.resultEnumUserLanguage.ListItems.length > 0
+    )
+      return;
     return this.http
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/EnumUserLanguage", {
         headers: this.getHeaders(),
@@ -78,6 +118,9 @@ export class CoreEnumService extends ApiServerBase implements OnDestroy {
         })
       );
   }
+    ////
+  //EnumUserLanguage
+  ////
   ServiceEnumGender() {
     return this.http
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/EnumGender", {

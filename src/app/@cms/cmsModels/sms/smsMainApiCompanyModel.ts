@@ -1,7 +1,7 @@
 import { BaseEntity } from '../base/baseEntity';
-import { SmsMainApiPath } from './smsMainApiPath';
+import { SmsMainApiPathModel } from './smsMainApiPathModel';
 
-export class SmsMainApiCompany extends BaseEntity<number> {
+export class SmsMainApiCompanyModel extends BaseEntity<number> {
      Title: string;
      Description: string;
      ServiceAvailableCredit:number;
@@ -10,5 +10,5 @@ export class SmsMainApiCompany extends BaseEntity<number> {
      UserSumCredit:number;
      ServiceCreditLastEdit:Date;
      UserCreditLastEdit:Date;
-     ApiPaths: SmsMainApiPath[]
+     ApiPaths: SmsMainApiPathModel[]
 }

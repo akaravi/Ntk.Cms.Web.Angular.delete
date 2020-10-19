@@ -8,7 +8,7 @@ import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsShareServerCategoryService extends ApiServerBase implements OnDestroy {
+export class NewsShareServerCategoryService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

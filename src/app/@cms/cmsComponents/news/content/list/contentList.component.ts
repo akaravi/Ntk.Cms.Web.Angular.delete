@@ -53,9 +53,9 @@ export class NewsContentListComponent implements OnInit {
   }
   filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
-  dataResultContent: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultContentViewModel: ErrorExcptionResult<
+  dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResultViewModel: ErrorExcptionResult<
     any
   > = new ErrorExcptionResult<any>();
   // Table Column Titles
@@ -170,7 +170,7 @@ export class NewsContentListComponent implements OnInit {
     this.contentService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataResultContentViewModel = next;
+          this.dataModelResultViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
       },
@@ -188,8 +188,10 @@ export class NewsContentListComponent implements OnInit {
     this.tableContentloading = true;
     this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
+        
+
         if (next.IsSuccess) {
-          this.dataResultContent = next;
+          this.dataModelResult = next;
           this.tableContentloading = false;
         }
       },
@@ -206,7 +208,7 @@ export class NewsContentListComponent implements OnInit {
   //   this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
   //     (next) => {
   //       if (next.IsSuccess) {
-  //         this.dataResultCategory = next;
+  //         this.dataModelResultCategory = next;
   //       }
   //     },
   //     (error) => {
@@ -250,8 +252,8 @@ export class NewsContentListComponent implements OnInit {
   }
   onActionSelect(event) {
     //your code here
-    console.log("onActionSelect Event", event);
-    console.log("tableContentSelected Event", this.tableContentSelected);
+    //console.log("onActionSelect Event", event);
+    //console.log("tableContentSelected Event", this.tableContentSelected);
   }
   private modals: any[] = [];
 
@@ -266,9 +268,9 @@ export class NewsContentListComponent implements OnInit {
       return;
     }
     if (
-      this.dataResultContent == null ||
-      this.dataResultContent.Access ==null||
-      !this.dataResultContent.Access.AccessAddRow
+      this.dataModelResult == null ||
+      this.dataModelResult.Access ==null||
+      !this.dataModelResult.Access.AccessAddRow
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای اضافه کردن ندارید";
@@ -291,9 +293,9 @@ export class NewsContentListComponent implements OnInit {
       return;
     }
     if (
-      this.dataResultContent == null ||
-      this.dataResultContent.Access==null ||
-      !this.dataResultContent.Access.AccessEditRow
+      this.dataModelResult == null ||
+      this.dataModelResult.Access==null ||
+      !this.dataModelResult.Access.AccessEditRow
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای ویرایش ندارید";

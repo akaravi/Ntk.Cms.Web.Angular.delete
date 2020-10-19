@@ -9,7 +9,7 @@ import { AuthService } from "app/@theme/shared/auth/auth.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreUserService extends ApiServerBase implements OnDestroy {
+export class CoreUserService extends ApiServerBase<number> implements OnDestroy {
   CorrectUser = new BehaviorSubject<CoreUser>(null);
   CorrectUserObs = this.CorrectUser.asObservable();
   subManager = new Subscription();

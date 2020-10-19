@@ -59,7 +59,7 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.autoUploadSubscription = this.flow.events$.subscribe((event) => {
-      console.log("event",event);
+      //console.log("event",event);
       switch (event.type) {
         case "filesSubmitted":
           return this.flow.upload();

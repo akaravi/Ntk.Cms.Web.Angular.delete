@@ -15,6 +15,7 @@ import { ClauseType } from "app/@cms/cmsModels/Enums/clauseType.enum";
   selector: "app-cms-search-content-list",
   templateUrl: "./cmsSearchContentList.component.html",
   styleUrls: ["./cmsSearchContentList.component.scss"],
+  
 })
 
 export class CmsSearchContentListComponent implements OnInit {
@@ -190,7 +191,7 @@ export class CmsSearchContentListComponent implements OnInit {
     this.optionsData.onSubmit(this.Filters);
   }
   onGetRules() {
-    console.log(this.query);
+    //console.log(this.query);
   }
   onSaveRules() {}
   onSetRules() {}

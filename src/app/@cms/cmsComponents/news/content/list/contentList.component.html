@@ -41,11 +41,11 @@
       <hr >
       <div >
         
-        <a  *ngIf="dataResultContent?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
-        <a  *ngIf="dataResultContent?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
-        <a  *ngIf="dataResultContent?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
-        <a  *ngIf="dataResultContent?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
-        <a  *ngIf="dataResultContent?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
+        <a  *ngIf="dataModelResult?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
+        <a  *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+        <a  *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+        <a  *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
+        <a  *ngIf="dataModelResult?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
           <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'"  aria-hidden="true"></i>
         </a>
         <a  (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
@@ -66,16 +66,16 @@
     <ngx-datatable
     #tableContent
         class="bootstrap"
-        [rows]="dataResultContent.ListItems"
+        [rows]="dataModelResult.ListItems"
         [columns]="columnsContent"
         [columnMode]="columnMode.force"
         [headerHeight]="50"
         [footerHeight]="50"
         rowHeight="auto"
         [externalPaging]="true"
-        [count]="dataResultContent.TotalRowCount"
-        [offset]="dataResultContent.CurrentPageNumber-1"
-        [limit]="dataResultContent.RowPerPage"
+        [count]="dataModelResult.TotalRowCount"
+        [offset]="dataModelResult.CurrentPageNumber-1"
+        [limit]="dataModelResult.RowPerPage"
         [loadingIndicator]="tableContentloading"
         [externalSorting]="true"
         [sortType]="'single'"

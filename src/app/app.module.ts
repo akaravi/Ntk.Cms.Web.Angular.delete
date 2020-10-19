@@ -26,6 +26,7 @@ import { CmsAuthGuard } from './@cms/cmsService/core/auth.guard.service';
 import { CmsComponent } from './@cms/cms.component';
 import { ThemeComponent } from './@theme/theme.component';
 import { CmsSharedModule } from './@cms/shared/cmsShared.module';
+import { NgxQueryBuilderModule } from 'ngx-query-builder';
 
 
 
@@ -50,6 +51,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     SharedModule,
     //CmsSharedModule,
+    
     HttpClientModule,
     ToastrModule.forRoot(),
     NgbModule.forRoot(),

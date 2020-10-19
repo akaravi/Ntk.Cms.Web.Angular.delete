@@ -7,7 +7,7 @@ import { catchError,map, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: "root",
 })
-export class CoreSiteUserService extends ApiServerBase
+export class CoreSiteUserService extends ApiServerBase<number>
   implements OnDestroy {
   subManager = new Subscription();
   getModuleCotrolerUrl() {

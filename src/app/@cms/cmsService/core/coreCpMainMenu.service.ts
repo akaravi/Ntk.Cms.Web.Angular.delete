@@ -8,7 +8,7 @@ import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel
 @Injectable({
   providedIn: "root",
 })
-export class CoreCpMainMenuService extends ApiServerBase
+export class CoreCpMainMenuService extends ApiServerBase<number>
   implements OnDestroy {
   coreCpMainMenu = new BehaviorSubject<Array<CoreCpMainMenuModel>>(
     new Array<CoreCpMainMenuModel>()

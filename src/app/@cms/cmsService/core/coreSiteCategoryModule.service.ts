@@ -6,7 +6,7 @@ import { ApiServerBase } from '../_base/apiServerBase.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CoreSiteCategoryModuleService extends ApiServerBase implements OnDestroy {
+export class CoreSiteCategoryModuleService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
   getModuleCotrolerUrl()
   {

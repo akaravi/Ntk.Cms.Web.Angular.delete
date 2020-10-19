@@ -12,7 +12,7 @@ import { CoreSiteAddFirstSiteDtoModel } from 'app/@cms/cmsModels/core/coreSiteAd
 @Injectable({
   providedIn: 'root',
 })
-export class CoreSiteService extends ApiServerBase implements OnDestroy {
+export class CoreSiteService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

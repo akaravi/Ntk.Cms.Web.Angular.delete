@@ -4,7 +4,7 @@ import { ApiServerBase } from "../_base/apiServerBase.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreUserGroupService extends ApiServerBase
+export class CoreUserGroupService extends ApiServerBase<number>
   implements OnDestroy {
   subManager = new Subscription();
   getModuleCotrolerUrl() {

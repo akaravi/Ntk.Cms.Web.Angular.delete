@@ -7,8 +7,9 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { TREE_ACTIONS, ITreeOptions, KEYS } from "angular-tree-component";
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
+
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
+import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
 
 @Component({
   selector: 'app-sms-main-api-path-company-select',
@@ -16,18 +17,6 @@ import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionMod
   styleUrls: ['./smsMainApiPathCompanySelect.component.scss']
 })
 export class SmsMainApiPathCompanySelectComponent implements OnInit {
-  constructor(
-    private alertService: ToastrService,
-    private publicHelper: PublicHelper,
-    private categoryService: NewsCategoryService
-  ) {}
-
-  ngOnInit() {
-    this.DataGetAllCategory();
-    
-    this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
-    
-  }
   @Input()
   set options(modelInput: ComponentOptionModel) {
     this.dateModleInput = modelInput;  
@@ -37,6 +26,19 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
   }
   private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
   
+
+  constructor(
+    private alertService: ToastrService,
+    private publicHelper: PublicHelper,
+    private categoryService: SmsMainApiPathCompanyService
+  ) {}
+
+  ngOnInit() {
+    this.DataGetAllCategory();
+    
+    this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
+    
+  }
 
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();

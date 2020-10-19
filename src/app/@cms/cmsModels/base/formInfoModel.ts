@@ -1,5 +1,5 @@
 export class FormInfoModel {
-  formSubmitted: boolean = false;
+  formAllowSubmit: boolean = true;
   formAlert: string = "";
   formError: string = "";
   formErrorStatus:boolean=false;

@@ -6,7 +6,7 @@ import { ApiServerBase } from '../_base/apiServerBase.service';
 
 
 @Injectable()
-export class SmsMainApiPathCompanyService extends ApiServerBase implements OnDestroy {
+export class SmsMainApiPathCompanyService extends ApiServerBase<number> implements OnDestroy {
 
     subManager = new Subscription();
 

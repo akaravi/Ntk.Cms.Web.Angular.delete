@@ -51,8 +51,8 @@ export class NewsCategoryAddComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
-  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultCategory: ErrorExcptionResult<
+  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResultCategory: ErrorExcptionResult<
     baseEntityCategory<number>
   > = new ErrorExcptionResult<baseEntityCategory<number>>();
   dataModelCategory: baseEntityCategory<number> = new baseEntityCategory<
@@ -64,21 +64,7 @@ export class NewsCategoryAddComponent implements OnInit {
 
   formInfo:FormInfoModel=new FormInfoModel();
   
-  // DataGetAllCoreEnum() {
-  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-  //     (next) => {
-  //       if (next.IsSuccess) {
-  //         this.dataResultCoreEnum = next;
-  //       }
-  //     },
-  //     (error) => {
-  //       this.alertService.error(
-  //         this.publicHelper.CheckError(error),
-  //         "برروی خطا در دریافت اطلاعات"
-  //       );
-  //     }
-  //   );
-  // }
+
   DataAddContent() {
     if (this.parentId > 0) this.dataModelCategory.LinkParentId = this.parentId;
     this.formInfo.formAlert="در حال ارسال اطلاعات به سرور";
@@ -87,8 +73,8 @@ export class NewsCategoryAddComponent implements OnInit {
       .ServiceAdd<baseEntityCategory<number>>(this.dataModelCategory)
       .subscribe(
         (next) => {
-          this.formInfo.formSubmitted = next.IsSuccess;
-          this.dataResultCategory = next;
+          this.formInfo.formAllowSubmit = !next.IsSuccess;
+          this.dataModelResultCategory = next;
           if(next.IsSuccess)
           {
           this.formInfo.formAlert="ثبت با موفقت انجام شد";
@@ -99,7 +85,7 @@ export class NewsCategoryAddComponent implements OnInit {
           }
         },
         (error) => {
-          this.formInfo.formSubmitted = false;
+          this.formInfo.formAllowSubmit = true;
           this.alertService.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
@@ -109,7 +95,7 @@ export class NewsCategoryAddComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = false;
       this.DataAddContent();
     }
   }

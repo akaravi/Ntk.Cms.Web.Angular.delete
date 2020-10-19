@@ -28,6 +28,8 @@ export class SmsMainApiPathListComponent implements OnInit {
   ) {}
   @ViewChild("contentContentAdd", { static: false })
   contentContentAdd: ElementRef;
+  @ViewChild("contentContentEdit", { static: false })
+  contentContentEdit: ElementRef;
   optionsSearch: any = {
     onSubmit: (model) => this.onSubmitOptionsSearch(model),
     //AccessSearchField : Array<string>,
@@ -37,8 +39,8 @@ export class SmsMainApiPathListComponent implements OnInit {
   filteModelContent = new FilterModel();
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
-  dataResultContent: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultContentViewModel: ErrorExcptionResult<
+  dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResultViewModel: ErrorExcptionResult<
     any
   > = new ErrorExcptionResult<any>();
   columnMode = ColumnMode;
@@ -87,7 +89,7 @@ export class SmsMainApiPathListComponent implements OnInit {
       .subscribe(
         (next) => {
           if (next.IsSuccess) {
-            this.dataResultContent = next;
+            this.dataModelResult = next;
             this.tableContentloading = false;
           }
         },
@@ -102,16 +104,38 @@ export class SmsMainApiPathListComponent implements OnInit {
   }
   onActionbuttonNewRow() {
     if (
-      this.dataResultContent != null &&
-      this.dataResultContent.Access &&
-      this.dataResultContent.Access.AccessAddRow
+      this.dataModelResult != null &&
+      this.dataModelResult.Access &&
+      this.dataModelResult.Access.AccessAddRow
     ) {
       this.openModal(this.contentContentAdd);
     } else {
       this.alertService.error("خطا", "برروی خطا ");
     }
   }
-  onActionbuttonEditRow() {}
+  onActionbuttonEditRow() {
+    if (
+      this.tableContentSelected == null ||
+      this.tableContentSelected.length == 0 ||
+      this.tableContentSelected[0].Id == 0
+    ) {
+      var title="برروز خطا ";
+      var message="ردیفی برای ویرایش انتخاب نشده است";
+      this.alertService.error(message,title);
+      return;
+    }
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.Access==null ||
+      !this.dataModelResult.Access.AccessEditRow
+    ) {
+      var title="برروز خطا ";
+      var message="شما دسترسی برای ویرایش ندارید";
+      this.alertService.error(message,title);
+      return;
+    }
+    this.openModal(this.contentContentEdit);
+  }
   onActionbuttonDeleteRow() {}
   onActionbuttonStatus() {}
   onActionbuttonExport() {}
@@ -179,7 +203,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.smsMainApiPathService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.dataResultContentViewModel = next;
+          this.dataModelResultViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
       },
@@ -193,7 +217,7 @@ export class SmsMainApiPathListComponent implements OnInit {
   }
   onActionSelect(event) {
     //your code here
-    console.log("onActionSelect Event", event);
-    console.log("tableContentSelected Event", this.tableContentSelected);
+    //console.log("onActionSelect Event", event);
+    //console.log("tableContentSelected Event", this.tableContentSelected);
   }
 }

@@ -7,7 +7,7 @@ import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult
 @Injectable({
   providedIn: 'root',
 })
-export class NewsCategoryService extends ApiServerBase implements OnDestroy {
+export class NewsCategoryService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

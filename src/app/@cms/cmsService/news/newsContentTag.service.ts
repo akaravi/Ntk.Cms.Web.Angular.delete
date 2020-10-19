@@ -8,7 +8,7 @@ import { SearchTagModel } from 'app/@cms/cmsModels/base/searchModel';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsContentTagService extends ApiServerBase implements OnDestroy {
+export class NewsContentTagService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

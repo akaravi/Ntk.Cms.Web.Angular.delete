@@ -5,21 +5,21 @@
         </div>
     </div>
     <div class="row text-left" matchHeight="card">
-        
+
         <!--Content-->
         <div class="col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">لیست شرکت ها  </h4>
+                    <h4 class="card-title">لیست شرکت ها </h4>
                     <hr>
                     <div>
 
-                        <a *ngIf="dataResultContent?.Access?.AccessAddRow " (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
-                        <a *ngIf="dataResultContent?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
-                        <a *ngIf="dataResultContent?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
-                        <a  *ngIf="dataResultContent?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
-                            <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'"  aria-hidden="true"></i>
-                          </a>
+                        <a *ngIf="dataModelResult?.Access?.AccessAddRow " (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
+                            <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'" aria-hidden="true"></i>
+                        </a>
 
 
                         <a (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
@@ -34,7 +34,7 @@
 
                 <div class="card-content">
                     <div class="card-body">
-                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataResultContent.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataResultContent.TotalRowCount" [offset]="dataResultContent.CurrentPageNumber-1" [limit]="dataResultContent.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
+                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1" [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
                         </ngx-datatable>
                         <hr>
 
@@ -48,17 +48,38 @@
 <!--Modal starts-->
 <ng-template #contentContentAdd let-c="close" let-d="dismiss">
     <div class="modal-header">
-    <h4 class="modal-title">جدید</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-    <span aria-hidden="true">&times;</span>
-    </button>
+        <h4 class="modal-title">جدید</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
 
-    <p><app-smsMainApiPathCompanyAdd  ></app-smsMainApiPathCompanyAdd></p>
+        <p>
+            <app-sms-main-api-path-company-add></app-sms-main-api-path-company-add>
+        </p>
     </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
     </div>
-    </ng-template>
-    <!--Modal ends-->
+</ng-template>
+<!--Modal ends-->
+<!--Modal starts-->
+<ng-template #contentContentEdit let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">ویرایش</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <p>
+            <app-sms-main-api-path-company-edit  [options]="{ContentId:this.tableContentSelected[0].Id}" ></app-sms-main-api-path-company-edit>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+    </div>
+</ng-template>
+<!--Modal ends-->

@@ -38,9 +38,9 @@ export class NewsContentAddComponent implements OnInit {
   }
   private dateModleInput: any;
   formInfo: FormInfoModel = new FormInfoModel();
-  dataModelContent: NewsContentModel = new NewsContentModel();
-  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataResultContent: ErrorExcptionResult<
+  dataModel: NewsContentModel = new NewsContentModel();
+  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResult: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
   linkCategoryId: number;
@@ -60,24 +60,10 @@ export class NewsContentAddComponent implements OnInit {
 
     //this.DataGetAllCoreEnum();
   }
-  // DataGetAllCoreEnum() {
-  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-  //     (next) => {
-  //       if (next.IsSuccess) {
-  //         this.dataResultCoreEnum = next;
-  //       }
-  //     },
-  //     (error) => {
-  //       this.alertService.error(
-  //         this.publicHelper.CheckError(error),
-  //         "برروی خطا در دریافت اطلاعات"
-  //       );
-  //     }
-  //   );
-  // }
+
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formSubmitted = true;
+      this.formInfo.formAllowSubmit = false;
       this.DataAddContent();
     }
   }
@@ -92,15 +78,15 @@ export class NewsContentAddComponent implements OnInit {
       );
       return;
     }
-    this.dataModelContent.linkCategoryId = this.linkCategoryId;
+    this.dataModel.linkCategoryId = this.linkCategoryId;
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.newsContentService
-      .ServiceAdd<NewsContentModel>(this.dataModelContent)
+      .ServiceAdd<NewsContentModel>(this.dataModel)
       .subscribe(
         (next) => {
-          this.formInfo.formSubmitted = next.IsSuccess;
-          this.dataResultContent = next;
+          this.formInfo.formAllowSubmit = !next.IsSuccess;
+          this.dataModelResult = next;
           if (next.IsSuccess) {
             this.formInfo.formAlert = "ثبت با موفقت انجام شد";
           } else {
@@ -110,7 +96,7 @@ export class NewsContentAddComponent implements OnInit {
           }
         },
         (error) => {
-          this.formInfo.formSubmitted = false;
+          this.formInfo.formAllowSubmit = true;
 
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);

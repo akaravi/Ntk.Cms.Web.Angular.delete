@@ -1,143 +1,171 @@
 <section>
-  <div class="row text-left">
-      <div class="col-sm-12">
-          <div class="content-header">شرکت های پیام کوتاه</div>
-      </div>
-  </div>
-  <div class="row text-left" matchHeight="card">
-        <!--Category-->
-    <div class="col-md-2 col-lg-2">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title" >
-          شرکت ها
-          
-          </h4>
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">مسیر های پیام کوتاه</div>
         </div>
-        <div class="card-content">
-          <div class="card-body">
-            <app-sms-main-api-path-company-select [options]="optionsCategorySelect" ></app-sms-main-api-path-company-select>
-            <hr>
-            <p>
-                <a (click)='onActionCategorySelect()' *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> | 
-                <a (click)="openModal(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
-                <a (click)="openModal(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> | 
-                <a (click)="openModal(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>              
-            </p>
-            <p>عمل : {{closeResult}}</p>
-
-
-
-          </div>
-        </div>
-      </div>
     </div>
-    <!--Category-->
-      <!--Content-->
-      <div class="col-md-10 col-lg-10">
-          <div class="card">
-              <div class="card-header">
-                  <h4 class="card-title">لیست شرکت ها  </h4>
-                  <hr>
-                  <div>
+    <div class="row text-left" matchHeight="card">
+        <!--Category-->
+        <div class="col-md-2 col-lg-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                       شرکت ها
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <app-sms-main-api-path-company-select [options]="optionsCategorySelect"></app-sms-main-api-path-company-select>
+                        <hr>
+                        <p>
+                            <a (click)='onActionCategorySelect()' *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> |
+                            <a (click)="openModal(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
+                            <a (click)="openModal(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> |
+                            <a (click)="openModal(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+                        </p>
+                        <p>عمل : {{closeResult}}</p>
 
-                      <a *ngIf="dataResultContent?.Access?.AccessAddRow " (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
-                      <a *ngIf="dataResultContent?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
-                      <a *ngIf="dataResultContent?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
-                      <a  *ngIf="dataResultContent?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
-                        <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'"  aria-hidden="true"></i>
-                      </a>
 
 
-                      <a (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
-                      <a (click)="onActionbuttonExport()" class="btn btn-raised mr-1 shadow-z-2 btn-primary">خروجی فایل</a>
-                      <a (click)="onActionbuttonReload()" class="btn btn-raised mr-1 shadow-z-2 btn-success">بررسی مجدد</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Category-->
+        <!--Content-->
+        <div class="col-md-10 col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">لیست مسیرها <span *ngIf="optionsCategorySelectData">({{optionsCategorySelectData?.Title}})</span> </h4>
+                    <hr>
+                    <div>
 
-                  </div>
+                        <a *ngIf="dataModelResult?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
+                            <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'" aria-hidden="true"></i>
+                        </a>
+                        <a (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
+                        <a (click)="onActionbuttonExport()" class="btn btn-raised mr-1 shadow-z-2 btn-primary">خروجی فایل</a>
+                        <a (click)="onActionbuttonReload()" class="btn btn-raised mr-1 shadow-z-2 btn-success">بررسی مجدد</a>
 
-                   <app-cms-search-content-list [options]="optionsSearch"></app-cms-search-content-list> 
-                  <hr>
-              </div>
+                    </div>
 
-              <div class="card-content">
-                  <div class="card-body">
-                      <ngx-datatable #tableContent class="bootstrap" [rows]="dataResultContent.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataResultContent.TotalRowCount" [offset]="dataResultContent.CurrentPageNumber-1" [limit]="dataResultContent.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
-                      </ngx-datatable>
-                      <hr>
+                    <app-cms-search-content-list [options]="optionsSearch"></app-cms-search-content-list>
+                    <hr>
+                </div>
 
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--Content-->
-  </div>
+                <div class="card-content">
+                    <div class="card-body">
+
+
+
+                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1" [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
+
+                        </ngx-datatable>
+
+
+
+
+
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Content-->
+    </div>
 </section>
 <!--Modal starts-->
-<ng-template #contentContentAdd let-c="close" let-d="dismiss">
-  <div class="modal-header">
-  <h4 class="modal-title">جدید</h4>
-  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-  <span aria-hidden="true">&times;</span>
-  </button>
-  </div>
-  <div class="modal-body">
-      خخخخخخخخخخخخخخخخخخخخخخخخخخخخخ
-      oooooooooooooooook
-  <!-- <p><app-news-content-add [options]="{linkCategoryId:optionsCategorySelectData?.Id}" ></app-news-content-add></p> -->
-  </div>
-  <div class="modal-footer">
-  <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
-  </div>
-  </ng-template>
-  <!--Modal ends-->
-  <!--Modal starts-->
-  <ng-template #contentCategoryEdit let-c="close" let-d="dismiss">
+<ng-template #contentCategoryEdit let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">ویرایش</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">ویرایش</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-      djiglh;jlllllll
-      <!-- <p><app-news-category-edit [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-edit></p> -->
+        <p>
+          <app-sms-main-api-path-company-edit [options]="{Id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-edit>
+        </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
     </div>
-  </ng-template>
+</ng-template>
 <!--Modal ends-->
 <!--Modal starts-->
 <ng-template #contentCategoryDelete let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">حذف</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    oooooooooooook
-    <!-- <p><app-news-category-delete [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-delete></p> -->
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
-  </div>
+    <div class="modal-header">
+        <h4 class="modal-title">حذف</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <app-sms-main-api-path-company-delete  [options]="{Id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-delete>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+    </div>
 </ng-template>
 <!--Modal ends-->
 <!--Modal starts-->
 <ng-template #contentCategoryAdd let-c="close" let-d="dismiss">
-<div class="modal-header">
-<h4 class="modal-title">جدید</h4>
-<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-  dddddddddddddddddddddddddd
-<!-- <p><app-news-category-add [options]="{parentId:optionsCategorySelectData?.Id}" ></app-news-category-add></p> -->
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
-</div>
+    <div class="modal-header">
+        <h4 class="modal-title">جدید</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <app-sms-main-api-path-company-add   [options]="{parentId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-add>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+    </div>
+</ng-template>
+<!--Modal ends-->
+<!--Modal starts-->
+<ng-template #contentContentAdd let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">جدید</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <app-sms-main-api-path-add  [options]="{linkCategoryId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-add>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+    </div>
+</ng-template>
+<!--Modal ends-->
+<!--Modal starts-->
+<ng-template #contentContentEdit let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">ویرایش</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <app-sms-main-api-path-edit [options]="{ContentId:this.tableContentSelected[0].Id}"></app-sms-main-api-path-edit>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+    </div>
 </ng-template>
 <!--Modal ends-->

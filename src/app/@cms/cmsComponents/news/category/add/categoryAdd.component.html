@@ -72,7 +72,7 @@
                 <small class="form-text text-muted ">{{formInfo.formAlert}} </small>
                 <small class="form-text text-muted danger">{{formInfo.formError}} </small>
               </div>
-              <div class="form-actions" *ngIf="!formInfo.formSubmitted">
+              <div class="form-actions" *ngIf="formInfo.formAllowSubmit">
 
                 <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">
                   <i class="ft-x"></i> انصراف

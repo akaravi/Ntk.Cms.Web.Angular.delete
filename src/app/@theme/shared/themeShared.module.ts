@@ -19,7 +19,6 @@ import { SidebarLinkDirective } from 'app/@theme/shared/directives/sidebarlink.d
 import { SidebarListDirective } from 'app/@theme/shared/directives/sidebarlist.directive';
 import { SidebarAnchorToggleDirective } from 'app/@theme/shared/directives/sidebaranchortoggle.directive';
 import { SidebarToggleDirective } from 'app/@theme/shared/directives/sidebartoggle.directive';
-//import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
 
 @NgModule({
     exports: [
@@ -31,7 +30,6 @@ import { SidebarToggleDirective } from 'app/@theme/shared/directives/sidebartogg
         SidebarComponent,
         CustomizerComponent,
         NotificationSidebarComponent,
-        //ToggleFullscreenDirective,
         SidebarDirective,
 
     ],
@@ -48,7 +46,6 @@ import { SidebarToggleDirective } from 'app/@theme/shared/directives/sidebartogg
         SidebarComponent,
         CustomizerComponent,
         NotificationSidebarComponent,
-        //ToggleFullscreenDirective,
         SidebarDirective,
         SidebarLinkDirective,
         SidebarListDirective,

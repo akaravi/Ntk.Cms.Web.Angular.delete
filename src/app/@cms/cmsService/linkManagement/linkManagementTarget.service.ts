@@ -12,7 +12,7 @@ import { LinkManagementTargetShortLinkGetResponceModel } from 'app/@cms/cmsModel
 @Injectable({
   providedIn: 'root',
 })
-export class LinkManagementTargetService extends ApiServerBase implements OnDestroy {
+export class LinkManagementTargetService extends ApiServerBase<number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

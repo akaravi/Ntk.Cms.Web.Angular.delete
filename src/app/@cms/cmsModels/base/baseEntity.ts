@@ -6,7 +6,7 @@ export class BaseEntity<TKey> {
   CreatedBy: number;
   UpdatedDate: Date;
   UpdatedBy: number;
-  RecordStatus: RecordStatus;
+  RecordStatus: RecordStatus=RecordStatus.Available;
 
   //region AntiInjection
   AntiInjectionGuid: string;

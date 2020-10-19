@@ -17,11 +17,18 @@ import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 export class NewsCategoryAddComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     private newsCategoryService: NewsCategoryService,
     private alertService: ToastrService,
     private publicHelper: PublicHelper
-  ) {}
+  ) {
+
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess) this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus() ;
+    });
+
+  }
   ngOnInit() {
     this.parentId = Number.parseInt(
       this.activatedRoute.snapshot.paramMap.get("id")
@@ -34,7 +41,7 @@ export class NewsCategoryAddComponent implements OnInit {
       this.parentId = this.dateModleInput.parentId;
     }
     //alert("helo Id:"+this.parentId)
-    this.DataGetAllCoreEnum();
+    //this.DataGetAllCoreEnum();
   }
   @Input()
   set options(model: any) {
@@ -44,7 +51,7 @@ export class NewsCategoryAddComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
-  dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataResultCategory: ErrorExcptionResult<
     baseEntityCategory<number>
   > = new ErrorExcptionResult<baseEntityCategory<number>>();
@@ -57,21 +64,21 @@ export class NewsCategoryAddComponent implements OnInit {
 
   formInfo:FormInfoModel=new FormInfoModel();
   
-  DataGetAllCoreEnum() {
-    this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataResultCoreEnum = next;
-        }
-      },
-      (error) => {
-        this.alertService.error(
-          this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
-        );
-      }
-    );
-  }
+  // DataGetAllCoreEnum() {
+  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
+  //     (next) => {
+  //       if (next.IsSuccess) {
+  //         this.dataResultCoreEnum = next;
+  //       }
+  //     },
+  //     (error) => {
+  //       this.alertService.error(
+  //         this.publicHelper.CheckError(error),
+  //         "برروی خطا در دریافت اطلاعات"
+  //       );
+  //     }
+  //   );
+  // }
   DataAddContent() {
     if (this.parentId > 0) this.dataModelCategory.LinkParentId = this.parentId;
     this.formInfo.formAlert="در حال ارسال اطلاعات به سرور";

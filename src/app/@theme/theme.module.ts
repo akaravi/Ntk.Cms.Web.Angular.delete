@@ -11,7 +11,7 @@ import { SharedModule } from 'app/shared/shared.module';
   imports: [
     CommonModule,
     ThemeRoutes,
-    SharedModule,
+    //SharedModule,
     ThemeSharedModule
   ],
   declarations: [ 

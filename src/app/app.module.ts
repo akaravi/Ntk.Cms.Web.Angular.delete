@@ -25,6 +25,7 @@ import { CmsAuthService } from './@cms/cmsService/core/auth.service';
 import { CmsAuthGuard } from './@cms/cmsService/core/auth.guard.service';
 import { CmsComponent } from './@cms/cms.component';
 import { ThemeComponent } from './@theme/theme.component';
+import { CmsSharedModule } from './@cms/shared/cmsShared.module';
 
 
 
@@ -48,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     StoreModule.forRoot({}),
     AppRoutingModule,
     SharedModule,
-    
+    //CmsSharedModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     NgbModule.forRoot(),

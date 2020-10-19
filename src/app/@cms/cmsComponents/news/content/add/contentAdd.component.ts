@@ -18,10 +18,16 @@ export class NewsContentAddComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private newsContentService: NewsContentService,
-    private coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     private alertService: ToastrService,
     private publicHelper: PublicHelper
-  ) {}
+  ) {
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess)
+        this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus();
+    });
+  }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @Input()
   set options(model: any) {
@@ -33,7 +39,7 @@ export class NewsContentAddComponent implements OnInit {
   private dateModleInput: any;
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelContent: NewsContentModel = new NewsContentModel();
-  dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataResultContent: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
@@ -52,23 +58,23 @@ export class NewsContentAddComponent implements OnInit {
     }
     //alert("helo Id:"+this.linkCategoryId)
 
-    this.DataGetAllCoreEnum();
+    //this.DataGetAllCoreEnum();
   }
-  DataGetAllCoreEnum() {
-    this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataResultCoreEnum = next;
-        }
-      },
-      (error) => {
-        this.alertService.error(
-          this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
-        );
-      }
-    );
-  }
+  // DataGetAllCoreEnum() {
+  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
+  //     (next) => {
+  //       if (next.IsSuccess) {
+  //         this.dataResultCoreEnum = next;
+  //       }
+  //     },
+  //     (error) => {
+  //       this.alertService.error(
+  //         this.publicHelper.CheckError(error),
+  //         "برروی خطا در دریافت اطلاعات"
+  //       );
+  //     }
+  //   );
+  // }
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formSubmitted = true;
@@ -99,19 +105,18 @@ export class NewsContentAddComponent implements OnInit {
             this.formInfo.formAlert = "ثبت با موفقت انجام شد";
           } else {
             var title = "برروز خطا ";
-            var message =next.ErrorMessage;
+            var message = next.ErrorMessage;
             this.alertService.error(message, title);
           }
         },
         (error) => {
           this.formInfo.formSubmitted = false;
-          
+
           var title = "برروی خطا در دریافت اطلاعات";
-          var message =this.publicHelper.CheckError(error);
+          var message = this.publicHelper.CheckError(error);
           this.alertService.error(message, title);
         }
       );
-      
   }
   setFocus($event) {
     $event.focus();

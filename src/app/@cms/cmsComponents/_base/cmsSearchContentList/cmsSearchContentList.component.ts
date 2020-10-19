@@ -16,6 +16,7 @@ import { ClauseType } from "app/@cms/cmsModels/Enums/clauseType.enum";
   templateUrl: "./cmsSearchContentList.component.html",
   styleUrls: ["./cmsSearchContentList.component.scss"],
 })
+
 export class CmsSearchContentListComponent implements OnInit {
   optionsData: any;
 

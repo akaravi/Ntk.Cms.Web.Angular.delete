@@ -12,23 +12,11 @@ export class SmsMainApiPathCompanyService extends ApiServerBase implements OnDes
 
     getModuleCotrolerUrl()
     {
-       return 'SmsMainApiPath';
+       return 'SmsMainApiPathCompany';
     }
   
     ngOnDestroy() {
       this.subManager.unsubscribe();
     }
-    ServiceMove<TOut>(OldId: any, NewId: any) {
-      return this.http
-        .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Move", {Old:OldId,New:NewId}, {
-          headers: this.getHeaders(),
-        })
-        .pipe(
-          retry(this.configApiRetry),
-          catchError(this.handleError),
-          map((ret: ErrorExcptionResult<TOut>) => {
-            return this.errorExcptionResultCheck<TOut>(ret);
-          })
-        );
-    } 
+   
 }

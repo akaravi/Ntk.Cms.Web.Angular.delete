@@ -3,6 +3,7 @@ import { SmsMainApiPath } from './smsMainApiPath';
 
 export class SmsMainApiCompany extends BaseEntity<number> {
      Title: string;
+     Description: string;
      ServiceAvailableCredit:number;
      ServiceSumCredit:number;
      UserAvailableCredit:number;

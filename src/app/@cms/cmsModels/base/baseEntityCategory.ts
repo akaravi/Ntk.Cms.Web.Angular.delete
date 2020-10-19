@@ -8,4 +8,5 @@ export class baseEntityCategory<TKey> extends  BaseEntity<TKey> {
   FontIcon : string;
   LinkParentId: TKey;
   LinkParentIdNode: string;
+  LinkMainImageSrc: string;
 }

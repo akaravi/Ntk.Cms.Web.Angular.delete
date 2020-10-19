@@ -27,11 +27,15 @@ export class ApiServerBase implements OnDestroy {
     public store: Store<fromStore.State>,
     public cmsAuthService: CmsAuthService,
     public publicHelper: PublicHelper
-  ) {}
+  ) {
+    this.childConstructor()
+  }
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
+  childConstructor(){
 
+  }
   getModuleCotrolerUrl() {
     return "Empty";
   }

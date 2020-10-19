@@ -12,7 +12,7 @@ import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionMod
 import { environment } from 'environments/environment';
 import { Subscription } from "rxjs";
 
-const URL = environment.cmsServerConfig.configApiServerPath+"/FileContent/Upload/";
+const URL = environment.cmsServerConfig.configApiServerPath+"FileContent/Upload/";
 //const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
 @Component({
   selector: "app-upload-file",

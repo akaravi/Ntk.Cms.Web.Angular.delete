@@ -4,7 +4,7 @@ import { SmsRoutes } from "./sms.routing";
 import { TreeModule } from "angular-tree-component";
 
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
-import { CmsSearchContentListComponent } from "../_base/cmsSearchContentList/cmsSearchContentList.component";
+
 import { NgxQueryBuilderModule } from "ngx-query-builder";
 import { FormsModule } from "@angular/forms";
 
@@ -21,20 +21,21 @@ import { SmsMainApiPathCompanyDeleteComponent } from "./mainApiPathCompany/smsMa
 import { SmsMainApiPathCompanySelectComponent } from "./mainApiPathCompany/smsMainApiPathCompanySelect/smsMainApiPathCompanySelect.component";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
 import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
+import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 
 @NgModule({
   imports: [
+    CmsSharedModule,
     CommonModule,
     FormsModule,
     SmsRoutes,
     NgxDatatableModule,
     TreeModule.forRoot(),
-    NgxQueryBuilderModule,
+    //NgxQueryBuilderModule,
 
     QuillModule,
   ],
   declarations: [
-    CmsSearchContentListComponent,
     //
     SmsMainApiPathListComponent,
     SmsMainApiPathAddComponent,

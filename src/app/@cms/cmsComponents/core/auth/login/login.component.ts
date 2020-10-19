@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   source = interval(1000 * 60 * 5);
   ngOnInit() {
     this.model.IsRemember = false;
-    this.model.Email = "amin@gmail.com";
+    this.model.Email = "";
 
     this.subManager.add(
       this.route.queryParams.subscribe(
@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
   onCaptchaOrder() {
+    this.model.captchaText="";
     this.subManager.add(
       this.cmsAuthService.ServiceCaptcha().subscribe(
         (next) => {

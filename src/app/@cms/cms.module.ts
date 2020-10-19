@@ -6,21 +6,24 @@ import { CmsFullLayoutComponent } from "./layouts/full/cmsFull-layout.component"
 import { CmsContentLayoutComponent } from "./layouts/content/cmsContent-layout.component";
 import { SharedModule } from "app/shared/shared.module";
 import { CmsSharedModule } from "./shared/cmsShared.module";
+import { NgxQueryBuilderModule } from 'ngx-query-builder';
 
 
 @NgModule({
   imports: [
     CommonModule,
     CmsRoutes,
-    SharedModule,
+    //SharedModule,
     CmsSharedModule,
-
+    
+    
   ],
   declarations: [
     CmsFullLayoutComponent,
     CmsContentLayoutComponent,
-    
   ],exports:[
+        
+    
   ]
 })
 export class CmsModule {}

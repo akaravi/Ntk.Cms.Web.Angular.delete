@@ -11,7 +11,7 @@ const routes: Routes = [
     path: "",
     children: [
       {
-        path: "mainapipath",
+        path: "apipath",
         children: [
           {
             path: "",
@@ -45,7 +45,7 @@ const routes: Routes = [
 
       },
       {
-        path: "mainapipathcompany",
+        path: "apipathcompany",
         children: [
           {
             path: "",

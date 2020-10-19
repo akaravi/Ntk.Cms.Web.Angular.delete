@@ -18,10 +18,15 @@ export class NewsContentEditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private newsContentService: NewsContentService,
-    private coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     private alertService: ToastrService,
     private publicHelper: PublicHelper
-  ) {}
+  ) {
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess) this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus() ;
+    });
+  }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @Input()
   set options(model: any) {
@@ -33,7 +38,7 @@ export class NewsContentEditComponent implements OnInit {
   private dateModleInput: any;
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelContent: NewsContentModel = new NewsContentModel();
-  dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  //dataResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataResultContent: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
@@ -53,23 +58,23 @@ export class NewsContentEditComponent implements OnInit {
     this.DataGetOneContent();
     //alert("helo Id:"+this.linkCategoryId)
 
-    this.DataGetAllCoreEnum();
+    // this.DataGetAllCoreEnum();
   }
-  DataGetAllCoreEnum() {
-    this.coreEnumService.ServiceEnumRecordStatus().subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataResultCoreEnum = next;
-        }
-      },
-      (error) => {
-        this.alertService.error(
-          this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
-        );
-      }
-    );
-  }
+  // DataGetAllCoreEnum() {
+  //   this.coreEnumService.ServiceEnumRecordStatus().subscribe(
+  //     (next) => {
+  //       if (next.IsSuccess) {
+  //         this.dataResultCoreEnum = next;
+  //       }
+  //     },
+  //     (error) => {
+  //       this.alertService.error(
+  //         this.publicHelper.CheckError(error),
+  //         "برروی خطا در دریافت اطلاعات"
+  //       );
+  //     }
+  //   );
+  // }
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formSubmitted = true;

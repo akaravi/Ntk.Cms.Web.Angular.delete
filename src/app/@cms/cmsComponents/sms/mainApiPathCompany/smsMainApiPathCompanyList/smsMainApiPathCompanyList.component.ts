@@ -64,7 +64,9 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
       name: "توضیحات",
     },
   ];
-  ngOnInit() {}
+  ngOnInit() {
+    this.DataGetAllContent();
+  }
   onSubmitOptionsSearch(model: any) {
     this.filteModelContent.Filters = model;
     this.DataGetAllContent();

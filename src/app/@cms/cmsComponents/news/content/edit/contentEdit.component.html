@@ -34,7 +34,7 @@
                                   <div class="col-md-9">
                                       <fieldset class="form-group">
                                           <select [(ngModel)]="dataModelContent.RecordStatus" name="RecordStatus" #RecordStatus="ngModel" required class="form-control">
-                                              <option *ngFor="let item of dataResultCoreEnum.ListItems; index as i;" value="{{item.Value}}">
+                                              <option *ngFor="let item of coreEnumService.resultEnumRecordStatus.ListItems; index as i;" value="{{item.Value}}">
                                                   {{item.Key}}</option>
                                           </select>
                                           <small class="form-text text-muted danger" *ngIf="RecordStatus.errors?.required">

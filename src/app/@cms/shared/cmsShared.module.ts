@@ -21,6 +21,8 @@ import { SidebarListDirective } from 'app/@cms/shared/directives/sidebarlist.dir
 import { SidebarAnchorToggleDirective } from 'app/@cms/shared/directives/sidebaranchortoggle.directive';
 import { SidebarToggleDirective } from 'app/@cms/shared/directives/sidebartoggle.directive';
 import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAccessAdmin/cmsTokenAccessAdmin.component';
+import { CmsSearchContentListComponent } from '../cmsComponents/_base/cmsSearchContentList/cmsSearchContentList.component';
+import { NgxQueryBuilderModule } from 'ngx-query-builder';
 //import { ToggleFullscreenDirective } from './directives/toggle-fullscreen.directive';
 
 @NgModule({
@@ -36,6 +38,8 @@ import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAcc
         //ToggleFullscreenDirective,
         SidebarDirective,
         
+        CmsSearchContentListComponent,
+        
 
     ],
     imports: [
@@ -43,7 +47,8 @@ import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAcc
         CommonModule,
         NgbModule,
         TranslateModule,
-        PerfectScrollbarModule
+        PerfectScrollbarModule,
+        
     ],
     declarations: [
         CmsFooterComponent,
@@ -57,7 +62,9 @@ import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAcc
         SidebarListDirective,
         SidebarAnchorToggleDirective,
         SidebarToggleDirective,
-        CmsTokenAccessAdminComponent
+        CmsTokenAccessAdminComponent,
+
+        CmsSearchContentListComponent
     ]
 })
 export class CmsSharedModule { }

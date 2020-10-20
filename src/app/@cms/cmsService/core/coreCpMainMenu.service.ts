@@ -8,7 +8,7 @@ import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel
 @Injectable({
   providedIn: "root",
 })
-export class CoreCpMainMenuService extends ApiServerBase<number>
+export class CoreCpMainMenuService extends ApiServerBase<any,number>
   implements OnDestroy {
   coreCpMainMenu = new BehaviorSubject<Array<CoreCpMainMenuModel>>(
     new Array<CoreCpMainMenuModel>()
@@ -48,7 +48,7 @@ export class CoreCpMainMenuService extends ApiServerBase<number>
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<CoreCpMainMenuModel>) => {
           this.SetCoreCpMainMenu(ret.ListItems);
-          return this.errorExcptionResultCheck<CoreCpMainMenuModel>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -61,7 +61,7 @@ export class CoreCpMainMenuService extends ApiServerBase<number>
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

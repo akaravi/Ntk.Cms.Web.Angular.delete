@@ -82,7 +82,7 @@ export class NewsContentAddComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.newsContentService
-      .ServiceAdd<NewsContentModel>(this.dataModel)
+      .ServiceAdd(this.dataModel)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;

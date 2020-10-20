@@ -8,7 +8,7 @@ import { catchError, map, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsContentService extends ApiServerBase<number> implements OnDestroy {
+export class NewsContentService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
@@ -31,7 +31,7 @@ export class NewsContentService extends ApiServerBase<number> implements OnDestr
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

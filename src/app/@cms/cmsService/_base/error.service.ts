@@ -39,7 +39,7 @@ export class ErrorService {
           retry(this.configApiRetry),
           catchError(this.handleError),
           map((ret: ErrorExcptionResult<TOut>) => {
-            return this.errorExcptionResultCheck<TOut>(ret);
+            return this.errorExcptionResultCheck(ret);
           })
         )
     );

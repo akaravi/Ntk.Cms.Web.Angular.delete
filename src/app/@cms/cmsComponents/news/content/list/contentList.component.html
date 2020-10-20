@@ -11,7 +11,8 @@
         <div class="card-header">
           <h4 class="card-title" >
             دسته بندی
-          
+            
+
           </h4>
         </div>
         <div class="card-content">
@@ -38,6 +39,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title">لیست اخبار <span *ngIf="optionsCategorySelectData" >({{optionsCategorySelectData?.Title}})</span> </h4>
+      <span class="ml-3" *ngIf="contentService.loading$ | async">در حال بارگذاری...</span>
       <hr >
       <div >
         

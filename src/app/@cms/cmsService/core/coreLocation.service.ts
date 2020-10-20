@@ -8,7 +8,7 @@ import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 @Injectable({
   providedIn: 'root',
 })
-export class CoreLocationService extends ApiServerBase<number> implements OnDestroy {
+export class CoreLocationService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
@@ -31,7 +31,7 @@ export class CoreLocationService extends ApiServerBase<number> implements OnDest
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -46,7 +46,7 @@ export class CoreLocationService extends ApiServerBase<number> implements OnDest
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -61,7 +61,7 @@ export class CoreLocationService extends ApiServerBase<number> implements OnDest
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

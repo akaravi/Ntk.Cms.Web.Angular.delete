@@ -12,7 +12,7 @@ import { LinkManagementTargetShortLinkGetResponceModel } from 'app/@cms/cmsModel
 @Injectable({
   providedIn: 'root',
 })
-export class LinkManagementTargetService extends ApiServerBase<number> implements OnDestroy {
+export class LinkManagementTargetService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
@@ -35,7 +35,7 @@ export class LinkManagementTargetService extends ApiServerBase<number> implement
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<LinkManagementTargetShortLinkSetResponceModel>) => {
-          return this.errorExcptionResultCheck<LinkManagementTargetShortLinkSetResponceModel>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -50,7 +50,7 @@ export class LinkManagementTargetService extends ApiServerBase<number> implement
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<LinkManagementTargetShortLinkGetResponceModel>) => {
-          return this.errorExcptionResultCheck<LinkManagementTargetShortLinkGetResponceModel>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

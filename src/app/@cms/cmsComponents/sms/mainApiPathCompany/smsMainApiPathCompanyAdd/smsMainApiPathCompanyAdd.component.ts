@@ -5,8 +5,6 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { FormGroup } from "@angular/forms";
-import { baseEntityCategory } from "app/@cms/cmsModels/base/baseEntityCategory";
-import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
 import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
@@ -56,7 +54,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathCompanyService
-      .ServiceAdd<SmsMainApiCompanyModel>(this.dataModel)
+      .ServiceAdd(this.dataModel)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;

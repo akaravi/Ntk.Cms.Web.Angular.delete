@@ -70,7 +70,7 @@ export class NewsCategoryAddComponent implements OnInit {
     this.formInfo.formAlert="در حال ارسال اطلاعات به سرور";
     this.formInfo.formError="";
     this.newsCategoryService
-      .ServiceAdd<baseEntityCategory<number>>(this.dataModelCategory)
+      .ServiceAdd(this.dataModelCategory)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;

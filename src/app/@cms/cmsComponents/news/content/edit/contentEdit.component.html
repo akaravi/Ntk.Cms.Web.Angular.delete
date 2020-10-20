@@ -3,9 +3,10 @@
       <div class="col-md-12">
           <div class="card">
               <div class="card-header pb-2">
-                  <h4 class="card-title" id="horz-layout-basic">محتوای جدید</h4>
+                  <h4 class="card-title" id="horz-layout-basic">ویرایش محتوا</h4>
                   <p class="mb-0">
-                      این فرم افقی پایه با برچسب ها در سمت چپ است و شکل های کنترل را در سمت راست در یک خط قرار می
+                    <span class="ml-3" *ngIf="newsContentService.loading$ | async">در حال بارگذاری...</span>
+
                   </p>
               </div>
               <div class="card-content">

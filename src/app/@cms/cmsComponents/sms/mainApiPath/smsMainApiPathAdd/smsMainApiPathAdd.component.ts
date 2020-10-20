@@ -82,7 +82,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathService
-      .ServiceAdd<SmsMainApiPathModel>(this.dataModel)
+      .ServiceAdd(this.dataModel)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;

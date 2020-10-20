@@ -27,7 +27,7 @@ export class NewsContentEditComponent implements OnInit {
   private dateModleInput: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private newsContentService: NewsContentService,
+    public newsContentService: NewsContentService,
     public coreEnumService: CoreEnumService,
     private alertService: ToastrService,
     private publicHelper: PublicHelper
@@ -84,7 +84,7 @@ export class NewsContentEditComponent implements OnInit {
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
     this.newsContentService
-      .ServiceGetOneById<NewsContentModel>(this.ContentId)
+      .ServiceGetOneById(this.ContentId)
       .subscribe(
         (next) => {
           this.dataModel = next.Item;
@@ -116,7 +116,7 @@ export class NewsContentEditComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.newsContentService
-      .ServiceEdit<NewsContentModel>(this.dataModel)
+      .ServiceEdit(this.dataModel)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = true;

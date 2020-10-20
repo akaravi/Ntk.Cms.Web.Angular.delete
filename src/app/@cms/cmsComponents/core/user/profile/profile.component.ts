@@ -102,7 +102,7 @@ export class CoreUserProfileComponent implements OnInit {
     //   return;
     // }
     
-    this.coreUserService.ServiceEdit<CoreUser>(this.CorrectUserInfo).subscribe(
+    this.coreUserService.ServiceEdit(this.CorrectUserInfo).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.alertService.success(

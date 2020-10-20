@@ -1,1 +1,2 @@
+<span class="ml-3" *ngIf="categoryService.loading$ | async">در حال بارگذاری...</span>
 <tree-root [nodes]="dataModelCategory.ListItems" [options]="optionsModelTree"></tree-root>

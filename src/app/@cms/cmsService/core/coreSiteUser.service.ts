@@ -7,7 +7,7 @@ import { catchError,map, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: "root",
 })
-export class CoreSiteUserService extends ApiServerBase<number>
+export class CoreSiteUserService extends ApiServerBase<any,number>
   implements OnDestroy {
   subManager = new Subscription();
   getModuleCotrolerUrl() {
@@ -29,7 +29,7 @@ export class CoreSiteUserService extends ApiServerBase<number>
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -43,7 +43,7 @@ export class CoreSiteUserService extends ApiServerBase<number>
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

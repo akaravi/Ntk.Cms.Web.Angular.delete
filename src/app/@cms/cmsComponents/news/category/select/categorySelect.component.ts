@@ -20,7 +20,7 @@ export class NewsCategorySelectComponent implements OnInit {
   constructor(
     private alertService: ToastrService,
     private publicHelper: PublicHelper,
-    private categoryService: NewsCategoryService
+    public categoryService: NewsCategoryService
   ) {}
 
   ngOnInit() {
@@ -81,7 +81,7 @@ export class NewsCategorySelectComponent implements OnInit {
   
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
-    this.categoryService.ServiceGetAll<NewsCategoryModel>(this.filteModelCategory).subscribe(
+    this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelCategory = next;

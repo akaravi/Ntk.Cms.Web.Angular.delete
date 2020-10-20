@@ -26,6 +26,8 @@ import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: "app-news-content-List",
@@ -33,16 +35,18 @@ import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
   styleUrls: ["./contentList.component.scss"],
 })
 export class NewsContentListComponent implements OnInit {
-  constructor(
-    private alertService: ToastrService,
-    private publicHelper: PublicHelper,
-    private contentService: NewsContentService,
-    private modalService: NgbModal
-  ) {}
   @ViewChild("contentContentAdd", { static: false })
   contentContentAdd: ElementRef;
   @ViewChild("contentContentEdit", { static: false })
   contentContentEdit: ElementRef;
+  constructor(
+    
+    private alertService: ToastrService,
+    private publicHelper: PublicHelper,
+    public contentService: NewsContentService,
+    private modalService: NgbModal
+  ) {}
+
   ngOnInit() {
     this.optionsCategorySelect.actions = {
       onActionSelect: (x) => this.onActionCategorySelect(x),
@@ -188,8 +192,6 @@ export class NewsContentListComponent implements OnInit {
     this.tableContentloading = true;
     this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
-        
-
         if (next.IsSuccess) {
           this.dataModelResult = next;
           this.tableContentloading = false;

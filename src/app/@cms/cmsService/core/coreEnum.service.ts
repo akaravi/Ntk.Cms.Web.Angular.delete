@@ -13,7 +13,7 @@ import { ApiServerBase } from "../_base/apiServerBase.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreEnumService extends ApiServerBase<number> implements OnDestroy {
+export class CoreEnumService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
   
   getModuleCotrolerUrl() {

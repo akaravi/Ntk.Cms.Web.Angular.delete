@@ -8,7 +8,7 @@ import { SearchTagModel } from 'app/@cms/cmsModels/base/searchModel';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsContentTagService extends ApiServerBase<number> implements OnDestroy {
+export class NewsContentTagService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
@@ -30,7 +30,7 @@ export class NewsContentTagService extends ApiServerBase<number> implements OnDe
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

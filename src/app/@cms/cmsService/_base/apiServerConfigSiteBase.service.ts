@@ -74,7 +74,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
       retry(this.configApiRetry),
       catchError(this.handleError),
       map((ret: ErrorExcptionResult<TOut>) => {
-        return this.errorExcptionResultCheck<TOut>(ret);
+        return this.errorExcptionResultCheck(ret);
       })
     );
 
@@ -89,7 +89,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -103,7 +103,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -121,7 +121,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -136,7 +136,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -150,7 +150,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -164,7 +164,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -182,7 +182,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -199,7 +199,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -217,7 +217,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -231,7 +231,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -245,7 +245,7 @@ export class ApiServerConfigSiteBase implements OnDestroy {
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

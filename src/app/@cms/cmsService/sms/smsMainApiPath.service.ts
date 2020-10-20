@@ -5,7 +5,7 @@ import { catchError, map, retry } from 'rxjs/operators';
 import { ApiServerBase } from '../_base/apiServerBase.service';
 
 @Injectable()
-export class SmsMainApiPathService extends ApiServerBase<number> implements OnDestroy {
+export class SmsMainApiPathService extends ApiServerBase<any,number> implements OnDestroy {
 
     subManager = new Subscription();
 

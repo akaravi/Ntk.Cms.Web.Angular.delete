@@ -12,7 +12,7 @@ import { CoreSiteAddFirstSiteDtoModel } from 'app/@cms/cmsModels/core/coreSiteAd
 @Injectable({
   providedIn: 'root',
 })
-export class CoreSiteService extends ApiServerBase<number> implements OnDestroy {
+export class CoreSiteService extends ApiServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
@@ -34,7 +34,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
       .post(this.baseUrl + this.getModuleCotrolerUrl() + "/WebScreenshot" ,model, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         },catchError(this.handleError))
       );
   }
@@ -44,7 +44,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
       .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AddFirstSite" ,model, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         },catchError(this.handleError))
       );
   }
@@ -59,7 +59,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -74,7 +74,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -89,7 +89,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -103,7 +103,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -117,7 +117,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }
@@ -127,7 +127,7 @@ export class CoreSiteService extends ApiServerBase<number> implements OnDestroy 
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/Domains/" + id, { headers: this.getHeaders() })
       .pipe(
         map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck<TOut>(ret);
+          return this.errorExcptionResultCheck(ret);
         },catchError(this.handleError))
       );
   }

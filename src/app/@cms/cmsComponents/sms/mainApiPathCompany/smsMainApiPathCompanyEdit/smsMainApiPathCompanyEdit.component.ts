@@ -74,7 +74,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathCompanyService
-      .ServiceGetOneById<SmsMainApiCompanyModel>(this.ContentId)
+      .ServiceGetOneById(this.ContentId)
       .subscribe(
         (next) => {
           
@@ -98,7 +98,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathCompanyService
-      .ServiceEdit<SmsMainApiCompanyModel>(this.dataModel)
+      .ServiceEdit(this.dataModel)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = true;

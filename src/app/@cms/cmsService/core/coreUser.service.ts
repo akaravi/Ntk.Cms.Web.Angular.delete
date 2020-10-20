@@ -9,7 +9,7 @@ import { AuthService } from "app/@theme/shared/auth/auth.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoreUserService extends ApiServerBase<number> implements OnDestroy {
+export class CoreUserService extends ApiServerBase<any,number> implements OnDestroy {
   CorrectUser = new BehaviorSubject<CoreUser>(null);
   CorrectUserObs = this.CorrectUser.asObservable();
   subManager = new Subscription();
@@ -35,7 +35,7 @@ export class CoreUserService extends ApiServerBase<number> implements OnDestroy 
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<CoreUser>) => {
           this.SetCorrectUser(ret.Item);
-          return this.errorExcptionResultCheck<CoreUser>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
     
@@ -55,7 +55,7 @@ export class CoreUserService extends ApiServerBase<number> implements OnDestroy 
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<CoreUser>) => {
-          return this.errorExcptionResultCheck<CoreUser>(ret);
+          return this.errorExcptionResultCheck(ret);
         })
       );
   }

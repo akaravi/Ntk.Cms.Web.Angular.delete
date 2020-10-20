@@ -69,7 +69,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     
       this.formInfo.formAlert = "در حال لود اطلاعات";
       this.newsCategoryService
-        .ServiceGetOneById<baseEntityCategory<number>>(this.Id)
+        .ServiceGetOneById(this.Id)
         .subscribe(
           (next) => {
             this.dataModelResultCategory = next;
@@ -100,7 +100,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
       var filterModel: FilterModel = new FilterModel();
       filterModel.RowPerPage = 100;
       this.newsCategoryService
-        .ServiceGetAll<baseEntityCategory<number>>(filterModel)
+        .ServiceGetAll(filterModel)
         .subscribe(
           (next) => {
             this.dataModelResultCategoryAllData = next;
@@ -159,7 +159,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     this.formInfo.disabledButtonSubmitted = true;
 
     this.newsCategoryService
-      .ServiceDelete<baseEntityCategory<number>>(this.Id)
+      .ServiceDelete(this.Id)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;

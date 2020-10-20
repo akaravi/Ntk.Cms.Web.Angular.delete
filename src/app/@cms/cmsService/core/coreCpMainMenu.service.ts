@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { Subscription, Observable, BehaviorSubject } from "rxjs";
-import { ApiServerBase } from "../_base/apiServerBase.service";
+import { ApiCmsServerBase } from "../_base/apiCmsServerBase.service";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { catchError, map, retry } from "rxjs/operators";
@@ -8,7 +8,7 @@ import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel
 @Injectable({
   providedIn: "root",
 })
-export class CoreCpMainMenuService extends ApiServerBase<any,number>
+export class CoreCpMainMenuService extends ApiCmsServerBase<any,number>
   implements OnDestroy {
   coreCpMainMenu = new BehaviorSubject<Array<CoreCpMainMenuModel>>(
     new Array<CoreCpMainMenuModel>()

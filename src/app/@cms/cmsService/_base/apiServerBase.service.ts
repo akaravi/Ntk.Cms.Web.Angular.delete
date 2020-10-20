@@ -16,7 +16,7 @@ import { environment } from "environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class ApiServerBase<TOut, TKey> implements OnDestroy {
+export class ApiCmsServerBase<TOut, TKey> implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
@@ -52,7 +52,9 @@ export class ApiServerBase<TOut, TKey> implements OnDestroy {
     if (model) {
       if (model.IsSuccess) {
       } else {
-        this.alertService.error(model.ErrorMessage, "خطا در دریافت از سرور");
+        let title="خطا در دریافت اطلاعات از سرور";
+        let message=model.ErrorMessage
+        this.alertService.error(message, title);
       }
     }
     this._loading$.next(false);
@@ -65,12 +67,16 @@ export class ApiServerBase<TOut, TKey> implements OnDestroy {
     let errorMessage = error.message;
     if (error.status) {
       if (error.status == 401) {
-        window.location.href = environment.cmsUiConfig.Pathlogin;
-        //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+        //window.location.href = environment.cmsUiConfig.Pathlogin;
+        this.router.navigate([environment.cmsUiConfig.Pathlogin]);
       }
       // server-side error
       errorMessage = `Cms Error Code: ${error.status}\nMessage: ${error.message}`;
+
       if (error.status == 401 || error.status == "401") {
+        let title="خطای امنیتی";
+        let message="لطفا مجدد وارد سیستم شود";
+        this.alertService.error(message, title);
         this.router.navigate([environment.cmsUiConfig.Pathlogin]);
       }
     } else if (error.error instanceof ErrorEvent) {
@@ -78,7 +84,7 @@ export class ApiServerBase<TOut, TKey> implements OnDestroy {
       errorMessage = `Cms Error: ${error.error.message}`;
     }
 
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
     return throwError(errorMessage);
   }
 

@@ -8,11 +8,11 @@ import {
   Input,
 } from "@angular/core";
 import { FlowDirective, Transfer } from "@flowjs/ngx-flow";
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
-import { environment } from 'environments/environment';
+import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
+import { environment } from "environments/environment";
 import { Subscription } from "rxjs";
 
-const URL = environment.cmsServerConfig.configApiServerPath+"FileContent/Upload/";
+const URL =  environment.cmsServerConfig.configApiServerPath + "FileContent/Upload/";
 //const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
 @Component({
   selector: "app-upload-file",
@@ -24,18 +24,18 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
   constructor(private cd: ChangeDetectorRef) {}
   @Input()
   set options(model: ComponentOptionModel) {
-    this.dateOptionInput = model;  
+    this.dateOptionInput = model;
   }
   get options(): ComponentOptionModel {
     return this.dateOptionInput;
   }
-  private dateOptionInput: ComponentOptionModel=new ComponentOptionModel();
+  private dateOptionInput: ComponentOptionModel = new ComponentOptionModel();
 
   @ViewChild("flow", { static: false })
   flow: FlowDirective;
   autoUploadSubscription: Subscription;
   flowOption: flowjs.FlowOptions;
-  uploadViewImage=false;
+  uploadViewImage = false;
   ngOnInit() {
     this.flowOption = {
       target: URL,
@@ -72,16 +72,18 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
   }
   fileSuccess(event: any) {
     if (event && event.event) {
-      
-      if (this.dateOptionInput && this.dateOptionInput.actions && this.dateOptionInput.actions.onActionSelect) {
-        const model={
-          fileName:event.event[0].name,
-          fileKey:event.event[1]
-        }
-      
+      if (
+        this.dateOptionInput &&
+        this.dateOptionInput.actions &&
+        this.dateOptionInput.actions.onActionSelect
+      ) {
+        const model = {
+          fileName: event.event[0].name,
+          fileKey: event.event[1],
+        };
 
         this.dateOptionInput.actions.onActionSelect(model);
-        this.dateOptionInput.dataModel={Select:model};
+        this.dateOptionInput.dataModel = { Select: model };
       }
     }
   }

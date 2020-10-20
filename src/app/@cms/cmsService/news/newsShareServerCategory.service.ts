@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ApiServerBase } from '../_base/apiServerBase.service';
+import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { catchError, map, retry } from 'rxjs/operators';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
@@ -8,7 +8,7 @@ import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 @Injectable({
   providedIn: 'root',
 })
-export class NewsShareServerCategoryService extends ApiServerBase<any,number> implements OnDestroy {
+export class NewsShareServerCategoryService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ApiServerBase } from '../_base/apiServerBase.service';
+import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NewsShareMainAdminSettingService extends ApiServerBase<any,number> implements OnDestroy {
+export class NewsShareMainAdminSettingService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()

@@ -191,7 +191,7 @@ export class SmsMainApiPathListComponent implements OnInit {
       this.optionsCategorySelectData = model.data;
 
       var aaa = {
-        PropertyName: "LinkCategoryId",
+        PropertyName: "LinkApiPathCompanyId",
         IntValue1: model.data.Id,
       };
       this.filteModelContent.Filters.push(aaa as FilterDataModel);

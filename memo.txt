@@ -7,7 +7,7 @@ Set-ExecutionPolicy RemoteSigned
 Set-ExecutionPolicy Restricted
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-============================
+============================ this only ok
 Press the windows-button on your keyboard.
 Type ‘PowerShell’
 Right-click Windows PowerShell
@@ -22,3 +22,6 @@ path Add
 
 setx path "%path%;%appdata%\npm
 npm install --global http-server
+==============================
+git config core.ignorecase false
+=============================

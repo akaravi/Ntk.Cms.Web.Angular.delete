@@ -1,15 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterContentChecked } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+  ChangeDetectorRef,
+} from "@angular/core";
 import {
   FilterModel,
   FilterDataModel,
 } from "app/@cms/cmsModels/base/filterModel";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
 
 import {
-  DatatableComponent,
   ColumnMode,
   TableColumn,
   SelectionType,
@@ -17,38 +22,36 @@ import {
 import {
   TREE_ACTIONS,
   KEYS,
-  IActionMapping,
   ITreeOptions,
 } from "angular-tree-component";
 import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
-import { PersianCalendarService } from "app/@cms/cmsCommon/pipe/PersianDatePipe/persian-date.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
-import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { NewsCategoryModel } from "app/@cms/cmsModels/news/newsCategoryModel";
+import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
+import { BaseComponent } from "app/@cms/cmsComponents/_base/baseComponent";
 
 @Component({
   selector: "app-news-content-List",
   templateUrl: "./contentList.component.html",
   styleUrls: ["./contentList.component.scss"],
 })
-export class NewsContentListComponent implements OnInit {
+export class NewsContentListComponent
+  extends BaseComponent
+  implements OnInit, AfterViewChecked {
   @ViewChild("contentContentAdd", { static: false })
   contentContentAdd: ElementRef;
   @ViewChild("contentContentEdit", { static: false })
   contentContentEdit: ElementRef;
   constructor(
-    
-    private toastrService: CmsToastrServiceService,
-    private publicHelper: PublicHelper,
-    public contentService: NewsContentService,
-    private modalService: NgbModal,
+    cdRef: ChangeDetectorRef,
+    toastrService: CmsToastrServiceService,
+    publicHelper: PublicHelper,
+    modalService: NgbModal,
+    public contentService: NewsContentService
   ) {
-
-    
+    super(cdRef, toastrService, publicHelper, modalService);
   }
 
   ngOnInit() {
@@ -59,14 +62,24 @@ export class NewsContentListComponent implements OnInit {
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
-
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.contentService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.cdRef.detectChanges();
+    }
+  }
+ 
   filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
   dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResultViewModel: ErrorExcptionResult<
+  dataModelResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<
     any
-  > = new ErrorExcptionResult<any>();
+  >();
+  dataModelResultViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<
+    any
+  >();
   // Table Column Titles
   columnMode = ColumnMode;
   selectionType = SelectionType;
@@ -112,21 +125,21 @@ export class NewsContentListComponent implements OnInit {
           if (node.hasChildren)
             TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
         },
-        click: (tree, node, $event) => {
+        click: (tree, node) => {
           this.onActionCategorySelect(node);
         },
       },
       keys: {
-        [KEYS.ENTER]: (tree, node, $event) => {
+        [KEYS.ENTER]: (tree, node) => {
           node.expandAll();
         },
       },
     },
     //nodeHeight: 23,
-    allowDrag: (node) => {
+    allowDrag: () => {
       return false;
     },
-    allowDrop: (node) => {
+    allowDrop: () => {
       return false;
     },
     allowDragoverStyling: true,
@@ -211,21 +224,7 @@ export class NewsContentListComponent implements OnInit {
       }
     );
   }
-  // DataGetAllCategory() {
-  //   this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
-  //     (next) => {
-  //       if (next.IsSuccess) {
-  //         this.dataModelResultCategory = next;
-  //       }
-  //     },
-  //     (error) => {
-  //       this.toastrService.error(
-  //         this.publicHelper.CheckError(error),
-  //         "برروی خطا در دریافت اطلاعات"
-  //       );
-  //     }
-  //   );
-  // }
+ 
   onActionCategorySelect(model: any) {
     this.filteModelContent = new FilterModel();
     this.optionsCategorySelectData = null;
@@ -257,36 +256,34 @@ export class NewsContentListComponent implements OnInit {
     }
     this.DataGetAllContent();
   }
-  onActionSelect(event) {
+  onActionSelect() {
     //your code here
     //console.log("onActionSelect Event", event);
     //console.log("tableContentSelected Event", this.tableContentSelected);
   }
-  private modals: any[] = [];
 
   onActionbuttonNewRow() {
     if (
       this.optionsCategorySelectData == null ||
       this.optionsCategorySelectData.Id == 0
     ) {
-      var title="برروز خطا ";
-      var message="دسته بندی انتخاب نشده است";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "دسته بندی انتخاب نشده است";
+      this.toastrService.toastr.error(message, title);
       return;
     }
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.Access ==null||
+      this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessAddRow
     ) {
-      var title="برروز خطا ";
-      var message="شما دسترسی برای اضافه کردن ندارید";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "شما دسترسی برای اضافه کردن ندارید";
+      this.toastrService.toastr.error(message, title);
       return;
     }
     this.openModal(this.contentContentAdd);
   }
-
 
   onActionbuttonEditRow() {
     if (
@@ -294,19 +291,19 @@ export class NewsContentListComponent implements OnInit {
       this.tableContentSelected.length == 0 ||
       this.tableContentSelected[0].Id == 0
     ) {
-      var title="برروز خطا ";
-      var message="ردیفی برای ویرایش انتخاب نشده است";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      this.toastrService.toastr.error(message, title);
       return;
     }
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.Access==null ||
+      this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessEditRow
     ) {
-      var title="برروز خطا ";
-      var message="شما دسترسی برای ویرایش ندارید";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "شما دسترسی برای ویرایش ندارید";
+      this.toastrService.toastr.error(message, title);
       return;
     }
     this.openModal(this.contentContentEdit);

@@ -1,4 +1,6 @@
 import { Inject, Injectable, Injector, OnDestroy } from "@angular/core";
+import { debounceTime, delay, map, tap } from "rxjs/operators";
+
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
@@ -16,14 +18,11 @@ export class ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
-  public _loadingBS$ = new BehaviorSubject<boolean>(false);
-  _loadingObs = this._loadingBS$.asObservable();
+  public cmsloadingBS = new BehaviorSubject<boolean>(false);
+  private cmsloadingObs = this.cmsloadingBS.asObservable();
   public loadingText = "در حال بارگذاری...";
-  public loadingStatus = false;
-  get loadingStatusAsync() {
-    return this._loadingObs;
-  }
-  
+  public loadingStatus: boolean = false;
+
   constructor(
     @Inject(Injector) private injector: Injector,
     public http: HttpClient,
@@ -34,14 +33,16 @@ export class ApiServerBase implements OnDestroy {
   ) {
     this.childConstructor();
 
-    this._loadingObs.subscribe((vlaue) => {
-      this.loadingStatus = vlaue;
+    this.cmsloadingObs.subscribe({
+      next: (x) => {
+        this.loadingStatus =x;
+      },
     });
   }
   public get toastrService(): ToastrService {
     return this.injector.get(ToastrService);
   }
-   
+
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
@@ -75,12 +76,12 @@ export class ApiServerBase implements OnDestroy {
         if (this.toastrService) this.toastrService.error(message, title);
       }
     }
-    this._loadingBS$.next(false);
+    this.cmsloadingBS.next(false);
 
     return model;
   }
   handleError(error) {
-    //this._loadingBS$.next(false);
+    //this.cmsloadingBS.next(false);
     if (!error) return;
     let errorMessage = error.message;
     if (error.status) {

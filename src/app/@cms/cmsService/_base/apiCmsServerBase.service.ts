@@ -22,7 +22,7 @@ export class ApiCmsServerBase<TOut, TKey>
   implements OnDestroy {
   
   ServiceViewModel() {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/ViewModel", {
         headers: this.getHeaders(),
@@ -36,7 +36,7 @@ export class ApiCmsServerBase<TOut, TKey>
   }
 
   ServiceGetAll(model: FilterModel) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     if (model == null) model = new FilterModel();
 
     return this.http
@@ -58,7 +58,7 @@ export class ApiCmsServerBase<TOut, TKey>
   }
 
   ServiceGetOneById(id: TKey) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .get(this.baseUrl + this.getModuleCotrolerUrl() + "/" + id, {
         headers: this.getHeaders(),
@@ -73,7 +73,7 @@ export class ApiCmsServerBase<TOut, TKey>
   }
 
   ServiceGetCount(model: FilterModel) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     if (model == null) model = new FilterModel();
 
     return this.http
@@ -89,7 +89,7 @@ export class ApiCmsServerBase<TOut, TKey>
       );
   }
   ServiceExportFile(model: FilterModel) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     if (model == null) model = new FilterModel();
 
     return this.http
@@ -105,7 +105,7 @@ export class ApiCmsServerBase<TOut, TKey>
       );
   }
   ServiceAdd(model: any) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .post(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
         headers: this.getHeaders(),
@@ -120,7 +120,7 @@ export class ApiCmsServerBase<TOut, TKey>
   }
 
   ServiceEdit(model: any) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .put(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
         headers: this.getHeaders(),
@@ -135,7 +135,7 @@ export class ApiCmsServerBase<TOut, TKey>
   }
 
   ServiceDelete(id: any) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .delete(this.baseUrl + this.getModuleCotrolerUrl() + "/" + id, {
         headers: this.getHeaders(),
@@ -149,7 +149,7 @@ export class ApiCmsServerBase<TOut, TKey>
       );
   }
   ServiceDeleteList(ids: Array<any>) {
-    this._loadingBS$.next(true);
+    this.cmsloadingBS.next(true);
     return this.http
       .post(this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids, {
         headers: this.getHeaders(),

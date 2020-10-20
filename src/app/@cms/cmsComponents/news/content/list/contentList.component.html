@@ -59,11 +59,10 @@
       <app-cms-search-content-list [options]="optionsSearch" ></app-cms-search-content-list>
       <hr>
     </div>
-a:{{contentService.loadingStatus}}
-b:{{contentService.loadingText}}
+
     <div class="card-content">
-      <span class="ml-3" *ngIf="contentService.loadingStatusAsync |async">ddddddddddd</span>
-      <div class="card-body" *ngIf="!(contentService.loadingStatusAsync |async)">
+      <span class="ml-3" *ngIf=" loadingStatus">{{contentService.loadingText}}</span>
+      <div class="card-body"  *ngIf="!loadingStatus">
         
         
         

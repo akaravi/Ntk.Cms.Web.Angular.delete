@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
 import {
   FilterModel,
   FilterDataModel,
@@ -18,7 +18,18 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
   styleUrls: ["./categorySelect.component.scss"],
 })
 export class NewsCategorySelectComponent implements OnInit {
+  @Input()
+  set options(modelInput: ComponentOptionModel) {
+    this.dateModleInput = modelInput;  
+  }
+  get options(): ComponentOptionModel {
+    return this.dateModleInput;
+  }
+  private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
+  
   constructor(
+   private cdRef: ChangeDetectorRef,
+
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: NewsCategoryService
@@ -30,14 +41,14 @@ export class NewsCategorySelectComponent implements OnInit {
     this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
     
   }
-  @Input()
-  set options(modelInput: ComponentOptionModel) {
-    this.dateModleInput = modelInput;  
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.categoryService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.cdRef.detectChanges();
+    }
   }
-  get options(): ComponentOptionModel {
-    return this.dateModleInput;
-  }
-  private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
   
 
   filteModelCategory = new FilterModel();

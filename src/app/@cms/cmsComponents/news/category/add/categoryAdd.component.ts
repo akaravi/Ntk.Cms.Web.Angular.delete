@@ -8,6 +8,7 @@ import { FormGroup } from "@angular/forms";
 import { baseEntityCategory } from "app/@cms/cmsModels/base/baseEntityCategory";
 import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
 import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-news-category-add",
@@ -19,7 +20,7 @@ export class NewsCategoryAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     private newsCategoryService: NewsCategoryService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
 
@@ -86,7 +87,7 @@ export class NewsCategoryAddComponent implements OnInit {
         },
         (error) => {
           this.formInfo.formAllowSubmit = true;
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );

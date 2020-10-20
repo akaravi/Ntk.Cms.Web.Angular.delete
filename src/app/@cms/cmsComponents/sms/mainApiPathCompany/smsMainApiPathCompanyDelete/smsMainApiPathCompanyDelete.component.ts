@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -22,7 +23,7 @@ export class SmsMainApiPathCompanyDeleteComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: SmsMainApiPathCompanyService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {}
   Id: any;

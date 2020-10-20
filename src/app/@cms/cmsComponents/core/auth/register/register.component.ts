@@ -10,6 +10,7 @@ import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { environment } from "environments/environment";
 import { AuthUserSignUpModel } from "app/@cms/cmsModels/core/authModel";
 import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-cms-register-page",
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}
@@ -54,13 +55,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
             if (this.returnUrl === null || this.returnUrl === undefined) {
               this.returnUrl = this.cmsAuthService.getLoginUrl();
             }
-            this.alertService.info("وارد حساب خود شوید", "توجه");
+            this.toastrService.toastr.info("وارد حساب خود شوید", "توجه");
 
             this.router.navigate([this.returnUrl]);
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در ثبت نام"
           );
@@ -75,7 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.captchaModel =  next.Item;
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت عکس کپچا"
           );

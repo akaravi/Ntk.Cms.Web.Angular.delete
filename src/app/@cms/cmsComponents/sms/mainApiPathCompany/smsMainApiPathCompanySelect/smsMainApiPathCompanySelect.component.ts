@@ -10,6 +10,7 @@ import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: 'app-sms-main-api-path-company-select',
@@ -28,7 +29,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
   
 
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private categoryService: SmsMainApiPathCompanyService
   ) {}
@@ -89,7 +90,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );

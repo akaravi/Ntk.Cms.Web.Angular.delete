@@ -8,6 +8,7 @@ import { FormGroup } from "@angular/forms";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
 import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -68,7 +69,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
         },
         (error) => {
           this.formInfo.formAllowSubmit = true;
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );

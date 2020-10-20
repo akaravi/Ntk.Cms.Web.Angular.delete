@@ -8,6 +8,7 @@ import { CoreSiteCategoryService } from "../../../../cmsService/core/coreSiteCat
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { DatatableComponent } from "@swimlane/ngx-datatable/release";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-cms-site-list",
@@ -31,7 +32,7 @@ export class CoreSiteListComponent implements OnInit {
   table: DatatableComponent;
 
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
@@ -52,7 +53,7 @@ export class CoreSiteListComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );

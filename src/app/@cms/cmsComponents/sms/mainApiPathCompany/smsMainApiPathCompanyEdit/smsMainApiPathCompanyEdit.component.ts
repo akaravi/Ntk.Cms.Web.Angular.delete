@@ -10,6 +10,7 @@ import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.servi
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
 import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-sms-main-api-path-company-edit",
@@ -32,7 +33,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -67,7 +68,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
-      this.alertService.error(message, title);
+      this.toastrService.toastr.error(message, title);
       return;
     }
 
@@ -87,7 +88,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
@@ -112,7 +113,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
         },
         (error) => {
           this.formInfo.formAllowSubmit = true;
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );

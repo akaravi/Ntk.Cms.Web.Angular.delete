@@ -7,6 +7,7 @@ import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -29,7 +30,7 @@ export class NewsContentEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public newsContentService: NewsContentService,
     public coreEnumService: CoreEnumService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -77,7 +78,7 @@ export class NewsContentEditComponent implements OnInit {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
-      this.alertService.error(message, title);
+      this.toastrService.toastr.error(message, title);
       return;
     }
 
@@ -95,13 +96,13 @@ export class NewsContentEditComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }
@@ -109,7 +110,7 @@ export class NewsContentEditComponent implements OnInit {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
-      this.alertService.error(message, title);
+      this.toastrService.toastr.error(message, title);
       return;
     }
 
@@ -126,7 +127,7 @@ export class NewsContentEditComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
@@ -134,7 +135,7 @@ export class NewsContentEditComponent implements OnInit {
 
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }

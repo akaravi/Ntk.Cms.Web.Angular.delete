@@ -25,7 +25,7 @@ export class ApiCmsServerBase<TOut, TKey>
   // public configApiRetry = environment.cmsServerConfig.configApiRetry;
   // constructor(
   //   public http: HttpClient,
-  //   public alertService: ToastrService,
+  //   public toastrService: ToastrService,
   //   public router: Router,
   //   public store: Store<fromStore.State>,
   //   public cmsAuthService: CmsAuthService,
@@ -57,7 +57,7 @@ export class ApiCmsServerBase<TOut, TKey>
   //     } else {
   //       let title="خطا در دریافت اطلاعات از سرور";
   //       let message=model.ErrorMessage
-  //       this.alertService.error(message, title);
+  //       this.toastrService.error(message, title);
   //     }
   //   }
   //   this._loading$.next(false);
@@ -79,7 +79,7 @@ export class ApiCmsServerBase<TOut, TKey>
   //     if (error.status == 401 || error.status == "401") {
   //       let title="خطای امنیتی";
   //       let message="لطفا مجدد وارد سیستم شود";
-  //       this.alertService.error(message, title);
+  //       this.toastrService.error(message, title);
   //       this.router.navigate([environment.cmsUiConfig.Pathlogin]);
   //     }
   //   } else if (error.error instanceof ErrorEvent) {

@@ -11,6 +11,7 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -20,7 +21,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class SmsMainApiPathCompanyListComponent implements OnInit {
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private modalService: NgbModal
@@ -86,7 +87,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
@@ -102,7 +103,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای اضافه کردن ندارید";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     this.openModal(this.contentContentAdd);
@@ -115,7 +116,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="ردیفی برای ویرایش انتخاب نشده است";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     if (
@@ -125,7 +126,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای ویرایش ندارید";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     this.openModal(this.contentContentEdit);

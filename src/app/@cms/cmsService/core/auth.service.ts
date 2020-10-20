@@ -36,7 +36,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
 
   // constructor(
   //   private http: HttpClient,
-  //   private alertService: ToastrService,
+  //   private toastrService: CmsToastrServiceService,
   //   private router: Router,
   //   private store: Store<fromStore.State>
   // ) {
@@ -75,12 +75,12 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
               this.SetCorrectTokenInfo(ret.Item);
               let title = "تایید توکن";
               let message = "توکن شما مورد تایید سرور قرار گرفت";
-              this.alertService.success( message,title);
+              this.toastrService.success( message,title);
             } else {
               let title = "تایید توکن";
               let message =
                 "توکن شما مورد تایید سرور نبود . مجددا وار حساب کاربری شوید";
-              this.alertService.error( message,title);
+              this.toastrService.error( message,title);
               this.router.navigate([environment.cmsUiConfig.Pathlogin]);
             }
             return ret;
@@ -109,7 +109,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
         if (ret) {
           if (ret.IsSuccess) {
           } else {
-            this.alertService.error(
+            this.toastrService.error(
               ret.ErrorMessage,
               "خطا در دریافت  کلید عکس کپتچا"
             );
@@ -125,9 +125,9 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
-            this.alertService.success("با موفقیت ثبت نام شدید", "موفق");
+            this.toastrService.success("با موفقیت ثبت نام شدید", "موفق");
           } else {
-            this.alertService.error(ret.ErrorMessage, "خطا در ثبت نام");
+            this.toastrService.error(ret.ErrorMessage, "خطا در ثبت نام");
           }
           return ret;
         }
@@ -141,11 +141,11 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
-            this.alertService.success("با موفقیت وارد شدید", "موفق");
+            this.toastrService.success("با موفقیت وارد شدید", "موفق");
 
             this.SetCorrectTokenInfo(ret.Item);
           } else {
-            this.alertService.error(ret.ErrorMessage, "خطا در ورود");
+            this.toastrService.error(ret.ErrorMessage, "خطا در ورود");
           }
           return ret;
         }
@@ -166,13 +166,13 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
               const decodedToken = this.jwtHelper.decodeToken(ret.Item.token);
               this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
               this.userRoles = decodedToken.role as Array<string>;
-              //this.alertService.success("با موفقیت وارد شدید", "موفق");
+              //this.toastrService.success("با موفقیت وارد شدید", "موفق");
 
               this.SetCorrectTokenInfo(ret.Item);
               localStorage.setItem("token", ret.Item.token);
               localStorage.setItem("refreshToken", ret.Item.refresh_token);
             } else {
-              this.alertService.error(ret.ErrorMessage, "خطا در دریافت توکن");
+              this.toastrService.error(ret.ErrorMessage, "خطا در دریافت توکن");
             }
             return ret;
           }
@@ -189,12 +189,12 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
         map((ret: ErrorExcptionResult<TokenInfoModel>) => {
           if (ret) {
             if (ret.IsSuccess) {
-              this.alertService.success(
+              this.toastrService.success(
                 "تغییر پسورد با موفقیت انجام شد",
                 "موفق"
               );
             } else {
-              this.alertService.error(
+              this.toastrService.error(
                 ret.ErrorMessage,
                 "خطا در تغییر  پسورد حساب کاربری"
               );
@@ -210,12 +210,12 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
-            this.alertService.success(
+            this.toastrService.success(
               "دستور عمل بازیابی پسورد به آدرس ایمیل شما ارسال شد",
               "موفق"
             );
           } else {
-            this.alertService.error(ret.ErrorMessage, "خطا در بازیابی پسورد");
+            this.toastrService.error(ret.ErrorMessage, "خطا در بازیابی پسورد");
           }
           return ret;
         }
@@ -234,7 +234,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
             this.SetCorrectTokenInfo(null);
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
-            this.alertService.success("خروح شما با موفقیت انجام شد", "موفق");
+            this.toastrService.success("خروح شما با موفقیت انجام شد", "موفق");
 
             return ret;
           }

@@ -9,6 +9,7 @@ import { baseEntityCategory } from "app/@cms/cmsModels/base/baseEntityCategory";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { FormGroup } from "@angular/forms";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-news-category-delete",
@@ -28,7 +29,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private coreEnumService: CoreEnumService,
     private newsCategoryService: NewsCategoryService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {}
   ngOnInit() {
@@ -86,7 +87,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           (error) => {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formErrorStatus=true;
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
               "برروی خطا در دریافت اطلاعات"
             );
@@ -117,7 +118,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           (error) => {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formErrorStatus=true;
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
               "برروی خطا در دریافت اطلاعات"
             );
@@ -176,7 +177,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
         (error) => {
           this.formInfo.formAlert = "برروز خطا";
           this.formInfo.formAllowSubmit = true;
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
@@ -202,7 +203,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
       },
       (error) => {
         this.formInfo.formAlert = "برروز خطا";
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );

@@ -7,6 +7,7 @@ import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
 import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
 import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,7 +20,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -72,7 +73,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
   }
   DataAddContent() {
     if (this.linkCategoryId <= 0) {
-      this.alertService.error(
+      this.toastrService.toastr.error(
         "دسته بندی را مشخص کنید",
         "دسته بندی اطلاعات مشخص نیست"
       );
@@ -92,7 +93,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
@@ -100,7 +101,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
 
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }

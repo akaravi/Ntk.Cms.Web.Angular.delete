@@ -10,6 +10,7 @@ import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { NewsCategoryService } from "app/@cms/cmsService/news/newsCategory.service";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-news-category-select",
@@ -18,7 +19,7 @@ import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 })
 export class NewsCategorySelectComponent implements OnInit {
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: NewsCategoryService
   ) {}
@@ -88,7 +89,7 @@ export class NewsCategorySelectComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );

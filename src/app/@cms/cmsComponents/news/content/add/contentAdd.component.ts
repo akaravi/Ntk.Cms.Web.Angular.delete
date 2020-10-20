@@ -7,6 +7,7 @@ import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -19,7 +20,7 @@ export class NewsContentAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private newsContentService: NewsContentService,
     public coreEnumService: CoreEnumService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -72,7 +73,7 @@ export class NewsContentAddComponent implements OnInit {
   }
   DataAddContent() {
     if (this.linkCategoryId <= 0) {
-      this.alertService.error(
+      this.toastrService.toastr.error(
         "دسته بندی را مشخص کنید",
         "دسته بندی اطلاعات مشخص نیست"
       );
@@ -92,7 +93,7 @@ export class NewsContentAddComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
@@ -100,7 +101,7 @@ export class NewsContentAddComponent implements OnInit {
 
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }

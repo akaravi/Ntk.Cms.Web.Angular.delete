@@ -28,6 +28,7 @@ import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-news-content-List",
@@ -41,7 +42,7 @@ export class NewsContentListComponent implements OnInit {
   contentContentEdit: ElementRef;
   constructor(
     
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public contentService: NewsContentService,
     private modalService: NgbModal
@@ -179,7 +180,7 @@ export class NewsContentListComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );
@@ -198,7 +199,7 @@ export class NewsContentListComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );
@@ -214,7 +215,7 @@ export class NewsContentListComponent implements OnInit {
   //       }
   //     },
   //     (error) => {
-  //       this.alertService.error(
+  //       this.toastrService.error(
   //         this.publicHelper.CheckError(error),
   //         "برروی خطا در دریافت اطلاعات"
   //       );
@@ -266,7 +267,7 @@ export class NewsContentListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="دسته بندی انتخاب نشده است";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     if (
@@ -276,7 +277,7 @@ export class NewsContentListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای اضافه کردن ندارید";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     this.openModal(this.contentContentAdd);
@@ -291,7 +292,7 @@ export class NewsContentListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="ردیفی برای ویرایش انتخاب نشده است";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     if (
@@ -301,7 +302,7 @@ export class NewsContentListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای ویرایش ندارید";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     this.openModal(this.contentContentEdit);

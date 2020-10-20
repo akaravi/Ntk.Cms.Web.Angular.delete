@@ -18,6 +18,7 @@ import { environment } from "environments/environment";
 import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { value } from "app/shared/data/dropdowns";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-cms-navbar",
@@ -42,7 +43,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private coreCpMainMenuService: CoreCpMainMenuService
   ) {
@@ -126,7 +127,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در خروج از سیستم"
         );

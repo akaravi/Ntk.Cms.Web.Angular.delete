@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { AuthRenewTokenModel } from "app/@cms/cmsModels/core/authModel";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 import { BehaviorSubject } from "rxjs";
 
@@ -13,7 +14,7 @@ import { BehaviorSubject } from "rxjs";
 export class CmsTokenAccessAdminComponent implements OnInit {
   constructor(
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService
+    private toastrService: CmsToastrServiceService
   ) {
     this.cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
       //console.log("TokenInfo:",vlaue);
@@ -38,7 +39,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
 
     var title = "اطلاعات ";
     var message = "درخواست برای دسترسی جدید به سرور ارسال شد";
-    this.alertService.info(message, title);
+    this.toastrService.toastr.info(message, title);
 
     this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
@@ -46,11 +47,11 @@ export class CmsTokenAccessAdminComponent implements OnInit {
           this.cmsAuthService.CorrectTokenInfo.next(next.Item);
           var title = "اطلاعات ";
           var message = "دسترسی تایید شد";
-          this.alertService.success(message, title);
+          this.toastrService.toastr.success(message, title);
         } else {
           var title = "برروز خطا ";
           var message = next.ErrorMessage;
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       },
       (error) => {}
@@ -65,18 +66,18 @@ export class CmsTokenAccessAdminComponent implements OnInit {
 
     var title = "اطلاعات ";
     var message = "درخواست برای دسترسی جدید به سرور ارسال شد";
-    this.alertService.info(message, title);
+    this.toastrService.toastr.info(message, title);
 
     this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         if (next.IsSuccess) {
           var title = "اطلاعات ";
           var message = "دسترسی تایید شد";
-          this.alertService.success(message, title);
+          this.toastrService.toastr.success(message, title);
         } else {
           var title = "برروز خطا ";
           var message = next.ErrorMessage;
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       },
       (error) => {}

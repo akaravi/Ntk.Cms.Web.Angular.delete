@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { environment } from "environments/environment";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,7 @@ export class PublicHelper {
   //TokenInfo: TokenInfoModel;
   constructor(
     private router: Router,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     //cmsAuthService: CmsAuthService
   ) {
     // cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
@@ -26,7 +27,7 @@ export class PublicHelper {
   //   const token = localStorage.getItem("token");
 
   //   if (!token || token === "null") {
-  //     this.alertService.warning(
+  //     this.toastrService.warning(
   //       "لطفا مجددا وارد حساب کاربری خود شوید",
   //       "نیاز به ورود مجدد"
   //     );
@@ -38,7 +39,7 @@ export class PublicHelper {
   //   const token = localStorage.getItem("token");
 
   //   if (!token || token === "null") {
-  //     this.alertService.warning(
+  //     this.toastrService.warning(
   //       "لطفا مجددا وارد حساب کاربری خود شوید",
   //       "نیاز به ورود مجدد"
   //     );
@@ -55,7 +56,7 @@ export class PublicHelper {
       errorExcptionResult = model["error"];
       if (errorExcptionResult) {
         if (errorExcptionResult.Status == 401) {
-          this.alertService.warning(
+          this.toastrService.toastr.warning(
             "لطفا مجددا وارد حساب کاربری خود شوید",
             "نیاز به ورود مجدد"
           );

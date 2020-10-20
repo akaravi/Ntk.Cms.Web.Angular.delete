@@ -24,7 +24,7 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
 
   // constructor(
   //   public http: HttpClient,
-  //   public alertService: ToastrService,
+  //   public toastrService: ToastrService,
   //   public router: Router,
   //   public store: Store<fromStore.State>,
   //   public cmsAuthService: CmsAuthService,
@@ -47,7 +47,7 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
   //     if (model.IsSuccess) {
 
   //     } else {
-  //       this.alertService.error(model.ErrorMessage, "خطا در دریافت از سرور");
+  //       this.toastrService.error(model.ErrorMessage, "خطا در دریافت از سرور");
   //     }
   //   }
   //   return model;

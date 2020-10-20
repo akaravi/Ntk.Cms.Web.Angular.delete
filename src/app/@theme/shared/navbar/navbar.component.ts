@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService,
+    private toastrService: ToastrService,
     private publicHelper: PublicHelper
     
     ) {
@@ -106,7 +106,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
         (error) => {
-          this.alertService.error(this.publicHelper.CheckError( error), 'خطا در خروج از سیستم');
+          this.toastrService.error(this.publicHelper.CheckError( error), 'خطا در خروج از سیستم');
         }
       
     );

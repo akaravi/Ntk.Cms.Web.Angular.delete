@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
 import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 @Component({
   selector: "app-cms-site-select",
   templateUrl: "./select.component.html",
@@ -22,7 +23,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
   constructor(
     private cmsAuthService: CmsAuthService,
     private coreSiteService: CoreSiteService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private router: Router,
     private coreCpMainMenuService: CoreCpMainMenuService
@@ -40,11 +41,11 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
         (next) => {
           if (next.IsSuccess) {
             this.dataModel = next;
-            this.alertService.info("اطلاعات دریافت شد", "توجه");
+            this.toastrService.toastr.info("اطلاعات دریافت شد", "توجه");
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت اطلاعات وب سایتها"
           );
@@ -67,7 +68,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در ورود"
           );
@@ -89,7 +90,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
             }
           },
           (error) => {
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
               "خطا در ورود"
             );

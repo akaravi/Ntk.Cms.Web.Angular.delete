@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
 import { CaptchaModel } from 'app/@cms/cmsModels/base/captchaModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: 'app-cms-forgot-password',
@@ -27,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}
@@ -59,7 +60,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             'خطا در بازیابی پسورد'
           );
@@ -74,7 +75,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy  {
           this.captchaModel = next.Item;
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت عکس کپچا"
           );

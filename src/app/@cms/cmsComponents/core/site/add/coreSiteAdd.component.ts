@@ -14,6 +14,7 @@ import { CoreModuleService } from "../../../../cmsService/core/coreModule.servic
 import { CoreSiteCategoryService } from "../../../../cmsService/core/coreSiteCategory.service";
 import { CaptchaModel } from 'app/@cms/cmsModels/base/captchaModel';
 import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-cms-site-add",
@@ -33,7 +34,7 @@ export class CoreSiteAddComponent implements OnInit {
   captchaModel: CaptchaModel = new CaptchaModel();
 
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
@@ -67,7 +68,7 @@ export class CoreSiteAddComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در دریافت لیست دامنه های قابل استفاده"
         );
@@ -82,7 +83,7 @@ export class CoreSiteAddComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در دریافت مدل"
         );
@@ -97,11 +98,11 @@ export class CoreSiteAddComponent implements OnInit {
           if (next.IsSuccess) {
             this.dataModelCategory = next;
             this.dataModelLoad = true;
-            this.alertService.info("اطلاعات دریافت شد", "توجه");
+            this.toastrService.toastr.info("اطلاعات دریافت شد", "توجه");
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت اطلاعات وب سایتها"
           );
@@ -122,11 +123,11 @@ export class CoreSiteAddComponent implements OnInit {
             if (next2.IsSuccess) {
               this.dataModelModule = next2;
               this.dataModelLoad = true;
-              this.alertService.info("اطلاعات دریافت شد", "توجه");
+              this.toastrService.toastr.info("اطلاعات دریافت شد", "توجه");
             }
           },
           (error2) => {
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error2),
               "خطا در دریافت اطلاعات وب سایتها"
             );
@@ -147,7 +148,7 @@ export class CoreSiteAddComponent implements OnInit {
             this.dateModleInput. onActionAddFirstSite(next) ;
           },
           (error) => {
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
               "خطا در ساخت وب سایت"
             );
@@ -162,7 +163,7 @@ export class CoreSiteAddComponent implements OnInit {
             }
           },
           (error) => {
-            this.alertService.error(
+            this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
               "خطا در ساخت وب سایت"
             );
@@ -178,7 +179,7 @@ export class CoreSiteAddComponent implements OnInit {
           this.captchaModel =  next.Item;
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت عکس کپچا"
           );

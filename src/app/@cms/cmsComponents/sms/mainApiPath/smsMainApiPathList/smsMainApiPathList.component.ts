@@ -12,6 +12,7 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { FilterDataModel, FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
 import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -21,7 +22,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class SmsMainApiPathListComponent implements OnInit {
   constructor(
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private smsMainApiPathService: SmsMainApiPathService,
     private modalService: NgbModal
@@ -94,7 +95,7 @@ export class SmsMainApiPathListComponent implements OnInit {
           }
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
@@ -110,7 +111,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     ) {
       this.openModal(this.contentContentAdd);
     } else {
-      this.alertService.error("خطا", "برروی خطا ");
+      this.toastrService.toastr.error("خطا", "برروی خطا ");
     }
   }
   onActionbuttonEditRow() {
@@ -121,7 +122,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="ردیفی برای ویرایش انتخاب نشده است";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     if (
@@ -131,7 +132,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     ) {
       var title="برروز خطا ";
       var message="شما دسترسی برای ویرایش ندارید";
-      this.alertService.error(message,title);
+      this.toastrService.toastr.error(message,title);
       return;
     }
     this.openModal(this.contentContentEdit);
@@ -208,7 +209,7 @@ export class SmsMainApiPathListComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );

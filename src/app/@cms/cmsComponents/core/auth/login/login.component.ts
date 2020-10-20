@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { AuthUserSignInModel } from "app/@cms/cmsModels/core/authModel";
 import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-cms-login",
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CmsAuthService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}
@@ -67,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.onCaptchaOrder();
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در ورود"
           );
@@ -83,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.captchaModel = next.Item;
         },
         (error) => {
-          this.alertService.error(
+          this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "خطا در دریافت عکس کپچا"
           );

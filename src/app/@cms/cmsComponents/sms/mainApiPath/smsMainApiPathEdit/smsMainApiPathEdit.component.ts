@@ -7,6 +7,7 @@ import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -29,7 +30,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
@@ -76,7 +77,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
-      this.alertService.error(message, title);
+      this.toastrService.toastr.error(message, title);
       return;
     }
 
@@ -94,13 +95,13 @@ export class SmsMainApiPathEditComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }
@@ -108,7 +109,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
-      this.alertService.error(message, title);
+      this.toastrService.toastr.error(message, title);
       return;
     }
 
@@ -125,7 +126,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
           } else {
             var title = "برروز خطا ";
             var message = next.ErrorMessage;
-            this.alertService.error(message, title);
+            this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
@@ -133,7 +134,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
-          this.alertService.error(message, title);
+          this.toastrService.toastr.error(message, title);
         }
       );
   }

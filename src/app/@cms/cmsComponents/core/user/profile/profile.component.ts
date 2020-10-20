@@ -6,6 +6,7 @@ import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormGroup, FormControl, Validators, NgForm } from "@angular/forms";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 import { AuthUserChangePasswordModel } from "app/@cms/cmsModels/core/authModel";
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
   selector: "app-profile",
@@ -24,7 +25,7 @@ export class CoreUserProfileComponent implements OnInit {
   currentPage: string = "About";
   constructor(
     private coreUserService: CoreUserService,
-    private alertService: ToastrService,
+    private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private cmsAuthService: CmsAuthService
   ) {}
@@ -56,7 +57,7 @@ export class CoreUserProfileComponent implements OnInit {
         this.coreUserService.SetCorrectUser(this.CorrectUserInfo);
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در ورود"
         );
@@ -89,7 +90,7 @@ export class CoreUserProfileComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در تغییر پسورد"
         );
@@ -105,7 +106,7 @@ export class CoreUserProfileComponent implements OnInit {
     this.coreUserService.ServiceEdit(this.CorrectUserInfo).subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.alertService.success(
+          this.toastrService.toastr.success(
             "اطلاعات شما با موفقیت ثبت گردید",
             " ثبت تغییرات"
           );
@@ -114,7 +115,7 @@ export class CoreUserProfileComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertService.error(
+        this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در ثبت تغییرات"
         );

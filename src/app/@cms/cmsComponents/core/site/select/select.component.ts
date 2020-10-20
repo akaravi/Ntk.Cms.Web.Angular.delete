@@ -9,6 +9,7 @@ import { AuthRenewTokenModel } from "app/@cms/cmsModels/core/authModel";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
+import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
 @Component({
   selector: "app-cms-site-select",
   templateUrl: "./select.component.html",
@@ -19,6 +20,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
   filteModel = new FilterModel();
   dataModel: ErrorExcptionResult<any>;
   constructor(
+    private cmsAuthService: CmsAuthService,
     private coreSiteService: CoreSiteService,
     private alertService: ToastrService,
     private publicHelper: PublicHelper,
@@ -56,7 +58,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
     AuthModel = new AuthRenewTokenModel();
     AuthModel.SiteId = model["Id"];
     this.subManager.add(
-      this.coreSiteService.ServiceSelectSite(AuthModel).subscribe(
+      this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.router.navigate([environment.cmsUiConfig.Pathdashboard]);
@@ -79,7 +81,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
       AuthModel = new AuthRenewTokenModel();
       AuthModel.SiteId = model["Id"];
       this.subManager.add(
-        this.coreSiteService.ServiceSelectSite(AuthModel).subscribe(
+        this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
           (next) => {
             if (next.IsSuccess) {
               this.router.navigate([environment.cmsUiConfig.Pathdashboard]);

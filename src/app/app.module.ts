@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,7 @@ import { CmsComponent } from './@cms/cms.component';
 import { ThemeComponent } from './@theme/theme.component';
 import { CmsSharedModule } from './@cms/shared/cmsShared.module';
 import { NgxQueryBuilderModule } from 'ngx-query-builder';
+import { AppErrorHandler } from './@cms/cmsService/_base/AppErrorHandler';
 
 
 
@@ -82,7 +83,12 @@ export function createTranslateLoader(http: HttpClient) {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-  ],
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler
+    }  ],
   bootstrap: [AppComponent],
+  
+
 })
 export class AppModule {}

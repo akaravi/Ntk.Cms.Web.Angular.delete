@@ -24,9 +24,9 @@ export class CoreSiteService extends ApiCmsServerBase<any,number> implements OnD
     this.subManager.unsubscribe();
   }
  
-  ServiceSelectSite(model: AuthRenewTokenModel) {
-    return this.cmsAuthService.ServiceRenewToken(model);
-  }
+  // ServiceSelectSite(model: AuthRenewTokenModel) {
+  //   return this.cmsAuthService.ServiceRenewToken(model);
+  // }
 
   ServiceWebScreenshot<TOut>(model: any) {
  

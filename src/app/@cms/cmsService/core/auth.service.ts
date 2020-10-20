@@ -1,9 +1,5 @@
-import { Router } from "@angular/router";
 import { Injectable, OnDestroy } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { ToastrService } from "ngx-toastr";
-import { Store } from "@ngrx/store";
+import { catchError, map } from "rxjs/operators";
 import * as fromStore from "../../cmsStore";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { Subscription, BehaviorSubject } from "rxjs";
@@ -23,9 +19,10 @@ import {
 import { environment } from "environments/environment";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
+import { ApiServerBase } from '../_base/apiServerBase.service';
 
 @Injectable()
-export class CmsAuthService implements OnDestroy {
+export class CmsAuthService extends ApiServerBase implements OnDestroy {
   CorrectTokenInfo = new BehaviorSubject<TokenInfoModel>(null);
   CorrectTokenInfoObs = this.CorrectTokenInfo.asObservable();
 
@@ -37,33 +34,23 @@ export class CmsAuthService implements OnDestroy {
   userRoles: string[] = [];
   userName = "";
 
-  constructor(
-    private http: HttpClient,
-    private alertService: ToastrService,
-    private router: Router,
-    private store: Store<fromStore.State>
-  ) {
-    this.tokenString = localStorage.getItem("token");
-    if (this.loggedIn()) {
-      const decode = this.jwtHelper.decodeToken(this.tokenString);
-      //this.userRoles = decode.role as Array<string>;
-      //this.userName = decode.unique_name;
-    }
-  }
+  // constructor(
+  //   private http: HttpClient,
+  //   private alertService: ToastrService,
+  //   private router: Router,
+  //   private store: Store<fromStore.State>
+  // ) {
+  //   this.tokenString = localStorage.getItem("token");
+  //   if (this.loggedIn()) {
+  //     const decode = this.jwtHelper.decodeToken(this.tokenString);
+  //     //this.userRoles = decode.role as Array<string>;
+  //     //this.userName = decode.unique_name;
+  //   }
+  // }
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
-  CheckToken() {
-    const token = localStorage.getItem("token");
 
-    if (!token || token === "null") {
-      let title = "تایید توکن";
-      let message = "لطفا مجددا وارد حساب کاربری خود شوید";
-      this.alertService.warning( message,title);
-      this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-    }
-    return token;
-  }
   SetCorrectTokenInfo(model: TokenInfoModel) {
     if (model == null) model = new TokenInfoModel();
     this.CorrectTokenInfo.next(model);
@@ -81,6 +68,7 @@ export class CmsAuthService implements OnDestroy {
     return this.http
       .get(this.baseUrl + "CorrectToken", { headers: this.getHeaders() })
       .pipe(
+        catchError(this.handleError),
         map((ret: ErrorExcptionResult<TokenInfoModel>) => {
           if (ret) {
             if (ret.IsSuccess) {
@@ -110,11 +98,11 @@ export class CmsAuthService implements OnDestroy {
     // );
   }
 
-  getHeaders() {
-    const token = this.CheckToken();
-    const headers = { Authorization: token };
-    return headers;
-  }
+  // getHeaders() {
+  //   const token = this.CheckToken();
+  //   const headers = { Authorization: token };
+  //   return headers;
+  // }
   ServiceCaptcha() {
     return this.http.get(this.baseUrl + "captcha").pipe(
       map((ret: ErrorExcptionResult<CaptchaModel>) => {
@@ -133,6 +121,7 @@ export class CmsAuthService implements OnDestroy {
   }
   ServiceSignupUser(model: AuthUserSignUpModel) {
     return this.http.post(this.baseUrl + "signup", model).pipe(
+      catchError(this.handleError),
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
@@ -148,6 +137,7 @@ export class CmsAuthService implements OnDestroy {
 
   ServiceSigninUser(model: AuthUserSignInModel) {
     return this.http.post(this.baseUrl + "signin", model).pipe(
+      catchError(this.handleError),
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
@@ -168,6 +158,7 @@ export class CmsAuthService implements OnDestroy {
     return this.http
       .post(this.baseUrl + "renewToken", model, { headers: this.getHeaders() })
       .pipe(
+        catchError(this.handleError),
         map((ret: ErrorExcptionResult<TokenInfoModel>) => {
           if (ret) {
             if (ret.IsSuccess) {
@@ -194,6 +185,7 @@ export class CmsAuthService implements OnDestroy {
         headers: this.getHeaders(),
       })
       .pipe(
+        catchError(this.handleError),
         map((ret: ErrorExcptionResult<TokenInfoModel>) => {
           if (ret) {
             if (ret.IsSuccess) {
@@ -214,6 +206,7 @@ export class CmsAuthService implements OnDestroy {
   }
   ServiceForgetPassword(model: AuthUserForgetPasswordModel) {
     return this.http.post(this.baseUrl + "forgetPassword", model).pipe(
+      catchError(this.handleError),
       map((ret: ErrorExcptionResult<TokenInfoModel>) => {
         if (ret) {
           if (ret.IsSuccess) {
@@ -233,6 +226,7 @@ export class CmsAuthService implements OnDestroy {
     return this.http
       .post(this.baseUrl + "signOut", model, { headers: this.getHeaders() })
       .pipe(
+        catchError(this.handleError),
         map((ret: ErrorExcptionResultBase) => {
           if (ret) {
             this.tokenString = null;
@@ -254,6 +248,7 @@ export class CmsAuthService implements OnDestroy {
     return this.http
       .post(this.baseUrl + "existToken", model, { headers: this.getHeaders() })
       .pipe(
+        catchError(this.handleError),
         map((ret: ErrorExcptionResultBase) => {
           if (ret) {
             return ret;

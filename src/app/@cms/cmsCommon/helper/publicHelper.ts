@@ -11,41 +11,41 @@ import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
   providedIn: "root",
 })
 export class PublicHelper {
-  TokenInfo: TokenInfoModel;
+  //TokenInfo: TokenInfoModel;
   constructor(
     private router: Router,
     private alertService: ToastrService,
-    cmsAuthService: CmsAuthService
+    //cmsAuthService: CmsAuthService
   ) {
-    cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
-      this.TokenInfo = vlaue;
-    });
+    // cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
+    //   this.TokenInfo = vlaue;
+    // });
   }
 
-  CheckToken() {
-    const token = localStorage.getItem("token");
+  // CheckToken() {
+  //   const token = localStorage.getItem("token");
 
-    if (!token || token === "null") {
-      this.alertService.warning(
-        "لطفا مجددا وارد حساب کاربری خود شوید",
-        "نیاز به ورود مجدد"
-      );
-      this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-    }
-    return token;
-  }
-  CheckTokenInfo() {
-    const token = localStorage.getItem("token");
+  //   if (!token || token === "null") {
+  //     this.alertService.warning(
+  //       "لطفا مجددا وارد حساب کاربری خود شوید",
+  //       "نیاز به ورود مجدد"
+  //     );
+  //     this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+  //   }
+  //   return token;
+  // }
+  // CheckTokenInfo() {
+  //   const token = localStorage.getItem("token");
 
-    if (!token || token === "null") {
-      this.alertService.warning(
-        "لطفا مجددا وارد حساب کاربری خود شوید",
-        "نیاز به ورود مجدد"
-      );
-      this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-    }
-    return this.TokenInfo;
-  }
+  //   if (!token || token === "null") {
+  //     this.alertService.warning(
+  //       "لطفا مجددا وارد حساب کاربری خود شوید",
+  //       "نیاز به ورود مجدد"
+  //     );
+  //     this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+  //   }
+  //   return this.TokenInfo;
+  // }
   CheckError(model: any) {
     if (!model) {
       return "Error";

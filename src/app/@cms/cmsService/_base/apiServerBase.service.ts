@@ -1,5 +1,4 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { debounceTime, delay, map, tap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
@@ -7,30 +6,27 @@ import { Store } from "@ngrx/store";
 import * as fromStore from "../../cmsStore";
 import { BehaviorSubject, Subscription, throwError } from "rxjs";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
-import { retry, catchError } from "rxjs/operators";
+
 import { environment } from "environments/environment";
+import { AppErrorHandler } from './AppErrorHandler';
 
 @Injectable({
   providedIn: "root",
 })
-export class ApiCmsServerBase<TOut, TKey> implements OnDestroy {
+export class ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
   constructor(
     public http: HttpClient,
+    private appErrorHandler:AppErrorHandler,
     public alertService: ToastrService,
     public router: Router,
-    public store: Store<fromStore.State>,
-    public cmsAuthService: CmsAuthService,
-    public publicHelper: PublicHelper
+    public store: Store<fromStore.State>
   ) {
     this.childConstructor();
   }
-  private _loading$ = new BehaviorSubject<boolean>(false);
+  public _loading$ = new BehaviorSubject<boolean>(false);
   get loading$() {
     if (this._loading$ == null) return false;
     return this._loading$.asObservable();
@@ -43,17 +39,28 @@ export class ApiCmsServerBase<TOut, TKey> implements OnDestroy {
     return "Empty";
   }
   getHeaders() {
-    const token = this.publicHelper.CheckToken();
+    const token = this.CheckToken();
     const headers = { Authorization: token };
     return headers;
   }
+  CheckToken() {
+    const token = localStorage.getItem("token");
 
-  errorExcptionResultCheck(model: ErrorExcptionResult<TOut>) {
+    if (!token || token === "null") {
+      let title = "تایید توکن";
+      let message = "لطفا مجددا وارد حساب کاربری خود شوید";
+      this.alertService.warning(message, title);
+      //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+      //>window.location.href = environment.cmsUiConfig.Pathlogin;
+    }
+    return token;
+  }
+  errorExcptionResultCheck(model: ErrorExcptionResult<any>) {
     if (model) {
       if (model.IsSuccess) {
       } else {
-        let title="خطا در دریافت اطلاعات از سرور";
-        let message=model.ErrorMessage
+        let title = "خطا در دریافت اطلاعات از سرور";
+        let message = model.ErrorMessage;
         this.alertService.error(message, title);
       }
     }
@@ -62,22 +69,23 @@ export class ApiCmsServerBase<TOut, TKey> implements OnDestroy {
     return model;
   }
   handleError(error) {
-    this._loading$.next(false);
+    //this._loading$.next(false);
     if (!error) return;
     let errorMessage = error.message;
     if (error.status) {
       if (error.status == 401) {
-        //window.location.href = environment.cmsUiConfig.Pathlogin;
-        this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+        //>window.location.href = environment.cmsUiConfig.Pathlogin;
+        //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
       }
       // server-side error
       errorMessage = `Cms Error Code: ${error.status}\nMessage: ${error.message}`;
 
       if (error.status == 401 || error.status == "401") {
-        let title="خطای امنیتی";
-        let message="لطفا مجدد وارد سیستم شود";
+        let title = "خطای امنیتی";
+        let message = "لطفا مجدد وارد سیستم شود";
         this.alertService.error(message, title);
-        this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+        //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+        //>window.location.href = environment.cmsUiConfig.Pathlogin;
       }
     } else if (error.error instanceof ErrorEvent) {
       // client-side error
@@ -86,148 +94,5 @@ export class ApiCmsServerBase<TOut, TKey> implements OnDestroy {
 
     //window.alert(errorMessage);
     return throwError(errorMessage);
-  }
-
-  ServiceViewModel() {
-    this._loading$.next(true);
-    return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/ViewModel", {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        }, catchError(this.handleError))
-      );
-  }
-
-  ServiceGetAll(model: FilterModel) {
-    this._loading$.next(true);
-    if (model == null) model = new FilterModel();
-
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/getAll", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        // tap(_ => console.log("tap:1")),
-        // debounceTime(200),
-        // //switchMap(() => this._search()),
-        // delay(200),
-
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-
-  ServiceGetOneById(id: TKey) {
-    this._loading$.next(true);
-    return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/" + id, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        tap(() => this._loading$.next(true)),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        }),
-        tap(() => this._loading$.next(false))
-      );
-  }
-
-  ServiceGetCount(model: FilterModel) {
-    this._loading$.next(true);
-    if (model == null) model = new FilterModel();
-
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Count", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-  ServiceExportFile(model: FilterModel) {
-    this._loading$.next(true);
-    if (model == null) model = new FilterModel();
-
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/ExportFile", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-  ServiceAdd(model: any) {
-    this._loading$.next(true);
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-
-  ServiceEdit(model: any) {
-    this._loading$.next(true);
-    return this.http
-      .put(this.baseUrl + this.getModuleCotrolerUrl() + "/", model, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-
-  ServiceDelete(id: any) {
-    this._loading$.next(true);
-    return this.http
-      .delete(this.baseUrl + this.getModuleCotrolerUrl() + "/" + id, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
-  }
-  ServiceDeleteList(ids: Array<any>) {
-    this._loading$.next(true);
-    return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/DeleteList", ids, {
-        headers: this.getHeaders(),
-      })
-      .pipe(
-        retry(this.configApiRetry),
-        catchError(this.handleError),
-        map((ret: ErrorExcptionResult<TOut>) => {
-          return this.errorExcptionResultCheck(ret);
-        })
-      );
   }
 }

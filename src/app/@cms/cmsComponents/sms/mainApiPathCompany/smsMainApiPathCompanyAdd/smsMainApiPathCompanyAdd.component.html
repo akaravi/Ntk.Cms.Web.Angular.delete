@@ -3,13 +3,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header pb-2">
-                    <h4 class="card-title" id="horz-layout-basic">دسته بندی جدید</h4>
+                    <h4 class="card-title" id="horz-layout-basic">اضافه کردن گمپانی پیام رسان جدید</h4>
                     <p class="mb-0">
-                        این فرم افقی پایه با برچسب ها در سمت چپ است و شکل های کنترل را در سمت راست در یک خط قرار می
+                        <span class="ml-3" *ngIf="(smsMainApiPathCompanyService.loadingStatus)">{{smsMainApiPathCompanyService.loadingText}}</span>
                     </p>
                 </div>
                 <div class="card-content">
-                    <div class="px-3">
+                    <div class="px-3" *ngIf="!(smsMainApiPathCompanyService.loadingStatus)">
 
                         <form (ngSubmit)="onFormSubmit()" #vform="ngForm" class="form form-horizontal">
 
@@ -54,9 +54,46 @@
                                 </div>
 
 
-                                <h4 class="form-section"><i class="ft-file-text"></i> اطلاعات تکمیلی</h4>
+                                <h4 class="form-section"><i class="ft-file-text"></i> حسابداری / اکانتینگ</h4>
 
-                               
+
+                                <div class="form-group row">
+                                    <label class="col-md-12 label-control" for="ServiceAvailableCredit">مقدار اعتبار موجود از این سیستم در آن کمپانی : </label>
+                                    <div class="col-md-12">
+                                        <input [(ngModel)]="dataModel.ServiceAvailableCredit" type="number" class="form-control" name="ServiceAvailableCredit" #ServiceAvailableCredit="ngModel" required  placeholder="0" />
+                                        <small class="form-text text-muted danger" *ngIf="ServiceAvailableCredit.errors?.required"> الزامی</small>
+                              
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-12 label-control" for="ServiceSumCredit"> کل اعتبار ارسال شده به آن کمپانی : </label>
+                                    <div class="col-md-12">
+                                        <input [(ngModel)]="dataModel.ServiceSumCredit" type="number" class="form-control" name="ServiceSumCredit" #ServiceSumCredit="ngModel" required  placeholder="0" />
+                                        <small class="form-text text-muted danger" *ngIf="ServiceSumCredit.errors?.required"> الزامی</small>
+                                    
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-12 label-control" for="UserAvailableCredit"> مقدار اعتبار موجود کاربران از این سیستم در این کمپانی : </label>
+                                    <div class="col-md-12">
+                                        <input [(ngModel)]="dataModel.UserAvailableCredit" type="number" class="form-control" name="UserAvailableCredit" #UserAvailableCredit="ngModel" required  placeholder="0" />
+                                        <small class="form-text text-muted danger" *ngIf="UserAvailableCredit.errors?.required"> الزامی</small>
+                                   
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-12 label-control" for="UserSumCredit">   مجموع اعتبار ارسال شده کاربران به این کمپانی : </label>
+                                    <div class="col-md-12">
+                                        <input [(ngModel)]="dataModel.UserSumCredit" type="number" class="form-control" name="UserSumCredit" #UserSumCredit="ngModel" required  placeholder="0" />
+                                        <small class="form-text text-muted danger" *ngIf="UserSumCredit.errors?.required"> الزامی</small>
+                                   
+
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="form-actions">

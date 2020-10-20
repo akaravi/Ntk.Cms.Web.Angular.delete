@@ -28,7 +28,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   private dateModleInput: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private smsMainApiPathService: SmsMainApiPathService,
+    public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper

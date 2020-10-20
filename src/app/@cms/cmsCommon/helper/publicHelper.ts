@@ -7,6 +7,7 @@ import { environment } from "environments/environment";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { RecordStatus } from 'app/@cms/cmsModels/Enums/recordStatus.enum';
 
 @Injectable({
   providedIn: "root",
@@ -81,5 +82,13 @@ export class PublicHelper {
   LocaleDate(model) {
     const d = new Date(model);
     return d.toLocaleDateString("fa-Ir");
+  }
+  RecordStatus(model) {
+
+    //let _RecordStatus : RecordStatus = RecordStatus[model];
+
+    var str: string = RecordStatus[model];
+
+    return str;
   }
 }

@@ -58,7 +58,8 @@
                 </div>
 
                 <div class="card-content">
-                    <div class="card-body">
+                    <span class="ml-3" *ngIf="(smsMainApiPathService.loadingStatus)">{{smsMainApiPathService.loadingText}}</span>
+                    <div class="card-body"  *ngIf="!(smsMainApiPathService.loadingStatus)">
 
 
 

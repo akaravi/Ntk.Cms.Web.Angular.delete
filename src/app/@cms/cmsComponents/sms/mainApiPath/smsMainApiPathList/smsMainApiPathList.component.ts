@@ -24,7 +24,7 @@ export class SmsMainApiPathListComponent implements OnInit {
   constructor(
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
-    private smsMainApiPathService: SmsMainApiPathService,
+    public smsMainApiPathService: SmsMainApiPathService,
     private modalService: NgbModal
   ) {}
   @ViewChild("contentContentAdd", { static: false })

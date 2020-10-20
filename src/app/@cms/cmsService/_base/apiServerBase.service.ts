@@ -16,6 +16,14 @@ export class ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
+  public _loadingBS$ = new BehaviorSubject<boolean>(false);
+  _loadingObs = this._loadingBS$.asObservable();
+  public loadingText = "در حال بارگذاری...";
+  public loadingStatus = false;
+  get loadingStatusAsync() {
+    return this._loadingObs;
+  }
+  
   constructor(
     @Inject(Injector) private injector: Injector,
     public http: HttpClient,
@@ -25,16 +33,15 @@ export class ApiServerBase implements OnDestroy {
     public store: Store<fromStore.State>
   ) {
     this.childConstructor();
+
+    this._loadingObs.subscribe((vlaue) => {
+      this.loadingStatus = vlaue;
+    });
   }
   public get toastrService(): ToastrService {
     return this.injector.get(ToastrService);
   }
-  public _loading$ = new BehaviorSubject<boolean>(false);
-  public loadingText="در حال بارگذاری...";
-  get loading$() {
-    if (this._loading$ == null) return false;
-    return this._loading$.asObservable();
-  }
+   
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
@@ -68,12 +75,12 @@ export class ApiServerBase implements OnDestroy {
         if (this.toastrService) this.toastrService.error(message, title);
       }
     }
-    this._loading$.next(false);
+    this._loadingBS$.next(false);
 
     return model;
   }
   handleError(error) {
-    //this._loading$.next(false);
+    //this._loadingBS$.next(false);
     if (!error) return;
     let errorMessage = error.message;
     if (error.status) {

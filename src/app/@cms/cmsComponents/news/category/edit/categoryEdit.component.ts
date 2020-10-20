@@ -1,15 +1,47 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
+import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
+import { ToastrService } from "ngx-toastr";
+import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
+import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
+import { FormGroup } from "@angular/forms";
+import { baseEntityCategory } from "app/@cms/cmsModels/base/baseEntityCategory";
+import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
+import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
-  selector: 'app-news-category-edit',
-  templateUrl: './categoryEdit.component.html',
-  styleUrls: ['./categoryEdit.component.scss']
+  selector: "app-news-category-edit",
+  templateUrl: "./categoryEdit.component.html",
+  styleUrls: ["./categoryEdit.component.scss"],
 })
 export class NewsCategoryEditComponent implements OnInit {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public coreEnumService: CoreEnumService,
+    public newsCategoryService: NewsCategoryService,
+    private toastrService: CmsToastrServiceService,
+    private publicHelper: PublicHelper
+  ) {
 
-  constructor() { }
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess) this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus() ;
+    });
 
+  }
   ngOnInit() {
+    this.Id = Number.parseInt(
+      this.activatedRoute.snapshot.paramMap.get("id")
+    );
+    this.activatedRoute.queryParams.subscribe((params) => {
+      // Defaults to 0 if no query param provided.
+      this.Id = +params["id"] || 0;
+    });
+    if (this.dateModleInput && this.dateModleInput.Id) {
+      this.Id = this.dateModleInput.Id;
+    }
+    this.DataGetOneContent()
   }
   @Input()
   set options(model: any) {
@@ -19,4 +51,84 @@ export class NewsCategoryEditComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
+  dataModelResult: ErrorExcptionResult<
+    baseEntityCategory<number>
+  > = new ErrorExcptionResult<baseEntityCategory<number>>();
+  dataModel: baseEntityCategory<number> = new baseEntityCategory<
+    number
+  >();
+  Id: number;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  
+
+  formInfo:FormInfoModel=new FormInfoModel();
+  
+
+  
+  
+  DataGetOneContent() {
+    if (this.Id <= 0) {
+      var title = "برروز خطا ";
+      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
+      this.toastrService.toastr.error(message, title);
+      return;
+    }
+
+    this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
+    this.formInfo.formError = "";
+    this.newsCategoryService
+      .ServiceGetOneById(this.Id)
+      .subscribe(
+        (next) => {
+          
+          this.dataModel = next.Item;
+          if (next.IsSuccess) {
+            this.formInfo.formAlert = "";
+          } else {
+            this.formInfo.formAlert = "برروز خطا";
+            this.formInfo.formError = next.ErrorMessage;
+          }
+        },
+        (error) => {
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            "برروی خطا در دریافت اطلاعات"
+          );
+        }
+      );
+  }
+  DataEditContent() {
+    this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
+    this.formInfo.formError = "";
+    this.newsCategoryService
+      .ServiceEdit(this.dataModel)
+      .subscribe(
+        (next) => {
+          this.formInfo.formAllowSubmit = true;
+          this.dataModelResult = next;
+          if (next.IsSuccess) {
+            this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+          } else {
+            this.formInfo.formAlert = "برروز خطا";
+            this.formInfo.formError = next.ErrorMessage;
+          }
+        },
+        (error) => {
+          this.formInfo.formAllowSubmit = true;
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            "برروی خطا در دریافت اطلاعات"
+          );
+        }
+      );
+  }
+  onFormSubmit() {
+    if (this.formGroup.valid) {
+      this.formInfo.formAllowSubmit = false;
+      this.DataEditContent();
+    }
+  }
+  onFormCancel() {
+    this.formGroup.reset();
+  }
 }

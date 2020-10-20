@@ -7,9 +7,8 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { FormGroup } from "@angular/forms";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
-import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-
+import { SmsMainApiCompanyModel } from "app/@cms/cmsModels/sms/smsMainApiCompanyModel";
+import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
 
 @Component({
   selector: "app-sms-main-api-path-company-add",
@@ -20,17 +19,18 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
-    private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
+    public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) this.coreEnumService.resultEnumRecordStatus = vlaue;
-      this.coreEnumService.ServiceEnumRecordStatus() ;
+      if (vlaue && vlaue.IsSuccess)
+        this.coreEnumService.resultEnumRecordStatus = vlaue;
+      this.coreEnumService.ServiceEnumRecordStatus();
     });
   }
   ngOnInit() {
-   // this.DataGetAllCoreEnum();
+    // this.DataGetAllCoreEnum();
   }
   @Input()
   set options(model: any) {
@@ -40,41 +40,37 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
-  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResult: ErrorExcptionResult<SmsMainApiCompanyModel> = new ErrorExcptionResult<
-  SmsMainApiCompanyModel
-  >();
+  dataModelResult: ErrorExcptionResult<
+    SmsMainApiCompanyModel
+  > = new ErrorExcptionResult<SmsMainApiCompanyModel>();
   dataModel: SmsMainApiCompanyModel = new SmsMainApiCompanyModel();
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   DataAddContent() {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
-    this.smsMainApiPathCompanyService
-      .ServiceAdd(this.dataModel)
-      .subscribe(
-        (next) => {
-          this.formInfo.formAllowSubmit = !next.IsSuccess;
-          this.dataModelResult = next;
-          if (next.IsSuccess) {
-            this.formInfo.formAlert = "ثبت با موفقت انجام شد";
-          } else {
-            this.formInfo.formAlert = "برروز خطا";
-            this.formInfo.formError = next.ErrorMessage;
-          }
-        },
-        (error) => {
-          this.formInfo.formAllowSubmit = true;
-          this.toastrService.toastr.error(
-            this.publicHelper.CheckError(error),
-            "برروی خطا در دریافت اطلاعات"
-          );
+    this.smsMainApiPathCompanyService.ServiceAdd(this.dataModel).subscribe(
+      (next) => {
+        this.formInfo.formAllowSubmit = !next.IsSuccess;
+        this.dataModelResult = next;
+        if (next.IsSuccess) {
+          this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+        } else {
+          this.formInfo.formAlert = "برروز خطا";
+          this.formInfo.formError = next.ErrorMessage;
         }
-      );
+      },
+      (error) => {
+        this.formInfo.formAllowSubmit = true;
+        this.toastrService.toastr.error(
+          this.publicHelper.CheckError(error),
+          "برروی خطا در دریافت اطلاعات"
+        );
+      }
+    );
   }
   onFormSubmit() {
     if (this.formGroup.valid) {

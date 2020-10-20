@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SmsMainApiPathAddComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private smsMainApiPathService: SmsMainApiPathService,
+    public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper

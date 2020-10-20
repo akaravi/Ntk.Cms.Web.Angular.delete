@@ -59,10 +59,11 @@
       <app-cms-search-content-list [options]="optionsSearch" ></app-cms-search-content-list>
       <hr>
     </div>
-
+a:{{contentService.loadingStatus}}
+b:{{contentService.loadingText}}
     <div class="card-content">
-      <span class="ml-3" *ngIf="(contentService.loading$ | async)">{{contentService.loadingText}}</span>
-      <div class="card-body" *ngIf="!(contentService.loading$ | async)">
+      <span class="ml-3" *ngIf="contentService.loadingStatusAsync |async">ddddddddddd</span>
+      <div class="card-body" *ngIf="!(contentService.loadingStatusAsync |async)">
         
         
         
@@ -179,7 +180,7 @@
   </button>
   </div>
   <div class="modal-body">
-  <p><app-news-content-edit [options]="{ContentId:this.tableContentSelected[0].Id}" ></app-news-content-edit></p>
+  <p><app-news-content-edit [options]="{ContentId:tableContentSelected[0]?.Id}" ></app-news-content-edit></p>
   </div>
   <div class="modal-footer">
   <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>

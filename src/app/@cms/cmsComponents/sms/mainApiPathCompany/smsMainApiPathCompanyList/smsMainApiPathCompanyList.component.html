@@ -33,7 +33,9 @@
                 </div>
 
                 <div class="card-content">
-                    <div class="card-body">
+                    <span class="ml-3" *ngIf="(smsMainApiPathCompanyService.loadingStatus)">{{smsMainApiPathCompanyService.loadingText}}</span>
+                    <div class="card-body"  *ngIf="!(smsMainApiPathCompanyService.loadingStatus)">
+                        
                         <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1" [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
                         </ngx-datatable>
                         <hr>

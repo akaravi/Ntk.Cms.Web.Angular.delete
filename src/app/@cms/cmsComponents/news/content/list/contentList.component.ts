@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterContentChecked } from "@angular/core";
 import {
   FilterModel,
   FilterDataModel,
@@ -45,8 +45,11 @@ export class NewsContentListComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public contentService: NewsContentService,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+  ) {
+
+    
+  }
 
   ngOnInit() {
     this.optionsCategorySelect.actions = {
@@ -56,6 +59,7 @@ export class NewsContentListComponent implements OnInit {
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
+
   filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
   dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();

@@ -32,7 +32,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
-    private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
+    public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
@@ -42,17 +42,17 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     });
   }
   formInfo: FormInfoModel = new FormInfoModel();
-  ContentId:number;
+  Id:number;
   ngOnInit() {
-    this.ContentId = Number.parseInt(
+    this.Id = Number.parseInt(
       this.activatedRoute.snapshot.paramMap.get("id")
     );
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.ContentId = +params["id"] || 0;
+      this.Id = +params["id"] || 0;
     });
-    if (this.dateModleInput && this.dateModleInput.ContentId) {
-      this.ContentId = this.dateModleInput.ContentId;
+    if (this.dateModleInput && this.dateModleInput.Id) {
+      this.Id = this.dateModleInput.Id;
     }
     this.DataGetOneContent();
   }
@@ -65,7 +65,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
 
   
   DataGetOneContent() {
-    if (this.ContentId <= 0) {
+    if (this.Id <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
@@ -75,13 +75,13 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
     this.smsMainApiPathCompanyService
-      .ServiceGetOneById(this.ContentId)
+      .ServiceGetOneById(this.Id)
       .subscribe(
         (next) => {
           
           this.dataModel = next.Item;
           if (next.IsSuccess) {
-            this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+            this.formInfo.formAlert = "";
           } else {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formError = next.ErrorMessage;

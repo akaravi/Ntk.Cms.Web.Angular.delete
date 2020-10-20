@@ -31,7 +31,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
   constructor(
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
-    private categoryService: SmsMainApiPathCompanyService
+    public categoryService: SmsMainApiPathCompanyService
   ) {}
 
   ngOnInit() {

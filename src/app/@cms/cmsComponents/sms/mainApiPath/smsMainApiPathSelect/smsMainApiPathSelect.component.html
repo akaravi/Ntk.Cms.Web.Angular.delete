@@ -1,3 +1,2 @@
-<p>
-  smsMainApiPathSelect works!
-</p>
+<span class="ml-3" *ngIf="(categoryService.loadingStatus)">{{categoryService.loadingText}}</span>
+<tree-root [nodes]="dataModelCategory.ListItems" [options]="optionsModelTree"></tree-root>

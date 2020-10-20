@@ -23,7 +23,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   constructor(
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
-    private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
+    public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private modalService: NgbModal
   ) {}
   @ViewChild("contentContentAdd", { static: false })
@@ -44,6 +44,11 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   columnMode = ColumnMode;
   selectionType = SelectionType;
   columnsContent: TableColumn[] = [
+    {
+      prop: "RecordStatus",
+      name: "وضعیت",
+      pipe: { transform: this.publicHelper.RecordStatus },
+    },
     {
       prop: "Id",
       name: "شناسه",
@@ -145,11 +150,11 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     this.modalService.open(content).result.then(
       (result) => {
         this.closeResult = `بسته شدن با: ${result}`;
-        //this.onActionCategoryReload();
+        this.DataGetAllContent();
       },
       (reason) => {
         this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
-        //this.onActionCategoryReload();
+        this.DataGetAllContent();
       }
     );
   }

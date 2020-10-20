@@ -24,4 +24,6 @@ setx path "%path%;%appdata%\npm
 npm install --global http-server
 ==============================
 git config core.ignorecase false
+git config --global core.ignorecase true
+
 =============================

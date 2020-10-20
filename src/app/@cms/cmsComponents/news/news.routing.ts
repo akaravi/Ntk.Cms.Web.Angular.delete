@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { NewsContentListComponent } from './content/list/contentList.component';
-import { NewsContentAddComponent } from './content/add/ContentAdd.component';
-import { NewsContentEditComponent } from './content/edit/ContentEdit.component';
+import { NewsContentAddComponent } from './content/add/contentAdd.component';
+import { NewsContentEditComponent } from './content/edit/contentEdit.component';
 import { NewsContentSelectComponent } from './content/select/contentSelect.component';
 import { NewsCategoryListComponent } from './category/list/categoryList.component';
 import { NewsCategoryAddComponent } from './category/add/categoryAdd.component';

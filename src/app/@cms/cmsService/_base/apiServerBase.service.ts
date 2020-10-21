@@ -21,13 +21,11 @@ export class ApiServerBase implements OnDestroy {
   //public cmsloadingBS = new BehaviorSubject<boolean>(false);
   //public cmsloadingObs = this.cmsloadingBS.asObservable();
   public loadingText = "در حال بارگذاری...";
-  public loadingStatus: boolean = false;
+  //public loadingStatus: boolean = false;
 
   constructor(
-    //@Inject(Injector) private injector: Injector,
     public http: HttpClient,
     public toastrService: ToastrService,
-    //public toastrService: ToastrService,
     public router: Router,
     public store: Store<fromStore.State>
   ) {
@@ -36,8 +34,6 @@ export class ApiServerBase implements OnDestroy {
     // this.cmsloadingObs.subscribe((vlaue) => {
     //   this.loadingStatus = vlaue;
     // });
-    
-    
     
   }
 

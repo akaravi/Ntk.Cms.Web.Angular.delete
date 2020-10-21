@@ -61,13 +61,7 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     this.DataGetAllContent();
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.contentService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+ 
 
   filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
@@ -194,18 +188,21 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   }
 
   DataViewModelContent() {
+    this.loadingStatus=true;
     this.contentService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResultViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
+        this.loadingStatus=false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );
+        this.loadingStatus=false;
       }
     );
   }

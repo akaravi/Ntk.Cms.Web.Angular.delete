@@ -34,13 +34,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     // this.DataGetAllCoreEnum();
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.smsMainApiPathCompanyService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -61,6 +55,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   DataAddContent() {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.smsMainApiPathCompanyService.ServiceAdd(this.dataModel).subscribe(
       (next) => {
         this.formInfo.formAllowSubmit = !next.IsSuccess;
@@ -71,6 +66,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
           this.formInfo.formAlert = "برروز خطا";
           this.formInfo.formError = next.ErrorMessage;
         }
+        this.loadingStatus=false;
       },
       (error) => {
         this.formInfo.formAllowSubmit = true;
@@ -78,6 +74,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );
+        this.loadingStatus=false;
       }
     );
   }

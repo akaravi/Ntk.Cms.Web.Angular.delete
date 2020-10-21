@@ -65,13 +65,7 @@ export class NewsContentEditComponent implements OnInit {
     // this.DataGetAllCoreEnum();
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.newsContentService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+ 
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = false;
@@ -91,6 +85,7 @@ export class NewsContentEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.newsContentService
       .ServiceGetOneById(this.id)
       .subscribe(
@@ -105,11 +100,13 @@ export class NewsContentEditComponent implements OnInit {
             var message = next.ErrorMessage;
             this.toastrService.toastr.error(message, title);
           }
+          this.loadingStatus=false;
         },
         (error) => {
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
           this.toastrService.toastr.error(message, title);
+          this.loadingStatus=false;
         }
       );
   }
@@ -123,6 +120,7 @@ export class NewsContentEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.newsContentService
       .ServiceEdit(this.dataModel)
       .subscribe(
@@ -136,6 +134,7 @@ export class NewsContentEditComponent implements OnInit {
             var message = next.ErrorMessage;
             this.toastrService.toastr.error(message, title);
           }
+          this.loadingStatus=false;
         },
         (error) => {
           this.formInfo.formAllowSubmit = true;
@@ -143,6 +142,7 @@ export class NewsContentEditComponent implements OnInit {
           var title = "برروی خطا در دریافت اطلاعات";
           var message = this.publicHelper.CheckError(error);
           this.toastrService.toastr.error(message, title);
+          this.loadingStatus=false;
         }
       );
   }

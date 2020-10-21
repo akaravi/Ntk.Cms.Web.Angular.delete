@@ -54,13 +54,7 @@ export class NewsCategoryEditComponent implements OnInit {
     this.DataGetOneContent()
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.newsCategoryService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+  
 
   dataModelResult: ErrorExcptionResult<
     baseEntityCategory<number>
@@ -87,6 +81,7 @@ export class NewsCategoryEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.newsCategoryService
       .ServiceGetOneById(this.id)
       .subscribe(
@@ -99,18 +94,21 @@ export class NewsCategoryEditComponent implements OnInit {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formError = next.ErrorMessage;
           }
+          this.loadingStatus=false;
         },
         (error) => {
           this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
+          this.loadingStatus=false;
         }
       );
   }
   DataEditContent() {
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.newsCategoryService
       .ServiceEdit(this.dataModel)
       .subscribe(
@@ -123,6 +121,7 @@ export class NewsCategoryEditComponent implements OnInit {
             this.formInfo.formAlert = "برروز خطا";
             this.formInfo.formError = next.ErrorMessage;
           }
+          this.loadingStatus=false;
         },
         (error) => {
           this.formInfo.formAllowSubmit = true;
@@ -130,6 +129,7 @@ export class NewsCategoryEditComponent implements OnInit {
             this.publicHelper.CheckError(error),
             "برروی خطا در دریافت اطلاعات"
           );
+          this.loadingStatus=false;
         }
       );
   }

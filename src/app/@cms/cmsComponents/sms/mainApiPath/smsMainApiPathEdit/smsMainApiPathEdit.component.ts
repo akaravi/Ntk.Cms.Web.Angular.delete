@@ -70,13 +70,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
     // this.DataGetAllCoreEnum();
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.smsMainApiPathService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+
 
   onFormSubmit() {
     if (this.formGroup.valid) {
@@ -98,6 +92,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.smsMainApiPathService.ServiceGetOneById(this.id).subscribe(
       (next) => {
         this.dataModel = next.Item;
@@ -110,11 +105,13 @@ export class SmsMainApiPathEditComponent implements OnInit {
           var message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
+        this.loadingStatus=false;
       },
       (error) => {
         var title = "برروی خطا در دریافت اطلاعات";
         var message = this.publicHelper.CheckError(error);
         this.toastrService.toastr.error(message, title);
+        this.loadingStatus=false;
       }
     );
   }
@@ -128,6 +125,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
+    this.loadingStatus=true;
     this.smsMainApiPathService.ServiceEdit(this.dataModel).subscribe(
       (next) => {
         this.formInfo.formAllowSubmit = true;
@@ -139,6 +137,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
           var message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
+        this.loadingStatus=false;
       },
       (error) => {
         this.formInfo.formAllowSubmit = true;
@@ -146,6 +145,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
         var title = "برروی خطا در دریافت اطلاعات";
         var message = this.publicHelper.CheckError(error);
         this.toastrService.toastr.error(message, title);
+        this.loadingStatus=false;
       }
     );
   }

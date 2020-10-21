@@ -77,13 +77,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     this.DataGetAllContent();
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.smsMainApiPathCompanyService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+
   
   onSubmitOptionsSearch(model: any) {
     this.filteModelContent.Filters = model;
@@ -92,6 +86,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
+    this.loadingStatus=true;
     this.smsMainApiPathCompanyService
       .ServiceGetAll(this.filteModelContent)
       .subscribe(
@@ -100,6 +95,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
             this.dataModelResult = next;
             this.tableContentloading = false;
           }
+          this.loadingStatus=false;
         },
         (error) => {
           this.toastrService.toastr.error(
@@ -107,6 +103,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
             "برروی خطا در دریافت اطلاعات"
           );
           this.tableContentloading = false;
+          this.loadingStatus=false;
         }
       );
   }

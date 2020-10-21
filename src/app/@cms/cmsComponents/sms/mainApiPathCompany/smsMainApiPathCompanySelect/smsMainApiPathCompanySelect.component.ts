@@ -42,13 +42,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
     
   }
   loadingStatus = false; // add one more property
-  ngAfterViewChecked() {
-    let show = this.categoryService.loadingStatus;
-    if (show != this.loadingStatus) {
-      this.loadingStatus = show;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   optionsModelTree: ITreeOptions = {
@@ -91,17 +85,21 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
   
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
+
+    this.loadingStatus=true;
     this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelCategory = next;
         }
+        this.loadingStatus=false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "برروی خطا در دریافت اطلاعات"
         );
+        this.loadingStatus=false;
       }
     );
   }

@@ -18,19 +18,7 @@ implements OnDestroy {
   public baseUrl =environment. cmsServerConfig.configApiServerPath + "ErrorApi/";
   public configApiRetry =environment. cmsServerConfig.configApiRetry;
 
-  // constructor(
-  //   public http: HttpClient,
-  //   public toastrService: ToastrService,
-  //   public router: Router,
-  //   public cmsAuthService: CmsAuthService,
-  //   public publicHelper: PublicHelper
-  // ) {}
 
-  // getHeaders() {
-  //   const token = this.CheckToken();
-  //   const headers = { Authorization: token };
-  //   return headers;
-  // }
   ServiceErrorApi<TOut>(model: any) {
     return (
       this.http
@@ -57,16 +45,4 @@ implements OnDestroy {
     return model;
   }
 
-  // handleError(error) {
-  //   let errorMessage = "";
-  //   if (error.error instanceof ErrorEvent) {
-  //     // client-side error
-  //     errorMessage = `Error: ${error.error.message}`;
-  //   } else {
-  //     // server-side error
-  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-  //   }
-  //   window.alert(errorMessage);
-  //   return throwError(errorMessage);
-  // }
 }

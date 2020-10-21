@@ -9,27 +9,26 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
+import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
 
 @Component({
-  selector: 'app-sms-main-api-path-select',
-  templateUrl: './smsMainApiPathSelect.component.html',
-  styleUrls: ['./smsMainApiPathSelect.component.scss']
+  selector: "app-sms-main-api-path-select",
+  templateUrl: "./smsMainApiPathSelect.component.html",
+  styleUrls: ["./smsMainApiPathSelect.component.scss"],
 })
 export class SmsMainApiPathSelectComponent implements OnInit {
   @Input()
   set options(modelInput: ComponentOptionModel) {
-    this.dateModleInput = modelInput;  
+    this.dateModleInput = modelInput;
   }
   get options(): ComponentOptionModel {
     return this.dateModleInput;
   }
-  private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
-  
+  private dateModleInput: ComponentOptionModel = new ComponentOptionModel();
 
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathService
@@ -37,9 +36,8 @@ export class SmsMainApiPathSelectComponent implements OnInit {
 
   ngOnInit() {
     this.DataGetAllCategory();
-    
-    this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
-    
+
+    this.dateModleInput.methods = { ActionReload: () => this.onActionReload() };
   }
   loadingStatus = false; // add one more property
   ngAfterViewChecked() {
@@ -49,7 +47,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
-  
+
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   optionsModelTree: ITreeOptions = {
@@ -89,7 +87,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
     //scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
-  
+
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
     this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
@@ -107,22 +105,16 @@ export class SmsMainApiPathSelectComponent implements OnInit {
     );
   }
   onActionSelect(model: any) {
-    if (this.dateModleInput && this.dateModleInput.actions && this.dateModleInput.actions.onActionSelect) {
+    if (
+      this.dateModleInput &&
+      this.dateModleInput.actions &&
+      this.dateModleInput.actions.onActionSelect
+    ) {
       this.dateModleInput.actions.onActionSelect(model);
-      this.dateModleInput.dataModel={Select:model};
+      this.dateModleInput.dataModel = { Select: model };
     }
-    // this.filteModelContent = new FilterModel();
-    // if (model && model.data) {
-    //   var aaa = {
-    //     PropertyName: "LinkCategoryId",
-    //     IntValue1: model.data.Id,
-    //   };
-    //   this.filteModelContent.Filters.push(aaa as FilterDataModel);
-    // }
-    // this.DataGetAllContent();
   }
-  onActionReload(){
-    this.DataGetAllCategory()
-
+  onActionReload() {
+    this.DataGetAllCategory();
   }
 }

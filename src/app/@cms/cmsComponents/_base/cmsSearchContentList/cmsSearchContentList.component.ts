@@ -15,9 +15,7 @@ import { ClauseType } from "app/@cms/cmsModels/Enums/clauseType.enum";
   selector: "app-cms-search-content-list",
   templateUrl: "./cmsSearchContentList.component.html",
   styleUrls: ["./cmsSearchContentList.component.scss"],
-  
 })
-
 export class CmsSearchContentListComponent implements OnInit {
   optionsData: any;
 
@@ -25,10 +23,17 @@ export class CmsSearchContentListComponent implements OnInit {
   @Input()
   set options(model: any) {
     this.optionsData = model;
-    if (this.optionsData.hidden==null) this.optionsData.hidden = true;
+    if (this.optionsData.hidden == null) {
+      this.optionsData.hidden = true;
+    }
     model.setAccess = (x) => this.setAccess(x);
   }
   get options(): any {
+    if(this.optionsData.hidden )
+    {
+      
+
+    }
     return this.optionsData;
   }
   model: any;

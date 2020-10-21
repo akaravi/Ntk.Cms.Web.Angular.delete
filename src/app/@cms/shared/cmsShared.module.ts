@@ -26,6 +26,7 @@ import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from '../cmsCommon/pipe/truncate.pipe';
 import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportContentList/cmsExportContentList.component';
+import { CmsStatistContentListComponent } from '../cmsComponents/_base/cmsStatistContentList/cmsStatistContentList.component';
 
 
 
@@ -54,6 +55,7 @@ import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportC
         CmsTokenAccessAdminComponent,
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
+        CmsStatistContentListComponent,
         TruncatePipe
     ],
     exports: [
@@ -70,7 +72,7 @@ import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportC
         CmsTokenAccessAdminComponent,
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
-
+        CmsStatistContentListComponent,
         TruncatePipe
     ],
 })

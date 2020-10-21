@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                       شرکت ها
+                        شرکت ها
                     </h4>
                 </div>
                 <div class="card-content">
@@ -55,12 +55,13 @@
 
                     <app-cms-search-content-list [options]="optionsSearch"></app-cms-search-content-list>
                     <app-cms-export-content-list></app-cms-export-content-list>
+                    <app-cms-statist-content-list></app-cms-statist-content-list>
                     <hr>
                 </div>
 
                 <div class="card-content">
                     <span class="ml-3" *ngIf="(loadingStatus)">{{smsMainApiPathService.loadingText}}</span>
-                    <div class="card-body"  *ngIf="!(loadingStatus)">
+                    <div class="card-body" *ngIf="!(loadingStatus)">
 
 
 
@@ -91,7 +92,7 @@
     </div>
     <div class="modal-body">
         <p>
-          <app-sms-main-api-path-company-edit [options]="{Id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-edit>
+            <app-sms-main-api-path-company-edit [options]="{id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-edit>
         </p>
     </div>
     <div class="modal-footer">
@@ -109,7 +110,7 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-company-delete  [options]="{Id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-delete>
+            <app-sms-main-api-path-company-delete [options]="{id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-delete>
         </p>
     </div>
     <div class="modal-footer">
@@ -127,7 +128,7 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-company-add   [options]="{parentId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-add>
+            <app-sms-main-api-path-company-add [options]="{parentId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-add>
         </p>
     </div>
     <div class="modal-footer">
@@ -145,7 +146,7 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-add  [options]="{linkCategoryId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-add>
+            <app-sms-main-api-path-add [options]="{linkCategoryId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-add>
         </p>
     </div>
     <div class="modal-footer">
@@ -163,7 +164,7 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-edit [options]="{Id:this.tableContentSelected[0].Id}"></app-sms-main-api-path-edit>
+            <app-sms-main-api-path-edit [options]="{id:this.tableContentSelected[0].id}"></app-sms-main-api-path-edit>
         </p>
     </div>
     <div class="modal-footer">

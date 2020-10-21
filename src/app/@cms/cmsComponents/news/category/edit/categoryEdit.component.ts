@@ -41,15 +41,15 @@ export class NewsCategoryEditComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.Id = Number.parseInt(
+    this.id = Number.parseInt(
       this.activatedRoute.snapshot.paramMap.get("id")
     );
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.Id = +params["id"] || 0;
+      this.id = +params["id"] || 0;
     });
-    if (this.dateModleInput && this.dateModleInput.Id) {
-      this.Id = this.dateModleInput.Id;
+    if (this.dateModleInput && this.dateModleInput.id) {
+      this.id = this.dateModleInput.id;
     }
     this.DataGetOneContent()
   }
@@ -68,7 +68,7 @@ export class NewsCategoryEditComponent implements OnInit {
   dataModel: baseEntityCategory<number> = new baseEntityCategory<
     number
   >();
-  Id: number;
+  id: number;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   
 
@@ -78,7 +78,7 @@ export class NewsCategoryEditComponent implements OnInit {
   
   
   DataGetOneContent() {
-    if (this.Id <= 0) {
+    if (this.id <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
@@ -88,7 +88,7 @@ export class NewsCategoryEditComponent implements OnInit {
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
     this.newsCategoryService
-      .ServiceGetOneById(this.Id)
+      .ServiceGetOneById(this.id)
       .subscribe(
         (next) => {
           

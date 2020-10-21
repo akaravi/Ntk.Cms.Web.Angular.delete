@@ -26,7 +26,7 @@ export class SmsMainApiPathCompanyDeleteComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {}
-  Id: any;
+  id: any;
 
   private dateModleInput: any;
   @ViewChild("vform", { static: false })
@@ -35,15 +35,15 @@ export class SmsMainApiPathCompanyDeleteComponent implements OnInit {
   formInfo: FormInfoModel = new FormInfoModel();
 
   ngOnInit() {
-    this.Id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.Id = +params["id"] || 0;
+      this.id = +params["id"] || 0;
     });
-    if (this.dateModleInput && this.dateModleInput.Id) {
-      this.Id = this.dateModleInput.Id;
+    if (this.dateModleInput && this.dateModleInput.id) {
+      this.id = this.dateModleInput.id;
     }
-    if (!this.Id || this.Id == 0) {
+    if (!this.id || this.id == 0) {
       this.formInfo.formAlert = "برروز خطا";
       this.formInfo.formError = "شناسه دسته بندی مشخص نمی باشد";
       this.formInfo.disabledButtonSubmitted = true;

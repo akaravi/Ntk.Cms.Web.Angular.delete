@@ -33,15 +33,15 @@ export class NewsCategoryDeleteComponent implements OnInit {
     private publicHelper: PublicHelper
   ) {}
   ngOnInit() {
-    this.Id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.Id = +params["id"] || 0;
+      this.id = +params["id"] || 0;
     });
-    if (this.dateModleInput && this.dateModleInput.Id) {
-      this.Id = this.dateModleInput.Id;
+    if (this.dateModleInput && this.dateModleInput.id) {
+      this.id = this.dateModleInput.id;
     }
-    if (!this.Id || this.Id == 0) {
+    if (!this.id || this.id == 0) {
       this.formInfo.formAlert = "برروز خطا";
       this.formInfo.formError = "شناسه دسته بندی مشخص نمی باشد";
       this.formInfo.disabledButtonSubmitted=true;
@@ -51,7 +51,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     this.DataGetAll();
   }
 
-  Id: any;
+  id: any;
 
   private dateModleInput: any;
 
@@ -70,7 +70,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     
       this.formInfo.formAlert = "در حال لود اطلاعات";
       this.newsCategoryService
-        .ServiceGetOneById(this.Id)
+        .ServiceGetOneById(this.id)
         .subscribe(
           (next) => {
             this.dataModelResultCategory = next;
@@ -129,7 +129,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   onFormMove() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = true;
-      if (this.dataModel.NewCatId == this.Id) {
+      if (this.dataModel.NewCatId == this.id) {
         this.formInfo.formAlert = "برروز خطا";
         this.formInfo.formError =
           "شناسه دسته بندی در حال حذف با دسته بندی جایگزین یکسان است";
@@ -145,7 +145,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     }
   }
   onFormChangeNewCatId() {
-    if (this.dataModel.NewCatId == this.Id) {
+    if (this.dataModel.NewCatId == this.id) {
       this.formInfo.formAlert = "برروز خطا";
       this.formInfo.formError =
         "شناسه دسته بندی در حال حذف با دسته بندی جایگزین یکسان است";
@@ -160,7 +160,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     this.formInfo.disabledButtonSubmitted = true;
 
     this.newsCategoryService
-      .ServiceDelete(this.Id)
+      .ServiceDelete(this.id)
       .subscribe(
         (next) => {
           this.formInfo.formAllowSubmit = !next.IsSuccess;
@@ -189,7 +189,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   DataMove() {
     this.formInfo.disabledButtonSubmitted = true;
     this.newsCategoryService
-    .ServiceMove<baseEntityCategory<number>>(this.Id,this.dataModel.NewCatId)
+    .ServiceMove<baseEntityCategory<number>>(this.id,this.dataModel.NewCatId)
     .subscribe(
       (next) => {
         if (!next.IsSuccess) {

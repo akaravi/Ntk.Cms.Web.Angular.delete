@@ -19,7 +19,7 @@ export class ApiServerBase implements OnDestroy {
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
   //public cmsloadingBS = new BehaviorSubject<boolean>(false);
-  //private cmsloadingObs = this.cmsloadingBS.asObservable();
+  //public cmsloadingObs = this.cmsloadingBS.asObservable();
   public loadingText = "در حال بارگذاری...";
   public loadingStatus: boolean = false;
 
@@ -33,15 +33,13 @@ export class ApiServerBase implements OnDestroy {
   ) {
     this.childConstructor();
 
-    // this.cmsloadingObs.subscribe({
-    //   next: (x) => {
-    //     this.loadingStatus =x;
-    //   },
+    // this.cmsloadingObs.subscribe((vlaue) => {
+    //   this.loadingStatus = vlaue;
     // });
+    
+    
+    
   }
-  // public get toastrService(): ToastrService {
-  //   return this.injector.get(ToastrService);
-  // }
 
   ngOnDestroy() {
     this.subManager.unsubscribe();
@@ -80,12 +78,10 @@ export class ApiServerBase implements OnDestroy {
         if (this.toastrService) this.toastrService.error(message, title);
       }
     }
-    this.loadingStatus = false;
-
+    this.loadingStatus=false;
     return model;
   }
   handleError(error) {
-    //this.cmsloadingBS.next(false);
     if (!error) return;
     let errorMessage = error.message;
     if (error.status) {

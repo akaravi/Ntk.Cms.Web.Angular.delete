@@ -1,5 +1,16 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import {
+  ModalDismissReasons,
+  NgbModal,
+  NgbModalOptions,
+} from "@ng-bootstrap/ng-bootstrap";
 import {
   DatatableComponent,
   ColumnMode,
@@ -7,12 +18,15 @@ import {
   SelectionType,
 } from "@swimlane/ngx-datatable";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FilterDataModel, FilterModel } from "app/@cms/cmsModels/base/filterModel";
-import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
+import {
+  FilterDataModel,
+  FilterModel,
+} from "app/@cms/cmsModels/base/filterModel";
+import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
 import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -22,8 +36,11 @@ import { ToastrService } from "ngx-toastr";
 })
 export class SmsMainApiPathListComponent implements OnInit {
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+
     private publicHelper: PublicHelper,
     public smsMainApiPathService: SmsMainApiPathService,
     private modalService: NgbModal
@@ -42,9 +59,9 @@ export class SmsMainApiPathListComponent implements OnInit {
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
   dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResultViewModel: ErrorExcptionResult<
+  dataModelResultViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<
     any
-  > = new ErrorExcptionResult<any>();
+  >();
   columnMode = ColumnMode;
   selectionType = SelectionType;
   columnsContent: TableColumn[] = [
@@ -87,7 +104,7 @@ export class SmsMainApiPathListComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
-  
+
   onSubmitOptionsSearch(model: any) {
     this.filteModelContent.Filters = model;
     this.DataGetAllContent();
@@ -95,23 +112,21 @@ export class SmsMainApiPathListComponent implements OnInit {
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
-    this.smsMainApiPathService
-      .ServiceGetAll(this.filteModelContent)
-      .subscribe(
-        (next) => {
-          if (next.IsSuccess) {
-            this.dataModelResult = next;
-            this.tableContentloading = false;
-          }
-        },
-        (error) => {
-          this.toastrService.toastr.error(
-            this.publicHelper.CheckError(error),
-            "برروی خطا در دریافت اطلاعات"
-          );
+    this.smsMainApiPathService.ServiceGetAll(this.filteModelContent).subscribe(
+      (next) => {
+        if (next.IsSuccess) {
+          this.dataModelResult = next;
           this.tableContentloading = false;
         }
-      );
+      },
+      (error) => {
+        this.toastrService.toastr.error(
+          this.publicHelper.CheckError(error),
+          "برروی خطا در دریافت اطلاعات"
+        );
+        this.tableContentloading = false;
+      }
+    );
   }
   onActionbuttonNewRow() {
     if (
@@ -130,22 +145,31 @@ export class SmsMainApiPathListComponent implements OnInit {
       this.tableContentSelected.length == 0 ||
       this.tableContentSelected[0].Id == 0
     ) {
-      var title="برروز خطا ";
-      var message="ردیفی برای ویرایش انتخاب نشده است";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      this.toastrService.toastr.error(message, title);
       return;
     }
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.Access==null ||
+      this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessEditRow
     ) {
-      var title="برروز خطا ";
-      var message="شما دسترسی برای ویرایش ندارید";
-      this.toastrService.toastr.error(message,title);
+      var title = "برروز خطا ";
+      var message = "شما دسترسی برای ویرایش ندارید";
+      this.toastrService.toastr.error(message, title);
       return;
     }
-    this.openModal(this.contentContentEdit);
+    if (this.router.url == "/sms/apipath/list")
+      this.router.navigate(["../edit"], {
+        queryParams: { id: this.tableContentSelected[0].Id },
+      });
+    else
+      this.router.navigate([this.router.url +"/edit"], {
+        queryParams: { id: this.tableContentSelected[0].Id },
+      });
+
+    //this.openModal(this.contentContentEdit);
   }
   onActionbuttonDeleteRow() {}
   onActionbuttonStatus() {}
@@ -158,7 +182,11 @@ export class SmsMainApiPathListComponent implements OnInit {
   closeResult: string;
   // Open default modal
   openModal(content) {
-    this.modalService.open(content).result.then(
+    let options: NgbModalOptions = {
+      size: "lg",
+      windowClass: "openModalLarg",
+    };
+    this.modalService.open(content, options).result.then(
       (result) => {
         this.closeResult = `بسته شدن با: ${result}`;
         //this.onActionCategoryReload();
@@ -209,7 +237,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     }
     this.DataGetAllContent();
   }
-  
+
   DataViewModelContent() {
     this.smsMainApiPathService.ServiceViewModel().subscribe(
       (next) => {

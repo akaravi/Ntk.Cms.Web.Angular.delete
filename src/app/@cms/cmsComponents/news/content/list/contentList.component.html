@@ -58,6 +58,7 @@
       
       <app-cms-search-content-list [options]="optionsSearch" ></app-cms-search-content-list>
       <app-cms-export-content-list></app-cms-export-content-list>
+      <app-cms-statist-content-list></app-cms-statist-content-list>
       
       <hr>
     </div>
@@ -117,7 +118,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <p><app-news-category-edit [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-edit></p>
+      <p><app-news-category-edit [options]="{id:optionsCategorySelectData?.Id}" ></app-news-category-edit></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
@@ -133,7 +134,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><app-news-category-delete [options]="{Id:optionsCategorySelectData?.Id}" ></app-news-category-delete></p>
+    <p><app-news-category-delete [options]="{id:optionsCategorySelectData?.Id}" ></app-news-category-delete></p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
@@ -181,7 +182,7 @@
   </button>
   </div>
   <div class="modal-body">
-  <p><app-news-content-edit [options]="{Id:tableContentSelected[0]?.Id}" ></app-news-content-edit></p>
+  <p><app-news-content-edit [options]="{id:tableContentSelected[0]?.Id}" ></app-news-content-edit></p>
   </div>
   <div class="modal-footer">
   <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>

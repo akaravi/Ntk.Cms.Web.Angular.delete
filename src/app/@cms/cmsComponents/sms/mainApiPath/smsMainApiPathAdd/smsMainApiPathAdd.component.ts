@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
@@ -39,7 +40,9 @@ export class SmsMainApiPathAddComponent implements OnInit {
       this.coreEnumService.ServiceEnumRecordStatus();
     });
   }
-  
+  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
+  optionsCategorySelectData = null;
+
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
   dataModelResult: ErrorExcptionResult<
@@ -48,6 +51,9 @@ export class SmsMainApiPathAddComponent implements OnInit {
   linkCategoryId: number;
 
   ngOnInit() {
+    this.optionsCategorySelect.actions = {
+      onActionSelect: (x) => this.onActionCategorySelect(x),
+    };
     this.linkCategoryId = Number.parseInt(
       this.activatedRoute.snapshot.paramMap.get("id")
     );
@@ -58,9 +64,9 @@ export class SmsMainApiPathAddComponent implements OnInit {
     if (this.dateModleInput && this.dateModleInput.linkCategoryId) {
       this.linkCategoryId = this.dateModleInput.linkCategoryId;
     }
-    //alert("helo Id:"+this.linkCategoryId)
-
-    //this.DataGetAllCoreEnum();
+    // this.smsMainApiPathService.cmsloadingObs.subscribe((vlaue) => {
+    //   this.loadingStatus = vlaue;
+    // });
   }
   loadingStatus = false; // add one more property
   ngAfterViewChecked() {
@@ -112,6 +118,22 @@ export class SmsMainApiPathAddComponent implements OnInit {
           this.toastrService.toastr.error(message, title);
         }
       );
+  }
+
+  onActionCategorySelect(model: any) {
+    if (model && model.data) {
+      this.optionsCategorySelectData=model.data;
+
+      let Title=this.dataModel.Title;
+      let Description=this.dataModel.Description;
+      let RecordStatus=this.dataModel.RecordStatus;
+      this.dataModel= Object.assign({}, model.data);;
+
+      this.dataModel.Title=Title;
+      this.dataModel.Description=Description;
+      this.dataModel.RecordStatus=RecordStatus;
+
+    }
   }
   setFocus($event) {
     $event.focus();

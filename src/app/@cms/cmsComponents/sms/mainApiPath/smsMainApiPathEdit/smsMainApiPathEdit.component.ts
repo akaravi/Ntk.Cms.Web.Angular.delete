@@ -1,19 +1,25 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
+import { SmsMainApiPathModel } from "app/@cms/cmsModels/sms/smsMainApiPathModel";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
+import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-sms-main-api-path-edit',
-  templateUrl: './smsMainApiPathEdit.component.html',
-  styleUrls: ['./smsMainApiPathEdit.component.scss']
+  selector: "app-sms-main-api-path-edit",
+  templateUrl: "./smsMainApiPathEdit.component.html",
+  styleUrls: ["./smsMainApiPathEdit.component.scss"],
 })
 export class SmsMainApiPathEditComponent implements OnInit {
   @ViewChild("vform", { static: false })
@@ -27,7 +33,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
   private dateModleInput: any;
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
@@ -44,23 +50,22 @@ export class SmsMainApiPathEditComponent implements OnInit {
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
   dataModelResult: ErrorExcptionResult<
-  SmsMainApiPathModel
+    SmsMainApiPathModel
   > = new ErrorExcptionResult<SmsMainApiPathModel>();
-  Id: number;
+  id: number=0;
 
   ngOnInit() {
-    this.Id = Number.parseInt(
-      this.activatedRoute.snapshot.paramMap.get("id")
-    );
-    this.activatedRoute.queryParams.subscribe((params) => {
-      // Defaults to 0 if no query param provided.
-      this.Id = +params["id"] || 0;
-    });
-    if (this.dateModleInput && this.dateModleInput.Id) {
-      this.Id = this.dateModleInput.Id;
+    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+
+      this.activatedRoute.queryParams.subscribe((params) => {
+        // Defaults to 0 if no query param provided.
+        this.id = +params["id"] || 0;
+      });
+    if (this.dateModleInput && this.dateModleInput.id) {
+      this.id = this.dateModleInput.id;
     }
     this.DataGetOneContent();
-    //alert("helo Id:"+this.linkCategoryId)
+    //alert("helo id:"+this.linkCategoryId)
 
     // this.DataGetAllCoreEnum();
   }
@@ -72,7 +77,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
-  
+
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = false;
@@ -81,9 +86,10 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
   onFormCancel() {
     this.formGroup.reset();
+    this.DataGetOneContent();
   }
   DataGetOneContent() {
-    if (this.Id <= 0) {
+    if (this.id <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
@@ -92,30 +98,28 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
-    this.smsMainApiPathService
-      .ServiceGetOneById(this.Id)
-      .subscribe(
-        (next) => {
-          this.dataModel = next.Item;
+    this.smsMainApiPathService.ServiceGetOneById(this.id).subscribe(
+      (next) => {
+        this.dataModel = next.Item;
 
-          if (next.IsSuccess) {
-            this.dataModel = next.Item;
-            this.formInfo.formAlert = "";
-          } else {
-            var title = "برروز خطا ";
-            var message = next.ErrorMessage;
-            this.toastrService.toastr.error(message, title);
-          }
-        },
-        (error) => {
-          var title = "برروی خطا در دریافت اطلاعات";
-          var message = this.publicHelper.CheckError(error);
+        if (next.IsSuccess) {
+          this.dataModel = next.Item;
+          this.formInfo.formAlert = "";
+        } else {
+          var title = "برروز خطا ";
+          var message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
-      );
+      },
+      (error) => {
+        var title = "برروی خطا در دریافت اطلاعات";
+        var message = this.publicHelper.CheckError(error);
+        this.toastrService.toastr.error(message, title);
+      }
+    );
   }
   DataEditContent() {
-    if (this.Id <= 0) {
+    if (this.id <= 0) {
       var title = "برروز خطا ";
       var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
@@ -124,30 +128,29 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
-    this.smsMainApiPathService
-      .ServiceEdit(this.dataModel)
-      .subscribe(
-        (next) => {
-          this.formInfo.formAllowSubmit = true;
-          this.dataModelResult = next;
-          if (next.IsSuccess) {
-            this.formInfo.formAlert = "ثبت با موفقت انجام شد";
-          } else {
-            var title = "برروز خطا ";
-            var message = next.ErrorMessage;
-            this.toastrService.toastr.error(message, title);
-          }
-        },
-        (error) => {
-          this.formInfo.formAllowSubmit = true;
-
-          var title = "برروی خطا در دریافت اطلاعات";
-          var message = this.publicHelper.CheckError(error);
+    this.smsMainApiPathService.ServiceEdit(this.dataModel).subscribe(
+      (next) => {
+        this.formInfo.formAllowSubmit = true;
+        this.dataModelResult = next;
+        if (next.IsSuccess) {
+          this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+        } else {
+          var title = "برروز خطا ";
+          var message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
-      );
+      },
+      (error) => {
+        this.formInfo.formAllowSubmit = true;
+
+        var title = "برروی خطا در دریافت اطلاعات";
+        var message = this.publicHelper.CheckError(error);
+        this.toastrService.toastr.error(message, title);
+      }
+    );
   }
   setFocus($event) {
     $event.focus();
+    
   }
 }

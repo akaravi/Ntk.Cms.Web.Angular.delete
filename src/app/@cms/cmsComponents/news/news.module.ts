@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsRoutes } from './news.routing';
 import { TreeModule } from 'angular-tree-component';
@@ -12,16 +12,28 @@ import { NewsCategoryListComponent } from './category/list/categoryList.componen
 import { NewsCategorySelectComponent } from './category/select/categorySelect.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
 import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
 import { QuillModule } from 'ngx-quill';
-import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 import { NewsContentDeleteComponent } from './content/delete/contentDelete.component';
+import { TruncatePipe } from 'app/@cms/cmsCommon/pipe/truncate.pipe';
+import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
+import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
+import { NewsCommentService } from 'app/@cms/cmsService/news/newsComment.service';
+import { NewsConfigurationService } from 'app/@cms/cmsService/news/newsConfiguration.service';
+import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
+import { NewsContentAndParameterValueService } from 'app/@cms/cmsService/news/newsContentAndParameterValue.service';
+import { NewsContentOtherInfoService } from 'app/@cms/cmsService/news/newsContentOtherInfo.service';
+import { NewsContentParameterService } from 'app/@cms/cmsService/news/newsContentParameter.service';
+import { NewsContentParameterTypeService } from 'app/@cms/cmsService/news/newsContentParameterType.service';
+import { NewsContentSimilarService } from 'app/@cms/cmsService/news/newsContentSimilar.service';
+import { NewsContentTagService } from 'app/@cms/cmsService/news/newsContentTag.service';
+import { NewsShareMainAdminSettingService } from 'app/@cms/cmsService/news/newsShareMainAdminSetting.service';
+import { NewsShareReciverCategoryService } from 'app/@cms/cmsService/news/newsShareReciverCategory.service';
+import { NewsShareServerCategoryService } from 'app/@cms/cmsService/news/newsShareServerCategory.service';
 
 @NgModule({
   imports: [
-    CmsSharedModule,
     CommonModule,
     FormsModule,
     NewsRoutes,
@@ -29,7 +41,8 @@ import { NewsContentDeleteComponent } from './content/delete/contentDelete.compo
     TreeModule.forRoot(),
     //NgxQueryBuilderModule,
 
-    QuillModule
+    QuillModule,
+    CmsSharedModule
   ],
   declarations: [
     //
@@ -46,9 +59,23 @@ import { NewsContentDeleteComponent } from './content/delete/contentDelete.compo
     NewsCategorySelectComponent,
     
     
-    
   ]  ,
   exports:[
+    NewsCategoryService
+,NewsCategoryService
+,NewsCommentService
+,NewsConfigurationService
+,NewsContentService
+,NewsContentAndParameterValueService
+,NewsContentOtherInfoService
+,NewsContentParameterService
+,NewsContentParameterTypeService
+,NewsContentSimilarService
+,NewsContentTagService
+,NewsShareMainAdminSettingService
+,NewsShareReciverCategoryService
+,NewsShareServerCategoryService
+,
    ]
    
 })

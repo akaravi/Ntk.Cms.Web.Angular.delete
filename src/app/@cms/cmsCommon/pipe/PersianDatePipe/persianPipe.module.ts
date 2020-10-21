@@ -28,12 +28,13 @@ export class ExJdatePipe extends JdatePipe { };
 })
 export class ExPersianDate extends PersianDate { };
 @NgModule({
-  declarations: [
+  declarations: [	
     ExPersianDate,
     ExPersianTimeAgoPipe,
     ExIRCurrencyPipe,
-    ExJdatePipe
-  ],
+    ExJdatePipe,
+      
+   ],
   providers: [
     ExPersianDate,
     ExPersianTimeAgoPipe,

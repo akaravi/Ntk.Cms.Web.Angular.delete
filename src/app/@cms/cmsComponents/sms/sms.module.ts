@@ -25,7 +25,6 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 
 @NgModule({
   imports: [
-    CmsSharedModule,
     CommonModule,
     FormsModule,
     SmsRoutes,
@@ -34,6 +33,7 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     //NgxQueryBuilderModule,
 
     QuillModule,
+    CmsSharedModule
   ],
   declarations: [
     //
@@ -49,7 +49,10 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     SmsMainApiPathCompanyDeleteComponent,
     SmsMainApiPathCompanySelectComponent,
   ],
-  exports: [],
+  exports: [
+
+
+  ],
   //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
   providers: [SmsMainApiPathCompanyService, SmsMainApiPathService],
 })

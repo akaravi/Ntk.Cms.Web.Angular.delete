@@ -5,9 +5,6 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 
 
-@Injectable({
-  providedIn: 'root',
-})
 export class NewsCategoryService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

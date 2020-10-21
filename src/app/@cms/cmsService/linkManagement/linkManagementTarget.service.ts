@@ -9,9 +9,7 @@ import { LinkManagementTargetShortLinkGetDtoModel } from 'app/@cms/cmsModels/lin
 import { LinkManagementTargetShortLinkSetResponceModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkSetResponceModel';
 import { LinkManagementTargetShortLinkGetResponceModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkGetResponceModel';
 
-@Injectable({
-  providedIn: 'root',
-})
+
 export class LinkManagementTargetService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

@@ -1,57 +1,69 @@
 <section id="horizontal-form-layouts" dir="rtl">
-  <div class="row text-right">
-      <div class="col-md-12">
-          <div class="card">
-              <div class="card-header pb-2">
-                  <h4 class="card-title" id="horz-layout-basic">حذف محتوا</h4>
-                  <p class="mb-0">
-                  
-                  </p>
-              </div>
-              <div class="card-content">
-                  <div class="px-3">
-                    <br>
-            
-                      <ngx-datatable
-                      #tableContent
-                          class="bootstrap"
-                          [rows]="dataModelItemStates"
-                          [columns]="columnsContent"
-                          [columnMode]="columnMode.force"
-                          [headerHeight]="50"
-                          [footerHeight]="50"
-                          rowHeight="auto"
-                          [externalPaging]="true"
-                          [count]="dataModelItemStates.length"
-                          [offset]="1"
-                          [limit]="dataModelItemStates.length"
-                          [loadingIndicator]="tableContentloading"
-                          [externalSorting]="true"
-                          [sortType]="'single'"
-                          [selected]="tableContentSelected"
-                          [selectionType]="selectionType.single"
-                          
-                  
-                        >
-                  
-                        </ngx-datatable>
-                          <div class="form-actions">
-                              <small class="form-text text-muted ">{{formInfo.formAlert}} </small>
-                              <small class="form-text text-muted danger">{{formInfo.formError}} </small>
-                          </div>
-                          <div class="form-actions" *ngIf="formInfo.formAllowSubmit">
+    <div class="row text-right">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header pb-2">
+                    <h4 class="card-title" id="horz-layout-basic">حذف محتوا</h4>
+                    <p class="mb-0">
 
-                              <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">
-                                  <i class="ft-x"></i> انصراف
-                              </button>
-                              <button type="button" (click)="DataDeleteContent()" class="btn btn-raised btn-primary" >
-                                  <i class="fa fa-check-square-o"></i> حدف
-                              </button>
+                    </p>
+                </div>
+                <div class="card-content">
 
-                          </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <div class="px-3">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">عنوان</th>
+                                    <th scope="col">Start</th>
+                                    <th scope="col">End</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dataModelItemStates">
+                                    <th scope="row">{{ item.Item.Id }}</th>
+                                    <td>
+                                      <!-- {{ item.Item.Title | truncate:[20, '...'] }} -->
+                                    </td>
+                                    <td>
+                                      {{ item.ActionStart }}
+                                    </td>
+                                    <td>
+                                      {{ item.ActionEnd }}
+                                    </td>
+                                    <td>
+                                      {{ item.Status }}
+                                    </td>
+                                    <td>
+                                      <!-- {{ item.Message | truncate:[50, '...']  }} -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                        <div class="form-actions">
+                            <small class="form-text text-muted ">{{formInfo.formAlert}} </small>
+                            <small class="form-text text-muted danger">{{formInfo.formError}} </small>
+                        </div>
+                        <div class="form-actions" *ngIf="formInfo.formAllowSubmit">
+
+                            <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">
+                                <i class="ft-x"></i> انصراف
+                            </button>
+                            <button type="button" (click)="DataDeleteContent()" class="btn btn-raised btn-primary">
+                                <i class="fa fa-check-square-o"></i> حدف
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

@@ -14,11 +14,7 @@ import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
 import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import {
-  ColumnMode,
-  TableColumn,
-  SelectionType,
-} from "@swimlane/ngx-datatable";
+
 @Component({
   selector: "app-news-content-delete",
   templateUrl: "./contentDelete.component.html",
@@ -48,36 +44,7 @@ export class NewsContentDeleteComponent implements OnInit {
     ItemState<NewsContentModel>
   >();
   formInfo: FormInfoModel = new FormInfoModel();
-  selectionType = SelectionType;
-  tableContentloading = false;
-  tableContentSelected: Array<NewsContentModel> = [];
-  columnMode = ColumnMode;
-  columnsContent: TableColumn[] = [
-    {
-      prop: "Item.Id",
-      name: "شناسه",
-    },
-    {
-      prop: "Item.Title",
-      name: "عنوان",
-    },
-    {
-      prop: "ActionStart",
-      name: "Action Start",
-    },
-    {
-      prop: "ActionEnd",
-      name: "Action End",
-    },
-    {
-      prop: "Status",
-      name: "Status",
-    },
-    {
-      prop: "Message",
-      name: "Message",
-    },
-  ];
+  
   ngOnInit() {
     if (this.dateModleInput && this.dateModleInput.Contents) {
       this.dataModelContents = this.dateModleInput.Contents;
@@ -93,7 +60,6 @@ export class NewsContentDeleteComponent implements OnInit {
       return;
     }
 
-    this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
     this.formInfo.formError = "";
     this.dataModelContents.forEach((element) => {
       this.dataModelItemStates.push({
@@ -113,7 +79,6 @@ export class NewsContentDeleteComponent implements OnInit {
       return;
     }
 
-    //this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
     this.formInfo.formError = "";
     this.formInfo.formAllowSubmit = false;
     this.dataModelItemStates.forEach((element) => {

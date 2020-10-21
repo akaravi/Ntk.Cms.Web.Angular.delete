@@ -54,6 +54,7 @@
                     </div>
 
                     <app-cms-search-content-list [options]="optionsSearch"></app-cms-search-content-list>
+                    <app-cms-export-content-list></app-cms-export-content-list>
                     <hr>
                 </div>
 
@@ -162,7 +163,7 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-edit [options]="{ContentId:this.tableContentSelected[0].Id}"></app-sms-main-api-path-edit>
+            <app-sms-main-api-path-edit [options]="{Id:this.tableContentSelected[0].Id}"></app-sms-main-api-path-edit>
         </p>
     </div>
     <div class="modal-footer">

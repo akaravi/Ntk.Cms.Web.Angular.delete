@@ -57,6 +57,8 @@
       </div>
       
       <app-cms-search-content-list [options]="optionsSearch" ></app-cms-search-content-list>
+      <app-cms-export-content-list></app-cms-export-content-list>
+      
       <hr>
     </div>
 
@@ -179,7 +181,7 @@
   </button>
   </div>
   <div class="modal-body">
-  <p><app-news-content-edit [options]="{ContentId:tableContentSelected[0]?.Id}" ></app-news-content-edit></p>
+  <p><app-news-content-edit [options]="{Id:tableContentSelected[0]?.Id}" ></app-news-content-edit></p>
   </div>
   <div class="modal-footer">
   <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>

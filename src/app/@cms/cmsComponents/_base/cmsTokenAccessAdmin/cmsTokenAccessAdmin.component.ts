@@ -3,8 +3,6 @@ import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
 import { AuthRenewTokenModel } from "app/@cms/cmsModels/core/authModel";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from "ngx-toastr";
-import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "app-cms-token-access-admin",
@@ -54,7 +52,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
           this.toastrService.toastr.error(message, title);
         }
       },
-      (error) => {}
+      () => {}
     );
   }
   onActionbuttonUserAccessAdminAllowToProfessionalData() {
@@ -80,7 +78,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
           this.toastrService.toastr.error(message, title);
         }
       },
-      (error) => {}
+      () => {}
     );
   }
 }

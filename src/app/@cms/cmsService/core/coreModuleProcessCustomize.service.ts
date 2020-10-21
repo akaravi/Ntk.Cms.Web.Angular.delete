@@ -2,9 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+
 export class CoreModuleProcessCustomizeService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

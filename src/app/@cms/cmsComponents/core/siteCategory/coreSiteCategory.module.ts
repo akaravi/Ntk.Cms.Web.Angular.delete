@@ -4,7 +4,6 @@ import { CoreSiteCategoryRoutes } from './coreSiteCategory.routing';
 import { CoreSiteCategoryAddComponent } from './add/coreSiteCategoryAdd.component';
 import { CoreSiteCategoryEditComponent } from './edit/coreSiteCategoryEdit.component';
 import { CoreSiteCategoryListComponent } from './list/coreSiteCategoryList.component';
-//import { CoreSiteCategorySelectComponent } from './select/select.component';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { CoreSiteCategoryListComponent } from './list/coreSiteCategoryList.compo
     CoreSiteCategoryAddComponent,
     CoreSiteCategoryEditComponent,
     CoreSiteCategoryListComponent,
-    //CoreSiteCategorySelectComponent
   ]
 })
 export class CoreSiteCategoryModule { }

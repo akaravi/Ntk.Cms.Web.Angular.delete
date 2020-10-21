@@ -1,9 +1,8 @@
-import { ErrorHandler, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app-routing.module";
-import { SharedModule } from "./shared/shared.module";
 import { ToastrModule } from "ngx-toastr";
 import { AgmCoreModule } from "@agm/core";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
@@ -25,10 +24,8 @@ import { CmsAuthService } from "./@cms/cmsService/core/auth.service";
 import { CmsAuthGuard } from "./@cms/cmsService/core/auth.guard.service";
 import { CmsComponent } from "./@cms/cms.component";
 import { ThemeComponent } from "./@theme/theme.component";
-import { CmsSharedModule } from "./@cms/shared/cmsShared.module";
-import { NgxQueryBuilderModule } from "ngx-query-builder";
 import { CmsToastrServiceService } from './@cms/cmsService/_base/cmsToastrService.service';
-//import { AppErrorHandler } from './@cms/cmsService/_base/AppErrorHandler';
+import { MainSharedModule } from './shared/mainShared.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -45,9 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
     AppRoutingModule,
-    SharedModule,
-    //CmsSharedModule,
-
+    MainSharedModule,
+    
     HttpClientModule,
 
     ToastrModule.forRoot({

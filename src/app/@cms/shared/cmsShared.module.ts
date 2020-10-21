@@ -24,31 +24,21 @@ import { CmsTokenAccessAdminComponent } from '../cmsComponents/_base/cmsTokenAcc
 import { CmsSearchContentListComponent } from '../cmsComponents/_base/cmsSearchContentList/cmsSearchContentList.component';
 import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
+import { TruncatePipe } from '../cmsCommon/pipe/truncate.pipe';
+import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportContentList/cmsExportContentList.component';
+
+
 
 @NgModule({
-    exports: [
-        CommonModule,
-        NgbModule,
-        TranslateModule,
-        CmsFooterComponent,
-        CmsNavbarComponent,
-        CmsSidebarComponent,
-        CmsCustomizerComponent,
-        CmsNotificationSidebarComponent,
-        SidebarDirective,
-        
-        CmsSearchContentListComponent,
-        
-
-    ],
     imports: [
-        RouterModule,
-        FormsModule ,
         CommonModule,
-        NgbModule,
-        TranslateModule,
-        PerfectScrollbarModule,
-        NgxQueryBuilderModule
+         RouterModule,
+         FormsModule ,
+         NgbModule,
+         TranslateModule,
+         PerfectScrollbarModule,
+         NgxQueryBuilderModule,
+
     ],
     declarations: [
         CmsFooterComponent,
@@ -61,9 +51,32 @@ import { FormsModule } from '@angular/forms';
         SidebarListDirective,
         SidebarAnchorToggleDirective,
         SidebarToggleDirective,
-        CmsTokenAccessAdminComponent,
 
-        CmsSearchContentListComponent
-    ]
+
+
+
+        
+        CmsTokenAccessAdminComponent,
+        CmsSearchContentListComponent,
+        CmsExportContentListComponent,
+        //TruncatePipe
+    ],
+    exports: [
+        CommonModule,
+        NgbModule,
+        TranslateModule,
+        CmsFooterComponent,
+        CmsNavbarComponent,
+        CmsSidebarComponent,
+        CmsCustomizerComponent,
+        CmsNotificationSidebarComponent,
+        SidebarDirective,
+        
+        CmsTokenAccessAdminComponent,
+        CmsSearchContentListComponent,
+        CmsExportContentListComponent,
+
+        //TruncatePipe
+    ],
 })
 export class CmsSharedModule { }

@@ -5,9 +5,7 @@ import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult
 import { catchError, map, retry } from 'rxjs/operators';
 import { SearchTagModel } from 'app/@cms/cmsModels/base/searchModel';
 
-@Injectable({
-  providedIn: 'root',
-})
+
 export class NewsContentTagService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

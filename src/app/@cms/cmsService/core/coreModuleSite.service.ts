@@ -5,9 +5,7 @@ import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { map, catchError, retry } from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root',
-})
+
 export class CoreModuleSiteService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

@@ -9,9 +9,6 @@ import { CoreSiteSearchModel } from 'app/@cms/cmsModels/core/coreSiteModel';
 import { CoreSiteAddFirstSiteDtoModel } from 'app/@cms/cmsModels/core/coreSiteAddFirstSiteDtoModel';
 
 
-@Injectable({
-  providedIn: 'root',
-})
 export class CoreSiteService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 

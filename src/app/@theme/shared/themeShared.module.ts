@@ -21,6 +21,13 @@ import { SidebarAnchorToggleDirective } from 'app/@theme/shared/directives/sideb
 import { SidebarToggleDirective } from 'app/@theme/shared/directives/sidebartoggle.directive';
 
 @NgModule({
+    imports: [
+        RouterModule,
+        CommonModule,
+        NgbModule,
+        TranslateModule,
+        PerfectScrollbarModule
+    ],
     exports: [
         CommonModule,
         NgbModule,
@@ -31,14 +38,6 @@ import { SidebarToggleDirective } from 'app/@theme/shared/directives/sidebartogg
         CustomizerComponent,
         NotificationSidebarComponent,
         SidebarDirective,
-
-    ],
-    imports: [
-        RouterModule,
-        CommonModule,
-        NgbModule,
-        TranslateModule,
-        PerfectScrollbarModule
     ],
     declarations: [
         FooterComponent,

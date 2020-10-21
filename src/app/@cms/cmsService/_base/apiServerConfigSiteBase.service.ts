@@ -8,7 +8,6 @@ import * as fromStore from "../../cmsStore";
 import { Subscription, throwError } from "rxjs";
 import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
-//import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 import { retry, catchError } from "rxjs/operators";
 import { environment } from "environments/environment";
@@ -22,14 +21,6 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry =environment. cmsServerConfig.configApiRetry;
 
-  // constructor(
-  //   public http: HttpClient,
-  //   public toastrService: ToastrService,
-  //   public router: Router,
-  //   public store: Store<fromStore.State>,
-  //   public cmsAuthService: CmsAuthService,
-  //   public publicHelper: PublicHelper
-  // ) {}
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
@@ -37,35 +28,7 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
   getModuleCotrolerUrl() {
     return "Empty";
   }
-  // getHeaders() {
-  //   const token = this.CheckToken();
-  //   const headers = { Authorization: token };  
-  //   return headers;
-  // }
-  // errorExcptionResultCheck<TOut>(model: ErrorExcptionResult<TOut>) {
-  //   if (model) {
-  //     if (model.IsSuccess) {
-
-  //     } else {
-  //       this.toastrService.error(model.ErrorMessage, "خطا در دریافت از سرور");
-  //     }
-  //   }
-  //   return model;
-  // }
-
-  // handleError(error) {
-  //   let errorMessage = "";
-  //   if (error.error instanceof ErrorEvent) {
-  //     // client-side error
-  //     errorMessage = `Error: ${error.error.message}`;
-  //   } else {
-  //     // server-side error
-  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-  //   }
-  //   window.alert(errorMessage);
-  //   return throwError(errorMessage);
-  // }
-
+  
   ServiceSiteDefault<TOut>() {
     return this.http
     .get(this.baseUrl + this.getModuleCotrolerUrl()+ "/SiteDefault", {

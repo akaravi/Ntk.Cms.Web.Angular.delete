@@ -53,7 +53,7 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 
 
   ],
-  //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
   providers: [SmsMainApiPathCompanyService, SmsMainApiPathService],
+  //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SmsModule {}

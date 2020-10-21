@@ -20,7 +20,11 @@ import { CoreUserBadLoginService } from 'app/@cms/cmsService/core/coreUserBadLog
     CoreRoutes,
   ],
   declarations: [],
-  exports:[
+  exports: [
+
+
+  ],
+  providers:[
 
     CoreConfigurationService
     ,CoreGuideService

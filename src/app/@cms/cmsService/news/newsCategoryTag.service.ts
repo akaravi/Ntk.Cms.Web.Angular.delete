@@ -3,12 +3,12 @@ import { Subscription, Observable } from 'rxjs';
 import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
 
 
-export class NewsCategoryService extends ApiCmsServerBase<any,number> implements OnDestroy {
+export class NewsCategoryTagService extends ApiCmsServerBase<any,number> implements OnDestroy {
   subManager = new Subscription();
 
   getModuleCotrolerUrl()
   {
-     return 'NewsCategoryTag';
+     return 'newsCategoryTag';
   }
 
   ngOnDestroy() {

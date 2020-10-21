@@ -19,12 +19,12 @@ import {
 import { environment } from "environments/environment";
 import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
 import { CaptchaModel } from "app/@cms/cmsModels/base/captchaModel";
-import { ApiServerBase } from '../_base/apiServerBase.service';
+import { ApiServerBase } from "../_base/apiServerBase.service";
 
 @Injectable()
 export class CmsAuthService extends ApiServerBase implements OnDestroy {
-  CorrectTokenInfo = new BehaviorSubject<TokenInfoModel>(null);
-  CorrectTokenInfoObs = this.CorrectTokenInfo.asObservable();
+  CorrectTokenInfoBS = new BehaviorSubject<TokenInfoModel>(null);
+  CorrectTokenInfoBSObs = this.CorrectTokenInfoBS.asObservable();
 
   subManager = new Subscription();
 
@@ -34,35 +34,28 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
   userRoles: string[] = [];
   userName = "";
 
-  // constructor(
-  //   private http: HttpClient,
-  //   private toastrService: CmsToastrServiceService,
-  //   private router: Router,
-  //   private store: Store<fromStore.State>
-  // ) {
-  //   this.tokenString = localStorage.getItem("token");
-  //   if (this.loggedIn()) {
-  //     const decode = this.jwtHelper.decodeToken(this.tokenString);
-  //     //this.userRoles = decode.role as Array<string>;
-  //     //this.userName = decode.unique_name;
-  //   }
-  // }
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
 
   SetCorrectTokenInfo(model: TokenInfoModel) {
-    if (model == null) model = new TokenInfoModel();
-    this.CorrectTokenInfo.next(model);
+    if (model == null) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      return;
+    }
+    localStorage.setItem("token", model.token);
+    localStorage.setItem("refreshToken", model.refresh_token);
+
+    this.CorrectTokenInfoBS.next(model);
     this.store.dispatch(new fromStore.EditLoggedUser(model));
     const decodedToken = this.jwtHelper.decodeToken(model.token);
     this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
-    this.userRoles = decodedToken.role as Array<string>;
-    localStorage.setItem("token", model.token);
-    localStorage.setItem("refreshToken", model.refresh_token);
+    //this.userRoles = decodedToken.role as Array<string>;
+    
   }
-  CorrectTokenInfoRenew() {
-    const token = localStorage.getItem("token");
+  CorrectTokenInfoBSRenew() {
+    const token = this.CheckToken();
 
     if (!token || token === "null") return;
     return this.http
@@ -75,12 +68,12 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
               this.SetCorrectTokenInfo(ret.Item);
               let title = "تایید توکن";
               let message = "توکن شما مورد تایید سرور قرار گرفت";
-              this.toastrService.success( message,title);
+              this.toastrService.success(message, title);
             } else {
               let title = "تایید توکن";
               let message =
                 "توکن شما مورد تایید سرور نبود . مجددا وار حساب کاربری شوید";
-              this.toastrService.error( message,title);
+              this.toastrService.error(message, title);
               this.router.navigate([environment.cmsUiConfig.Pathlogin]);
             }
             return ret;
@@ -98,11 +91,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
     // );
   }
 
-  // getHeaders() {
-  //   const token = this.CheckToken();
-  //   const headers = { Authorization: token };
-  //   return headers;
-  // }
+
   ServiceCaptcha() {
     return this.http.get(this.baseUrl + "captcha").pipe(
       map((ret: ErrorExcptionResult<CaptchaModel>) => {
@@ -162,15 +151,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
         map((ret: ErrorExcptionResult<TokenInfoModel>) => {
           if (ret) {
             if (ret.IsSuccess) {
-              this.store.dispatch(new fromStore.EditLoggedUser(ret.Item));
-              const decodedToken = this.jwtHelper.decodeToken(ret.Item.token);
-              this.store.dispatch(new fromStore.EditDecodedToken(decodedToken));
-              this.userRoles = decodedToken.role as Array<string>;
-              //this.toastrService.success("با موفقیت وارد شدید", "موفق");
-
               this.SetCorrectTokenInfo(ret.Item);
-              localStorage.setItem("token", ret.Item.token);
-              localStorage.setItem("refreshToken", ret.Item.refresh_token);
             } else {
               this.toastrService.error(ret.ErrorMessage, "خطا در دریافت توکن");
             }
@@ -232,8 +213,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
             this.tokenString = null;
 
             this.SetCorrectTokenInfo(null);
-            localStorage.removeItem("token");
-            localStorage.removeItem("refreshToken");
+
             this.toastrService.success("خروح شما با موفقیت انجام شد", "موفق");
 
             return ret;
@@ -268,7 +248,7 @@ export class CmsAuthService extends ApiServerBase implements OnDestroy {
       })
     );
 
-    const token = localStorage.getItem("token");
+    const token = this.CheckToken();
     if (token == null || token == undefined) {
       return false;
     }

@@ -19,35 +19,11 @@ export class PublicHelper {
     private toastrService: CmsToastrServiceService,
     //cmsAuthService: CmsAuthService
   ) {
-    // cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
+    // cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
     //   this.TokenInfo = vlaue;
     // });
   }
 
-  // CheckToken() {
-  //   const token = localStorage.getItem("token");
-
-  //   if (!token || token === "null") {
-  //     this.toastrService.warning(
-  //       "لطفا مجددا وارد حساب کاربری خود شوید",
-  //       "نیاز به ورود مجدد"
-  //     );
-  //     this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-  //   }
-  //   return token;
-  // }
-  // CheckTokenInfo() {
-  //   const token = localStorage.getItem("token");
-
-  //   if (!token || token === "null") {
-  //     this.toastrService.warning(
-  //       "لطفا مجددا وارد حساب کاربری خود شوید",
-  //       "نیاز به ورود مجدد"
-  //     );
-  //     this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-  //   }
-  //   return this.TokenInfo;
-  // }
   CheckError(model: any) {
     if (!model) {
       return "Error";

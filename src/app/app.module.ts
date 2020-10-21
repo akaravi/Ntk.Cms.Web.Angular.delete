@@ -49,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     ToastrModule.forRoot({
       timeOut: 2000,
       enableHtml: true,
-      positionClass: "toast-bottom-right",
+      positionClass: "toast-top-right",
       preventDuplicates: true,
       closeButton: true,
     }),

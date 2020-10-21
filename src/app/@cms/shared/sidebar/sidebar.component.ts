@@ -19,6 +19,7 @@ import { LayoutService } from "../../../shared/services/layout.service";
 import { Subscription } from "rxjs";
 import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
 import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel";
+import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
 
 @Component({
   selector: "app-cms-sidebar",
@@ -45,7 +46,8 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     public translate: TranslateService,
     private configService: ConfigService,
     private layoutService: LayoutService,
-    private coreCpMainMenuService: CoreCpMainMenuService
+    private coreCpMainMenuService: CoreCpMainMenuService,
+    public cmsAuthService: CmsAuthService
   ) {
     if (this.depth === undefined) {
       this.depth = 0;
@@ -54,7 +56,10 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.coreCpMainMenuService.coreCpMainMenuObs.subscribe((value) => {
       this.menuItems = this.menuConvertor(value);
     });
-
+    this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
+      //console.log("TokenInfo Navbar:",vlaue);
+      this.DataGetCpMenu();
+    });
     this.layoutSub = layoutService.customizerChangeEmitted$.subscribe(
       (options) => {
         if (options) {
@@ -93,9 +98,10 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
   }
-
+  loadingStatus=true;
   ngOnInit() {
-    this.DataGetCpMenu();
+    // if (this.menuItems == null || this.menuItems.length == 0)
+    //   this.DataGetCpMenu();
 
     this.config = this.configService.templateConf;
     //this.menuItems = CmsROUTES; //karavi menu
@@ -109,14 +115,24 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   DataGetCpMenu() {
-    this.coreCpMainMenuService.ServiceGetMenu(null);
-   
+    this.loadingStatus = true;
+    this.coreCpMainMenuService.ServiceGetAllMenu(null).subscribe(
+      (next) => {
+        if (next.IsSuccess) {
+          this.menuItems = this.menuConvertor(next.ListItems);
+        }
+        this.loadingStatus = false;
+      },
+      (error) => {
+        this.loadingStatus = false;
+      }
+    );
   }
   menuConvertor(model: CoreCpMainMenuModel[]) {
     var retOut = new Array<MenuInfo>();
     model.forEach((element) => {
       var newRow: MenuInfo = {
-        path: "/"+element.RouteAddressLink,
+        path: "/" + element.RouteAddressLink,
         title: element.Title,
         icon: element.Icon,
         class: "",

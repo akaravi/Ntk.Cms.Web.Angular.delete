@@ -74,7 +74,7 @@ export class ApiServerBase implements OnDestroy {
         if (this.toastrService) this.toastrService.error(message, title);
       }
     }
-    this.loadingStatus=false;
+    //this.loadingStatus=false;
     return model;
   }
   handleError(error) {

@@ -8,7 +8,8 @@ import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel
 @Injectable({
   providedIn: "root",
 })
-export class CoreCpMainMenuService extends ApiCmsServerBase<any,number>
+export class CoreCpMainMenuService
+  extends ApiCmsServerBase<any, number>
   implements OnDestroy {
   coreCpMainMenu = new BehaviorSubject<Array<CoreCpMainMenuModel>>(
     new Array<CoreCpMainMenuModel>()
@@ -22,20 +23,11 @@ export class CoreCpMainMenuService extends ApiCmsServerBase<any,number>
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
-  SetCoreCpMainMenu(model: Array<CoreCpMainMenuModel>) {
-    if (model == null) model = new Array<CoreCpMainMenuModel>();
-    this.coreCpMainMenu.next(model);
-  }
-  ServiceGetMenu(model: FilterModel) {
-    this.ServiceGetAllMenu(null).subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.SetCoreCpMainMenu(next.ListItems);
-        }
-      },
-      (error) => {}
-    );
-  }
+  // SetCoreCpMainMenu(model: Array<CoreCpMainMenuModel>) {
+  //   if (model == null) model = new Array<CoreCpMainMenuModel>();
+  //   this.coreCpMainMenu.next(model);
+  // }
+
   ServiceGetAllMenu(model: FilterModel) {
     if (model == null) model = new FilterModel();
     model.RowPerPage = 200;
@@ -47,7 +39,9 @@ export class CoreCpMainMenuService extends ApiCmsServerBase<any,number>
         retry(this.configApiRetry),
         catchError(this.handleError),
         map((ret: ErrorExcptionResult<CoreCpMainMenuModel>) => {
-          this.SetCoreCpMainMenu(ret.ListItems);
+          if (ret.Item != null) {
+            this.coreCpMainMenu.next(ret.ListItems);
+          }
           return this.errorExcptionResultCheck(ret);
         })
       );

@@ -93,6 +93,10 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       name: "شناسه",
     },
     {
+      prop: "LinkSiteId",
+      name: "سایت",
+    },
+    {
       prop: "CreatedDate",
       name: "ساخت",
       pipe: { transform: this.publicHelper.LocaleDate },
@@ -210,12 +214,15 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
+    this.loadingStatus=true;
     this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResult = next;
           this.tableContentloading = false;
         }
+        this.loadingStatus=false;
+
       },
       (error) => {
         this.toastrService.toastr.error(
@@ -223,6 +230,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
           "برروی خطا در دریافت اطلاعات"
         );
         this.tableContentloading = false;
+        this.loadingStatus=false;
+
       }
     );
   }

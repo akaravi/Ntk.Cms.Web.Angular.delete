@@ -12,13 +12,11 @@ import { Subscription } from "rxjs";
 import { ConfigService } from "../../../shared/services/config.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
-import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { environment } from "environments/environment";
-import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
 import { TokenInfoModel } from "app/@cms/cmsModels/base/tokenInfoModel";
-import { value } from "app/shared/data/dropdowns";
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { AuthRenewTokenModel } from 'app/@cms/cmsModels/core/authModel';
 
 @Component({
   selector: "app-cms-navbar",
@@ -41,11 +39,10 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private layoutService: LayoutService,
     private configService: ConfigService,
     private router: Router,
-    private route: ActivatedRoute,
-    private cmsAuthService: CmsAuthService,
+    public cmsAuthService: CmsAuthService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
-    private coreCpMainMenuService: CoreCpMainMenuService
+    
   ) {
     // const browserLang: string = translate.getBrowserLang();
     const browserLang: string = "fa";
@@ -59,11 +56,12 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.placement = "bottom-right";
       }
     });
-    this.cmsAuthService.CorrectTokenInfoObs.subscribe((vlaue) => {
+    this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
       //console.log("TokenInfo Navbar:",vlaue);
       this.TokenInfo = vlaue;
     });
   }
+  loadingStatus=false;
 
   ngOnInit() {
     this.config = this.configService.templateConf;
@@ -72,7 +70,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.TokenInfo.UserId == null ||
       this.TokenInfo.UserId == 0
     ) {
-      this.cmsAuthService.CorrectTokenInfoRenew();
+      this.cmsAuthService.CorrectTokenInfoBSRenew();
     }
   }
   ngAfterViewInit() {
@@ -96,6 +94,39 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ChangeLanguage(language: string) {
     this.translate.use(language);
+
+   
+
+    let AuthModel: AuthRenewTokenModel = new AuthRenewTokenModel();
+    AuthModel.UserAccessAdminAllowToProfessionalData = this.TokenInfo.UserAccessAdminAllowToProfessionalData;
+    AuthModel.UserAccessAdminAllowToAllData = this.TokenInfo.UserAccessAdminAllowToAllData;
+    AuthModel.SiteId = this.TokenInfo.SiteId;
+    AuthModel.UserId = this.TokenInfo.UserId;
+    AuthModel.lang = language;
+
+    var title = "اطلاعات ";
+    var message = "درخواست تغییر زبان به سرور ارسال شد";
+    this.toastrService.toastr.info(message, title);
+    this.loadingStatus = true;
+    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+      (next) => {
+        this.loadingStatus = false;
+        if (next.IsSuccess) {
+          if (next.Item.Language == language) {
+            var message = "دسترسی به ربان جدید تایید شد";
+            this.toastrService.toastr.success(message, title);
+          } else {
+            var message = "دسترسی به زبان جدید تایید نشد";
+            this.toastrService.toastr.warning(message, title);
+          }
+        } else {
+          var title = "برروز خطا ";
+          var message = next.ErrorMessage;
+          this.toastrService.toastr.error(message, title);
+        }
+      },
+      () => {}
+    );
   }
 
   ToggleClass() {
@@ -119,18 +150,24 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   ActionLogOut() {
+    this.loadingStatus=true;
+
     this.cmsAuthService.ServiceLogout().subscribe(
       (next) => {
         if (next.IsSuccess) {
-          this.coreCpMainMenuService.SetCoreCpMainMenu(null);
+          
           this.router.navigate([environment.cmsUiConfig.Pathlogin]);
         }
+        this.loadingStatus=false;
+
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
           "خطا در خروج از سیستم"
         );
+        this.loadingStatus=false;
+
       }
     );
   }

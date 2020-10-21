@@ -26,7 +26,7 @@
                                 <tr *ngFor="let item of dataModelItemStates">
                                     <th scope="row">{{ item.Item.Id }}</th>
                                     <td>
-                                      <!-- {{ item.Item.Title | truncate:[20, '...'] }} -->
+                                       {{ item.Item.Title | truncate:[20, '...'] }} 
                                     </td>
                                     <td>
                                       {{ item.ActionStart }}
@@ -38,7 +38,7 @@
                                       {{ item.Status }}
                                     </td>
                                     <td>
-                                      <!-- {{ item.Message | truncate:[50, '...']  }} -->
+                                      {{ item.Message | truncate:[50, '...']  }} 
                                     </td>
                                 </tr>
                             </tbody>

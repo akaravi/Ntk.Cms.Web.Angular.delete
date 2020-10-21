@@ -83,6 +83,12 @@ export class PublicHelper {
     const d = new Date(model);
     return d.toLocaleDateString("fa-Ir");
   }
+
+  Truncate(value: string,limit:number=20 ,trail:string="...") {
+     
+    
+    return value.length > limit ? value.substring(0, limit) + trail : value; 
+   }
   RecordStatus(model) {
 
     //let _RecordStatus : RecordStatus = RecordStatus[model];

@@ -38,7 +38,6 @@ import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportC
          TranslateModule,
          PerfectScrollbarModule,
          NgxQueryBuilderModule,
-
     ],
     declarations: [
         CmsFooterComponent,
@@ -51,15 +50,11 @@ import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportC
         SidebarListDirective,
         SidebarAnchorToggleDirective,
         SidebarToggleDirective,
-
-
-
-
-        
+     
         CmsTokenAccessAdminComponent,
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
-        //TruncatePipe
+        TruncatePipe
     ],
     exports: [
         CommonModule,
@@ -76,7 +71,7 @@ import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportC
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
 
-        //TruncatePipe
+        TruncatePipe
     ],
 })
 export class CmsSharedModule { }

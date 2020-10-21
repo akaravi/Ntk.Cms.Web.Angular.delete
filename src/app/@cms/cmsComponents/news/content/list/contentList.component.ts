@@ -45,7 +45,9 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     toastrService: CmsToastrServiceService,
     publicHelper: PublicHelper,
     modalService: NgbModal,
-    public contentService: NewsContentService
+    public contentService: NewsContentService,
+
+
   ) {
     super(toastrService, publicHelper, modalService);
   }
@@ -85,8 +87,13 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   };
   tableContentloading = false;
   tableContentSelected: Array<NewsContentModel> = [];
-
+  
   columnsContent: TableColumn[] = [
+    {
+      prop: "RecordStatus",
+      name: "وضعیت",
+      pipe: { transform: this.publicHelper.RecordStatus },
+    },
     {
       prop: "Id",
       name: "شناسه",
@@ -104,10 +111,12 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     {
       prop: "Title",
       name: "عنوان",
+      pipe: { transform: this.publicHelper.Truncate },
     },
     {
       prop: "Description",
       name: "توضیحات",
+      pipe: { transform: this.publicHelper.Truncate },
     },
   ];
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { ToastrService } from "ngx-toastr";
@@ -17,6 +17,7 @@ import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrServ
 })
 export class SmsMainApiPathCompanyAddComponent implements OnInit {
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
@@ -31,6 +32,14 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();
+  }
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.smsMainApiPathCompanyService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
   }
   @Input()
   set options(model: any) {

@@ -6,10 +6,10 @@
                   <h4 class="card-title" id="horz-layout-basic">ویرایش محتوا</h4>
                   <p class="mb-0">
                     
-                    <span class="ml-3" *ngIf="(newsContentService.loadingStatus)">{{newsContentService.loadingText}}</span>
+                    <span class="ml-3" *ngIf="(loadingStatus)">{{newsContentService.loadingText}}</span>
                   </p>
               </div>
-              <div class="card-content" *ngIf="!(newsContentService.loadingStatus)">
+              <div class="card-content" *ngIf="!(loadingStatus)">
                   <div class="px-3">
 
                       <form (ngSubmit)="onFormSubmit()" #vform="ngForm" class="form form-horizontal">

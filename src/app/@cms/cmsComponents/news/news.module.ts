@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
 import { QuillModule } from 'ngx-quill';
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
+import { NewsContentDeleteComponent } from './content/delete/contentDelete.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     //
     NewsContentAddComponent,
     NewsContentEditComponent,
+    NewsContentDeleteComponent,
     NewsContentListComponent,
     NewsContentSelectComponent,
 //

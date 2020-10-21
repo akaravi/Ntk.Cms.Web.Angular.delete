@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
@@ -16,7 +16,17 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./smsMainApiPathAdd.component.scss']
 })
 export class SmsMainApiPathAddComponent implements OnInit {
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  @Input()
+  set options(model: any) {
+    this.dateModleInput = model;
+  }
+  get options(): any {
+    return this.dateModleInput;
+  }
+  private dateModleInput: any;
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
@@ -29,18 +39,9 @@ export class SmsMainApiPathAddComponent implements OnInit {
       this.coreEnumService.ServiceEnumRecordStatus();
     });
   }
-  @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  @Input()
-  set options(model: any) {
-    this.dateModleInput = model;
-  }
-  get options(): any {
-    return this.dateModleInput;
-  }
-  private dateModleInput: any;
+  
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
-  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataModelResult: ErrorExcptionResult<
   SmsMainApiPathModel
   > = new ErrorExcptionResult<SmsMainApiPathModel>();
@@ -61,7 +62,14 @@ export class SmsMainApiPathAddComponent implements OnInit {
 
     //this.DataGetAllCoreEnum();
   }
-
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.smsMainApiPathService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = false;

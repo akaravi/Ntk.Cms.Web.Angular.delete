@@ -5,7 +5,7 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
 
 export class BaseComponent {
     constructor(
-        public cdRef: ChangeDetectorRef,
+        //public cdRef: ChangeDetectorRef,
         public toastrService: CmsToastrServiceService,
         public publicHelper: PublicHelper,
         public modalService: NgbModal

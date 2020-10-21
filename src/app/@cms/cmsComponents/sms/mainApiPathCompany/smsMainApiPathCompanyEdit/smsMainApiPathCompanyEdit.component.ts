@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { ToastrService } from "ngx-toastr";
@@ -30,6 +30,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
   }
   private dateModleInput: any;
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
@@ -56,7 +57,15 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     }
     this.DataGetOneContent();
   }
- 
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.smsMainApiPathCompanyService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+  
   dataModel: SmsMainApiCompanyModel = new SmsMainApiCompanyModel();
   dataModelResult: ErrorExcptionResult<SmsMainApiCompanyModel> = new ErrorExcptionResult<
   SmsMainApiCompanyModel

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   DatatableComponent,
@@ -22,6 +22,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class SmsMainApiPathListComponent implements OnInit {
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public smsMainApiPathService: SmsMainApiPathService,
@@ -78,6 +79,15 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.smsMainApiPathService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+  
   onSubmitOptionsSearch(model: any) {
     this.filteModelContent.Filters = model;
     this.DataGetAllContent();

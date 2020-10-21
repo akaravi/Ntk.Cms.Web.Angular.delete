@@ -28,7 +28,7 @@ export class NewsCategorySelectComponent implements OnInit {
   private dateModleInput: ComponentOptionModel=new ComponentOptionModel();
   
   constructor(
-   private cdRef: ChangeDetectorRef,
+   private changeDetectorRef: ChangeDetectorRef,
 
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
@@ -46,10 +46,9 @@ export class NewsCategorySelectComponent implements OnInit {
     let show = this.categoryService.loadingStatus;
     if (show != this.loadingStatus) {
       this.loadingStatus = show;
-      this.cdRef.detectChanges();
+      this.changeDetectorRef.detectChanges();
     }
   }
-  
 
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<NewsCategoryModel> = new ErrorExcptionResult<NewsCategoryModel>();

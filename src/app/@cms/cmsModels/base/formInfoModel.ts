@@ -5,3 +5,4 @@ export class FormInfoModel {
   formErrorStatus:boolean=false;
   disabledButtonSubmitted:boolean=false;
 }
+

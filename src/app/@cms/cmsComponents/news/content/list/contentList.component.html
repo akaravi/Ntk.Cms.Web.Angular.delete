@@ -186,3 +186,19 @@
   </div>
   </ng-template>
   <!--Modal ends-->
+  <!--Modal starts-->
+<ng-template #contentContentDelete let-c="close" let-d="dismiss">
+  <div class="modal-header">
+  <h4 class="modal-title">حذف</h4>
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <p><app-news-content-delete [options]="{Contents:tableContentSelected}" ></app-news-content-delete></p>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary btn-raised" (click)="c('Close click')">بستن</button>
+  </div>
+  </ng-template>
+  <!--Modal ends-->

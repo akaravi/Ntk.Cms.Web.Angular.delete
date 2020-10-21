@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
@@ -27,6 +27,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
   private dateModleInput: any;
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
@@ -63,7 +64,15 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     // this.DataGetAllCoreEnum();
   }
-
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.smsMainApiPathService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+  
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = false;
@@ -76,7 +85,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   DataGetOneContent() {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
+      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -108,7 +117,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   DataEditContent() {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
+      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
       return;
     }

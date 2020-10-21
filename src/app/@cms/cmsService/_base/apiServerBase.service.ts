@@ -11,37 +11,37 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 
 import { environment } from "environments/environment";
 
-@Injectable({
-  providedIn: "root",
-})
+// @Injectable({
+//   providedIn: "root",
+// })
 export class ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
   public configApiRetry = environment.cmsServerConfig.configApiRetry;
-  public cmsloadingBS = new BehaviorSubject<boolean>(false);
-  private cmsloadingObs = this.cmsloadingBS.asObservable();
+  //public cmsloadingBS = new BehaviorSubject<boolean>(false);
+  //private cmsloadingObs = this.cmsloadingBS.asObservable();
   public loadingText = "در حال بارگذاری...";
   public loadingStatus: boolean = false;
 
   constructor(
-    @Inject(Injector) private injector: Injector,
+    //@Inject(Injector) private injector: Injector,
     public http: HttpClient,
-
+    public toastrService: ToastrService,
     //public toastrService: ToastrService,
     public router: Router,
     public store: Store<fromStore.State>
   ) {
     this.childConstructor();
 
-    this.cmsloadingObs.subscribe({
-      next: (x) => {
-        this.loadingStatus =x;
-      },
-    });
+    // this.cmsloadingObs.subscribe({
+    //   next: (x) => {
+    //     this.loadingStatus =x;
+    //   },
+    // });
   }
-  public get toastrService(): ToastrService {
-    return this.injector.get(ToastrService);
-  }
+  // public get toastrService(): ToastrService {
+  //   return this.injector.get(ToastrService);
+  // }
 
   ngOnDestroy() {
     this.subManager.unsubscribe();
@@ -61,8 +61,12 @@ export class ApiServerBase implements OnDestroy {
     if (!token || token === "null") {
       let title = "تایید توکن";
       let message = "لطفا مجددا وارد حساب کاربری خود شوید";
-      if (this.toastrService) this.toastrService.warning(message, title);
-      //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+
+      if (this.toastrService) {
+        this.toastrService.warning(message, title);
+      } else {
+        window.alert(message);
+      }
       window.location.href = environment.cmsUiConfig.Pathlogin;
     }
     return token;
@@ -76,7 +80,7 @@ export class ApiServerBase implements OnDestroy {
         if (this.toastrService) this.toastrService.error(message, title);
       }
     }
-    this.cmsloadingBS.next(false);
+    this.loadingStatus = false;
 
     return model;
   }
@@ -85,31 +89,36 @@ export class ApiServerBase implements OnDestroy {
     if (!error) return;
     let errorMessage = error.message;
     if (error.status) {
-      if (error.status == 401) {
-        window.location.href = environment.cmsUiConfig.Pathlogin;
-        //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
-      }
       // server-side error
       errorMessage = `Cms Error Code: ${error.status}\nMessage: ${error.message}`;
-
       if (error.status == 401 || error.status == "401") {
         let title = "خطای امنیتی";
         let message = "لطفا مجدد وارد سیستم شود";
-        if (this.toastrService)
+        if (this.toastrService) {
           this.toastrService.error(message, title, {
             closeButton: true,
             timeOut: 5000,
             onActivateTick: true,
           });
-        //this.router.navigate([environment.cmsUiConfig.Pathlogin]);
+        } else {
+          window.alert(message);
+        }
         window.location.href = environment.cmsUiConfig.Pathlogin;
       }
     } else if (error.error instanceof ErrorEvent) {
       // client-side error
       errorMessage = `Cms Error: ${error.error.message}`;
     }
-
-    //window.alert(errorMessage);
+    if (this.toastrService) {
+      let title = "خطا";
+      this.toastrService.error(errorMessage, title, {
+        closeButton: true,
+        timeOut: 5000,
+        onActivateTick: true,
+      });
+    } else {
+      window.alert(errorMessage);
+    }
     return throwError(errorMessage);
   }
 }

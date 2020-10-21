@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { ToastrService } from "ngx-toastr";
@@ -16,7 +16,17 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
   styleUrls: ["./categoryEdit.component.scss"],
 })
 export class NewsCategoryEditComponent implements OnInit {
-  constructor(
+  @Input()
+  set options(model: any) {
+    this.dateModleInput = model;
+  }
+  get options(): any {
+    return this.dateModleInput;
+  }
+  private dateModleInput: any;
+   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public newsCategoryService: NewsCategoryService,
@@ -43,14 +53,15 @@ export class NewsCategoryEditComponent implements OnInit {
     }
     this.DataGetOneContent()
   }
-  @Input()
-  set options(model: any) {
-    this.dateModleInput = model;
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.newsCategoryService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
   }
-  get options(): any {
-    return this.dateModleInput;
-  }
-  private dateModleInput: any;
+
   dataModelResult: ErrorExcptionResult<
     baseEntityCategory<number>
   > = new ErrorExcptionResult<baseEntityCategory<number>>();

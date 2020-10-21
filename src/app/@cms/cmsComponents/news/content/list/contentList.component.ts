@@ -19,11 +19,7 @@ import {
   TableColumn,
   SelectionType,
 } from "@swimlane/ngx-datatable";
-import {
-  TREE_ACTIONS,
-  KEYS,
-  ITreeOptions,
-} from "angular-tree-component";
+import { TREE_ACTIONS, KEYS, ITreeOptions } from "angular-tree-component";
 import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
@@ -37,21 +33,21 @@ import { BaseComponent } from "app/@cms/cmsComponents/_base/baseComponent";
   templateUrl: "./contentList.component.html",
   styleUrls: ["./contentList.component.scss"],
 })
-export class NewsContentListComponent
-  extends BaseComponent
-  implements OnInit, AfterViewChecked {
+export class NewsContentListComponent extends BaseComponent implements OnInit {
   @ViewChild("contentContentAdd", { static: false })
   contentContentAdd: ElementRef;
   @ViewChild("contentContentEdit", { static: false })
   contentContentEdit: ElementRef;
+  @ViewChild("contentContentDelete", { static: false })
+  contentContentDelete: ElementRef;
   constructor(
-    cdRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     toastrService: CmsToastrServiceService,
     publicHelper: PublicHelper,
     modalService: NgbModal,
     public contentService: NewsContentService
   ) {
-    super(cdRef, toastrService, publicHelper, modalService);
+    super(toastrService, publicHelper, modalService);
   }
 
   ngOnInit() {
@@ -67,10 +63,10 @@ export class NewsContentListComponent
     let show = this.contentService.loadingStatus;
     if (show != this.loadingStatus) {
       this.loadingStatus = show;
-      this.cdRef.detectChanges();
+      this.changeDetectorRef.detectChanges();
     }
   }
- 
+
   filteModelContent = new FilterModel();
   filteModelCategory = new FilterModel();
   dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
@@ -224,7 +220,7 @@ export class NewsContentListComponent
       }
     );
   }
- 
+
   onActionCategorySelect(model: any) {
     this.filteModelContent = new FilterModel();
     this.optionsCategorySelectData = null;
@@ -308,7 +304,29 @@ export class NewsContentListComponent
     }
     this.openModal(this.contentContentEdit);
   }
-  onActionbuttonDeleteRow() {}
+  onActionbuttonDeleteRow() {
+    if (
+      this.tableContentSelected == null ||
+      this.tableContentSelected.length == 0 ||
+      this.tableContentSelected[0].Id == 0
+    ) {
+      var title = "برروز خطا ";
+      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      this.toastrService.toastr.error(message, title);
+      return;
+    }
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.Access == null ||
+      !this.dataModelResult.Access.AccessDeleteRow
+    ) {
+      var title = "برروز خطا ";
+      var message = "شما دسترسی برای حذف ندارید";
+      this.toastrService.toastr.error(message, title);
+      return;
+    }
+    this.openModal(this.contentContentDelete);
+  }
   onActionbuttonStatus() {}
   onActionbuttonExport() {}
 

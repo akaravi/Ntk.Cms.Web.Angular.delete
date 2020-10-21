@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
@@ -27,6 +27,7 @@ export class NewsContentEditComponent implements OnInit {
   }
   private dateModleInput: any;
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public newsContentService: NewsContentService,
     public coreEnumService: CoreEnumService,
@@ -42,7 +43,6 @@ export class NewsContentEditComponent implements OnInit {
 
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: NewsContentModel = new NewsContentModel();
-  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataModelResult: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
@@ -64,7 +64,14 @@ export class NewsContentEditComponent implements OnInit {
 
     // this.DataGetAllCoreEnum();
   }
-
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.newsContentService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
   onFormSubmit() {
     if (this.formGroup.valid) {
       this.formInfo.formAllowSubmit = false;
@@ -77,7 +84,7 @@ export class NewsContentEditComponent implements OnInit {
   DataGetOneContent() {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
+      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -109,7 +116,7 @@ export class NewsContentEditComponent implements OnInit {
   DataEditContent() {
     if (this.ContentId <= 0) {
       var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مسخص نیست";
+      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
       this.toastrService.toastr.error(message, title);
       return;
     }

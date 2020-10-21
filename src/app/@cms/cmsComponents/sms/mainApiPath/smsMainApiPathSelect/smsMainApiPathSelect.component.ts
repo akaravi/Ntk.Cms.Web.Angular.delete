@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
 import {
   FilterModel,
   FilterDataModel,
@@ -29,6 +29,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   
 
   constructor(
+    private changeDetectorRef:ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathService
@@ -40,7 +41,15 @@ export class SmsMainApiPathSelectComponent implements OnInit {
     this.dateModleInput.methods={ActionReload: () => this.onActionReload()}
     
   }
-
+  loadingStatus = false; // add one more property
+  ngAfterViewChecked() {
+    let show = this.categoryService.loadingStatus;
+    if (show != this.loadingStatus) {
+      this.loadingStatus = show;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+  
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   optionsModelTree: ITreeOptions = {

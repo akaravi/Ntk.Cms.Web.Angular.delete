@@ -3,19 +3,12 @@ import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult
 import { Subscription } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
+import { SmsMainApiPathModel } from '../../cmsModels/sms/smsMainApiPathModel';
 
-export class SmsMainApiPathService extends ApiCmsServerBase<any,number> implements OnDestroy {
+export class SmsMainApiPathService extends ApiCmsServerBase<SmsMainApiPathModel, number> {
 
-    subManager = new Subscription();
-
-    getModuleCotrolerUrl()
-    {
-       return 'SmsMainApiPath';
-    }
-  
-    ngOnDestroy() {
-      this.subManager.unsubscribe();
-    }
-  
+  getModuleCotrolerUrl() {
+    return 'SmsMainApiPath';
+  }
 
 }

@@ -1,21 +1,21 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import {
   FilterModel,
   FilterDataModel,
-} from "app/@cms/cmsModels/base/filterModel";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { TREE_ACTIONS, ITreeOptions, KEYS } from "angular-tree-component";
-import { ToastrService } from "ngx-toastr";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
+} from 'app/@cms/cmsModels/base/filterModel';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
+import { ToastrService } from 'ngx-toastr';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
-import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
-import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
-  selector: "app-sms-main-api-path-select",
-  templateUrl: "./smsMainApiPathSelect.component.html",
-  styleUrls: ["./smsMainApiPathSelect.component.scss"],
+  selector: 'app-sms-main-api-path-select',
+  templateUrl: './smsMainApiPathSelect.component.html',
+  styleUrls: ['./smsMainApiPathSelect.component.scss'],
 })
 export class SmsMainApiPathSelectComponent implements OnInit {
   @Input()
@@ -26,33 +26,21 @@ export class SmsMainApiPathSelectComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: ComponentOptionModel = new ComponentOptionModel();
-
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private toastrService: CmsToastrServiceService,
-    private publicHelper: PublicHelper,
-    public categoryService: SmsMainApiPathService
-  ) {}
-
-  ngOnInit() {
-    this.DataGetAllCategory();
-
-    this.dateModleInput.methods = { ActionReload: () => this.onActionReload() };
-  }
   loadingStatus = false; // add one more property
 
 
   filteModelCategory = new FilterModel();
   dataModelCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   optionsModelTree: ITreeOptions = {
-    idField: "id",
-    displayField: "Title",
-    childrenField: "Children",
+    idField: 'id',
+    displayField: 'Title',
+    childrenField: 'Children',
     actionMapping: {
       mouse: {
         dblClick: (tree, node, $event) => {
-          if (node.hasChildren)
+          if (node.hasChildren) {
             TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+          }
         },
         click: (tree, node, $event) => {
           this.onActionSelect(node);
@@ -64,7 +52,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
         },
       },
     },
-    //nodeHeight: 23,
+    // nodeHeight: 23,
     allowDrag: (node) => {
       return false;
     },
@@ -73,31 +61,44 @@ export class SmsMainApiPathSelectComponent implements OnInit {
     },
     allowDragoverStyling: true,
     levelPadding: 10,
-    //useVirtualScroll: true,
+    // useVirtualScroll: true,
     animateExpand: true,
     scrollOnActivate: true,
     animateSpeed: 30,
     animateAcceleration: 1.2,
-    //scrollContainer: document.documentElement, // HTML
+    // scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
 
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private toastrService: CmsToastrServiceService,
+    private publicHelper: PublicHelper,
+    public categoryService: SmsMainApiPathService
+  ) { }
+
+  ngOnInit() {
+    this.DataGetAllCategory();
+
+    this.dateModleInput.methods = { ActionReload: () => this.onActionReload() };
+  }
+
   DataGetAllCategory() {
     this.filteModelCategory.RowPerPage = 200;
-    this.loadingStatus=true;
+    this.loadingStatus = true;
     this.categoryService.ServiceGetAll(this.filteModelCategory).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelCategory = next;
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
+          'برروی خطا در دریافت اطلاعات'
         );
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }

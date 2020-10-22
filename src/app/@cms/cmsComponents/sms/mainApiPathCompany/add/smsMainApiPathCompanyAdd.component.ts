@@ -7,7 +7,7 @@ import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult
 import { FormGroup } from "@angular/forms";
 import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
-import { SmsMainApiCompanyModel } from "app/@cms/cmsModels/sms/smsMainApiCompanyModel";
+import { SmsMainApiPathCompanyModel } from "app/@cms/cmsModels/sms/smsMainApiCompanyModel";
 import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
 
 @Component({
@@ -44,9 +44,9 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   }
   private dateModleInput: any;
   dataModelResult: ErrorExcptionResult<
-    SmsMainApiCompanyModel
-  > = new ErrorExcptionResult<SmsMainApiCompanyModel>();
-  dataModel: SmsMainApiCompanyModel = new SmsMainApiCompanyModel();
+    SmsMainApiPathCompanyModel
+  > = new ErrorExcptionResult<SmsMainApiPathCompanyModel>();
+  dataModel: SmsMainApiPathCompanyModel = new SmsMainApiPathCompanyModel();
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 

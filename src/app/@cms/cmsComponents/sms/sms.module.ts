@@ -23,6 +23,43 @@ import { SmsMainApiPathCompanyDeleteComponent } from './mainApiPathCompany/delet
 import { SmsMainApiPathCompanyEditComponent } from './mainApiPathCompany/edit/smsMainApiPathCompanyEdit.component';
 import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/list/smsMainApiPathCompanyList.component';
 import { SmsMainApiPathCompanySelectComponent } from './mainApiPathCompany/select/smsMainApiPathCompanySelect.component';
+import { SmsMainApiPathPermissionAddComponent } from './mainApiPathPermission/add/smsMainApiPathPermissionAdd.component';
+import { SmsMainApiPathPermissionDeleteComponent } from './mainApiPathPermission/delete/smsMainApiPathPermissionDelete.component';
+import { SmsMainApiPathPermissionEditComponent } from './mainApiPathPermission/edit/smsMainApiPathPermissionEdit.component';
+import { SmsMainApiPathPermissionListComponent } from './mainApiPathPermission/list/smsMainApiPathPermissionList.component';
+import { SmsMainApiPathPermissionSelectComponent } from './mainApiPathPermission/select/smsMainApiPathPermissionSelect.component';
+import { SmsMainApiPathPriceServiceAddComponent } from './mainApiPathPriceService/add/smsMainApiPathPriceServiceAdd.component';
+import { SmsMainApiPathPriceServiceDeleteComponent } from './mainApiPathPriceService/delete/smsMainApiPathPriceServiceDelete.component';
+import { SmsMainApiPathPriceServiceEditComponent } from './mainApiPathPriceService/edit/smsMainApiPathPriceServiceEdit.component';
+import { SmsMainApiPathPriceServiceListComponent } from './mainApiPathPriceService/list/smsMainApiPathPriceServiceList.component';
+import { SmsMainApiPathPriceServiceSelectComponent } from './mainApiPathPriceService/select/smsMainApiPathPriceServiceSelect.component';
+import { SmsMainApiPathPrivateSiteConfigAddComponent } from './mainApiPathPrivateSiteConfig/add/smsMainApiPathPrivateSiteConfigAdd.component';
+import { SmsMainApiPathPrivateSiteConfigDeleteComponent } from './mainApiPathPrivateSiteConfig/delete/smsMainApiPathPrivateSiteConfigDelete.component';
+import { SmsMainApiPathPrivateSiteConfigEditComponent } from './mainApiPathPrivateSiteConfig/edit/smsMainApiPathPrivateSiteConfigEdit.component';
+import { SmsMainApiPathPrivateSiteConfigListComponent } from './mainApiPathPrivateSiteConfig/list/smsMainApiPathPrivateSiteConfigList.component';
+import { SmsMainApiPathPrivateSiteConfigSelectComponent } from './mainApiPathPrivateSiteConfig/select/smsMainApiPathPrivateSiteConfigSelect.component';
+import { SmsMainApiPathProcessFlowAddComponent } from './mainApiPathProcessFlow/add/smsMainApiPathProcessFlowAdd.component';
+import { SmsMainApiPathProcessFlowDeleteComponent } from './mainApiPathProcessFlow/delete/smsMainApiPathProcessFlowDelete.component';
+import { SmsMainApiPathProcessFlowEditComponent } from './mainApiPathProcessFlow/edit/smsMainApiPathProcessFlowEdit.component';
+import { SmsMainApiPathProcessFlowListComponent } from './mainApiPathProcessFlow/list/smsMainApiPathProcessFlowList.component';
+import { SmsMainApiPathProcessFlowSelectComponent } from './mainApiPathProcessFlow/select/smsMainApiPathProcessFlowSelect.component';
+import { SmsMainApiPathProcessFlowLogEditComponent } from './mainApiPathProcessFlowLog/edit/smsMainApiPathProcessFlowLogEdit.component';
+import { SmsMainApiPathProcessFlowLogListComponent } from './mainApiPathProcessFlowLog/list/smsMainApiPathProcessFlowLogList.component';
+import { SmsMainApiPathPublicConfigAddComponent } from './mainApiPathPublicConfig/add/smsMainApiPathPublicConfigAdd.component';
+import { SmsMainApiPathPublicConfigDeleteComponent } from './mainApiPathPublicConfig/delete/smsMainApiPathPublicConfigDelete.component';
+import { SmsMainApiPathPublicConfigEditComponent } from './mainApiPathPublicConfig/edit/smsMainApiPathPublicConfigEdit.component';
+import { SmsMainApiPathPublicConfigListComponent } from './mainApiPathPublicConfig/list/smsMainApiPathPublicConfigList.component';
+import { SmsMainApiPathPublicConfigSelectComponent } from './mainApiPathPublicConfig/select/smsMainApiPathPublicConfigSelect.component';
+import { SmsMainApiPathSuperSederAddComponent } from './mainApiPathSuperSeder/add/smsMainApiPathSuperSederAdd.component';
+import { SmsMainApiPathSuperSederDeleteComponent } from './mainApiPathSuperSeder/delete/smsMainApiPathSuperSederDelete.component';
+import { SmsMainApiPathSuperSederEditComponent } from './mainApiPathSuperSeder/edit/smsMainApiPathSuperSederEdit.component';
+import { SmsMainApiPathSuperSederListComponent } from './mainApiPathSuperSeder/list/smsMainApiPathSuperSederList.component';
+import { SmsMainApiPathSuperSederSelectComponent } from './mainApiPathSuperSeder/select/smsMainApiPathSuperSederSelect.component';
+import { SmsMainCustomerNumberAddComponent } from './mainCustomerNumber/add/smsMainCustomerNumberAdd.component';
+import { SmsMainCustomerNumberDeleteComponent } from './mainCustomerNumber/delete/smsMainCustomerNumberDelete.component';
+import { SmsMainCustomerNumberEditComponent } from './mainCustomerNumber/edit/smsMainCustomerNumberEdit.component';
+import { SmsMainCustomerNumberListComponent } from './mainCustomerNumber/list/smsMainCustomerNumberList.component';
+import { SmsMainCustomerNumberSelectComponent } from './mainCustomerNumber/select/smsMainCustomerNumberSelect.component';
 
 
 @NgModule({
@@ -74,10 +111,7 @@ import { SmsMainApiPathCompanySelectComponent } from './mainApiPathCompany/selec
     SmsMainApiPathProcessFlowSelectComponent,
     //
     SmsMainApiPathProcessFlowLogListComponent,
-    SmsMainApiPathProcessFlowLogAddComponent,
     SmsMainApiPathProcessFlowLogEditComponent,
-    SmsMainApiPathProcessFlowLogDeleteComponent,
-    SmsMainApiPathProcessFlowLogSelectComponent,
     //
     SmsMainApiPathPublicConfigListComponent,
     SmsMainApiPathPublicConfigAddComponent,

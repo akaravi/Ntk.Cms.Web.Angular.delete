@@ -9,7 +9,7 @@ import { baseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
 import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
 import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { SmsMainApiCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
@@ -33,9 +33,9 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
   id: number;
   loadingStatus = false; // add one more property
 
-  dataModel: SmsMainApiCompanyModel = new SmsMainApiCompanyModel();
-  dataModelResult: ErrorExcptionResult<SmsMainApiCompanyModel> = new ErrorExcptionResult<
-  SmsMainApiCompanyModel
+  dataModel: SmsMainApiPathCompanyModel = new SmsMainApiPathCompanyModel();
+  dataModelResult: ErrorExcptionResult<SmsMainApiPathCompanyModel> = new ErrorExcptionResult<
+    SmsMainApiPathCompanyModel
   >();
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -47,13 +47,11 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
       if (vlaue && vlaue.IsSuccess) { this.coreEnumService.resultEnumRecordStatus = vlaue; }
-      this.coreEnumService.ServiceEnumRecordStatus() ;
+      this.coreEnumService.ServiceEnumRecordStatus();
     });
   }
   ngOnInit() {
-    this.id = Number.parseInt(
-      this.activatedRoute.snapshot.paramMap.get('id')
-    );
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
       this.id = +params['id'] || 0;
@@ -68,8 +66,8 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
 
   DataGetOneContent() {
     if (this.id <= 0) {
-      let title = 'برروز خطا ';
-      let message = 'ردیف اطلاعات جهت ویرایش مشخص نیست';
+      const title = 'برروز خطا ';
+      const message = 'ردیف اطلاعات جهت ویرایش مشخص نیست';
       this.toastrService.toastr.error(message, title);
       return;
     }

@@ -1,5 +1,5 @@
-import { Routes, RouterModule } from "@angular/router";
-import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { SmsMainApiPathAddComponent } from './mainApiPath/add/smsMainApiPathAdd.component';
 import { SmsMainApiPathEditComponent } from './mainApiPath/edit/smsMainApiPathEdit.component';
 import { SmsMainApiPathListComponent } from './mainApiPath/list/smsMainApiPathList.component';
@@ -9,71 +9,71 @@ import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/list/sm
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "apipath",
+        path: 'apipath',
         children: [
           {
-            path: "",
+            path: '',
             component: SmsMainApiPathListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "list",
+            path: 'list',
             component: SmsMainApiPathListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "add",
+            path: 'add',
             component: SmsMainApiPathAddComponent,
             data: {
-              title: "Register New Acount",
+              title: 'Register New Acount',
             },
           },
           {
-            path: "edit",
+            path: 'edit',
             component: SmsMainApiPathEditComponent,
             data: {
-              title: "forgot password You Acount",
+              title: 'forgot password You Acount',
             },
           }
         ],
 
       },
       {
-        path: "apipathcompany",
+        path: 'apipathcompany',
         children: [
           {
-            path: "",
+            path: '',
             component: SmsMainApiPathCompanyListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "list",
+            path: 'list',
             component: SmsMainApiPathCompanyListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "add",
+            path: 'add',
             component: SmsMainApiPathCompanyAddComponent,
             data: {
-              title: "Register New Acount",
+              title: 'Register New Acount',
             },
           },
           {
-            path: "edit",
+            path: 'edit',
             component: SmsMainApiPathCompanyEditComponent,
             data: {
-              title: "forgot password You Acount",
+              title: 'forgot password You Acount',
             },
           }
         ],

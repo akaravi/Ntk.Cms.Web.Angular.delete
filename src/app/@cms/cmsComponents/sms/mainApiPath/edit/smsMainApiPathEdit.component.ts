@@ -4,26 +4,24 @@ import {
   Input,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { SmsMainApiPathModel } from "app/@cms/cmsModels/sms/smsMainApiPathModel";
-import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
-import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import { ToastrService } from "ngx-toastr";
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
+import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
+import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
+import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-sms-main-api-path-edit",
-  templateUrl: "./smsMainApiPathEdit.component.html",
-  styleUrls: ["./smsMainApiPathEdit.component.scss"],
+  selector: 'app-sms-main-api-path-edit',
+  templateUrl: './smsMainApiPathEdit.component.html',
+  styleUrls: ['./smsMainApiPathEdit.component.scss'],
 })
 export class SmsMainApiPathEditComponent implements OnInit {
-  @ViewChild("vform", { static: false })
-  formGroup: FormGroup;
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -31,7 +29,17 @@ export class SmsMainApiPathEditComponent implements OnInit {
   get options(): any {
     return this.dateModleInput;
   }
+  @ViewChild('vform', { static: false })
+  formGroup: FormGroup;
   private dateModleInput: any;
+
+  formInfo: FormInfoModel = new FormInfoModel();
+  dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
+  dataModelResult: ErrorExcptionResult<
+    SmsMainApiPathModel
+  > = new ErrorExcptionResult<SmsMainApiPathModel>();
+  id = 0;
+  loadingStatus = false; // add one more property
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -41,35 +49,28 @@ export class SmsMainApiPathEditComponent implements OnInit {
     private publicHelper: PublicHelper
   ) {
     this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess)
+      if (vlaue && vlaue.IsSuccess) {
         this.coreEnumService.resultEnumRecordStatus = vlaue;
+      }
       this.coreEnumService.ServiceEnumRecordStatus();
     });
   }
 
-  formInfo: FormInfoModel = new FormInfoModel();
-  dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
-  dataModelResult: ErrorExcptionResult<
-    SmsMainApiPathModel
-  > = new ErrorExcptionResult<SmsMainApiPathModel>();
-  id: number=0;
-
   ngOnInit() {
-    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
-      this.activatedRoute.queryParams.subscribe((params) => {
-        // Defaults to 0 if no query param provided.
-        this.id = +params["id"] || 0;
-      });
+    this.activatedRoute.queryParams.subscribe((params) => {
+      // Defaults to 0 if no query param provided.
+      this.id = +params['id'] || 0;
+    });
     if (this.dateModleInput && this.dateModleInput.id) {
       this.id = this.dateModleInput.id;
     }
     this.DataGetOneContent();
-    //alert("helo id:"+this.linkCategoryId)
+    // alert("helo id:"+this.linkCategoryId)
 
     // this.DataGetAllCoreEnum();
   }
-  loadingStatus = false; // add one more property
 
 
   onFormSubmit() {
@@ -84,73 +85,73 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
   DataGetOneContent() {
     if (this.id <= 0) {
-      var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
+      const title = 'برروز خطا ';
+      const message = 'ردیف اطلاعات جهت ویرایش مشخص نیست';
       this.toastrService.toastr.error(message, title);
       return;
     }
 
-    this.formInfo.formAlert = "در دریافت ارسال اطلاعات از سرور";
-    this.formInfo.formError = "";
-    this.loadingStatus=true;
+    this.formInfo.formAlert = 'در دریافت ارسال اطلاعات از سرور';
+    this.formInfo.formError = '';
+    this.loadingStatus = true;
     this.smsMainApiPathService.ServiceGetOneById(this.id).subscribe(
       (next) => {
         this.dataModel = next.Item;
 
         if (next.IsSuccess) {
           this.dataModel = next.Item;
-          this.formInfo.formAlert = "";
+          this.formInfo.formAlert = '';
         } else {
-          var title = "برروز خطا ";
-          var message = next.ErrorMessage;
+          const title = 'برروز خطا ';
+          const message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
-        var title = "برروی خطا در دریافت اطلاعات";
-        var message = this.publicHelper.CheckError(error);
+        const title = 'برروی خطا در دریافت اطلاعات';
+        const message = this.publicHelper.CheckError(error);
         this.toastrService.toastr.error(message, title);
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }
   DataEditContent() {
     if (this.id <= 0) {
-      var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت ویرایش مشخص نیست";
+      const title = 'برروز خطا ';
+      const message = 'ردیف اطلاعات جهت ویرایش مشخص نیست';
       this.toastrService.toastr.error(message, title);
       return;
     }
 
-    this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
-    this.formInfo.formError = "";
-    this.loadingStatus=true;
+    this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
+    this.formInfo.formError = '';
+    this.loadingStatus = true;
     this.smsMainApiPathService.ServiceEdit(this.dataModel).subscribe(
       (next) => {
         this.formInfo.formAllowSubmit = true;
         this.dataModelResult = next;
         if (next.IsSuccess) {
-          this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+          this.formInfo.formAlert = 'ثبت با موفقت انجام شد';
         } else {
-          var title = "برروز خطا ";
-          var message = next.ErrorMessage;
+          const title = 'برروز خطا ';
+          const message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
         this.formInfo.formAllowSubmit = true;
 
-        var title = "برروی خطا در دریافت اطلاعات";
-        var message = this.publicHelper.CheckError(error);
+        const title = 'برروی خطا در دریافت اطلاعات';
+        const message = this.publicHelper.CheckError(error);
         this.toastrService.toastr.error(message, title);
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }
   setFocus($event) {
     $event.focus();
-    
+
   }
 }

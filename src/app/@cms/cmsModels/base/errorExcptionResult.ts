@@ -1,3 +1,5 @@
+import { FieldInfoModel } from './fieldInfo/fieldInfoModel';
+
 export class ErrorExcptionResultBase {
   Status: number=0;
   IsSuccess: boolean = true;
@@ -25,27 +27,5 @@ export class AccessModel {
   AccessEditRowOtherCreatedBy = false;
   AccessDeleteRowOtherCreatedBy = false;
 
-  //Fields: Array<string>;
-  // AccessSearchField: Array<string>;
-  // AccessWatchField: Array<string>;
-  // AccessEditField: Array<string>;
-  // AccessAddField: Array<string>;
   FieldsInfo: Array<FieldInfoModel>;
-}
-export class FieldInfoModel {
-  FieldName: string;
-  FieldType: string;
-  FieldTypeClass: string;
-  FieldTitle: string;
-  FieldDescription: string;
-  FieldScriptDescription: string;
-  FieldDefaultValue: string;
-  FieldValue: string;
-  FieldTypeFullName: string;
-  AccessSearchField: boolean=false;
-  AccessWatchField: boolean=false;
-  AccessEditField: boolean=false;
-  AccessAddField: boolean=false;
-  
-  fieldsInfo: Array<FieldInfoModel>;
 }

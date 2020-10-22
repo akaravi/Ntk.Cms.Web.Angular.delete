@@ -9,19 +9,20 @@ import { NgxQueryBuilderModule } from "ngx-query-builder";
 import { FormsModule } from "@angular/forms";
 
 import { QuillModule } from "ngx-quill";
-import { SmsMainApiPathListComponent } from "./mainApiPath/smsMainApiPathList/smsMainApiPathList.component";
-import { SmsMainApiPathAddComponent } from "./mainApiPath/smsMainApiPathAdd/smsMainApiPathAdd.component";
-import { SmsMainApiPathEditComponent } from "./mainApiPath/smsMainApiPathEdit/smsMainApiPathEdit.component";
-import { SmsMainApiPathDeleteComponent } from "./mainApiPath/smsMainApiPathDelete/smsMainApiPathDelete.component";
-import { SmsMainApiPathSelectComponent } from "./mainApiPath/smsMainApiPathSelect/smsMainApiPathSelect.component";
-import { SmsMainApiPathCompanyListComponent } from "./mainApiPathCompany/smsMainApiPathCompanyList/smsMainApiPathCompanyList.component";
-import { SmsMainApiPathCompanyAddComponent } from "./mainApiPathCompany/smsMainApiPathCompanyAdd/smsMainApiPathCompanyAdd.component";
-import { SmsMainApiPathCompanyEditComponent } from "./mainApiPathCompany/smsMainApiPathCompanyEdit/smsMainApiPathCompanyEdit.component";
-import { SmsMainApiPathCompanyDeleteComponent } from "./mainApiPathCompany/smsMainApiPathCompanyDelete/smsMainApiPathCompanyDelete.component";
-import { SmsMainApiPathCompanySelectComponent } from "./mainApiPathCompany/smsMainApiPathCompanySelect/smsMainApiPathCompanySelect.component";
+
 import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
 import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
+import { SmsMainApiPathAddComponent } from './mainApiPath/add/smsMainApiPathAdd.component';
+import { SmsMainApiPathDeleteComponent } from './mainApiPath/delete/smsMainApiPathDelete.component';
+import { SmsMainApiPathEditComponent } from './mainApiPath/edit/smsMainApiPathEdit.component';
+import { SmsMainApiPathListComponent } from './mainApiPath/list/smsMainApiPathList.component';
+import { SmsMainApiPathSelectComponent } from './mainApiPath/select/smsMainApiPathSelect.component';
+import { SmsMainApiPathCompanyAddComponent } from './mainApiPathCompany/add/smsMainApiPathCompanyAdd.component';
+import { SmsMainApiPathCompanyDeleteComponent } from './mainApiPathCompany/delete/smsMainApiPathCompanyDelete.component';
+import { SmsMainApiPathCompanyEditComponent } from './mainApiPathCompany/edit/smsMainApiPathCompanyEdit.component';
+import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/list/smsMainApiPathCompanyList.component';
+import { SmsMainApiPathCompanySelectComponent } from './mainApiPathCompany/select/smsMainApiPathCompanySelect.component';
 
 @NgModule({
   imports: [
@@ -30,8 +31,6 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     SmsRoutes,
     NgxDatatableModule,
     TreeModule.forRoot(),
-    //NgxQueryBuilderModule,
-
     QuillModule,
     CmsSharedModule
   ],

@@ -21,5 +21,10 @@ export const ContentLayoutROUTES: Routes = [
     canActivate: [CmsAuthGuard],
     loadChildren: () => import('../cmsComponents/sms/sms.module').then(m => m.SmsModule)
   },
+  {
+    path: 'bankpayment',
+    canActivate: [CmsAuthGuard],
+    loadChildren: () => import('../cmsComponents/bankpayment/bankPayment.module').then(m => m.BankPaymentModule)
+  },
   
 ];

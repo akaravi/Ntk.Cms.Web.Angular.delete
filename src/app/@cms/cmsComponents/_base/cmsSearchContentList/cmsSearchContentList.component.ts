@@ -5,16 +5,16 @@ import {
   OnDestroy,
   Input,
   Injectable,
-} from "@angular/core";
-import { FilterDataModel } from "app/@cms/cmsModels/base/filterModel";
-import { AccessModel } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { RuleSet, QueryBuilderFieldMap, Field, Rule } from "ngx-query-builder";
-import { ClauseType } from "app/@cms/cmsModels/Enums/clauseType.enum";
+} from '@angular/core';
+import { FilterDataModel } from 'app/@cms/cmsModels/base/filterModel';
+import { AccessModel } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { RuleSet, QueryBuilderFieldMap, Field, Rule } from 'ngx-query-builder';
+import { ClauseType } from 'app/@cms/cmsModels/Enums/clauseType.enum';
 
 @Component({
-  selector: "app-cms-search-content-list",
-  templateUrl: "./cmsSearchContentList.component.html",
-  styleUrls: ["./cmsSearchContentList.component.scss"],
+  selector: 'app-cms-search-content-list',
+  templateUrl: './cmsSearchContentList.component.html',
+  styleUrls: ['./cmsSearchContentList.component.scss'],
 })
 export class CmsSearchContentListComponent implements OnInit {
   optionsData: any;
@@ -29,9 +29,8 @@ export class CmsSearchContentListComponent implements OnInit {
     model.setAccess = (x) => this.setAccess(x);
   }
   get options(): any {
-    if(this.optionsData.hidden )
-    {
-      
+    if (this.optionsData.hidden ) {
+
 
     }
     return this.optionsData;
@@ -39,7 +38,7 @@ export class CmsSearchContentListComponent implements OnInit {
   model: any;
   query: RuleSet;
   // {
-  //condition: 'and',
+  // condition: 'and',
   // rules: [
   //   {
   //     field: 'category',
@@ -66,7 +65,7 @@ export class CmsSearchContentListComponent implements OnInit {
   //     value: '2020-01-20'
   //   }
   //   ]
-  //};
+  // };
 
   fieldMap: QueryBuilderFieldMap = {};
 
@@ -84,105 +83,105 @@ export class CmsSearchContentListComponent implements OnInit {
       this.optionsData.Access.FieldsInfo
     ) {
       this.optionsData.Access.FieldsInfo.forEach((column, index) => {
-        if (!column.AccessSearchField) return;
+        if (!column.AccessSearchField) { return; }
         if (
-          column.FieldType === "System.Int32" ||
-          column.FieldType === "System.Int64"
+          column.FieldType === 'System.Int32' ||
+          column.FieldType === 'System.Int64'
         ) {
           this.fieldMap[column.FieldName] = {
             name: column.FieldTitle,
-            type: "integer",
+            type: 'integer',
           };
-        } else if (column.FieldType === "System.String") {
+        } else if (column.FieldType === 'System.String') {
           this.fieldMap[column.FieldName] = {
             name: column.FieldTitle,
-            type: "string",
+            type: 'string',
           };
-        } else if (column.FieldType === "MongoDB.Bson.ObjectId") {
+        } else if (column.FieldType === 'MongoDB.Bson.ObjectId') {
           this.fieldMap[column.FieldName] = {
             name: column.FieldName,
-            type: "string",
+            type: 'string',
           };
-        } else if (column.FieldType === "System.Boolean") {
+        } else if (column.FieldType === 'System.Boolean') {
           this.fieldMap[column.FieldName] = {
             name: column.FieldTitle,
-            type: "select",
+            type: 'select',
 
             options: [
-              { name: "بله", value: true },
-              { name: "خیر", value: false },
+              { name: 'بله', value: true },
+              { name: 'خیر', value: false },
             ],
           };
-        } else if (column.FieldType === "System.DateTime") {
+        } else if (column.FieldType === 'System.DateTime') {
           this.fieldMap[column.FieldName] = {
             name: column.FieldTitle,
-            type: "date",
+            type: 'date',
             settings: {},
           };
-        } else if (column.FieldType === "link") {
+        } else if (column.FieldType === 'link') {
           this.fieldMap[column.FieldName] = {
             name: column.FieldTitle,
-            type: "string",
+            type: 'string',
           };
         } else {
-          //console.log("Error: Type is not defined for columns! Please add 'type' property for each columns in gridOptions.");
+          // console.log("Error: Type is not defined for columns! Please add 'type' property for each columns in gridOptions.");
         }
       });
     }
   }
   getRules() {
     this.Filters = new Array<FilterDataModel>();
-    var clauseType: ClauseType = ClauseType.And;
-    if (!this.query || !this.query.condition) return;
+    let clauseType: ClauseType = ClauseType.And;
+    if (!this.query || !this.query.condition) { return; }
 
-    if (this.query.condition == "or") clauseType = ClauseType.Or;
+    if (this.query.condition === 'or') { clauseType = ClauseType.Or; }
     this.query.rules.forEach((column, index) => {
-      var ruleSet = column as RuleSet;
-      var rule = column as Rule;
+      const ruleSet = column as RuleSet;
+      const rule = column as Rule;
       if (
         ruleSet &&
         ruleSet.condition &&
         ruleSet.rules &&
         ruleSet.rules.length > 0
       ) {
-        var Filter = new FilterDataModel();
+        const Filter = new FilterDataModel();
         Filter.Filters = this.getRulesSetChild(ruleSet);
         Filter.ClauseType = clauseType;
         this.Filters.push(Filter);
       } else if (rule) {
-        var Filter = this.getRulesChild(rule);
+        const Filter = this.getRulesChild(rule);
         Filter.ClauseType = clauseType;
         this.Filters.push(Filter);
       }
     });
   }
   getRulesChild(rule: Rule): FilterDataModel {
-    var searchType = this.getSearchType(rule.operator);
-    var Filter = new FilterDataModel();
+    const searchType = this.getSearchType(rule.operator);
+    const Filter = new FilterDataModel();
     Filter.PropertyName = rule.field;
     Filter.value = rule.value;
     Filter.SearchType = searchType;
     return Filter;
   }
   getRulesSetChild(ruleSetInput: RuleSet): Array<FilterDataModel> {
-    var Filters = new Array<FilterDataModel>();
-    var clauseType: ClauseType = ClauseType.And;
-    if (ruleSetInput.condition == "or") clauseType = ClauseType.Or;
+    const Filters = new Array<FilterDataModel>();
+    let clauseType: ClauseType = ClauseType.And;
+    if (ruleSetInput.condition === 'or') { clauseType = ClauseType.Or; }
     ruleSetInput.rules.forEach((column, index) => {
-      var ruleSet = column as RuleSet;
-      var rule = column as Rule;
+      const ruleSet = column as RuleSet;
+      const rule = column as Rule;
       if (
         ruleSet &&
         ruleSet.condition &&
         ruleSet.rules &&
         ruleSet.rules.length > 0
       ) {
-        var Filter = new FilterDataModel();
+        const Filter = new FilterDataModel();
         Filter.Filters = this.getRulesSetChild(ruleSet);
         Filter.ClauseType = clauseType;
         Filters.push(Filter);
       } else if (rule) {
-        var Filter = this.getRulesChild(rule);
+        const Filter = this.getRulesChild(rule);
         Filter.ClauseType = clauseType;
         Filters.push(Filter);
       }
@@ -191,38 +190,38 @@ export class CmsSearchContentListComponent implements OnInit {
   }
 
   onSubmit() {
-    //this.model = { name: "ali" };
+    // this.model = { name: "ali" };
     this.getRules();
     this.optionsData.onSubmit(this.Filters);
   }
   onGetRules() {
-    //console.log(this.query);
+    // console.log(this.query);
   }
   onSaveRules() {}
   onSetRules() {}
   getSearchType(operator) {
     switch (operator) {
-      case "equal":
+      case 'equal':
         return 0;
-      case "not_equal":
+      case 'not_equal':
         return 1;
-      case "less":
+      case 'less':
         return 2;
-      case "greater":
+      case 'greater':
         return 3;
-      case "between":
+      case 'between':
         return 4;
-      case "contains":
+      case 'contains':
         return 5;
-      case "not_contains":
+      case 'not_contains':
         return 6;
-      case "begins_with":
+      case 'begins_with':
         return 7;
-      case "ends_with":
+      case 'ends_with':
         return 8;
-      case "less_or_equal":
+      case 'less_or_equal':
         return 9;
-      case "greater_or_equal":
+      case 'greater_or_equal':
         return 10;
     }
   }

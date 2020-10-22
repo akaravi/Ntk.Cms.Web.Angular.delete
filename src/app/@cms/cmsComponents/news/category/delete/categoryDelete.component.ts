@@ -46,7 +46,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     private newsCategoryService: NewsCategoryService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
-  ) {}
+  ) { }
   ngOnInit() {
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -68,60 +68,58 @@ export class NewsCategoryDeleteComponent implements OnInit {
 
   DataGetOne() {
 
-      this.formInfo.formAlert = 'در حال لود اطلاعات';
-      this.newsCategoryService
-        .ServiceGetOneById(this.id)
-        .subscribe(
-          (next) => {
-            this.dataModelResultCategory = next;
-            if (!next.IsSuccess) {
-              this.formInfo.formAlert = 'برروز خطا';
-              this.formInfo.formError = next.ErrorMessage;
-              this.formInfo.formErrorStatus = true;
-            } else { (!this.formInfo.formErrorStatus) }
-            {
-                this.formInfo.formAlert = '';
-            }
-          },
-          (error) => {
+    this.formInfo.formAlert = 'در حال لود اطلاعات';
+    this.newsCategoryService
+      .ServiceGetOneById(this.id)
+      .subscribe(
+        (next) => {
+          this.dataModelResultCategory = next;
+          if (!next.IsSuccess) {
             this.formInfo.formAlert = 'برروز خطا';
+            this.formInfo.formError = next.ErrorMessage;
             this.formInfo.formErrorStatus = true;
-            this.toastrService.toastr.error(
-              this.publicHelper.CheckError(error),
-              'برروی خطا در دریافت اطلاعات'
-            );
+          } else {
+            this.formInfo.formAlert = '';
           }
-        );
+        },
+        (error) => {
+          this.formInfo.formAlert = 'برروز خطا';
+          this.formInfo.formErrorStatus = true;
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            'برروی خطا در دریافت اطلاعات'
+          );
+        }
+      );
 
   }
   DataGetAll() {
 
-      this.formInfo.formAlert = 'در حال لود اطلاعات';
-      const filterModel: FilterModel = new FilterModel();
-      filterModel.RowPerPage = 100;
-      this.newsCategoryService
-        .ServiceGetAll(filterModel)
-        .subscribe(
-          (next) => {
-            this.dataModelResultCategoryAllData = next;
-            if (!next.IsSuccess) {
-              this.formInfo.formAlert = 'برروز خطا';
-              this.formInfo.formError = next.ErrorMessage;
-              this.formInfo.formErrorStatus = true;
-            } else { (!this.formInfo.formErrorStatus) }
-            {
-              this.formInfo.formAlert = '';
-            }
-          },
-          (error) => {
+    this.formInfo.formAlert = 'در حال لود اطلاعات';
+    const filterModel: FilterModel = new FilterModel();
+    filterModel.RowPerPage = 100;
+    this.newsCategoryService
+      .ServiceGetAll(filterModel)
+      .subscribe(
+        (next) => {
+          this.dataModelResultCategoryAllData = next;
+          if (!next.IsSuccess) {
             this.formInfo.formAlert = 'برروز خطا';
+            this.formInfo.formError = next.ErrorMessage;
             this.formInfo.formErrorStatus = true;
-            this.toastrService.toastr.error(
-              this.publicHelper.CheckError(error),
-              'برروی خطا در دریافت اطلاعات'
-            );
+          } else {
+            this.formInfo.formAlert = '';
           }
-        );
+        },
+        (error) => {
+          this.formInfo.formAlert = 'برروز خطا';
+          this.formInfo.formErrorStatus = true;
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            'برروی خطا در دریافت اطلاعات'
+          );
+        }
+      );
 
   }
   onFormMove() {
@@ -149,8 +147,8 @@ export class NewsCategoryDeleteComponent implements OnInit {
         'شناسه دسته بندی در حال حذف با دسته بندی جایگزین یکسان است';
       this.formInfo.disabledButtonSubmitted = true;
     } else {
-    this.formInfo.disabledButtonSubmitted = false;
-    this.formInfo.formError = '';
+      this.formInfo.disabledButtonSubmitted = false;
+      this.formInfo.formError = '';
     }
   }
   DataDelete() {
@@ -166,7 +164,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
             this.formInfo.formError = next.ErrorMessage;
 
           } else {
-          this.formInfo.formAlert = 'حذف با موفقیت انجام شد';
+            this.formInfo.formAlert = 'حذف با موفقیت انجام شد';
           }
           this.formInfo.disabledButtonSubmitted = false;
 
@@ -186,28 +184,28 @@ export class NewsCategoryDeleteComponent implements OnInit {
   DataMove() {
     this.formInfo.disabledButtonSubmitted = true;
     this.newsCategoryService
-    .ServiceMove<baseEntityCategory<number>>(this.id, this.dataModel.NewCatId)
-    .subscribe(
-      (next) => {
-        if (!next.IsSuccess) {
+      .ServiceMove<baseEntityCategory<number>>(this.id, this.dataModel.NewCatId)
+      .subscribe(
+        (next) => {
+          if (!next.IsSuccess) {
+            this.formInfo.formAlert = 'برروز خطا';
+            this.formInfo.formError = next.ErrorMessage;
+          } else {
+            this.formInfo.formAlert = 'جابجایی با موفقیت انجام شد';
+          }
+          this.formInfo.formAllowSubmit = false;
+          this.formInfo.disabledButtonSubmitted = false;
+        },
+        (error) => {
           this.formInfo.formAlert = 'برروز خطا';
-          this.formInfo.formError = next.ErrorMessage;
-        } else {
-        this.formInfo.formAlert = 'جابجایی با موفقیت انجام شد';
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            'برروی خطا در دریافت اطلاعات'
+          );
+          this.formInfo.disabledButtonSubmitted = false;
+          this.formInfo.formAllowSubmit = true;
         }
-        this.formInfo.formAllowSubmit = false;
-        this.formInfo.disabledButtonSubmitted = false;
-      },
-      (error) => {
-        this.formInfo.formAlert = 'برروز خطا';
-        this.toastrService.toastr.error(
-          this.publicHelper.CheckError(error),
-          'برروی خطا در دریافت اطلاعات'
-        );
-        this.formInfo.disabledButtonSubmitted = false;
-        this.formInfo.formAllowSubmit = true;
-      }
-    );
+      );
   }
 
 }

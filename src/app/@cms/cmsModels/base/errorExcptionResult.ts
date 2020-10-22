@@ -1,8 +1,8 @@
 import { FieldInfoModel } from './fieldInfo/fieldInfoModel';
 
 export class ErrorExcptionResultBase {
-  Status: number=0;
-  IsSuccess: boolean = true;
+  Status= 0;
+  IsSuccess = true;
   errors: Map<string, Array<string>>;
   ErrorMessage: string;
 }

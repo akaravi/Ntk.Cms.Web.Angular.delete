@@ -2,10 +2,10 @@ import { ManageUserAccessAreaTypes } from '../Enums/ManageUserAccessAreaTypes.en
 import { ManageUserAccessControllerTypes } from '../Enums/manageUserAccessControllerTypes.enum';
 
 export class TokenInfoModel {
-  
+
   token: string;
   refresh_token: string;
-  
+
   UserId: number;
   SiteId: number;
   UserGroupId: number;

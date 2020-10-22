@@ -1,37 +1,37 @@
-import { Injectable, OnDestroy } from "@angular/core";
-import { map } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
-import { ToastrService } from "ngx-toastr";
-import { Router } from "@angular/router";
-import { Store } from "@ngrx/store";
-import * as fromStore from "../../cmsStore";
-import { Subscription, throwError } from "rxjs";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FilterModel } from "app/@cms/cmsModels/base/filterModel";
-import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
-import { retry, catchError } from "rxjs/operators";
-import { environment } from "environments/environment";
+import { Injectable, OnDestroy } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../cmsStore';
+import { Subscription, throwError } from 'rxjs';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
+import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
+import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 import { ApiServerBase } from './apiServerBase.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy {
   subManager = new Subscription();
   public baseUrl = environment.cmsServerConfig.configApiServerPath;
-  public configApiRetry =environment. cmsServerConfig.configApiRetry;
+  public configApiRetry = environment. cmsServerConfig.configApiRetry;
 
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
 
   getModuleCotrolerUrl() {
-    return "Empty";
+    return 'Empty';
   }
-  
+
   ServiceSiteDefault<TOut>() {
     return this.http
-    .get(this.baseUrl + this.getModuleCotrolerUrl()+ "/SiteDefault", {
+    .get(this.baseUrl + this.getModuleCotrolerUrl() + '/SiteDefault', {
       headers: this.getHeaders(),
     })
     .pipe(
@@ -44,7 +44,7 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
 
   }
   ServiceSiteDefaultSave<TOut>(model: any) {
- 
+
     return this.http
       .post(this.baseUrl + this.getModuleCotrolerUrl(), model, {
         headers: this.getHeaders(),
@@ -58,9 +58,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteStorage<TOut>(id: number) {
- 
+
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/SiteStorage/" + id, {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + '/SiteStorage/' + id, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -72,10 +72,10 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteStorageSave<TOut>(Siteid: number, model: any) {
- 
+
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteStorage/" + Siteid,
+        this.baseUrl + this.getModuleCotrolerUrl() + '/SiteStorage/' + Siteid,
         model,
         {
           headers: this.getHeaders(),
@@ -91,9 +91,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
   }
 
   ServiceSite<TOut>(id: number) {
- 
+
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/Site/" + id, {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + '/Site/' + id, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -105,9 +105,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteSave<TOut>(Siteid: number, model: any) {
- 
+
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Site/" + Siteid, model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + '/Site/' + Siteid, model, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -119,9 +119,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteAccess<TOut>(Siteid: number) {
- 
+
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + Siteid, {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + '/SiteAccess/' + Siteid, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -133,10 +133,10 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteAccessSave<TOut>(Siteid: number, model: any) {
- 
+
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccess/" + Siteid,
+        this.baseUrl + this.getModuleCotrolerUrl() + '/SiteAccess/' + Siteid,
         model,
         {
           headers: this.getHeaders(),
@@ -151,10 +151,10 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteAccessDefault<TOut>(Siteid: number) {
- 
+
     return this.http
       .get(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccessDefault/" + Siteid,
+        this.baseUrl + this.getModuleCotrolerUrl() + '/SiteAccessDefault/' + Siteid,
         {
           headers: this.getHeaders(),
         }
@@ -168,10 +168,10 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceSiteAccessDefaultSave<TOut>(model: any) {
- 
+
     return this.http
       .post(
-        this.baseUrl + this.getModuleCotrolerUrl() + "/SiteAccessDefault/",
+        this.baseUrl + this.getModuleCotrolerUrl() + '/SiteAccessDefault/',
         model,
         {
           headers: this.getHeaders(),
@@ -186,9 +186,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceAdminMain<TOut>() {
- 
+
     return this.http
-      .get(this.baseUrl + this.getModuleCotrolerUrl() + "/AdminMain/", {
+      .get(this.baseUrl + this.getModuleCotrolerUrl() + '/AdminMain/', {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -200,9 +200,9 @@ export class ApiServerConfigSiteBase extends ApiServerBase implements OnDestroy 
       );
   }
   ServiceAdminMainSave<TOut>(model: any) {
- 
+
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/AdminMain/", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + '/AdminMain/', model, {
         headers: this.getHeaders(),
       })
       .pipe(

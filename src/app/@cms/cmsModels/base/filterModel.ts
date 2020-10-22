@@ -7,18 +7,18 @@ import { FilterDataModelSearchTypes } from '../Enums/filterDataModelSearchTypes.
 export class FilterModel {
 
   Filters: Array<FilterDataModel> = new Array<FilterDataModel>();
-  Count: boolean = false;
+  Count = false;
   TotalRowData: number;
-  SkipRowData: number = 0;
-  CurrentPageNumber: number = 1;
-  RowPerPage: number = 20;
+  SkipRowData = 0;
+  CurrentPageNumber = 1;
+  RowPerPage = 20;
   SortType: SortType = 1;
   SortColumn: string;
   ExportFile: ExportFileModel;
 }
 export class FilterDataModel {
   Filters: Array<FilterDataModel> = new Array<FilterDataModel>();
-  value:any;
+  value: any;
   StringForceNullSearch: boolean;
   DecimalForceNullSearch: boolean;
   LatitudeLongitudeForceNullSearch: boolean;

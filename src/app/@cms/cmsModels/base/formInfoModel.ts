@@ -1,8 +1,8 @@
 export class FormInfoModel {
-  formAllowSubmit: boolean = true;
-  formAlert: string = "";
-  formError: string = "";
-  formErrorStatus:boolean=false;
-  disabledButtonSubmitted:boolean=false;
+  formAllowSubmit = true;
+  formAlert = '';
+  formError = '';
+  formErrorStatus = false;
+  disabledButtonSubmitted = false;
 }
 

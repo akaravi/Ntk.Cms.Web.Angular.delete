@@ -1,6 +1,5 @@
 
-export enum EnumTransactionRecordStatus
-{
+export enum EnumTransactionRecordStatus {
     None = 0,
     SendUserToBank = 1,
     BackUserFromBank = 2,
@@ -16,8 +15,7 @@ export enum EnumTransactionRecordStatus
     BackUserFromBankError = 12,
     TransactionShopInvoiceReleaseCheck
 }
-export enum EnumTransactionBankStatus
-{
+export enum EnumTransactionBankStatus {
     None = 0,
     Error = 1,
     Paid = 2,

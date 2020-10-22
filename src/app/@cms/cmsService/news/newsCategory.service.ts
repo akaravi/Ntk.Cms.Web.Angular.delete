@@ -5,11 +5,10 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 
 
-export class NewsCategoryService extends ApiCmsServerBase<any,number> implements OnDestroy {
+export class NewsCategoryService extends ApiCmsServerBase<any, number> implements OnDestroy {
   subManager = new Subscription();
 
-  getModuleCotrolerUrl()
-  {
+  getModuleCotrolerUrl() {
      return 'NewsCategory';
   }
 
@@ -18,7 +17,7 @@ export class NewsCategoryService extends ApiCmsServerBase<any,number> implements
   }
   ServiceMove<TOut>(OldId: any, NewId: any) {
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/Move", {Old:OldId,New:NewId}, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + '/Move', {Old: OldId, New: NewId}, {
         headers: this.getHeaders(),
       })
       .pipe(
@@ -28,6 +27,6 @@ export class NewsCategoryService extends ApiCmsServerBase<any,number> implements
           return this.errorExcptionResultCheck(ret);
         })
       );
-  } 
-  
+  }
+
 }

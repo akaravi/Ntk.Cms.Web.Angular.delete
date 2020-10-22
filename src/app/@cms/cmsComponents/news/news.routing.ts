@@ -1,5 +1,5 @@
-import { Routes, RouterModule } from "@angular/router";
-import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { NewsContentListComponent } from './content/list/contentList.component';
 import { NewsContentAddComponent } from './content/add/contentAdd.component';
 import { NewsContentEditComponent } from './content/edit/contentEdit.component';
@@ -11,78 +11,78 @@ import { NewsCategorySelectComponent } from './category/select/categorySelect.co
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "content",
+        path: 'content',
         children: [
           {
-            path: "",
+            path: '',
             component: NewsContentListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "list",
+            path: 'list',
             component: NewsContentListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "add",
+            path: 'add',
             component: NewsContentAddComponent,
             data: {
-              title: "Register New Acount",
+              title: 'Register New Acount',
             },
           },
           {
-            path: "edit",
+            path: 'edit',
             component: NewsContentEditComponent,
             data: {
-              title: "forgot password You Acount",
+              title: 'forgot password You Acount',
             },
           }
         ],
 
       },
       {
-        path: "category",
+        path: 'category',
         children: [
           {
-            path: "",
+            path: '',
             component: NewsCategoryListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "list",
+            path: 'list',
             component: NewsCategoryListComponent,
             data: {
-              title: "login to Panle",
+              title: 'login to Panle',
             },
           },
           {
-            path: "add",
+            path: 'add',
             component: NewsCategoryAddComponent,
             data: {
-              title: "Register New Acount",
+              title: 'Register New Acount',
             },
           },
           {
-            path: "edit",
+            path: 'edit',
             component: NewsCategoryEditComponent,
             data: {
-              title: "forgot password You Acount",
+              title: 'forgot password You Acount',
             },
           },
           {
-            path: "select",
+            path: 'select',
             component: NewsCategorySelectComponent,
             data: {
-              title: "forgot password You Acount",
+              title: 'forgot password You Acount',
             },
           },
         ],

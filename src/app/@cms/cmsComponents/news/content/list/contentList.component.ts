@@ -5,41 +5,146 @@ import {
   ElementRef,
   AfterViewChecked,
   ChangeDetectorRef,
-} from "@angular/core";
+} from '@angular/core';
 import {
   FilterModel,
   FilterDataModel,
-} from "app/@cms/cmsModels/base/filterModel";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
+} from 'app/@cms/cmsModels/base/filterModel';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
 
 import {
   ColumnMode,
   TableColumn,
   SelectionType,
-} from "@swimlane/ngx-datatable";
-import { TREE_ACTIONS, KEYS, ITreeOptions } from "angular-tree-component";
-import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
-import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
-import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
-import { NewsCategoryModel } from "app/@cms/cmsModels/news/newsCategoryModel";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import { BaseComponent } from "app/@cms/cmsComponents/_base/baseComponent";
+} from '@swimlane/ngx-datatable';
+import { TREE_ACTIONS, KEYS, ITreeOptions } from 'angular-tree-component';
+import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
+import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
 
 @Component({
-  selector: "app-news-content-List",
-  templateUrl: "./contentList.component.html",
-  styleUrls: ["./contentList.component.scss"],
+  selector: 'app-news-content-list',
+  templateUrl: './contentList.component.html',
+  styleUrls: ['./contentList.component.scss'],
 })
 export class NewsContentListComponent extends BaseComponent implements OnInit {
-  @ViewChild("contentContentAdd", { static: false })
+  @ViewChild('contentContentAdd', { static: false })
   contentContentAdd: ElementRef;
-  @ViewChild("contentContentEdit", { static: false })
+  @ViewChild('contentContentEdit', { static: false })
   contentContentEdit: ElementRef;
-  @ViewChild("contentContentDelete", { static: false })
+  @ViewChild('contentContentDelete', { static: false })
   contentContentDelete: ElementRef;
+  loadingStatus = false; // add one more property
+
+
+  filteModelContent = new FilterModel();
+  filteModelCategory = new FilterModel();
+  dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
+  dataModelResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<
+    any
+  >();
+  dataModelResultViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<
+    any
+  >();
+  // Table Column Titles
+  columnMode = ColumnMode;
+  selectionType = SelectionType;
+  optionsSearch: any = {
+    onSubmit: (model) => this.onSubmitOptionsSearch(model),
+    // AccessSearchField : Array<string>,
+  };
+  tableContentloading = false;
+  tableContentSelected: Array<NewsContentModel> = [];
+
+  columnsContent: TableColumn[] = [
+    {
+      prop: 'RecordStatus',
+      name: 'وضعیت',
+      pipe: { transform: this.publicHelper.RecordStatus },
+    },
+    {
+      prop: 'Id',
+      name: 'شناسه',
+    },
+    {
+      prop: 'LinkSiteId',
+      name: 'سایت',
+    },
+    {
+      prop: 'CreatedDate',
+      name: 'ساخت',
+      pipe: { transform: this.publicHelper.LocaleDate },
+    },
+    {
+      prop: 'UpdatedDate',
+      name: 'ویرایش',
+      pipe: { transform: this.publicHelper.LocaleDate },
+    },
+    {
+      prop: 'Title',
+      name: 'عنوان',
+      pipe: { transform: this.publicHelper.Truncate },
+    },
+    {
+      prop: 'Description',
+      name: 'توضیحات',
+      pipe: { transform: this.publicHelper.Truncate },
+    },
+  ];
+
+  optionsModelTree: ITreeOptions = {
+    idField: 'id',
+    displayField: 'Title',
+    childrenField: 'Children',
+    actionMapping: {
+      mouse: {
+        dblClick: (tree, node, $event) => {
+          if (node.hasChildren) {
+            TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+          }
+        },
+        click: (tree, node) => {
+          this.onActionCategorySelect(node);
+        },
+      },
+      keys: {
+        [KEYS.ENTER]: (tree, node) => {
+          node.expandAll();
+        },
+      },
+    },
+    // nodeHeight: 23,
+    allowDrag: () => {
+      return false;
+    },
+    allowDrop: () => {
+      return false;
+    },
+    allowDragoverStyling: true,
+    levelPadding: 10,
+    // useVirtualScroll: true,
+    animateExpand: true,
+    scrollOnActivate: true,
+    animateSpeed: 30,
+    animateAcceleration: 1.2,
+    // scrollContainer: document.documentElement, // HTML
+    rtl: true,
+  };
+  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
+  optionsCategorySelectData: NewsCategoryModel;
+
+  // LocaleDate(model) {
+  //   const d = new Date(model);
+  //   return d.toLocaleDateString("fa-Ir");
+  // }
+
+  closeResult: string;
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     toastrService: CmsToastrServiceService,
@@ -60,110 +165,6 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
-  loadingStatus = false; // add one more property
- 
-
-  filteModelContent = new FilterModel();
-  filteModelCategory = new FilterModel();
-  dataModelResult: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResultCategory: ErrorExcptionResult<any> = new ErrorExcptionResult<
-    any
-  >();
-  dataModelResultViewModel: ErrorExcptionResult<any> = new ErrorExcptionResult<
-    any
-  >();
-  // Table Column Titles
-  columnMode = ColumnMode;
-  selectionType = SelectionType;
-  optionsSearch: any = {
-    onSubmit: (model) => this.onSubmitOptionsSearch(model),
-    //AccessSearchField : Array<string>,
-  };
-  tableContentloading = false;
-  tableContentSelected: Array<NewsContentModel> = [];
-  
-  columnsContent: TableColumn[] = [
-    {
-      prop: "RecordStatus",
-      name: "وضعیت",
-      pipe: { transform: this.publicHelper.RecordStatus },
-    },
-    {
-      prop: "Id",
-      name: "شناسه",
-    },
-    {
-      prop: "LinkSiteId",
-      name: "سایت",
-    },
-    {
-      prop: "CreatedDate",
-      name: "ساخت",
-      pipe: { transform: this.publicHelper.LocaleDate },
-    },
-    {
-      prop: "UpdatedDate",
-      name: "ویرایش",
-      pipe: { transform: this.publicHelper.LocaleDate },
-    },
-    {
-      prop: "Title",
-      name: "عنوان",
-      pipe: { transform: this.publicHelper.Truncate },
-    },
-    {
-      prop: "Description",
-      name: "توضیحات",
-      pipe: { transform: this.publicHelper.Truncate },
-    },
-  ];
-
-  optionsModelTree: ITreeOptions = {
-    idField: "id",
-    displayField: "Title",
-    childrenField: "Children",
-    actionMapping: {
-      mouse: {
-        dblClick: (tree, node, $event) => {
-          if (node.hasChildren)
-            TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-        },
-        click: (tree, node) => {
-          this.onActionCategorySelect(node);
-        },
-      },
-      keys: {
-        [KEYS.ENTER]: (tree, node) => {
-          node.expandAll();
-        },
-      },
-    },
-    //nodeHeight: 23,
-    allowDrag: () => {
-      return false;
-    },
-    allowDrop: () => {
-      return false;
-    },
-    allowDragoverStyling: true,
-    levelPadding: 10,
-    //useVirtualScroll: true,
-    animateExpand: true,
-    scrollOnActivate: true,
-    animateSpeed: 30,
-    animateAcceleration: 1.2,
-    //scrollContainer: document.documentElement, // HTML
-    rtl: true,
-  };
-  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
-  optionsCategorySelectData: NewsCategoryModel;
-
-  // LocaleDate(model) {
-  //   const d = new Date(model);
-  //   return d.toLocaleDateString("fa-Ir");
-  // }
-
-  closeResult: string;
   // Open default modal
   openModal(content) {
     this.modalService.open(content).result.then(
@@ -183,30 +184,30 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   // This function is used in open
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      return "با فشردن ESC";
+      return 'با فشردن ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "با کلیک کردن یک backdrop";
+      return 'با کلیک کردن یک backdrop';
     } else {
       return `با: ${reason}`;
     }
   }
 
   DataViewModelContent() {
-    this.loadingStatus=true;
+    this.loadingStatus = true;
     this.contentService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResultViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
+          'برروی خطا در دریافت اطلاعات'
         );
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }
@@ -214,23 +215,23 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
-    this.loadingStatus=true;
+    this.loadingStatus = true;
     this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResult = next;
           this.tableContentloading = false;
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
 
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
+          'برروی خطا در دریافت اطلاعات'
         );
         this.tableContentloading = false;
-        this.loadingStatus=false;
+        this.loadingStatus = false;
 
       }
     );
@@ -242,8 +243,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     if (model && model.data) {
       this.optionsCategorySelectData = model.data;
 
-      var aaa = {
-        PropertyName: "LinkCategoryId",
+      const aaa = {
+        PropertyName: 'LinkCategoryId',
         IntValue1: model.data.Id,
       };
       this.filteModelContent.Filters.push(aaa as FilterDataModel);
@@ -258,7 +259,7 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     const sort = event.sorts[0];
 
     if (sort) {
-      if (sort.dir === "desc") {
+      if (sort.dir === 'desc') {
         this.filteModelContent.SortType = SortType.Descending;
       } else {
         this.filteModelContent.SortType = SortType.Ascending;
@@ -268,18 +269,18 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     this.DataGetAllContent();
   }
   onActionSelect() {
-    //your code here
-    //console.log("onActionSelect Event", event);
-    //console.log("tableContentSelected Event", this.tableContentSelected);
+    // your code here
+    // console.log("onActionSelect Event", event);
+    // console.log("tableContentSelected Event", this.tableContentSelected);
   }
 
   onActionbuttonNewRow() {
     if (
       this.optionsCategorySelectData == null ||
-      this.optionsCategorySelectData.Id == 0
+      this.optionsCategorySelectData.Id === 0
     ) {
-      var title = "برروز خطا ";
-      var message = "دسته بندی انتخاب نشده است";
+      const title = 'برروز خطا ';
+      const message = 'دسته بندی انتخاب نشده است';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -288,8 +289,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessAddRow
     ) {
-      var title = "برروز خطا ";
-      var message = "شما دسترسی برای اضافه کردن ندارید";
+      const title = 'برروز خطا ';
+      const message = 'شما دسترسی برای اضافه کردن ندارید';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -299,11 +300,11 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   onActionbuttonEditRow() {
     if (
       this.tableContentSelected == null ||
-      this.tableContentSelected.length == 0 ||
-      this.tableContentSelected[0].Id == 0
+      this.tableContentSelected.length === 0 ||
+      this.tableContentSelected[0].Id === 0
     ) {
-      var title = "برروز خطا ";
-      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      const title = 'برروز خطا ';
+      const message = 'ردیفی برای ویرایش انتخاب نشده است';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -312,8 +313,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessEditRow
     ) {
-      var title = "برروز خطا ";
-      var message = "شما دسترسی برای ویرایش ندارید";
+      const title = 'برروز خطا ';
+      const message = 'شما دسترسی برای ویرایش ندارید';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -322,11 +323,11 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   onActionbuttonDeleteRow() {
     if (
       this.tableContentSelected == null ||
-      this.tableContentSelected.length == 0 ||
-      this.tableContentSelected[0].Id == 0
+      this.tableContentSelected.length === 0 ||
+      this.tableContentSelected[0].Id === 0
     ) {
-      var title = "برروز خطا ";
-      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      const title = 'برروز خطا ';
+      const message = 'ردیفی برای ویرایش انتخاب نشده است';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -335,8 +336,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessDeleteRow
     ) {
-      var title = "برروز خطا ";
-      var message = "شما دسترسی برای حذف ندارید";
+      const title = 'برروز خطا ';
+      const message = 'شما دسترسی برای حذف ندارید';
       this.toastrService.toastr.error(message, title);
       return;
     }

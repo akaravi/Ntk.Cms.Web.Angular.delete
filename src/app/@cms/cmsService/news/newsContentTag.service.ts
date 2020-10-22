@@ -6,22 +6,21 @@ import { catchError, map, retry } from 'rxjs/operators';
 import { SearchTagModel } from 'app/@cms/cmsModels/base/searchModel';
 
 
-export class NewsContentTagService extends ApiCmsServerBase<any,number> implements OnDestroy {
+export class NewsContentTagService extends ApiCmsServerBase<any, number> implements OnDestroy {
   subManager = new Subscription();
 
-  getModuleCotrolerUrl()
-  {
+  getModuleCotrolerUrl() {
      return 'NewsContentTag';
   }
 
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
- 
+
   ServiceSearchTag<TOut>(model: SearchTagModel) {
- 
+
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/SearchTag/", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + '/SearchTag/', model, {
         headers: this.getHeaders(),
       })
       .pipe(

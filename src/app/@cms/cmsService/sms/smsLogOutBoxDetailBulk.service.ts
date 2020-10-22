@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { Subscription } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
+import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
+import { SmsLogOutBoxDetailBulkModel } from '../../cmsModels/sms/SmsLogOutBoxDetailBulkModel';
 
-@Injectable()
-export class SmsLogOutBoxDetailBulkService {
+export class SmsLogOutBoxDetailBulkService extends ApiCmsServerBase<SmsLogOutBoxDetailBulkModel, number> {
 
-constructor() { }
+    getModuleCotrolerUrl() {
+        return 'SmsLogOutBoxDetailBulk';
+    }
 
 }

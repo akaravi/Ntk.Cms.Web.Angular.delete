@@ -5,14 +5,13 @@ import { ApiServerConfigSiteBase } from '../_base/apiServerConfigSiteBase.servic
 export class NewsConfigurationService extends ApiServerConfigSiteBase implements OnDestroy {
   subManager = new Subscription();
 
-  getModuleCotrolerUrl()
-  {
+  getModuleCotrolerUrl() {
      return 'NewsConfiguration';
   }
 
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
- 
-  
+
+
 }

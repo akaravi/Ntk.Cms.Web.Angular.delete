@@ -1,8 +1,15 @@
-import { Injectable } from '@angular/core';
 
-@Injectable()
-export class SmsMainApiPathProcessFlowService {
+import { Injectable, OnDestroy } from '@angular/core';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { Subscription } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
+import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
+import { SmsMainApiPathProcessFlowModel } from '../../cmsModels/sms/SmsMainApiPathProcessFlowModel';
 
-constructor() { }
+export class SmsMainApiPathProcessFlowService extends ApiCmsServerBase<SmsMainApiPathProcessFlowModel, number> {
+
+    getModuleCotrolerUrl() {
+        return 'SmsMainApiPathProcessFlow';
+    }
 
 }

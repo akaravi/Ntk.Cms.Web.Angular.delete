@@ -6,11 +6,10 @@ import { catchError, map, retry } from 'rxjs/operators';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 
 
-export class NewsShareServerCategoryService extends ApiCmsServerBase<any,number> implements OnDestroy {
+export class NewsShareServerCategoryService extends ApiCmsServerBase<any, number> implements OnDestroy {
   subManager = new Subscription();
 
-  getModuleCotrolerUrl()
-  {
+  getModuleCotrolerUrl() {
      return 'NewsShareServerCategory';
   }
 
@@ -18,10 +17,10 @@ export class NewsShareServerCategoryService extends ApiCmsServerBase<any,number>
     this.subManager.unsubscribe();
   }
   ServiceGetAllOtherSite<TOut>(model: FilterModel) {
-    if (model == null) model = new FilterModel();
- 
+    if (model == null) { model = new FilterModel(); }
+
     return this.http
-      .post(this.baseUrl + this.getModuleCotrolerUrl() + "/GetAllOtherSite/", model, {
+      .post(this.baseUrl + this.getModuleCotrolerUrl() + '/GetAllOtherSite/', model, {
         headers: this.getHeaders(),
       })
       .pipe(

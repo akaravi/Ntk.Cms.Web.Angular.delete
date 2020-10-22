@@ -1,5 +1,5 @@
-import { GenderType } from "../Enums/genderType.enum";
-import { BaseEntity } from "../base/baseEntity";
+import { GenderType } from '../Enums/genderType.enum';
+import { BaseEntity } from '../base/baseEntity';
 import { NewsCategoryModel } from './newsCategoryModel';
 import { NewsContentTagModel } from './newsContentTagModel';
 import { NewsContentSimilar } from './newsContentSimilar';
@@ -43,5 +43,5 @@ export class NewsContentModel extends BaseModuleEntity<number> {
   LinkFilePodcastIdSrc: string;
   LinkFileMovieIdSrc: string;
   LinkFileIdsSrc: string[];
-  
+
 }

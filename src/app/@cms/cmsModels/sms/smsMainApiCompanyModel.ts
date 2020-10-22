@@ -1,7 +1,8 @@
 import { BaseEntity } from '../base/baseEntity';
+import { BaseModuleEntity } from '../base/baseModuleEntity';
 import { SmsMainApiPathModel } from './smsMainApiPathModel';
 
-export class SmsMainApiPathCompanyModel extends BaseEntity<number> {
+export class SmsMainApiPathCompanyModel extends BaseModuleEntity<number> {
      Title: string;
      Description: string;
      ServiceAvailableCredit: number;

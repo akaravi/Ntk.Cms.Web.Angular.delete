@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { Subscription } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
+import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
+import { SmsMainApiPathSuperSederModel } from '../../cmsModels/sms/SmsMainApiPathSuperSederModel';
 
-@Injectable()
-export class SmsMainApiPathSuperSederService {
+export class SmsMainApiPathSuperSederService extends ApiCmsServerBase<SmsMainApiPathSuperSederModel, number> {
 
-constructor() { }
+    getModuleCotrolerUrl() {
+        return 'SmsMainApiPathSuperSeder';
+    }
 
 }

@@ -4,25 +4,23 @@ import {
   Input,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { ItemState } from "app/@cms/cmsModels/base/itemState";
-import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
-import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
-import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
+import { ItemState } from 'app/@cms/cmsModels/base/itemState';
+import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
+import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
+import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 
 @Component({
-  selector: "app-news-content-delete",
-  templateUrl: "./contentDelete.component.html",
-  styleUrls: ["./contentDelete.component.scss"],
+  selector: 'app-news-content-delete',
+  templateUrl: './contentDelete.component.html',
+  styleUrls: ['./contentDelete.component.scss'],
 })
 export class NewsContentDeleteComponent implements OnInit {
-  @ViewChild("vform", { static: false })
-  formGroup: FormGroup;
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -30,7 +28,14 @@ export class NewsContentDeleteComponent implements OnInit {
   get options(): any {
     return this.dateModleInput;
   }
+  @ViewChild('vform', { static: false })
+  formGroup: FormGroup;
   private dateModleInput: any;
+  dataModelContents: Array<NewsContentModel> = new Array<NewsContentModel>();
+  dataModelItemStates: Array<ItemState<NewsContentModel>> = new Array<
+    ItemState<NewsContentModel>
+  >();
+  formInfo: FormInfoModel = new FormInfoModel();
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -39,12 +44,7 @@ export class NewsContentDeleteComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {}
-  dataModelContents: Array<NewsContentModel> = new Array<NewsContentModel>();
-  dataModelItemStates: Array<ItemState<NewsContentModel>> = new Array<
-    ItemState<NewsContentModel>
-  >();
-  formInfo: FormInfoModel = new FormInfoModel();
-  
+
   ngOnInit() {
     if (this.dateModleInput && this.dateModleInput.Contents) {
       this.dataModelContents = this.dateModleInput.Contents;
@@ -53,33 +53,33 @@ export class NewsContentDeleteComponent implements OnInit {
     this.DataGetListContent();
   }
   DataGetListContent() {
-    if (this.dataModelContents == null || this.dataModelContents.length == 0) {
-      var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت حذف مشخص نیست";
+    if (this.dataModelContents == null || this.dataModelContents.length === 0) {
+      const title = 'برروز خطا ';
+      const message = 'ردیف اطلاعات جهت حذف مشخص نیست';
       this.toastrService.toastr.error(message, title);
       return;
     }
 
-    this.formInfo.formError = "";
+    this.formInfo.formError = '';
     this.dataModelContents.forEach((element) => {
       this.dataModelItemStates.push({
         ActionStart: false,
         ActionEnd: false,
         Item: element,
-        Status: "",
-        Message: "",
+        Status: '',
+        Message: '',
       });
     });
   }
   DataDeleteContent() {
-    if (this.dataModelContents == null || this.dataModelContents.length == 0) {
-      var title = "برروز خطا ";
-      var message = "ردیف اطلاعات جهت حذف مشخص نیست";
+    if (this.dataModelContents == null || this.dataModelContents.length === 0) {
+      const title = 'برروز خطا ';
+      const message = 'ردیف اطلاعات جهت حذف مشخص نیست';
       this.toastrService.toastr.error(message, title);
       return;
     }
 
-    this.formInfo.formError = "";
+    this.formInfo.formError = '';
     this.formInfo.formAllowSubmit = false;
     this.dataModelItemStates.forEach((element) => {
       //
@@ -90,20 +90,20 @@ export class NewsContentDeleteComponent implements OnInit {
           // this.dataModelResult = next;
           element.ActionEnd = true;
           if (next.IsSuccess) {
-            element.Message = "حذف شد";
-            element.Status = "Ok";
+            element.Message = 'حذف شد';
+            element.Status = 'Ok';
           } else {
             element.Message = next.ErrorMessage;
-            element.Status = "Error";
+            element.Status = 'Error';
           }
         },
         (error) => {
           element.ActionEnd = true;
-          //this.formInfo.formAllowSubmit = true;
-          var title = "برروی خطا در دریافت اطلاعات";
-          var message = this.publicHelper.CheckError(error);
-          element.Message = title + " : " + message;
-          element.Status = "Error";
+          // this.formInfo.formAllowSubmit = true;
+          const title = 'برروی خطا در دریافت اطلاعات';
+          const message = this.publicHelper.CheckError(error);
+          element.Message = title + ' : ' + message;
+          element.Status = 'Error';
         }
       );
 

@@ -1,17 +1,17 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { SmsRoutes } from "./sms.routing";
-import { TreeModule } from "angular-tree-component";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SmsRoutes } from './sms.routing';
+import { TreeModule } from 'angular-tree-component';
 
-import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { NgxQueryBuilderModule } from "ngx-query-builder";
-import { FormsModule } from "@angular/forms";
+import { NgxQueryBuilderModule } from 'ngx-query-builder';
+import { FormsModule } from '@angular/forms';
 
-import { QuillModule } from "ngx-quill";
+import { QuillModule } from 'ngx-quill';
 
-import { SmsMainApiPathCompanyService } from "app/@cms/cmsService/sms/smsMainApiPathCompany.service";
-import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
+import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
+import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 import { SmsMainApiPathAddComponent } from './mainApiPath/add/smsMainApiPathAdd.component';
 import { SmsMainApiPathDeleteComponent } from './mainApiPath/delete/smsMainApiPathDelete.component';
@@ -23,6 +23,7 @@ import { SmsMainApiPathCompanyDeleteComponent } from './mainApiPathCompany/delet
 import { SmsMainApiPathCompanyEditComponent } from './mainApiPathCompany/edit/smsMainApiPathCompanyEdit.component';
 import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/list/smsMainApiPathCompanyList.component';
 import { SmsMainApiPathCompanySelectComponent } from './mainApiPathCompany/select/smsMainApiPathCompanySelect.component';
+
 
 @NgModule({
   imports: [
@@ -47,12 +48,72 @@ import { SmsMainApiPathCompanySelectComponent } from './mainApiPathCompany/selec
     SmsMainApiPathCompanyEditComponent,
     SmsMainApiPathCompanyDeleteComponent,
     SmsMainApiPathCompanySelectComponent,
+    //
+    SmsMainApiPathPermissionListComponent,
+    SmsMainApiPathPermissionAddComponent,
+    SmsMainApiPathPermissionEditComponent,
+    SmsMainApiPathPermissionDeleteComponent,
+    SmsMainApiPathPermissionSelectComponent,
+    //
+    SmsMainApiPathPriceServiceListComponent,
+    SmsMainApiPathPriceServiceAddComponent,
+    SmsMainApiPathPriceServiceEditComponent,
+    SmsMainApiPathPriceServiceDeleteComponent,
+    SmsMainApiPathPriceServiceSelectComponent,
+    //
+    SmsMainApiPathPrivateSiteConfigListComponent,
+    SmsMainApiPathPrivateSiteConfigAddComponent,
+    SmsMainApiPathPrivateSiteConfigEditComponent,
+    SmsMainApiPathPrivateSiteConfigDeleteComponent,
+    SmsMainApiPathPrivateSiteConfigSelectComponent,
+    //
+    SmsMainApiPathProcessFlowListComponent,
+    SmsMainApiPathProcessFlowAddComponent,
+    SmsMainApiPathProcessFlowEditComponent,
+    SmsMainApiPathProcessFlowDeleteComponent,
+    SmsMainApiPathProcessFlowSelectComponent,
+    //
+    SmsMainApiPathProcessFlowLogListComponent,
+    SmsMainApiPathProcessFlowLogAddComponent,
+    SmsMainApiPathProcessFlowLogEditComponent,
+    SmsMainApiPathProcessFlowLogDeleteComponent,
+    SmsMainApiPathProcessFlowLogSelectComponent,
+    //
+    SmsMainApiPathPublicConfigListComponent,
+    SmsMainApiPathPublicConfigAddComponent,
+    SmsMainApiPathPublicConfigEditComponent,
+    SmsMainApiPathPublicConfigDeleteComponent,
+    SmsMainApiPathPublicConfigSelectComponent,
+    //
+    SmsMainApiPathSuperSederListComponent,
+    SmsMainApiPathSuperSederAddComponent,
+    SmsMainApiPathSuperSederEditComponent,
+    SmsMainApiPathSuperSederDeleteComponent,
+    SmsMainApiPathSuperSederSelectComponent,
+
+
+    //
+    SmsMainCustomerNumberListComponent,
+    SmsMainCustomerNumberAddComponent,
+    SmsMainCustomerNumberEditComponent,
+    SmsMainCustomerNumberDeleteComponent,
+    SmsMainCustomerNumberSelectComponent,
+
+
+
+
+
+
+
+
+
+
   ],
   exports: [
 
 
   ],
   providers: [SmsMainApiPathCompanyService, SmsMainApiPathService],
-  //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  // ,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SmsModule {}
+export class SmsModule { }

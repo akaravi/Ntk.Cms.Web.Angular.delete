@@ -9,7 +9,26 @@ import { NgxQueryBuilderModule } from "ngx-query-builder";
 import { FormsModule } from "@angular/forms";
 
 import { QuillModule } from "ngx-quill";
-import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
+import { CmsSharedModule } from "app/@cms/shared/cmsShared.module";
+import { BankPaymentTransactionLogEditComponent } from './transactionLog/edit/bankPaymentTransactionLogEdit.component';
+import { BankPaymentPrivateSiteConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPrivateSiteConfig.service';
+import { BankPaymentPublicConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPublicConfig.service';
+import { BankPaymentTransactionService } from 'app/@cms/cmsService/bankPayment/bankPaymentTransaction.service';
+import { BankPaymentTransactionLogService } from 'app/@cms/cmsService/bankPayment/bankPaymentTransactionLog.service';
+import { BankPaymentPrivateSiteConfigAddComponent } from './privateSiteConfig/add/bankPaymentPrivateSiteConfigAdd.component';
+import { BankPaymentPrivateSiteConfigDeleteComponent } from './privateSiteConfig/delete/bankPaymentPrivateSiteConfigDelete.component';
+import { BankPaymentPrivateSiteConfigEditComponent } from './privateSiteConfig/edit/bankPaymentPrivateSiteConfigEdit.component';
+import { BankPaymentPrivateSiteConfigListComponent } from './privateSiteConfig/list/bankPaymentPrivateSiteConfigList.component';
+import { BankPaymentPrivateSiteConfigSelectComponent } from './privateSiteConfig/select/bankPaymentPrivateSiteConfigSelect.component';
+import { BankPaymentTransactionAddComponent } from './transaction/add/bankPaymentTransactionAdd.component';
+import { BankPaymentTransactionEditComponent } from './transaction/edit/bankPaymentTransactionEdit.component';
+import { BankPaymentTransactionListComponent } from './transaction/list/bankPaymentTransactionList.component';
+import { BankPaymentTransactionLogListComponent } from './transactionLog/list/bankPaymentTransactionLogList.component';
+import { BankPaymentPublicConfigAddComponent } from './publicConfig/add/bankPaymentPublicConfigAdd.component';
+import { BankPaymentPublicConfigDeleteComponent } from './publicConfig/delete/bankPaymentPublicConfigDelete.component';
+import { BankPaymentPublicConfigEditComponent } from './publicConfig/edit/bankPaymentPublicConfigEdit.component';
+import { BankPaymentPublicConfigListComponent } from './publicConfig/list/bankPaymentPublicConfigList.component';
+import { BankPaymentPublicConfigSelectComponent } from './publicConfig/select/bankPaymentPublicConfigSelect.component';
 
 @NgModule({
   imports: [
@@ -21,15 +40,15 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     //NgxQueryBuilderModule,
 
     QuillModule,
-    CmsSharedModule
+    CmsSharedModule,
   ],
   declarations: [
     //
-    BankPaymentpublicConfigAddComponent,
-    BankPaymentpublicConfigEditComponent,
-    BankPaymentpublicConfigDeleteComponent,
-    BankPaymentpublicConfigListComponent,
-    BankPaymentpublicConfigSelectComponent,
+    BankPaymentPublicConfigAddComponent,
+    BankPaymentPublicConfigEditComponent,
+    BankPaymentPublicConfigDeleteComponent,
+    BankPaymentPublicConfigListComponent,
+    BankPaymentPublicConfigSelectComponent,
     //
     BankPaymentPrivateSiteConfigAddComponent,
     BankPaymentPrivateSiteConfigEditComponent,
@@ -39,21 +58,18 @@ import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
     //
     BankPaymentTransactionAddComponent,
     BankPaymentTransactionEditComponent,
-    BankPaymentTransactionDeleteComponent,
     BankPaymentTransactionListComponent,
-    BankPaymentTransactionSelectComponent,
     //
-    BankPaymentTransactionLogAddComponent,
     BankPaymentTransactionLogEditComponent,
-    BankPaymentTransactionLogDeleteComponent,
     BankPaymentTransactionLogListComponent,
-    BankPaymentTransactionLogSelectComponent,
   ],
-  exports: [
-
-
+  exports: [],
+  providers: [
+    BankPaymentPrivateSiteConfigService,
+    BankPaymentPublicConfigService,
+    BankPaymentTransactionService,
+    BankPaymentTransactionLogService,
   ],
-  providers: [BankPaymentMainApiPathCompanyService, BankPaymentMainApiPathService],
   //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BankPaymentModule {}

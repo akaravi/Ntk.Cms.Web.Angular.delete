@@ -3,11 +3,11 @@ import { Subscription, Observable } from 'rxjs';
 import { map, catchError, retry } from "rxjs/operators";
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { ApiCmsServerBase } from '../_base/apiCmsServerBase.service';
-import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
-import { LinkManagementTargetShortLinkSetDtoModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkSetDtoModel';
-import { LinkManagementTargetShortLinkGetDtoModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkGetDtoModel';
-import { LinkManagementTargetShortLinkSetResponceModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkSetResponceModel';
-import { LinkManagementTargetShortLinkGetResponceModel } from 'app/@cms/cmsModels/linkManagement/linkManagementTargetShortLinkGetResponceModel';
+import { LinkManagementTargetShortLinkGetDtoModel } from 'app/@cms/cmsDtoModels/linkManagement/linkManagementTargetShortLinkGetDtoModel';
+import { LinkManagementTargetShortLinkGetResponceModel } from 'app/@cms/cmsDtoModels/linkManagement/linkManagementTargetShortLinkGetResponceModel';
+import { LinkManagementTargetShortLinkSetDtoModel } from 'app/@cms/cmsDtoModels/linkManagement/linkManagementTargetShortLinkSetDtoModel';
+import { LinkManagementTargetShortLinkSetResponceModel } from 'app/@cms/cmsDtoModels/linkManagement/linkManagementTargetShortLinkSetResponceModel';
+
 
 
 export class LinkManagementTargetService extends ApiCmsServerBase<any,number> implements OnDestroy {

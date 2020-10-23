@@ -5,7 +5,7 @@ import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.servi
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { baseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
+import { BaseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
 import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { FormGroup } from '@angular/forms';
@@ -31,11 +31,11 @@ export class NewsCategoryDeleteComponent implements OnInit {
   private dateModleInput: any;
 
   dataModelResultCategory: ErrorExcptionResult<
-    baseEntityCategory<number>
-  > = new ErrorExcptionResult<baseEntityCategory<number>>();
+    BaseEntityCategory<number>
+  > = new ErrorExcptionResult<BaseEntityCategory<number>>();
   dataModelResultCategoryAllData: ErrorExcptionResult<
-    baseEntityCategory<number>
-  > = new ErrorExcptionResult<baseEntityCategory<number>>();
+    BaseEntityCategory<number>
+  > = new ErrorExcptionResult<BaseEntityCategory<number>>();
 
   dataModel: any = {};
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
@@ -184,7 +184,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   DataMove() {
     this.formInfo.disabledButtonSubmitted = true;
     this.newsCategoryService
-      .ServiceMove<baseEntityCategory<number>>(this.id, this.dataModel.NewCatId)
+      .ServiceMove<BaseEntityCategory<number>>(this.id, this.dataModel.NewCatId)
       .subscribe(
         (next) => {
           if (!next.IsSuccess) {

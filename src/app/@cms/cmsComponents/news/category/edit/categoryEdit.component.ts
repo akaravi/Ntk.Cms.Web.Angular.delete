@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { FormGroup } from '@angular/forms';
-import { baseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
+import { BaseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
 import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
 import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
@@ -28,9 +28,9 @@ export class NewsCategoryEditComponent implements OnInit {
 
 
   dataModelResult: ErrorExcptionResult<
-    baseEntityCategory<number>
-  > = new ErrorExcptionResult<baseEntityCategory<number>>();
-  dataModel: baseEntityCategory<number> = new baseEntityCategory<
+    BaseEntityCategory<number>
+  > = new ErrorExcptionResult<BaseEntityCategory<number>>();
+  dataModel: BaseEntityCategory<number> = new BaseEntityCategory<
     number
   >();
   id: number;

@@ -1,8 +1,8 @@
 import { BaseEntity } from '../base/baseEntity';
-import { baseEntityCategory } from '../base/baseEntityCategory';
+import { BaseEntityCategory } from '../base/baseEntityCategory';
 import { NewsContentModel } from './newsContentModel';
 
-export class NewsCategoryModel extends baseEntityCategory<number> {
+export class NewsCategoryModel extends BaseEntityCategory<number> {
 
   Children: NewsCategoryModel[];
   Category: NewsCategoryModel;

@@ -9,9 +9,10 @@ export class BaseEntity<TKey> {
   RecordStatus: RecordStatus = RecordStatus.Available;
 
   //region AntiInjection
+  AntiInjectionRun: boolean;
   AntiInjectionGuid: string;
   AntiInjectionDate: Date;
-  CreateAntiInjectionValue: Boolean;
+  AntiInjectionTokenActionState: Boolean;
   AntiInjectionExpiredMinute: number;
   AntiInjectionToken: string;
   AntiInjectionExpireDate: Date;

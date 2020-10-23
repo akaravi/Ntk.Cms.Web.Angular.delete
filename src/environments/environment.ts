@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-   cmsServerConfig : {
-    configApiRetry:1,
+  cmsServerConfig: {
+    configApiRetry: 1,
     configApiServerPath: 'https://apicms.ir/api/v1/',
     //configApiServerPath: 'http://localhost:2390/api/v1/',
     configMvcServerPath: 'https://oco.ir',
@@ -15,11 +15,11 @@ export const environment = {
     configRouteThumbnails: 'https://oco.ir/imageThumbnails/',
     configRouteUploadFileContent: 'https://apicms.ir/api/v1/FileContent/upload/',
   },
-   cmsUiConfig : {
+  cmsUiConfig: {
     Pathlogin: '/auth/login',
     Pathlogout: '/auth/logout',
     PathRegistery: '/auth/registery',
     Pathdashboard: '/dashboard/dashboard1',
-  
+
   }
 };

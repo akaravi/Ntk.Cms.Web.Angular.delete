@@ -7,7 +7,8 @@ import { FilterDataModelSearchTypes } from '../Enums/filterDataModelSearchTypes.
 export class FilterModel {
 
   Filters: Array<FilterDataModel> = new Array<FilterDataModel>();
-  Count = false;
+  CountLoad = false;
+  AccessLoad = false;
   TotalRowData: number;
   SkipRowData = 0;
   CurrentPageNumber = 1;

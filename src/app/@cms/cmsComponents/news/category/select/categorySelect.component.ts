@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import {
   FilterModel,
-  FilterDataModel,
 } from 'app/@cms/cmsModels/base/filterModel';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
-import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
@@ -22,12 +19,12 @@ export class NewsCategorySelectComponent implements OnInit {
   @Input()
   set options(modelInput: ComponentOptionNewsCategoryModel) {
 
-    this.privateOptions = modelInput;
+    this.optionsData = modelInput;
   }
   get options(): ComponentOptionNewsCategoryModel {
-    return this.privateOptions;
+    return this.optionsData;
   }
-  private privateOptions: ComponentOptionNewsCategoryModel;
+  private optionsData: ComponentOptionNewsCategoryModel;
   loadingStatus = false; // add one more property
 
 
@@ -44,21 +41,21 @@ export class NewsCategorySelectComponent implements OnInit {
             TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
           }
         },
-        click: (tree, node, $event) => {
+        click: (tree, node) => {
           this.onActionSelect(node.data);
         },
       },
       keys: {
-        [KEYS.ENTER]: (tree, node, $event) => {
+        [KEYS.ENTER]: (tree, node) => {
           node.expandAll();
         },
       },
     },
     // nodeHeight: 23,
-    allowDrag: (node) => {
+    allowDrag: () => {
       return false;
     },
-    allowDrop: (node) => {
+    allowDrop: () => {
       return false;
     },
     allowDragoverStyling: true,
@@ -73,8 +70,6 @@ export class NewsCategorySelectComponent implements OnInit {
   };
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: NewsCategoryService
@@ -83,8 +78,8 @@ export class NewsCategorySelectComponent implements OnInit {
   ngOnInit() {
     this.DataGetAllCategory();
 
-    // this.privateOptions.methods = { ActionReload: () => this.onActionReload() }
-    this.privateOptions.methods = { ActionReload : () => this.onActionReload() };
+    // this.optionsData.methods = { ActionReload: () => this.onActionReload() }
+    this.optionsData.methods = { ActionReload: () => this.onActionReload() };
 
   }
 
@@ -108,9 +103,9 @@ export class NewsCategorySelectComponent implements OnInit {
     );
   }
   onActionSelect(model: NewsCategoryModel) {
-    if (this.privateOptions && this.privateOptions.actions && this.privateOptions.actions.onActionSelect) {
-      this.privateOptions.actions.onActionSelect(model);
-      this.privateOptions.data = { SelectId: model.Id, Select: model };
+    if (this.optionsData && this.optionsData.actions && this.optionsData.actions.onActionSelect) {
+      this.optionsData.actions.onActionSelect(model);
+      this.optionsData.data = { SelectId: model.Id, Select: model };
     }
 
   }

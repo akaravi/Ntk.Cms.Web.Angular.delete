@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import {
   FilterModel,
-  FilterDataModel,
 } from 'app/@cms/cmsModels/base/filterModel';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
-import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ComponentOptionSmsMainApiPathModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathModel';
@@ -22,12 +19,12 @@ import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel'
 export class SmsMainApiPathSelectComponent implements OnInit {
   @Input()
   set options(model: ComponentOptionSmsMainApiPathModel) {
-    this.privateOptions = model;
+    this.optionsData = model;
   }
   get options(): ComponentOptionSmsMainApiPathModel {
-    return this.privateOptions;
+    return this.optionsData;
   }
-  private privateOptions: ComponentOptionSmsMainApiPathModel = new ComponentOptionSmsMainApiPathModel();
+  private optionsData: ComponentOptionSmsMainApiPathModel = new ComponentOptionSmsMainApiPathModel();
   loadingStatus = false; // add one more property
 
 
@@ -44,21 +41,21 @@ export class SmsMainApiPathSelectComponent implements OnInit {
             TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
           }
         },
-        click: (tree, node, $event) => {
+        click: (tree, node) => {
           this.onActionSelect(node.data);
         },
       },
       keys: {
-        [KEYS.ENTER]: (tree, node, $event) => {
+        [KEYS.ENTER]: (tree, node) => {
           node.expandAll();
         },
       },
     },
     // nodeHeight: 23,
-    allowDrag: (node) => {
+    allowDrag: () => {
       return false;
     },
-    allowDrop: (node) => {
+    allowDrop: () => {
       return false;
     },
     allowDragoverStyling: true,
@@ -73,7 +70,6 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   };
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathService
@@ -82,7 +78,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   ngOnInit() {
     this.DataGetAllCategory();
 
-    this.privateOptions.methods = { ActionReload: () => this.onActionReload() };
+    this.optionsData.methods = { ActionReload: () => this.onActionReload() };
   }
 
   DataGetAllCategory() {
@@ -106,12 +102,12 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   }
   onActionSelect(model: SmsMainApiPathModel) {
     if (
-      this.privateOptions &&
-      this.privateOptions.actions &&
-      this.privateOptions.actions.onActionSelect
+      this.optionsData &&
+      this.optionsData.actions &&
+      this.optionsData.actions.onActionSelect
     ) {
-      this.privateOptions.actions.onActionSelect(model);
-      this.privateOptions.data = { Select: model, SelectId: model.Id };
+      this.optionsData.actions.onActionSelect(model);
+      this.optionsData.data = { Select: model, SelectId: model.Id };
     }
   }
   onActionReload() {

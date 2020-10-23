@@ -1,7 +1,7 @@
-import { FieldInfoModel } from './fieldInfo/fieldInfoModel';
+import { DataFieldInfoModel, FieldInfoModel } from './fieldInfo/fieldInfoModel';
 
 export class ErrorExcptionResultBase {
-  Status= 0;
+  Status = 0;
   IsSuccess = true;
   errors: Map<string, Array<string>>;
   ErrorMessage: string;
@@ -27,5 +27,5 @@ export class AccessModel {
   AccessEditRowOtherCreatedBy = false;
   AccessDeleteRowOtherCreatedBy = false;
 
-  FieldsInfo: Array<FieldInfoModel>;
+  FieldsInfo: Array<DataFieldInfoModel>;
 }

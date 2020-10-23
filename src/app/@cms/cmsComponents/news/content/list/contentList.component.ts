@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewChecked,
   ChangeDetectorRef,
 } from '@angular/core';
 import {
@@ -22,13 +21,14 @@ import {
 import { TREE_ACTIONS, KEYS, ITreeOptions } from 'angular-tree-component';
 import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
 import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
 import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
+import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
+import { ComponentOptionModalModel } from 'app/@cms/cmsComponentModels/base/componentOptionModalModel';
 
 @Component({
   selector: 'app-news-content-list',
@@ -59,10 +59,7 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   // Table Column Titles
   columnMode = ColumnMode;
   selectionType = SelectionType;
-  optionsSearch: any = {
-    onSubmit: (model) => this.onSubmitOptionsSearch(model),
-    // AccessSearchField : Array<string>,
-  };
+
   tableContentloading = false;
   tableContentSelected: Array<NewsContentModel> = [];
   modalModel: ComponentModalDataModel = new ComponentModalDataModel();
@@ -141,43 +138,49 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     rtl: true,
   };
   optionsCategorySelect: ComponentOptionNewsCategoryModel = new ComponentOptionNewsCategoryModel();
-
+  optionModelModal: ComponentOptionModalModel = new ComponentOptionModalModel();
 
   closeResult: string;
+  optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    toastrService: CmsToastrServiceService,
-    publicHelper: PublicHelper,
-    modalService: NgbModal,
+    private toastrService: CmsToastrServiceService,
+    private publicHelper: PublicHelper,
+    private modalService: NgbModal,
     public contentService: NewsContentService,
 
 
   ) {
-    super(toastrService, publicHelper, modalService);
+    super();
+    this.optionsSearch.actions = { onSubmit: (model) => this.onSubmitOptionsSearch(model) }
+
   }
 
   ngOnInit() {
-    // this.optionsCategorySelect.actions = {
-    //   onActionSelect: (x) => this.onActionCategorySelect(x),
-    // };
-    this.optionsCategorySelect.actions = { onActionSelect: (x) => this.onActionCategorySelect(x) };
 
-    this.DataViewModelContent();
+    this.optionsCategorySelect.actions = { onActionSelect: (x) => this.onActionCategorySelect(x) };
+    this.optionModelModal.actions = { onClose: () => this.onCloseModal() };
+
     this.DataGetAllContent();
   }
+  onCloseModal() {
+
+
+  }
+
   // Open default modal
   openModal(content, contentModal: ComponentModalDataModel) {
+    this.optionModelModal.methods.openModal(contentModal);
     this.modalModel = contentModal;
-    this.modalService.open(content).result.then(
-      (result) => {
-        this.closeResult = `بسته شدن با: ${result}`;
-        this.onActionCategoryReload();
-      },
-      (reason) => {
-        this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
-        this.onActionCategoryReload();
-      }
-    );
+    // this.modalService.open(content).result.then(
+    //   (result) => {
+    //     this.closeResult = `بسته شدن با: ${result}`;
+    //     this.onActionCategoryReload();
+    //   },
+    //   (reason) => {
+    //     this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
+    //     this.onActionCategoryReload();
+    //   }
+    // );
   }
   onActionCategoryReload() {
     this.optionsCategorySelect.methods.ActionReload();
@@ -193,34 +196,18 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  DataViewModelContent() {
-    this.loadingStatus = true;
-    this.contentService.ServiceViewModel().subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataModelResultViewModel = next;
-          this.optionsSearch.setAccess(next.Access);
-        }
-        this.loadingStatus = false;
-      },
-      (error) => {
-        this.toastrService.toastr.error(
-          this.publicHelper.CheckError(error),
-          'برروی خطا در دریافت اطلاعات'
-        );
-        this.loadingStatus = false;
-      }
-    );
-  }
 
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
     this.loadingStatus = true;
+    this.filteModelContent.AccessLoad = true;
     this.contentService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResult = next;
+          this.optionsSearch.methods.setAccess(next.Access);
+
           this.tableContentloading = false;
         }
         this.loadingStatus = false;

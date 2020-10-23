@@ -1,7 +1,10 @@
 import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 
 export class ComponentOptionFileUploadModel
-  extends ComponentOptionModel<ComponentOptionFileUploadDataModel, ComponentOptionFileUploadActionsModel, ComponentOptionFileUploadMethodsModel> {
+  implements ComponentOptionModel<ComponentOptionFileUploadDataModel, ComponentOptionFileUploadActionsModel, ComponentOptionFileUploadMethodsModel> {
+  actions: ComponentOptionFileUploadActionsModel;
+  methods: ComponentOptionFileUploadMethodsModel;
+  data: ComponentOptionFileUploadDataModel;
 
 }
 

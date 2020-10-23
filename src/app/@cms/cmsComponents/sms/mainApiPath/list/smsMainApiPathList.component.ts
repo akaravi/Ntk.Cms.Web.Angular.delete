@@ -12,14 +12,13 @@ import {
   NgbModalOptions,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  DatatableComponent,
   ColumnMode,
   TableColumn,
   SelectionType,
 } from '@swimlane/ngx-datatable';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import {
   FilterDataModel,
@@ -29,7 +28,6 @@ import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
 import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
 import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sms-main-api-path-list',
@@ -41,10 +39,7 @@ export class SmsMainApiPathListComponent implements OnInit {
   contentContentAdd: ElementRef;
   @ViewChild('contentContentEdit', { static: false })
   contentContentEdit: ElementRef;
-  optionsSearch: any = {
-    onSubmit: (model) => this.onSubmitOptionsSearch(model),
-    // AccessSearchField : Array<string>,
-  };
+
   optionsCategorySelect: ComponentOptionSmsMainApiPathCompanyModel = new ComponentOptionSmsMainApiPathCompanyModel();
 
   filteModelContent = new FilterModel();
@@ -83,22 +78,22 @@ export class SmsMainApiPathListComponent implements OnInit {
   loadingStatus = false; // add one more property
 
   closeResult: string;
+  optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-
     private publicHelper: PublicHelper,
     public smsMainApiPathService: SmsMainApiPathService,
     private modalService: NgbModal
-  ) { }
+  ) {
+    this.optionsSearch.actions = { onSubmit: (model) => this.onSubmitOptionsSearch(model) }
+
+  }
   ngOnInit() {
     this.optionsCategorySelect.actions = {
       onActionSelect: (x) => this.onActionCategorySelect(x),
     };
 
-    this.DataViewModelContent();
     this.DataGetAllContent();
   }
 
@@ -111,10 +106,13 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.tableContentSelected = [];
     this.tableContentloading = true;
     this.loadingStatus = true;
+    this.filteModelContent.AccessLoad = true;
     this.smsMainApiPathService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResult = next;
+          this.optionsSearch.methods.setAccess(next.Access);
+
           this.tableContentloading = false;
         }
         this.loadingStatus = false;
@@ -238,26 +236,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.DataGetAllContent();
   }
 
-  DataViewModelContent() {
-    this.loadingStatus = true;
-    this.smsMainApiPathService.ServiceViewModel().subscribe(
-      (next) => {
-        if (next.IsSuccess) {
-          this.dataModelResultViewModel = next;
-          this.optionsSearch.setAccess(next.Access);
-        }
-        this.loadingStatus = false;
-      },
-      (error) => {
-        this.toastrService.toastr.error(
-          this.publicHelper.CheckError(error),
-          'برروی خطا در دریافت اطلاعات'
-        );
-        this.loadingStatus = false;
-      }
-    );
-  }
-  onActionSelect(event) {
+  onActionSelect() {
     // your code here
     // console.log("onActionSelect Event", event);
     // console.log("tableContentSelected Event", this.tableContentSelected);

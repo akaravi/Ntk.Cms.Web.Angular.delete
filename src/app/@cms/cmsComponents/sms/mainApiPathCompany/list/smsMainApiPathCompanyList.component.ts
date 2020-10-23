@@ -7,6 +7,7 @@ import {
   SelectionType,
 } from '@swimlane/ngx-datatable';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
 import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
@@ -24,10 +25,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   contentContentAdd: ElementRef;
   @ViewChild('contentContentEdit', { static: false })
   contentContentEdit: ElementRef;
-  optionsSearch: any = {
-    onSubmit: (model) => this.onSubmitOptionsSearch(model),
-    // AccessSearchField : Array<string>,
-  };
+
   filteModelContent = new FilterModel();
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
@@ -69,13 +67,17 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   loadingStatus = false; // add one more property
 
   closeResult: string;
+  optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.optionsSearch.actions = { onSubmit: (model) => this.onSubmitOptionsSearch(model) }
+
+  }
   ngOnInit() {
     this.DataGetAllContent();
   }
@@ -89,12 +91,15 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     this.tableContentSelected = [];
     this.tableContentloading = true;
     this.loadingStatus = true;
+    this.filteModelContent.AccessLoad = true;
     this.smsMainApiPathCompanyService
       .ServiceGetAll(this.filteModelContent)
       .subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.dataModelResult = next;
+            this.optionsSearch.methods.setAccess(next.Access);
+
             this.tableContentloading = false;
           }
           this.loadingStatus = false;
@@ -145,9 +150,9 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
     }
     this.openModal(this.contentContentEdit);
   }
-  onActionbuttonDeleteRow() {}
-  onActionbuttonStatus() {}
-  onActionbuttonExport() {}
+  onActionbuttonDeleteRow() { }
+  onActionbuttonStatus() { }
+  onActionbuttonExport() { }
 
   onActionbuttonReload() {
     this.DataGetAllContent();

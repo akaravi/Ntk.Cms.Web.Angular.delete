@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { ComponentOptionFileUploadModel } from 'app/@cms/cmsComponentModels/files/componentOptionNewsCategoryModel';
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs';
 

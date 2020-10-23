@@ -1,4 +1,4 @@
-export class ComponentOptionModel<TDataModel, TActionModel, TMethodsModel> {
+export interface ComponentOptionModel<TDataModel, TActionModel, TMethodsModel> {
   actions: TActionModel;
   methods: TMethodsModel;
   data: TDataModel;

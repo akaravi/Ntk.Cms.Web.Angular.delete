@@ -2,7 +2,10 @@ import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionMod
 import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
 
 export class ComponentOptionSmsMainApiPathModel
-  extends ComponentOptionModel<ComponentOptionSmsMainApiPathDataModel, ComponentOptionSmsMainApiPathActionsModel, ComponentOptionSmsMainApiPathMethodsModel> {
+  implements ComponentOptionModel<ComponentOptionSmsMainApiPathDataModel, ComponentOptionSmsMainApiPathActionsModel, ComponentOptionSmsMainApiPathMethodsModel> {
+  actions: ComponentOptionSmsMainApiPathActionsModel;
+  methods: ComponentOptionSmsMainApiPathMethodsModel;
+  data: ComponentOptionSmsMainApiPathDataModel;
 
 }
 

@@ -10,6 +10,7 @@ import { FilterDataModel } from 'app/@cms/cmsModels/base/filterModel';
 import { AccessModel } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { RuleSet, QueryBuilderFieldMap, Field, Rule } from 'ngx-query-builder';
 import { ClauseType } from 'app/@cms/cmsModels/Enums/clauseType.enum';
+import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 
 @Component({
   selector: 'app-cms-search-content-list',
@@ -17,20 +18,22 @@ import { ClauseType } from 'app/@cms/cmsModels/Enums/clauseType.enum';
   styleUrls: ['./cmsSearchContentList.component.scss'],
 })
 export class CmsSearchContentListComponent implements OnInit {
-  optionsData: any;
+  optionsData: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
 
   Filters: Array<FilterDataModel>;
   @Input()
-  set options(model: any) {
+  set options(model: ComponentOptionSearchContentModel) {
     this.optionsData = model;
-    if (this.optionsData.hidden == null) {
-      this.optionsData.hidden = true;
+    if (this.optionsData.data.hidden == null) {
+      this.optionsData.data.hidden = true;
     }
-    model.setAccess = (x) => this.setAccess(x);
-  }
-  get options(): any {
-    if (this.optionsData.hidden ) {
 
+    model.methods = {
+      setAccess: (x) => this.setAccess(x)
+    }
+  }
+  get options(): ComponentOptionSearchContentModel {
+    if (this.optionsData.data.hidden) {
 
     }
     return this.optionsData;
@@ -69,20 +72,20 @@ export class CmsSearchContentListComponent implements OnInit {
 
   fieldMap: QueryBuilderFieldMap = {};
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   setAccess(model: AccessModel) {
-    this.optionsData.Access = model;
+    this.optionsData.data.Access = model;
     this.setFields();
   }
   setFields() {
     if (
       this.optionsData &&
-      this.optionsData.Access &&
-      this.optionsData.Access.FieldsInfo
+      this.optionsData.data.Access &&
+      this.optionsData.data.Access.FieldsInfo
     ) {
-      this.optionsData.Access.FieldsInfo.forEach((column, index) => {
+      this.optionsData.data.Access.FieldsInfo.forEach((column, index) => {
         if (!column.AccessSearchField) { return; }
         if (
           column.FieldType === 'System.Int32' ||
@@ -192,13 +195,13 @@ export class CmsSearchContentListComponent implements OnInit {
   onSubmit() {
     // this.model = { name: "ali" };
     this.getRules();
-    this.optionsData.onSubmit(this.Filters);
+    this.optionsData.actions.onSubmit(this.Filters);
   }
   onGetRules() {
     // console.log(this.query);
   }
-  onSaveRules() {}
-  onSetRules() {}
+  onSaveRules() { }
+  onSetRules() { }
   getSearchType(operator) {
     switch (operator) {
       case 'equal':

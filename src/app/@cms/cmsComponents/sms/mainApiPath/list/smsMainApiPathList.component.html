@@ -15,13 +15,21 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <app-sms-main-api-path-company-select [options]="optionsCategorySelect"></app-sms-main-api-path-company-select>
+                        <app-sms-main-api-path-company-select [options]="optionsCategorySelect">
+                        </app-sms-main-api-path-company-select>
                         <hr>
                         <p>
-                            <a (click)='onActionCategorySelect()' *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> |
-                            <a (click)="openModal(contentCategoryAdd)" class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
-                            <a (click)="openModal(contentCategoryEdit)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> |
-                            <a (click)="openModal(contentCategoryDelete)" *ngIf="optionsCategorySelectData" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+                            <a (click)='onActionCategorySelect()'
+                                *ngIf="optionsCategorySelect?.data && optionsCategorySelect?.data?.SelectId>0"
+                                class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> |
+                            <a (click)="openModal(contentCategoryAdd)"
+                                class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
+                            <a (click)="openModal(contentCategoryEdit)"
+                                *ngIf="optionsCategorySelect?.data && optionsCategorySelect?.data?.SelectId>0"
+                                class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> |
+                            <a (click)="openModal(contentCategoryDelete)"
+                                *ngIf="optionsCategorySelect?.data && optionsCategorySelect?.data?.SelectId>0"
+                                class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
                         </p>
                         <p>عمل : {{closeResult}}</p>
 
@@ -36,20 +44,38 @@
         <div class="col-md-10 col-lg-10">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">لیست مسیرها <span *ngIf="optionsCategorySelectData">({{optionsCategorySelectData?.Title}})</span> </h4>
+                    <h4 class="card-title">لیست مسیرها <span
+                            *ngIf="optionsCategorySelect.data &&
+                            optionsCategorySelect?.data?.SelectId>0">({{optionsCategorySelect.data && optionsCategorySelect?.data?.Select?.Title}})</span>
+                    </h4>
                     <hr>
                     <div>
 
-                        <a *ngIf="dataModelResult?.Access?.AccessAddRow && optionsCategorySelectData" (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
-                        <a *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0" (click)="onActionbuttonEditRow()" class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
-                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
-                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0" (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
-                        <a *ngIf="dataModelResult?.Access?.AccessWatchRow" (click)="optionsSearch.hidden=!optionsSearch.hidden" class="btn btn-raised mr-1 shadow-z-2 btn-success">
-                            <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i id="filter-btn-icon" [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'" aria-hidden="true"></i>
+                        <a *ngIf="dataModelResult?.Access?.AccessAddRow && optionsCategorySelect?.data?.Select"
+                            (click)="onActionbuttonNewRow()" class="btn btn-raised mr-1 shadow-z-2 btn-info">جدید</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0"
+                            (click)="onActionbuttonEditRow()"
+                            class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
+                            (click)="onActionbuttonDeleteRow()"
+                            class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
+                            (click)="onActionbuttonDeleteRow()"
+                            class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
+                        <a *ngIf="dataModelResult?.Access?.AccessWatchRow"
+                            (click)="optionsSearch.hidden=!optionsSearch.hidden"
+                            class="btn btn-raised mr-1 shadow-z-2 btn-success">
+                            <i class="fa fa-search fontavesome-small"></i>&nbsp;جستجوی پیشرفته&nbsp;&nbsp;<i
+                                id="filter-btn-icon"
+                                [className]="optionsSearch.hidden ? 'fa fa-toggle-off' : 'fa fa-toggle-on'"
+                                aria-hidden="true"></i>
                         </a>
-                        <a (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار </a>
-                        <a (click)="onActionbuttonExport()" class="btn btn-raised mr-1 shadow-z-2 btn-primary">خروجی فایل</a>
-                        <a (click)="onActionbuttonReload()" class="btn btn-raised mr-1 shadow-z-2 btn-success">بررسی مجدد</a>
+                        <a (click)="onActionbuttonStatus()" class="btn btn-raised mr-1 shadow-z-2 btn-secondary">آمار
+                        </a>
+                        <a (click)="onActionbuttonExport()" class="btn btn-raised mr-1 shadow-z-2 btn-primary">خروجی
+                            فایل</a>
+                        <a (click)="onActionbuttonReload()" class="btn btn-raised mr-1 shadow-z-2 btn-success">بررسی
+                            مجدد</a>
 
                     </div>
 
@@ -65,7 +91,14 @@
 
 
 
-                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems" [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1" [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading" [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected" [selectionType]="selectionType.single" (page)="onActionSetPage($event)" (sort)="onActionSort($event)" (select)="onActionSelect($event)">
+                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems"
+                            [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="auto" [externalPaging]="true"
+                            [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1"
+                            [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading"
+                            [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected"
+                            [selectionType]="selectionType.single" (page)="onActionSetPage($event)"
+                            (sort)="onActionSort($event)" (select)="onActionSelect($event)">
 
                         </ngx-datatable>
 
@@ -92,7 +125,8 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-company-edit [options]="{id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-edit>
+            <app-sms-main-api-path-company-edit [options]="{id:optionsCategorySelect?.data?.SelectId}">
+            </app-sms-main-api-path-company-edit>
         </p>
     </div>
     <div class="modal-footer">
@@ -110,7 +144,8 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-company-delete [options]="{id:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-delete>
+            <app-sms-main-api-path-company-delete [options]="{id:optionsCategorySelect?.data?.SelectId}">
+            </app-sms-main-api-path-company-delete>
         </p>
     </div>
     <div class="modal-footer">
@@ -128,7 +163,8 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-company-add [options]="{parentId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-company-add>
+            <app-sms-main-api-path-company-add [options]="{parentId:optionsCategorySelect?.data?.SelectId}">
+            </app-sms-main-api-path-company-add>
         </p>
     </div>
     <div class="modal-footer">
@@ -146,7 +182,8 @@
     </div>
     <div class="modal-body">
         <p>
-            <app-sms-main-api-path-add [options]="{linkCategoryId:optionsCategorySelectData?.Id}"></app-sms-main-api-path-add>
+            <app-sms-main-api-path-add [options]="{linkCategoryId:optionsCategorySelect?.data?.SelectId}">
+            </app-sms-main-api-path-add>
         </p>
     </div>
     <div class="modal-footer">

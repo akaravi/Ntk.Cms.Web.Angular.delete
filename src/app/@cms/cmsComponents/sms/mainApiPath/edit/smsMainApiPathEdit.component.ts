@@ -57,7 +57,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.

@@ -19,7 +19,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="Title">عنوان : </label>
                                     <div class="col-md-9">
-                                        <input [(ngModel)]="dataModel.Title" type="text" class="form-control" name="Title" #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان" />
+                                        <input [(ngModel)]="dataModel.title" type="text" class="form-control" name="Title" #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان" />
                                         <small class="form-text text-muted danger" *ngIf="Title.errors?.required"> الزامی</small>
                                         <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength"> حداقل پنج
                                             کاراکتر</small>
@@ -47,7 +47,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="Description">توضیحات : </label>
                                     <div class="col-md-9">
-                                        <textarea [(ngModel)]="dataModel.Description" name="Description" #Description="ngModel" rows="5" class="form-control"></textarea>
+                                        <textarea [(ngModel)]="dataModel.description" name="Description" #Description="ngModel" rows="5" class="form-control"></textarea>
                                         <small class="form-text text-muted danger" *ngIf="Description.errors?.required"> الزامی</small>
 
                                     </div>
@@ -57,15 +57,16 @@
 
 
                                 <h4 class="form-section"><i class="ft-file-text"></i>کپی اطلاعات از مسیر</h4>
-                                <div *ngIf="optionsCategorySelectData==null ||optionsCategorySelectData.Id==0">
+                                <div *ngIf="optionsCategorySelect==null ||optionsCategorySelect?.data?.SelectId==0">
                                 <app-sms-main-api-path-select [options]="optionsCategorySelect"></app-sms-main-api-path-select>
                             </div>
-                                <div  *ngIf="optionsCategorySelectData&&optionsCategorySelectData.Id>0"class="form-group row" >
+                                <div *ngIf="optionsCategorySelect && optionsCategorySelect.data?.SelectId>0"
+                                    class="form-group row">
                                     <label class="col-md-3 label-control" for="projectinput5">کپی از مسیر  : </label>
                                     <div class="col-md-9">
-                                        Id:{{optionsCategorySelectData.Id}}
+                                        Id:{{optionsCategorySelect?.data?.SelectId}}
                                         <br>
-                                        Title:{{optionsCategorySelectData.Title}}
+                                        Title:{{optionsCategorySelect?.data?.Select?.title}}
 
                                     </div>
                                 </div>

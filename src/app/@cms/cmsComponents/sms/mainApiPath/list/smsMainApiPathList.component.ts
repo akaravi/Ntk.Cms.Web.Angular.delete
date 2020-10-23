@@ -4,57 +4,49 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ModalDismissReasons,
   NgbModal,
   NgbModalOptions,
-} from "@ng-bootstrap/ng-bootstrap";
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DatatableComponent,
   ColumnMode,
   TableColumn,
   SelectionType,
-} from "@swimlane/ngx-datatable";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
+} from '@swimlane/ngx-datatable';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import {
   FilterDataModel,
   FilterModel,
-} from "app/@cms/cmsModels/base/filterModel";
-import { SortType } from "app/@cms/cmsModels/Enums/sortType.enum";
-import { SmsMainApiPathService } from "app/@cms/cmsService/sms/smsMainApiPath.service";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import { ToastrService } from "ngx-toastr";
+} from 'app/@cms/cmsModels/base/filterModel';
+import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
+import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-sms-main-api-path-list",
-  templateUrl: "./smsMainApiPathList.component.html",
-  styleUrls: ["./smsMainApiPathList.component.scss"],
+  selector: 'app-sms-main-api-path-list',
+  templateUrl: './smsMainApiPathList.component.html',
+  styleUrls: ['./smsMainApiPathList.component.scss'],
 })
 export class SmsMainApiPathListComponent implements OnInit {
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private toastrService: CmsToastrServiceService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-
-    private publicHelper: PublicHelper,
-    public smsMainApiPathService: SmsMainApiPathService,
-    private modalService: NgbModal
-  ) {}
-  @ViewChild("contentContentAdd", { static: false })
+  @ViewChild('contentContentAdd', { static: false })
   contentContentAdd: ElementRef;
-  @ViewChild("contentContentEdit", { static: false })
+  @ViewChild('contentContentEdit', { static: false })
   contentContentEdit: ElementRef;
   optionsSearch: any = {
     onSubmit: (model) => this.onSubmitOptionsSearch(model),
-    //AccessSearchField : Array<string>,
+    // AccessSearchField : Array<string>,
   };
-  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
-  optionsCategorySelectData: any;
+  optionsCategorySelect: ComponentOptionSmsMainApiPathCompanyModel = new ComponentOptionSmsMainApiPathCompanyModel();
+
   filteModelContent = new FilterModel();
   tableContentloading = false;
   tableContentSelected: Array<any> = [];
@@ -66,28 +58,41 @@ export class SmsMainApiPathListComponent implements OnInit {
   selectionType = SelectionType;
   columnsContent: TableColumn[] = [
     {
-      prop: "Id",
-      name: "شناسه",
+      prop: 'Id',
+      name: 'شناسه',
     },
     {
-      prop: "CreatedDate",
-      name: "ساخت",
+      prop: 'CreatedDate',
+      name: 'ساخت',
       pipe: { transform: this.publicHelper.LocaleDate },
     },
     {
-      prop: "UpdatedDate",
-      name: "ویرایش",
+      prop: 'UpdatedDate',
+      name: 'ویرایش',
       pipe: { transform: this.publicHelper.LocaleDate },
     },
     {
-      prop: "Title",
-      name: "عنوان",
+      prop: 'Title',
+      name: 'عنوان',
     },
     {
-      prop: "Description",
-      name: "توضیحات",
+      prop: 'Description',
+      name: 'توضیحات',
     },
   ];
+  loadingStatus = false; // add one more property
+
+  closeResult: string;
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private toastrService: CmsToastrServiceService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+
+    private publicHelper: PublicHelper,
+    public smsMainApiPathService: SmsMainApiPathService,
+    private modalService: NgbModal
+  ) { }
   ngOnInit() {
     this.optionsCategorySelect.actions = {
       onActionSelect: (x) => this.onActionCategorySelect(x),
@@ -96,7 +101,6 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
-  loadingStatus = false; // add one more property
 
 
   onSubmitOptionsSearch(model: any) {
@@ -106,22 +110,22 @@ export class SmsMainApiPathListComponent implements OnInit {
   DataGetAllContent() {
     this.tableContentSelected = [];
     this.tableContentloading = true;
-    this.loadingStatus=true;
+    this.loadingStatus = true;
     this.smsMainApiPathService.ServiceGetAll(this.filteModelContent).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResult = next;
           this.tableContentloading = false;
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
+          'برروی خطا در دریافت اطلاعات'
         );
         this.tableContentloading = false;
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }
@@ -133,17 +137,17 @@ export class SmsMainApiPathListComponent implements OnInit {
     ) {
       this.openModal(this.contentContentAdd);
     } else {
-      this.toastrService.toastr.error("خطا", "برروی خطا ");
+      this.toastrService.toastr.error('خطا', 'برروی خطا ');
     }
   }
   onActionbuttonEditRow() {
     if (
       this.tableContentSelected == null ||
-      this.tableContentSelected.length == 0 ||
-      this.tableContentSelected[0].Id == 0
+      this.tableContentSelected.length === 0 ||
+      this.tableContentSelected[0].Id === 0
     ) {
-      var title = "برروز خطا ";
-      var message = "ردیفی برای ویرایش انتخاب نشده است";
+      const title = 'برروز خطا ';
+      const message = 'ردیفی برای ویرایش انتخاب نشده است';
       this.toastrService.toastr.error(message, title);
       return;
     }
@@ -152,53 +156,52 @@ export class SmsMainApiPathListComponent implements OnInit {
       this.dataModelResult.Access == null ||
       !this.dataModelResult.Access.AccessEditRow
     ) {
-      var title = "برروز خطا ";
-      var message = "شما دسترسی برای ویرایش ندارید";
+      const title = 'برروز خطا ';
+      const message = 'شما دسترسی برای ویرایش ندارید';
       this.toastrService.toastr.error(message, title);
       return;
     }
-    if (this.router.url == "/sms/apipath/list")
-      this.router.navigate(["../edit"], {
+    if (this.router.url === '/sms/apipath/list') {
+      this.router.navigate(['../edit'], {
         queryParams: { id: this.tableContentSelected[0].Id },
       });
-    else
-      this.router.navigate([this.router.url +"/edit"], {
+    } else {
+      this.router.navigate([this.router.url + '/edit'], {
         queryParams: { id: this.tableContentSelected[0].Id },
       });
+    }
 
-    //this.openModal(this.contentContentEdit);
+    // this.openModal(this.contentContentEdit);
   }
-  onActionbuttonDeleteRow() {}
-  onActionbuttonStatus() {}
-  onActionbuttonExport() {}
+  onActionbuttonDeleteRow() { }
+  onActionbuttonStatus() { }
+  onActionbuttonExport() { }
 
   onActionbuttonReload() {
     this.DataGetAllContent();
   }
-
-  closeResult: string;
   // Open default modal
   openModal(content) {
-    let options: NgbModalOptions = {
-      size: "lg",
-      windowClass: "openModalLarg",
+    const options: NgbModalOptions = {
+      size: 'lg',
+      windowClass: 'openModalLarg',
     };
     this.modalService.open(content, options).result.then(
       (result) => {
         this.closeResult = `بسته شدن با: ${result}`;
-        //this.onActionCategoryReload();
+        // this.onActionCategoryReload();
       },
       (reason) => {
         this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
-        //this.onActionCategoryReload();
+        // this.onActionCategoryReload();
       }
     );
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      return "با فشردن ESC";
+      return 'با فشردن ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "با کلیک کردن یک backdrop";
+      return 'با کلیک کردن یک backdrop';
     } else {
       return `با: ${reason}`;
     }
@@ -211,7 +214,7 @@ export class SmsMainApiPathListComponent implements OnInit {
     const sort = event.sorts[0];
 
     if (sort) {
-      if (sort.dir === "desc") {
+      if (sort.dir === 'desc') {
         this.filteModelContent.SortType = SortType.Descending;
       } else {
         this.filteModelContent.SortType = SortType.Ascending;
@@ -220,15 +223,15 @@ export class SmsMainApiPathListComponent implements OnInit {
     }
     this.DataGetAllContent();
   }
-  onActionCategorySelect(model: any) {
+  onActionCategorySelect(model: SmsMainApiPathCompanyModel) {
     this.filteModelContent = new FilterModel();
-    this.optionsCategorySelectData = null;
-    if (model && model.data) {
-      this.optionsCategorySelectData = model.data;
 
-      var aaa = {
-        PropertyName: "LinkApiPathCompanyId",
-        IntValue1: model.data.Id,
+    if (model && model.Id > 0) {
+
+
+      const aaa = {
+        PropertyName: 'LinkApiPathCompanyId',
+        IntValue1: model.Id,
       };
       this.filteModelContent.Filters.push(aaa as FilterDataModel);
     }
@@ -236,27 +239,27 @@ export class SmsMainApiPathListComponent implements OnInit {
   }
 
   DataViewModelContent() {
-    this.loadingStatus=true;
+    this.loadingStatus = true;
     this.smsMainApiPathService.ServiceViewModel().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.dataModelResultViewModel = next;
           this.optionsSearch.setAccess(next.Access);
         }
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "برروی خطا در دریافت اطلاعات"
+          'برروی خطا در دریافت اطلاعات'
         );
-        this.loadingStatus=false;
+        this.loadingStatus = false;
       }
     );
   }
   onActionSelect(event) {
-    //your code here
-    //console.log("onActionSelect Event", event);
-    //console.log("tableContentSelected Event", this.tableContentSelected);
+    // your code here
+    // console.log("onActionSelect Event", event);
+    // console.log("tableContentSelected Event", this.tableContentSelected);
   }
 }

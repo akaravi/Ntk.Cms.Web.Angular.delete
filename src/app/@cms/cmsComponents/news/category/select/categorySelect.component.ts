@@ -11,6 +11,7 @@ import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.servi
 import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
 
 @Component({
   selector: 'app-news-category-select',
@@ -19,13 +20,14 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
 })
 export class NewsCategorySelectComponent implements OnInit {
   @Input()
-  set options(modelInput: ComponentOptionModel) {
-    this.dateModleInput = modelInput;
+  set options(modelInput: ComponentOptionNewsCategoryModel) {
+
+    this.privateOptions = modelInput;
   }
-  get options(): ComponentOptionModel {
-    return this.dateModleInput;
+  get options(): ComponentOptionNewsCategoryModel {
+    return this.privateOptions;
   }
-  private dateModleInput: ComponentOptionModel = new ComponentOptionModel();
+  private privateOptions: ComponentOptionNewsCategoryModel;
   loadingStatus = false; // add one more property
 
 
@@ -43,7 +45,7 @@ export class NewsCategorySelectComponent implements OnInit {
           }
         },
         click: (tree, node, $event) => {
-          this.onActionSelect(node);
+          this.onActionSelect(node.data);
         },
       },
       keys: {
@@ -71,17 +73,18 @@ export class NewsCategorySelectComponent implements OnInit {
   };
 
   constructor(
-   private changeDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
 
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: NewsCategoryService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.DataGetAllCategory();
 
-    this.dateModleInput.methods = {ActionReload: () => this.onActionReload()}
+    // this.privateOptions.methods = { ActionReload: () => this.onActionReload() }
+    this.privateOptions.methods = { ActionReload : () => this.onActionReload() };
 
   }
 
@@ -104,20 +107,12 @@ export class NewsCategorySelectComponent implements OnInit {
       }
     );
   }
-  onActionSelect(model: any) {
-    if (this.dateModleInput && this.dateModleInput.actions && this.dateModleInput.actions.onActionSelect) {
-      this.dateModleInput.actions.onActionSelect(model);
-      this.dateModleInput.dataModel = {Select: model};
+  onActionSelect(model: NewsCategoryModel) {
+    if (this.privateOptions && this.privateOptions.actions && this.privateOptions.actions.onActionSelect) {
+      this.privateOptions.actions.onActionSelect(model);
+      this.privateOptions.data = { SelectId: model.Id, Select: model };
     }
-    // this.filteModelContent = new FilterModel();
-    // if (model && model.data) {
-    //   var aaa = {
-    //     PropertyName: "LinkCategoryId",
-    //     IntValue1: model.data.Id,
-    //   };
-    //   this.filteModelContent.Filters.push(aaa as FilterDataModel);
-    // }
-    // this.DataGetAllContent();
+
   }
   onActionReload() {
     this.DataGetAllCategory()

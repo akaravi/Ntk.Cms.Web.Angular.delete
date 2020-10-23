@@ -6,36 +6,37 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Input,
-} from "@angular/core";
-import { FlowDirective, Transfer } from "@flowjs/ngx-flow";
-import { ComponentOptionModel } from "app/@cms/cmsModels/base/componentOptionModel";
-import { environment } from "environments/environment";
-import { Subscription } from "rxjs";
+} from '@angular/core';
+import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
+import { ComponentOptionFileUploadModel } from 'app/@cms/cmsComponentModels/files/componentOptionNewsCategoryModel';
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { environment } from 'environments/environment';
+import { Subscription } from 'rxjs';
 
-const URL =  environment.cmsServerConfig.configApiServerPath + "FileContent/Upload/";
-//const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
+const URL = environment.cmsServerConfig.configApiServerPath + 'FileContent/Upload/';
+// const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
 @Component({
-  selector: "app-upload-file",
-  templateUrl: "./upload-file.component.html",
-  styleUrls: ["./upload-file.component.scss"],
+  selector: 'app-upload-file',
+  templateUrl: './upload-file.component.html',
+  styleUrls: ['./upload-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadFileComponent implements AfterViewInit, OnInit {
-  constructor(private cd: ChangeDetectorRef) {}
   @Input()
-  set options(model: ComponentOptionModel) {
-    this.dateOptionInput = model;
+  set options(model: ComponentOptionFileUploadModel) {
+    this.privateOption = model;
   }
-  get options(): ComponentOptionModel {
-    return this.dateOptionInput;
+  get options(): ComponentOptionFileUploadModel {
+    return this.privateOption;
   }
-  private dateOptionInput: ComponentOptionModel = new ComponentOptionModel();
+  private privateOption: ComponentOptionFileUploadModel = new ComponentOptionFileUploadModel();
 
-  @ViewChild("flow", { static: false })
+  @ViewChild('flow', { static: false })
   flow: FlowDirective;
   autoUploadSubscription: Subscription;
   flowOption: flowjs.FlowOptions;
   uploadViewImage = false;
+  constructor(private cd: ChangeDetectorRef) { }
   ngOnInit() {
     this.flowOption = {
       target: URL,
@@ -43,7 +44,7 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
         if (flowFile.myparams) {
           return flowFile.myparams;
         }
-        //console.log(flowChunk.offset)
+        // console.log(flowChunk.offset)
 
         // generate some values
         flowFile.myparams = {
@@ -59,13 +60,13 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.autoUploadSubscription = this.flow.events$.subscribe((event) => {
-      //console.log("event",event);
+      // console.log("event",event);
       switch (event.type) {
-        case "filesSubmitted":
+        case 'filesSubmitted':
           return this.flow.upload();
-        case "fileSuccess":
+        case 'fileSuccess':
           return this.fileSuccess(event);
-        case "newFlowJsInstance":
+        case 'newFlowJsInstance':
           return this.cd.detectChanges();
       }
     });
@@ -73,17 +74,18 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
   fileSuccess(event: any) {
     if (event && event.event) {
       if (
-        this.dateOptionInput &&
-        this.dateOptionInput.actions &&
-        this.dateOptionInput.actions.onActionSelect
+        this.privateOption &&
+        this.privateOption.actions &&
+        this.privateOption.actions.onActionSelect
       ) {
-        const model = {
+        this.privateOption.actions.onActionSelect({
+          fileName: event.event[0].name,
+          fileKey: event.event[1],
+        });
+        this.privateOption.data = {
           fileName: event.event[0].name,
           fileKey: event.event[1],
         };
-
-        this.dateOptionInput.actions.onActionSelect(model);
-        this.dateOptionInput.dataModel = { Select: model };
       }
     }
   }

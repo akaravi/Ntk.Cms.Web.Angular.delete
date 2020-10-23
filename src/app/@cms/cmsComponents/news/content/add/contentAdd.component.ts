@@ -1,35 +1,21 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { NewsContentModel } from "app/@cms/cmsModels/news/newsContentModel";
-import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
-import { NewsContentService } from "app/@cms/cmsService/news/newsContent.service";
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
+import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
+import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
+import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-news-content-add",
-  templateUrl: "./contentAdd.component.html",
-  styleUrls: ["./contentAdd.component.scss"],
+  selector: 'app-news-content-add',
+  templateUrl: './contentAdd.component.html',
+  styleUrls: ['./contentAdd.component.scss'],
 })
 export class NewsContentAddComponent implements OnInit {
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private newsContentService: NewsContentService,
-    public coreEnumService: CoreEnumService,
-    private toastrService: CmsToastrServiceService,
-    private publicHelper: PublicHelper
-  ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess)
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
-  }
-  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -37,29 +23,44 @@ export class NewsContentAddComponent implements OnInit {
   get options(): any {
     return this.dateModleInput;
   }
+  @ViewChild('vform', { static: false }) formGroup: FormGroup;
   private dateModleInput: any;
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: NewsContentModel = new NewsContentModel();
-  //dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
   dataModelResult: ErrorExcptionResult<
     NewsContentModel
   > = new ErrorExcptionResult<NewsContentModel>();
   linkCategoryId: number;
+  loadingStatus = false; // add one more property
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public newsContentService: NewsContentService,
+    public coreEnumService: CoreEnumService,
+    private toastrService: CmsToastrServiceService,
+    private publicHelper: PublicHelper
+  ) {
+    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+      if (vlaue && vlaue.IsSuccess) {
+        this.coreEnumService.resultEnumRecordStatus = vlaue;
+      }
+      this.coreEnumService.ServiceEnumRecordStatus();
+    });
+  }
 
   ngOnInit() {
-    this.linkCategoryId = Number.parseInt(
-      this.activatedRoute.snapshot.paramMap.get("id")
+    this.linkCategoryId = Number(
+      this.activatedRoute.snapshot.paramMap.get('id')
     );
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.linkCategoryId = +params["id"] || 0;
+      this.linkCategoryId = +params['id'] || 0;
     });
     if (this.dateModleInput && this.dateModleInput.linkCategoryId) {
       this.linkCategoryId = this.dateModleInput.linkCategoryId;
     }
-    //alert("helo Id:"+this.linkCategoryId)
+    // alert("helo Id:"+this.linkCategoryId)
 
-    //this.DataGetAllCoreEnum();
+    // this.DataGetAllCoreEnum();
   }
 
   onFormSubmit() {
@@ -74,33 +75,36 @@ export class NewsContentAddComponent implements OnInit {
   DataAddContent() {
     if (this.linkCategoryId <= 0) {
       this.toastrService.toastr.error(
-        "دسته بندی را مشخص کنید",
-        "دسته بندی اطلاعات مشخص نیست"
+        'دسته بندی را مشخص کنید',
+        'دسته بندی اطلاعات مشخص نیست'
       );
       return;
     }
     this.dataModel.linkCategoryId = this.linkCategoryId;
-    this.formInfo.formAlert = "در حال ارسال اطلاعات به سرور";
-    this.formInfo.formError = "";
+    this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
+    this.formInfo.formError = '';
+    this.loadingStatus = true;
     this.newsContentService
       .ServiceAdd(this.dataModel)
       .subscribe(
         (next) => {
+          this.loadingStatus = false;
           this.formInfo.formAllowSubmit = !next.IsSuccess;
           this.dataModelResult = next;
           if (next.IsSuccess) {
-            this.formInfo.formAlert = "ثبت با موفقت انجام شد";
+            this.formInfo.formAlert = 'ثبت با موفقت انجام شد';
           } else {
-            var title = "برروز خطا ";
-            var message = next.ErrorMessage;
+            const title = 'برروز خطا ';
+            const message = next.ErrorMessage;
             this.toastrService.toastr.error(message, title);
           }
         },
         (error) => {
+          this.loadingStatus = false;
           this.formInfo.formAllowSubmit = true;
 
-          var title = "برروی خطا در دریافت اطلاعات";
-          var message = this.publicHelper.CheckError(error);
+          const title = 'برروی خطا در دریافت اطلاعات';
+          const message = this.publicHelper.CheckError(error);
           this.toastrService.toastr.error(message, title);
         }
       );

@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
-//COMPONENTS
+// COMPONENTS
 import { CmsFooterComponent } from './footer/footer.component';
 import { CmsNavbarComponent } from './navbar/navbar.component';
 import { CmsSidebarComponent } from './sidebar/sidebar.component';
@@ -14,7 +14,7 @@ import { CmsCustomizerComponent } from './customizer/customizer.component';
 import { CmsNotificationSidebarComponent } from './notification-sidebar/notification-sidebar.component';
 
 
-//DIRECTIVES
+// DIRECTIVES
 import { SidebarDirective } from 'app/@cms/shared/directives/sidebar.directive';
 import { SidebarLinkDirective } from 'app/@cms/shared/directives/sidebarlink.directive';
 import { SidebarListDirective } from 'app/@cms/shared/directives/sidebarlist.directive';
@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from '../cmsCommon/pipe/truncate.pipe';
 import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportContentList/cmsExportContentList.component';
 import { CmsStatistContentListComponent } from '../cmsComponents/_base/cmsStatistContentList/cmsStatistContentList.component';
+import { CmsModalComponent } from '../cmsComponents/_base/cmsModal/cmsModal.component';
 
 
 
@@ -51,11 +52,12 @@ import { CmsStatistContentListComponent } from '../cmsComponents/_base/cmsStatis
         SidebarListDirective,
         SidebarAnchorToggleDirective,
         SidebarToggleDirective,
-     
+
         CmsTokenAccessAdminComponent,
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
         CmsStatistContentListComponent,
+        CmsModalComponent,
         TruncatePipe
     ],
     exports: [
@@ -68,11 +70,12 @@ import { CmsStatistContentListComponent } from '../cmsComponents/_base/cmsStatis
         CmsCustomizerComponent,
         CmsNotificationSidebarComponent,
         SidebarDirective,
-        
+
         CmsTokenAccessAdminComponent,
         CmsSearchContentListComponent,
         CmsExportContentListComponent,
         CmsStatistContentListComponent,
+        CmsModalComponent,
         TruncatePipe
     ],
 })

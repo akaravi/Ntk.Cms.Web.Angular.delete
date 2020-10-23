@@ -36,10 +36,11 @@ export class NewsCategoryAddComponent implements OnInit {
 
 
   formInfo: FormInfoModel = new FormInfoModel();
+  loadingStatus = false; // add one more property
   constructor(
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
-    private newsCategoryService: NewsCategoryService,
+    public newsCategoryService: NewsCategoryService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
@@ -50,6 +51,7 @@ export class NewsCategoryAddComponent implements OnInit {
     });
 
   }
+
   ngOnInit() {
     this.parentId = Number(
       this.activatedRoute.snapshot.paramMap.get('id')
@@ -70,10 +72,12 @@ export class NewsCategoryAddComponent implements OnInit {
     if (this.parentId > 0) { this.dataModelCategory.LinkParentId = this.parentId; }
     this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
     this.formInfo.formError = '';
+    this.loadingStatus = true;
     this.newsCategoryService
       .ServiceAdd(this.dataModelCategory)
       .subscribe(
         (next) => {
+          this.loadingStatus = false;
           this.formInfo.formAllowSubmit = !next.IsSuccess;
           this.dataModelResultCategory = next;
           if (next.IsSuccess) {
@@ -84,6 +88,7 @@ export class NewsCategoryAddComponent implements OnInit {
           }
         },
         (error) => {
+          this.loadingStatus = false;
           this.formInfo.formAllowSubmit = true;
           this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),

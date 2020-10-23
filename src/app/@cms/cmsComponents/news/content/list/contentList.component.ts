@@ -27,6 +27,8 @@ import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
 import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
+import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
+import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
 
 @Component({
   selector: 'app-news-content-list',
@@ -34,12 +36,14 @@ import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
   styleUrls: ['./contentList.component.scss'],
 })
 export class NewsContentListComponent extends BaseComponent implements OnInit {
-  @ViewChild('contentContentAdd', { static: false })
-  contentContentAdd: ElementRef;
-  @ViewChild('contentContentEdit', { static: false })
-  contentContentEdit: ElementRef;
-  @ViewChild('contentContentDelete', { static: false })
-  contentContentDelete: ElementRef;
+  @ViewChild('contentModal', { static: false })
+  contentModal: ElementRef;
+  // @ViewChild('contentContentAdd', { static: false })
+  // contentContentAdd: ElementRef;
+  // @ViewChild('contentContentEdit', { static: false })
+  // contentContentEdit: ElementRef;
+  // @ViewChild('contentContentDelete', { static: false })
+  // contentContentDelete: ElementRef;
   loadingStatus = false; // add one more property
 
 
@@ -61,7 +65,7 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   };
   tableContentloading = false;
   tableContentSelected: Array<NewsContentModel> = [];
-
+  modalModel: ComponentModalDataModel = new ComponentModalDataModel();
   columnsContent: TableColumn[] = [
     {
       prop: 'RecordStatus',
@@ -136,13 +140,8 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     // scrollContainer: document.documentElement, // HTML
     rtl: true,
   };
-  optionsCategorySelect: ComponentOptionModel = new ComponentOptionModel();
-  optionsCategorySelectData: NewsCategoryModel;
+  optionsCategorySelect: ComponentOptionNewsCategoryModel = new ComponentOptionNewsCategoryModel();
 
-  // LocaleDate(model) {
-  //   const d = new Date(model);
-  //   return d.toLocaleDateString("fa-Ir");
-  // }
 
   closeResult: string;
   constructor(
@@ -158,15 +157,17 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.optionsCategorySelect.actions = {
-      onActionSelect: (x) => this.onActionCategorySelect(x),
-    };
+    // this.optionsCategorySelect.actions = {
+    //   onActionSelect: (x) => this.onActionCategorySelect(x),
+    // };
+    this.optionsCategorySelect.actions = { onActionSelect: (x) => this.onActionCategorySelect(x) };
 
     this.DataViewModelContent();
     this.DataGetAllContent();
   }
   // Open default modal
-  openModal(content) {
+  openModal(content, contentModal: ComponentModalDataModel) {
+    this.modalModel = contentModal;
     this.modalService.open(content).result.then(
       (result) => {
         this.closeResult = `بسته شدن با: ${result}`;
@@ -237,15 +238,13 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     );
   }
 
-  onActionCategorySelect(model: any) {
+  onActionCategorySelect(model: NewsCategoryModel) {
     this.filteModelContent = new FilterModel();
-    this.optionsCategorySelectData = null;
-    if (model && model.data) {
-      this.optionsCategorySelectData = model.data;
 
+    if (model && model.Id > 0) {
       const aaa = {
         PropertyName: 'LinkCategoryId',
-        IntValue1: model.data.Id,
+        IntValue1: model.Id,
       };
       this.filteModelContent.Filters.push(aaa as FilterDataModel);
     }
@@ -276,8 +275,9 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
 
   onActionbuttonNewRow() {
     if (
-      this.optionsCategorySelectData == null ||
-      this.optionsCategorySelectData.Id === 0
+      this.optionsCategorySelect == null ||
+      this.optionsCategorySelect.data == null ||
+      this.optionsCategorySelect.data.SelectId === 0
     ) {
       const title = 'برروز خطا ';
       const message = 'دسته بندی انتخاب نشده است';
@@ -294,7 +294,11 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.toastrService.toastr.error(message, title);
       return;
     }
-    this.openModal(this.contentContentAdd);
+    const modalModel: ComponentModalDataModel = {
+      Title: 'محتوای جدید',
+      SwitchValue: 'contentContentAdd'
+    };
+    this.openModal(this.contentModal, modalModel);
   }
 
   onActionbuttonEditRow() {
@@ -318,7 +322,11 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.toastrService.toastr.error(message, title);
       return;
     }
-    this.openModal(this.contentContentEdit);
+    const modalModel: ComponentModalDataModel = {
+      Title: 'ویرایش محتوا',
+      SwitchValue: 'contentContentEdit'
+    };
+    this.openModal(this.contentModal, modalModel);
   }
   onActionbuttonDeleteRow() {
     if (
@@ -341,10 +349,14 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
       this.toastrService.toastr.error(message, title);
       return;
     }
-    this.openModal(this.contentContentDelete);
+    const modalModel: ComponentModalDataModel = {
+      Title: 'حذف محتوا',
+      SwitchValue: 'contentContentDelete'
+    };
+    this.openModal(this.contentModal, modalModel);
   }
-  onActionbuttonStatus() {}
-  onActionbuttonExport() {}
+  onActionbuttonStatus() { }
+  onActionbuttonExport() { }
 
   onActionbuttonReload() {
     this.DataGetAllContent();

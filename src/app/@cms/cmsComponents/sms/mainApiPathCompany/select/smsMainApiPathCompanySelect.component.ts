@@ -11,6 +11,8 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
+import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
 
 @Component({
   selector: 'app-sms-main-api-path-company-select',
@@ -19,13 +21,13 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
 })
 export class SmsMainApiPathCompanySelectComponent implements OnInit {
   @Input()
-  set options(modelInput: ComponentOptionModel) {
-    this.dateModleInput = modelInput;
+  set options(model: ComponentOptionSmsMainApiPathCompanyModel) {
+    this.privateOptions = model;
   }
-  get options(): ComponentOptionModel {
-    return this.dateModleInput;
+  get options(): ComponentOptionSmsMainApiPathCompanyModel {
+    return this.privateOptions;
   }
-  private dateModleInput: ComponentOptionModel = new ComponentOptionModel();
+  private privateOptions: ComponentOptionSmsMainApiPathCompanyModel = new ComponentOptionSmsMainApiPathCompanyModel();
   loadingStatus = false; // add one more property
 
   filteModelCategory = new FilterModel();
@@ -42,7 +44,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
           }
         },
         click: (tree, node, $event) => {
-          this.onActionSelect(node);
+          this.onActionSelect(node.data);
         },
       },
       keys: {
@@ -75,12 +77,12 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathCompanyService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.DataGetAllCategory();
 
-    this.dateModleInput.methods = {ActionReload: () => this.onActionReload()}
+    this.privateOptions.methods = { ActionReload: () => this.onActionReload() }
 
   }
 
@@ -104,20 +106,11 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
       }
     );
   }
-  onActionSelect(model: any) {
-    if (this.dateModleInput && this.dateModleInput.actions && this.dateModleInput.actions.onActionSelect) {
-      this.dateModleInput.actions.onActionSelect(model);
-      this.dateModleInput.dataModel = {Select: model};
+  onActionSelect(model: SmsMainApiPathCompanyModel) {
+    if (this.privateOptions && this.privateOptions.actions && this.privateOptions.actions.onActionSelect) {
+      this.privateOptions.actions.onActionSelect(model);
+      this.privateOptions.data = { Select: model, SelectId: model.Id };
     }
-    // this.filteModelContent = new FilterModel();
-    // if (model && model.data) {
-    //   var aaa = {
-    //     PropertyName: "LinkCategoryId",
-    //     IntValue1: model.data.Id,
-    //   };
-    //   this.filteModelContent.Filters.push(aaa as FilterDataModel);
-    // }
-    // this.DataGetAllContent();
   }
   onActionReload() {
     this.DataGetAllCategory()

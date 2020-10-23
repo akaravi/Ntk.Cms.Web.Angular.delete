@@ -11,6 +11,8 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { ComponentOptionSmsMainApiPathModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathModel';
+import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
 
 @Component({
   selector: 'app-sms-main-api-path-select',
@@ -19,13 +21,13 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
 })
 export class SmsMainApiPathSelectComponent implements OnInit {
   @Input()
-  set options(modelInput: ComponentOptionModel) {
-    this.dateModleInput = modelInput;
+  set options(model: ComponentOptionSmsMainApiPathModel) {
+    this.privateOptions = model;
   }
-  get options(): ComponentOptionModel {
-    return this.dateModleInput;
+  get options(): ComponentOptionSmsMainApiPathModel {
+    return this.privateOptions;
   }
-  private dateModleInput: ComponentOptionModel = new ComponentOptionModel();
+  private privateOptions: ComponentOptionSmsMainApiPathModel = new ComponentOptionSmsMainApiPathModel();
   loadingStatus = false; // add one more property
 
 
@@ -43,7 +45,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
           }
         },
         click: (tree, node, $event) => {
-          this.onActionSelect(node);
+          this.onActionSelect(node.data);
         },
       },
       keys: {
@@ -80,7 +82,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   ngOnInit() {
     this.DataGetAllCategory();
 
-    this.dateModleInput.methods = { ActionReload: () => this.onActionReload() };
+    this.privateOptions.methods = { ActionReload: () => this.onActionReload() };
   }
 
   DataGetAllCategory() {
@@ -102,14 +104,14 @@ export class SmsMainApiPathSelectComponent implements OnInit {
       }
     );
   }
-  onActionSelect(model: any) {
+  onActionSelect(model: SmsMainApiPathModel) {
     if (
-      this.dateModleInput &&
-      this.dateModleInput.actions &&
-      this.dateModleInput.actions.onActionSelect
+      this.privateOptions &&
+      this.privateOptions.actions &&
+      this.privateOptions.actions.onActionSelect
     ) {
-      this.dateModleInput.actions.onActionSelect(model);
-      this.dateModleInput.dataModel = { Select: model };
+      this.privateOptions.actions.onActionSelect(model);
+      this.privateOptions.data = { Select: model, SelectId: model.Id };
     }
   }
   onActionReload() {

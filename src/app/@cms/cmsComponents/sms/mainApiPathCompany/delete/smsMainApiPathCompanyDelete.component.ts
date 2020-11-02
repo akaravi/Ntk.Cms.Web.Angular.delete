@@ -2,10 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+
 import { ToastrService } from 'ngx-toastr';
+import { FormInfoModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-sms-main-api-path-company-delete',

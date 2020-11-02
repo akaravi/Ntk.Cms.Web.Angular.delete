@@ -10,8 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 import { QuillModule } from 'ngx-quill';
 
-import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
+
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 import { SmsMainApiPathAddComponent } from './mainApiPath/add/smsMainApiPathAdd.component';
 import { SmsMainApiPathDeleteComponent } from './mainApiPath/delete/smsMainApiPathDelete.component';
@@ -60,6 +59,7 @@ import { SmsMainCustomerNumberDeleteComponent } from './mainCustomerNumber/delet
 import { SmsMainCustomerNumberEditComponent } from './mainCustomerNumber/edit/smsMainCustomerNumberEdit.component';
 import { SmsMainCustomerNumberListComponent } from './mainCustomerNumber/list/smsMainCustomerNumberList.component';
 import { SmsMainCustomerNumberSelectComponent } from './mainCustomerNumber/select/smsMainCustomerNumberSelect.component';
+import { SmsMainApiPathCompanyService, SmsMainApiPathService } from 'ntk-cms-api';
 
 
 @NgModule({

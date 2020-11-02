@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
-import { CmsAuthGuard } from '../cmsService/core/auth.guard.service';
+import { CmsAuthGuard } from '../cmsService/base/auth.guard.service';
+
 
 export const ContentLayoutROUTES: Routes = [
   {
@@ -26,5 +27,5 @@ export const ContentLayoutROUTES: Routes = [
     canActivate: [CmsAuthGuard],
     loadChildren: () => import('../cmsComponents/bankpayment/bankPayment.module').then(m => m.BankPaymentModule)
   },
-  
+
 ];

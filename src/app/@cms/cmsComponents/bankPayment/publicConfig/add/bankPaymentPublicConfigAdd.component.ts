@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
-import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
 import { FormGroup } from "@angular/forms";
-import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import { BankPaymentPublicConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPublicConfig.service';
-import { BankPaymentPublicConfigModel } from 'app/@cms/cmsModels/BankPayment/bankPaymentPublicConfigModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { BankPaymentPublicConfigModel, BankPaymentPublicConfigService, CoreEnumService, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
+
 
 @Component({
   selector: 'app-bank-payment-public-config-add',
@@ -24,11 +21,11 @@ export class BankPaymentPublicConfigAddComponent implements OnInit {
     private publicHelper: PublicHelper,
     public bankPaymentPublicConfigService: BankPaymentPublicConfigService
   ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess)
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess)
+    //     this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //   this.coreEnumService.ServiceEnumRecordStatus();
+    // });
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();

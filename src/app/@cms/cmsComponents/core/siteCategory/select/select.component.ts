@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { CoreSiteCategoryService } from '../../../../cmsService/core/coreSiteCategory.service';
-import {
-  FilterModel,
-  FilterDataModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ToastrService } from 'ngx-toastr';
-import { CoreSiteCategoryModuleService } from '../../../../cmsService/core/coreSiteCategoryModule.service';
-import { CoreModuleService } from '../../../../cmsService/core/coreModule.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import {
+  CoreModuleService,
+  CoreSiteCategoryModuleService,
+  CoreSiteCategoryService,
+  ErrorExcptionResult,
+  FilterDataModel,
+  FilterModel,
+} from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
   selector: 'app-core-site-category-select',
@@ -34,9 +34,7 @@ export class CoreSiteCategorySelectComponent implements OnInit {
 
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
-  ) {
-   
-  }
+  ) {}
 
   ngOnInit() {
     this.CoreSiteCategoryGetAll();
@@ -44,23 +42,21 @@ export class CoreSiteCategorySelectComponent implements OnInit {
 
   CoreSiteCategoryGetAll() {
     this.subManager.add(
-      this.coreSiteCategoryService
-        .ServiceGetAll(this.filteModel)
-        .subscribe(
-          (next) => {
-            if (next.IsSuccess) {
-              this.dataModelCategory = next;
-              this.dataModelLoad = true;
-              this.toastrService.toastr.info('اطلاعات دریافت شد', 'توجه');
-            }
-          },
-          (error) => {
-            this.toastrService.toastr.error(
-              this.publicHelper.CheckError(error),
-              'خطا در دریافت اطلاعات وب سایتها'
-            );
+      this.coreSiteCategoryService.ServiceGetAll(this.filteModel).subscribe(
+        (next) => {
+          if (next.IsSuccess) {
+            this.dataModelCategory = next;
+            this.dataModelLoad = true;
+            this.toastrService.toastr.info('اطلاعات دریافت شد', 'توجه');
           }
-        )
+        },
+        (error) => {
+          this.toastrService.toastr.error(
+            this.publicHelper.CheckError(error),
+            'خطا در دریافت اطلاعات وب سایتها'
+          );
+        }
+      )
     );
   }
   trackByFn() {}
@@ -100,7 +96,10 @@ export class CoreSiteCategorySelectComponent implements OnInit {
                     if (next2.IsSuccess) {
                       this.dataModelModule = next2;
                       this.dataModelLoad = true;
-                      this.toastrService.toastr.info('اطلاعات دریافت شد', 'توجه');
+                      this.toastrService.toastr.info(
+                        'اطلاعات دریافت شد',
+                        'توجه'
+                      );
                     }
                   },
                   (error2) => {
@@ -122,4 +121,3 @@ export class CoreSiteCategorySelectComponent implements OnInit {
     );
   }
 }
-

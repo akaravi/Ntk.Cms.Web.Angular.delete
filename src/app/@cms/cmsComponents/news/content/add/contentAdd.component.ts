@@ -2,13 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
-import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from 'ngx-toastr';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-news-content-add',
@@ -39,12 +34,12 @@ export class NewsContentAddComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) {
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      }
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess) {
+    //     this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //   }
+    //   this.coreEnumService.ServiceEnumRecordStatus();
+    // });
   }
 
   ngOnInit() {

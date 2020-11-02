@@ -7,36 +7,36 @@ import {
   ElementRef,
   Renderer2,
   AfterViewInit,
-} from "@angular/core";
+} from '@angular/core';
 
-import { CmsROUTES } from "./sidebar-routes.config";
-import { MenuInfo } from "./sidebar.metadata";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import { customAnimations } from "../../../shared/animations/custom-animations";
-import { ConfigService } from "../../../shared/services/config.service";
-import { LayoutService } from "../../../shared/services/layout.service";
-import { Subscription } from "rxjs";
-import { CoreCpMainMenuService } from "app/@cms/cmsService/core/coreCpMainMenu.service";
-import { CoreCpMainMenuModel } from "app/@cms/cmsModels/core/coreCpMainMenuModel";
-import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
+import { CmsROUTES } from './sidebar-routes.config';
+import { MenuInfo } from './sidebar.metadata';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { customAnimations } from '../../../shared/animations/custom-animations';
+import { ConfigService } from '../../../shared/services/config.service';
+import { LayoutService } from '../../../shared/services/layout.service';
+import { Subscription } from 'rxjs';
+import { CoreAuthService, CoreCpMainMenuModel, CoreCpMainMenuService } from 'ntk-cms-api';
+
 
 @Component({
-  selector: "app-cms-sidebar",
-  templateUrl: "./sidebar.component.html",
+  selector: 'app-cms-sidebar',
+  templateUrl: './sidebar.component.html',
   animations: customAnimations,
 })
 export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("toggleIcon", { static: false }) toggleIcon: ElementRef;
+  @ViewChild('toggleIcon', { static: false }) toggleIcon: ElementRef;
   public menuItems: MenuInfo[];
   depth: number;
   activeTitle: string;
   activeTitles: string[] = [];
   expanded: boolean;
   nav_collapsed_open = false;
-  logoUrl = "assets/img/logo.png";
+  logoUrl = 'assets/img/logo.png';
   public config: any = {};
   layoutSub: Subscription;
+  loadingStatus = true;
 
   constructor(
     private elementRef: ElementRef,
@@ -47,7 +47,7 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService,
     private layoutService: LayoutService,
     private coreCpMainMenuService: CoreCpMainMenuService,
-    public cmsAuthService: CmsAuthService
+    public cmsAuthService: CoreAuthService
   ) {
     if (this.depth === undefined) {
       this.depth = 0;
@@ -57,17 +57,17 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.menuItems = this.menuConvertor(value);
     });
     this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
-      //console.log("TokenInfo Navbar:",vlaue);
+      // console.log("TokenInfo Navbar:",vlaue);
       this.DataGetCpMenu();
     });
     this.layoutSub = layoutService.customizerChangeEmitted$.subscribe(
       (options) => {
         if (options) {
           if (options.bgColor) {
-            if (options.bgColor === "white") {
-              this.logoUrl = "assets/img/logo-dark.png";
+            if (options.bgColor === 'white') {
+              this.logoUrl = 'assets/img/logo-dark.png';
             } else {
-              this.logoUrl = "assets/img/logo.png";
+              this.logoUrl = 'assets/img/logo.png';
             }
           }
 
@@ -75,22 +75,22 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
             this.expanded = false;
             this.renderer.addClass(
               this.toggleIcon.nativeElement,
-              "ft-toggle-left"
+              'ft-toggle-left'
             );
             this.renderer.removeClass(
               this.toggleIcon.nativeElement,
-              "ft-toggle-right"
+              'ft-toggle-right'
             );
             this.nav_collapsed_open = true;
           } else if (options.compactMenu === false) {
             this.expanded = true;
             this.renderer.removeClass(
               this.toggleIcon.nativeElement,
-              "ft-toggle-left"
+              'ft-toggle-left'
             );
             this.renderer.addClass(
               this.toggleIcon.nativeElement,
-              "ft-toggle-right"
+              'ft-toggle-right'
             );
             this.nav_collapsed_open = false;
           }
@@ -98,19 +98,18 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
   }
-  loadingStatus=true;
   ngOnInit() {
     // if (this.menuItems == null || this.menuItems.length == 0)
     //   this.DataGetCpMenu();
 
     this.config = this.configService.templateConf;
-    //this.menuItems = CmsROUTES; //karavi menu
-    //console.log(this.menuItems);
+    // this.menuItems = CmsROUTES; //karavi menu
+    // console.log(this.menuItems);
 
-    if (this.config.layout.sidebar.backgroundColor === "white") {
-      this.logoUrl = "assets/img/logo-dark.png";
+    if (this.config.layout.sidebar.backgroundColor === 'white') {
+      this.logoUrl = 'assets/img/logo-dark.png';
     } else {
-      this.logoUrl = "assets/img/logo.png";
+      this.logoUrl = 'assets/img/logo.png';
     }
   }
 
@@ -129,22 +128,22 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   menuConvertor(model: CoreCpMainMenuModel[]) {
-    var retOut = new Array<MenuInfo>();
+    const retOut = new Array<MenuInfo>();
     model.forEach((element) => {
-      var newRow: MenuInfo = {
-        path: "/" + element.RouteAddressLink,
+      const newRow: MenuInfo = {
+        path: '/' + element.RouteAddressLink,
         title: element.Title,
         icon: element.Icon,
-        class: "",
-        badge: "",
-        badgeClass: "",
+        class: '',
+        badge: '',
+        badgeClass: '',
         isExternalLink: false,
         submenu: [],
       };
-      if (newRow.icon == null) newRow.icon = "";
+      if (newRow.icon == null) { newRow.icon = ''; }
 
       if (element.Children && element.Children.length > 0) {
-        newRow.class = "has-sub";
+        newRow.class = 'has-sub';
         newRow.submenu = this.menuConvertor(element.Children);
       }
       retOut.push(newRow);
@@ -153,27 +152,28 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngAfterViewInit() {
     setTimeout(() => {
+      // tslint:disable-next-line: triple-equals
       if (this.config.layout.sidebar.collapsed != undefined) {
         if (this.config.layout.sidebar.collapsed === true) {
           this.expanded = false;
           this.renderer.addClass(
             this.toggleIcon.nativeElement,
-            "ft-toggle-left"
+            'ft-toggle-left'
           );
           this.renderer.removeClass(
             this.toggleIcon.nativeElement,
-            "ft-toggle-right"
+            'ft-toggle-right'
           );
           this.nav_collapsed_open = true;
         } else if (this.config.layout.sidebar.collapsed === false) {
           this.expanded = true;
           this.renderer.removeClass(
             this.toggleIcon.nativeElement,
-            "ft-toggle-left"
+            'ft-toggle-left'
           );
           this.renderer.addClass(
             this.toggleIcon.nativeElement,
-            "ft-toggle-right"
+            'ft-toggle-right'
           );
           this.nav_collapsed_open = false;
         }
@@ -197,7 +197,8 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // NGX Wizard - skip url change
   ngxWizardFunction(path: string) {
-    if (path.indexOf("forms/ngx") !== -1)
-      this.router.navigate(["forms/ngx/wizard"], { skipLocationChange: false });
+    if (path.indexOf('forms/ngx') !== -1) {
+      this.router.navigate(['forms/ngx/wizard'], { skipLocationChange: false });
+    }
   }
 }

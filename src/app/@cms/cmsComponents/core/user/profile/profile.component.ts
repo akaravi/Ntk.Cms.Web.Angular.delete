@@ -1,33 +1,34 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { CoreUserService } from "app/@cms/cmsService/core/coreUser.service";
-import { CoreUser } from "app/@cms/cmsModels/core/coreUser";
-import { ToastrService } from "ngx-toastr";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { FormGroup, FormControl, Validators, NgForm } from "@angular/forms";
-import { CmsAuthService } from "app/@cms/cmsService/core/auth.service";
-import { AuthUserChangePasswordModel } from "app/@cms/cmsModels/core/authModel";
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import {
+  AuthUserChangePasswordModel,
+  CoreAuthService,
+  CoreUserModel,
+  CoreUserService,
+} from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
 export class CoreUserProfileComponent implements OnInit {
   @ViewChild('f', { static: false }) CoreUserEditForm: NgForm;
-  CorrectUserInfo: CoreUser = new CoreUser();
-  //CoreUserEditFormGroup: FormGroup;
-
+  CorrectUserInfo: CoreUserModel = new CoreUserModel();
+  // CoreUserEditFormGroup: FormGroup;
 
   CoreUserPasswordEditformGroup: FormGroup;
-  onSubmitCoreUserPasswordEditRun=false;
-  //Variable Declaration
-  currentPage: string = "About";
+  onSubmitCoreUserPasswordEditRun = false;
+  // Variable Declaration
+  currentPage = 'About';
   constructor(
     private coreUserService: CoreUserService,
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
-    private cmsAuthService: CmsAuthService
+    private cmsAuthService: CoreAuthService
   ) {}
   ngOnInit() {
     // this.CoreUserEditformGroup = new FormGroup({
@@ -43,13 +44,12 @@ export class CoreUserProfileComponent implements OnInit {
 
     this.CoreUserPasswordEditformGroup = new FormGroup(
       {
-        OldPassword: new FormControl("", Validators.required),
-        NewPassword: new FormControl("", Validators.required),
-        NewPasswordConfirm: new FormControl("", Validators.required),
+        OldPassword: new FormControl('', Validators.required),
+        NewPassword: new FormControl('', Validators.required),
+        NewPasswordConfirm: new FormControl('', Validators.required),
       },
       this.passwordMatchValidator
     );
-
 
     this.coreUserService.ServiceCurrectUser().subscribe(
       (next) => {
@@ -59,13 +59,13 @@ export class CoreUserProfileComponent implements OnInit {
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "خطا در ورود"
+          'خطا در ورود'
         );
       }
     );
   }
   passwordMatchValidator(g: FormGroup) {
-    return g.get("NewPassword").value === g.get("NewPasswordConfirm").value
+    return g.get('NewPassword').value === g.get('NewPasswordConfirm').value
       ? null
       : { mismath: true };
   }
@@ -73,51 +73,51 @@ export class CoreUserProfileComponent implements OnInit {
     this.currentPage = page;
   }
   onSubmitCoreUserPasswordEdit() {
-    let model: AuthUserChangePasswordModel = new AuthUserChangePasswordModel();
+    const model: AuthUserChangePasswordModel = new AuthUserChangePasswordModel();
     if (!this.CoreUserPasswordEditformGroup.valid) {
       return;
     }
     model.OldPassword = this.CoreUserPasswordEditformGroup.get(
-      "OldPassword"
+      'OldPassword'
     ).value;
     model.NewPassword = this.CoreUserPasswordEditformGroup.get(
-      "NewPassword"
+      'NewPassword'
     ).value;
     this.cmsAuthService.ServiceChangePassword(model).subscribe(
       (next) => {
         if (next.IsSuccess) {
-        this.onSubmitCoreUserPasswordEditRun=true;
+          this.onSubmitCoreUserPasswordEditRun = true;
         }
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "خطا در تغییر پسورد"
+          'خطا در تغییر پسورد'
         );
       }
     );
   }
- 
-  onSubmitCoreUserEdit(){
+
+  onSubmitCoreUserEdit() {
     // if (!this.CoreUserEditformGroup.valid) {
     //   return;
     // }
-    
+
     this.coreUserService.ServiceEdit(this.CorrectUserInfo).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.toastrService.toastr.success(
-            "اطلاعات شما با موفقیت ثبت گردید",
-            " ثبت تغییرات"
+            'اطلاعات شما با موفقیت ثبت گردید',
+            ' ثبت تغییرات'
           );
-          this.CorrectUserInfo=next.Item;
+          this.CorrectUserInfo = next.Item;
           this.coreUserService.SetCorrectUser(this.CorrectUserInfo);
         }
       },
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "خطا در ثبت تغییرات"
+          'خطا در ثبت تغییرات'
         );
       }
     );

@@ -16,22 +16,23 @@ import { FormsModule } from '@angular/forms';
 import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
 import { QuillModule } from 'ngx-quill';
 import { NewsContentDeleteComponent } from './content/delete/contentDelete.component';
-import { TruncatePipe } from 'app/@cms/cmsCommon/pipe/truncate.pipe';
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
-import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
-import { NewsCommentService } from 'app/@cms/cmsService/news/newsComment.service';
-import { NewsConfigurationService } from 'app/@cms/cmsService/news/newsConfiguration.service';
-import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
-import { NewsContentAndParameterValueService } from 'app/@cms/cmsService/news/newsContentAndParameterValue.service';
-import { NewsContentOtherInfoService } from 'app/@cms/cmsService/news/newsContentOtherInfo.service';
-import { NewsContentParameterService } from 'app/@cms/cmsService/news/newsContentParameter.service';
-import { NewsContentParameterTypeService } from 'app/@cms/cmsService/news/newsContentParameterType.service';
-import { NewsContentSimilarService } from 'app/@cms/cmsService/news/newsContentSimilar.service';
-import { NewsContentTagService } from 'app/@cms/cmsService/news/newsContentTag.service';
-import { NewsShareMainAdminSettingService } from 'app/@cms/cmsService/news/newsShareMainAdminSetting.service';
-import { NewsShareReciverCategoryService } from 'app/@cms/cmsService/news/newsShareReciverCategory.service';
-import { NewsShareServerCategoryService } from 'app/@cms/cmsService/news/newsShareServerCategory.service';
-import { NewsCategoryTagService } from 'app/@cms/cmsService/news/newsCategoryTag.service';
+import {
+  NewsCategoryService,
+  NewsCategoryTagService,
+  NewsCommentService,
+  NewsConfigurationService,
+  NewsContentService,
+  NewsContentAndParameterValueService,
+  NewsContentOtherInfoService,
+  NewsContentParameterService,
+  NewsContentParameterTypeService,
+  NewsContentSimilarService,
+  NewsContentTagService,
+  NewsShareMainAdminSettingService,
+  NewsShareReciverCategoryService,
+  NewsShareServerCategoryService,
+} from 'ntk-cms-api';
 
 @NgModule({
   imports: [
@@ -59,10 +60,7 @@ import { NewsCategoryTagService } from 'app/@cms/cmsService/news/newsCategoryTag
     NewsCategoryListComponent,
     NewsCategorySelectComponent,
   ],
-  exports: [
-
-
-  ],
+  exports: [],
   providers: [
     NewsCategoryService,
     NewsCategoryTagService,

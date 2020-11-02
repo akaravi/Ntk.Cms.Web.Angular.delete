@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenInfoModel } from 'app/@cms/cmsModels/base/tokenInfoModel';
-import { AuthRenewTokenModel } from 'app/@cms/cmsModels/core/authModel';
-import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import {
+  AuthRenewTokenModel,
+  CoreAuthService,
+  TokenInfoModel,
+} from 'ntk-cms-api';
 
 @Component({
   selector: 'app-cms-token-access-admin',
@@ -15,7 +17,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
   SiteId: number;
   UserId: number;
   constructor(
-    public cmsAuthService: CmsAuthService,
+    public cmsAuthService: CoreAuthService,
     private toastrService: CmsToastrServiceService
   ) {
     this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
@@ -36,7 +38,9 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     let message = '';
     if (AuthModel.UserAccessAdminAllowToAllData) {
       message = 'درخواست برای دسترسی به کلیه اطلاعات به سرور ارسال شد';
-    } else { message = 'درخواست قطع  دسترسی به کل اطلاعات  به سرور ارسال شد'; }
+    } else {
+      message = 'درخواست قطع  دسترسی به کل اطلاعات  به سرور ارسال شد';
+    }
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
     this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
@@ -73,7 +77,9 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     let message = '';
     if (AuthModel.UserAccessAdminAllowToAllData) {
       message = 'درخواست برای دسترسی حرفه ایی به سرور ارسال شد';
-    } else { message = 'درخواست قطع  دسترسی حرفه ایی  به سرور ارسال شد'; }
+    } else {
+      message = 'درخواست قطع  دسترسی حرفه ایی  به سرور ارسال شد';
+    }
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
     this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
@@ -158,7 +164,6 @@ export class CmsTokenAccessAdminComponent implements OnInit {
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {
-
           const title = 'اطلاعات ';
           if (next.Item.SiteId === this.SiteId) {
             const message = 'دسترسی به سایت جدید تایید شد';
@@ -171,7 +176,6 @@ export class CmsTokenAccessAdminComponent implements OnInit {
           const title = 'برروز خطا ';
           const message = next.ErrorMessage;
           this.toastrService.toastr.error(message, title);
-
         }
       },
       () => {}

@@ -6,11 +6,9 @@ import {
   Input,
   Injectable,
 } from '@angular/core';
-import { FilterDataModel } from 'app/@cms/cmsModels/base/filterModel';
-import { AccessModel } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { RuleSet, QueryBuilderFieldMap, Field, Rule } from 'ngx-query-builder';
-import { ClauseType } from 'app/@cms/cmsModels/Enums/clauseType.enum';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
+import { AccessModel, EnumClauseType, FilterDataModel } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-cms-search-content-list',
@@ -134,10 +132,10 @@ export class CmsSearchContentListComponent implements OnInit {
   }
   getRules() {
     this.Filters = new Array<FilterDataModel>();
-    let clauseType: ClauseType = ClauseType.And;
+    let clauseType: EnumClauseType = EnumClauseType.And;
     if (!this.query || !this.query.condition) { return; }
 
-    if (this.query.condition === 'or') { clauseType = ClauseType.Or; }
+    if (this.query.condition === 'or') { clauseType = EnumClauseType.Or; }
     this.query.rules.forEach((column, index) => {
       const ruleSet = column as RuleSet;
       const rule = column as Rule;
@@ -168,8 +166,8 @@ export class CmsSearchContentListComponent implements OnInit {
   }
   getRulesSetChild(ruleSetInput: RuleSet): Array<FilterDataModel> {
     const Filters = new Array<FilterDataModel>();
-    let clauseType: ClauseType = ClauseType.And;
-    if (ruleSetInput.condition === 'or') { clauseType = ClauseType.Or; }
+    let clauseType: EnumClauseType = EnumClauseType.And;
+    if (ruleSetInput.condition === 'or') { clauseType = EnumClauseType.Or; }
     ruleSetInput.rules.forEach((column, index) => {
       const ruleSet = column as RuleSet;
       const rule = column as Rule;

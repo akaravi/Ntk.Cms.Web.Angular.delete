@@ -1,15 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
-import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { BaseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
+
 import { FormGroup } from '@angular/forms';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { BaseEntityCategory, CoreEnumService, ErrorExcptionResult, FilterModel, FormInfoModel, NewsCategoryModel, NewsCategoryService } from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
   selector: 'app-news-category-delete',
@@ -184,7 +180,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
   DataMove() {
     this.formInfo.disabledButtonSubmitted = true;
     this.newsCategoryService
-      .ServiceMove<BaseEntityCategory<number>>(this.id, this.dataModel.NewCatId)
+      .ServiceMove(this.id, this.dataModel.NewCatId)
       .subscribe(
         (next) => {
           if (!next.IsSuccess) {

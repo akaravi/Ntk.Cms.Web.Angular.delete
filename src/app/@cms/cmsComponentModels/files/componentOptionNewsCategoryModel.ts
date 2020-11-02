@@ -1,4 +1,4 @@
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { ComponentOptionModel } from 'ntk-cms-api';
 
 export class ComponentOptionFileUploadModel
   implements ComponentOptionModel<ComponentOptionFileUploadDataModel, ComponentOptionFileUploadActionsModel, ComponentOptionFileUploadMethodsModel> {

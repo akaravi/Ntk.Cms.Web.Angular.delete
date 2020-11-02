@@ -8,12 +8,8 @@ import {
 } from '@swimlane/ngx-datatable';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { FilterModel } from 'app/@cms/cmsModels/base/filterModel';
-import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
-import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from 'ngx-toastr';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { EnumSortType, ErrorExcptionResult, FilterModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-sms-main-api-path-company-list',
@@ -188,9 +184,9 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
 
     if (sort) {
       if (sort.dir === 'desc') {
-        this.filteModelContent.SortType = SortType.Descending;
+        this.filteModelContent.SortType = EnumSortType.Descending;
       } else {
-        this.filteModelContent.SortType = SortType.Ascending;
+        this.filteModelContent.SortType = EnumSortType.Ascending;
       }
       this.filteModelContent.SortColumn = sort.prop;
     }

@@ -1,14 +1,11 @@
+import { BaseEntityCategory, CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { FormGroup } from '@angular/forms';
-import { BaseEntityCategory } from 'app/@cms/cmsModels/base/baseEntityCategory';
-import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+
 
 @Component({
   selector: 'app-news-category-add',
@@ -45,10 +42,10 @@ export class NewsCategoryAddComponent implements OnInit {
     private publicHelper: PublicHelper
   ) {
 
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) { this.coreEnumService.resultEnumRecordStatus = vlaue; }
-      this.coreEnumService.ServiceEnumRecordStatus() ;
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess) { this.coreEnumService.resultEnumRecordStatus = vlaue; }
+    //   this.coreEnumService.ServiceEnumRecordStatus() ;
+    // });
 
   }
 

@@ -1,5 +1,6 @@
 import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
+import { ComponentOptionModel } from 'ntk-cms-api';
+
 
 export class ComponentOptionModalModel
   implements ComponentOptionModel<ComponentOptionModalDataModel, ComponentOptionModalActionsModel, ComponentOptionModalMethodsModel> {

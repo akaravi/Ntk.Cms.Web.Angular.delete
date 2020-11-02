@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import {
-  FilterModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+
 import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { NewsCategoryService } from 'app/@cms/cmsService/news/newsCategory.service';
-import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+
 import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { ErrorExcptionResult, FilterModel, NewsCategoryModel, NewsCategoryService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-news-category-select',

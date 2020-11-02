@@ -8,12 +8,9 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { ItemState } from 'app/@cms/cmsModels/base/itemState';
-import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
-import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CoreEnumService, FormInfoModel, ItemState, NewsContentModel, NewsContentService } from 'ntk-cms-api';
+
 
 @Component({
   selector: 'app-news-content-delete',

@@ -11,10 +11,6 @@ import { FormsModule } from "@angular/forms";
 import { QuillModule } from "ngx-quill";
 import { CmsSharedModule } from "app/@cms/shared/cmsShared.module";
 import { BankPaymentTransactionLogEditComponent } from './transactionLog/edit/bankPaymentTransactionLogEdit.component';
-import { BankPaymentPrivateSiteConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPrivateSiteConfig.service';
-import { BankPaymentPublicConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPublicConfig.service';
-import { BankPaymentTransactionService } from 'app/@cms/cmsService/bankPayment/bankPaymentTransaction.service';
-import { BankPaymentTransactionLogService } from 'app/@cms/cmsService/bankPayment/bankPaymentTransactionLog.service';
 import { BankPaymentPrivateSiteConfigAddComponent } from './privateSiteConfig/add/bankPaymentPrivateSiteConfigAdd.component';
 import { BankPaymentPrivateSiteConfigDeleteComponent } from './privateSiteConfig/delete/bankPaymentPrivateSiteConfigDelete.component';
 import { BankPaymentPrivateSiteConfigEditComponent } from './privateSiteConfig/edit/bankPaymentPrivateSiteConfigEdit.component';
@@ -29,6 +25,7 @@ import { BankPaymentPublicConfigDeleteComponent } from './publicConfig/delete/ba
 import { BankPaymentPublicConfigEditComponent } from './publicConfig/edit/bankPaymentPublicConfigEdit.component';
 import { BankPaymentPublicConfigListComponent } from './publicConfig/list/bankPaymentPublicConfigList.component';
 import { BankPaymentPublicConfigSelectComponent } from './publicConfig/select/bankPaymentPublicConfigSelect.component';
+import { BankPaymentPrivateSiteConfigService, BankPaymentPublicConfigService, BankPaymentTransactionService, BankPaymentTransactionLogService } from 'ntk-cms-api';
 
 @NgModule({
   imports: [
@@ -72,4 +69,4 @@ import { BankPaymentPublicConfigSelectComponent } from './publicConfig/select/ba
   ],
   //,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BankPaymentModule {}
+export class BankPaymentModule { }

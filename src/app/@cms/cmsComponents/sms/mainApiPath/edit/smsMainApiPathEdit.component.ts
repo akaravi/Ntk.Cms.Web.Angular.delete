@@ -8,13 +8,14 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
-import { ToastrService } from 'ngx-toastr';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import {
+  CoreEnumService,
+  ErrorExcptionResult,
+  FormInfoModel,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+} from 'ntk-cms-api';
 
 @Component({
   selector: 'app-sms-main-api-path-edit',
@@ -48,12 +49,12 @@ export class SmsMainApiPathEditComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) {
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      }
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess) {
+    //     this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //   }
+    //   this.coreEnumService.ServiceEnumRecordStatus();
+    // });
   }
 
   ngOnInit() {
@@ -71,7 +72,6 @@ export class SmsMainApiPathEditComponent implements OnInit {
 
     // this.DataGetAllCoreEnum();
   }
-
 
   onFormSubmit() {
     if (this.formGroup.valid) {
@@ -152,6 +152,5 @@ export class SmsMainApiPathEditComponent implements OnInit {
   }
   setFocus($event) {
     $event.focus();
-
   }
 }

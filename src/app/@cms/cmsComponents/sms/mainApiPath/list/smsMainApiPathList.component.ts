@@ -19,15 +19,9 @@ import {
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import {
-  FilterDataModel,
-  FilterModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
-import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { EnumSortType, ErrorExcptionResult, FilterModel, SmsMainApiPathCompanyModel, FilterDataModel, SmsMainApiPathService } from 'ntk-cms-api';
+
 
 @Component({
   selector: 'app-sms-main-api-path-list',
@@ -213,9 +207,9 @@ export class SmsMainApiPathListComponent implements OnInit {
 
     if (sort) {
       if (sort.dir === 'desc') {
-        this.filteModelContent.SortType = SortType.Descending;
+        this.filteModelContent.SortType = EnumSortType.Descending;
       } else {
-        this.filteModelContent.SortType = SortType.Ascending;
+        this.filteModelContent.SortType = EnumSortType.Ascending;
       }
       this.filteModelContent.SortColumn = sort.prop;
     }

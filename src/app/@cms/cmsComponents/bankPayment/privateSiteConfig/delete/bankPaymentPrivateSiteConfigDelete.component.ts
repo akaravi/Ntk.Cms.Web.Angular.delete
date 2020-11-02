@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { BankPaymentPrivateSiteConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPrivateSiteConfig.service';
 import { FormGroup } from '@angular/forms';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ActivatedRoute } from '@angular/router';
+import { BankPaymentPrivateSiteConfigService, FormInfoModel } from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
   selector: 'app-bank-payment-private-site-config-delete',

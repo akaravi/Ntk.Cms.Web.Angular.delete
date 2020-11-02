@@ -1,20 +1,20 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import {
-  FilterModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
 import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
-import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
 import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
-import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import {
+  FilterModel,
+  ErrorExcptionResult,
+  SmsMainApiPathCompanyService,
+  SmsMainApiPathCompanyModel,
+} from 'ntk-cms-api';
 
 @Component({
   selector: 'app-sms-main-api-path-company-select',
   templateUrl: './smsMainApiPathCompanySelect.component.html',
-  styleUrls: ['./smsMainApiPathCompanySelect.component.scss']
+  styleUrls: ['./smsMainApiPathCompanySelect.component.scss'],
 })
 export class SmsMainApiPathCompanySelectComponent implements OnInit {
   @Input()
@@ -68,18 +68,16 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
     rtl: true,
   };
 
-
   constructor(
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathCompanyService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.DataGetAllCategory();
 
-    this.optionsData.methods = { ActionReload: () => this.onActionReload() }
-
+    this.optionsData.methods = { ActionReload: () => this.onActionReload() };
   }
 
   DataGetAllCategory() {
@@ -103,13 +101,16 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
     );
   }
   onActionSelect(model: SmsMainApiPathCompanyModel) {
-    if (this.optionsData && this.optionsData.actions && this.optionsData.actions.onActionSelect) {
+    if (
+      this.optionsData &&
+      this.optionsData.actions &&
+      this.optionsData.actions.onActionSelect
+    ) {
       this.optionsData.actions.onActionSelect(model);
       this.optionsData.data = { Select: model, SelectId: model.Id };
     }
   }
   onActionReload() {
-    this.DataGetAllCategory()
-
+    this.DataGetAllCategory();
   }
 }

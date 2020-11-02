@@ -1,14 +1,22 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { CoreEnumService } from 'app/@cms/cmsService/core/coreEnum.service';
-import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+
 import { FormGroup } from '@angular/forms';
-import { FormInfoModel } from 'app/@cms/cmsModels/base/formInfoModel';
-import { SmsMainApiPathCompanyService } from 'app/@cms/cmsService/sms/smsMainApiPathCompany.service';
-import { SmsMainApiPathCompanyModel } from 'app/@cms/cmsModels/sms/smsMainApiCompanyModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+import {
+  CoreEnumService,
+  ErrorExcptionResult,
+  FormInfoModel,
+  SmsMainApiPathCompanyModel,
+  SmsMainApiPathCompanyService,
+} from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
   selector: 'app-sms-main-api-path-company-add',
@@ -16,7 +24,6 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrServ
   styleUrls: ['./smsMainApiPathCompanyAdd.component.scss'],
 })
 export class SmsMainApiPathCompanyAddComponent implements OnInit {
-
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -42,12 +49,12 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess) {
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      }
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess) {
+    //     this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //   }
+    //   this.coreEnumService.ServiceEnumRecordStatus();
+    // });
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();

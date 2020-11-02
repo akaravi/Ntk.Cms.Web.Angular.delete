@@ -1,31 +1,31 @@
-import { NgModule } from "@angular/core";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AppRoutingModule } from "./app-routing.module";
-import { ToastrModule } from "ngx-toastr";
-import { AgmCoreModule } from "@agm/core";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { StoreModule } from "@ngrx/store";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { ToastrModule } from 'ngx-toastr';
+import { AgmCoreModule } from '@agm/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StoreModule } from '@ngrx/store';
 
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
-} from "ngx-perfect-scrollbar";
+} from 'ngx-perfect-scrollbar';
 
-import { AppComponent } from "./app.component";
-import { DragulaService } from "ng2-dragula";
-import { AuthService } from "./@theme/shared/auth/auth.service";
-import { AuthGuard } from "./@theme/shared/auth/auth-guard.service";
-import { CmsAuthService } from "./@cms/cmsService/core/auth.service";
-import { CmsAuthGuard } from "./@cms/cmsService/core/auth.guard.service";
-import { CmsComponent } from "./@cms/cms.component";
-import { ThemeComponent } from "./@theme/theme.component";
-import { CmsToastrServiceService } from './@cms/cmsService/_base/cmsToastrService.service';
+import { AppComponent } from './app.component';
+import { DragulaService } from 'ng2-dragula';
+import { AuthService } from './@theme/shared/auth/auth.service';
+import { AuthGuard } from './@theme/shared/auth/auth-guard.service';
+import { CmsComponent } from './@cms/cms.component';
+import { ThemeComponent } from './@theme/theme.component';
 import { MainSharedModule } from './shared/mainShared.module';
+import { CmsAuthGuard } from './@cms/cmsService/base/auth.guard.service';
+import { CmsToastrServiceService } from './@cms/cmsService/base/cmsToastrService.service';
+import { CoreAuthService } from 'ntk-cms-api';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -33,7 +33,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -43,13 +43,13 @@ export function createTranslateLoader(http: HttpClient) {
     StoreModule.forRoot({}),
     AppRoutingModule,
     MainSharedModule,
-    
+
     HttpClientModule,
 
     ToastrModule.forRoot({
       timeOut: 2000,
       enableHtml: true,
-      positionClass: "toast-top-right",
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true,
     }),
@@ -62,14 +62,14 @@ export function createTranslateLoader(http: HttpClient) {
       },
     }),
     AgmCoreModule.forRoot({
-      apiKey: "YOUR KEY",
+      apiKey: 'YOUR KEY',
     }),
     PerfectScrollbarModule,
   ],
   providers: [
     AuthService,
     AuthGuard,
-    CmsAuthService,
+    CoreAuthService,
     CmsAuthGuard,
 
     DragulaService,
@@ -85,7 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
     //   provide: ErrorHandler,
     //   useClass: AppErrorHandler
     // }
-    CmsToastrServiceService
+    CmsToastrServiceService,
   ],
   bootstrap: [AppComponent],
 })

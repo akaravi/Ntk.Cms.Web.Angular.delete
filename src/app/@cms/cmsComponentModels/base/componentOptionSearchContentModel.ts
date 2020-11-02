@@ -1,7 +1,5 @@
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
-import { AccessModel } from 'app/@cms/cmsModels/base/errorExcptionResult';
-import { FilterDataModel } from 'app/@cms/cmsModels/base/filterModel';
-import { data } from '../../../shared/data/smart-data-table';
+import { AccessModel, ComponentOptionModel, FilterDataModel } from 'ntk-cms-api';
+
 
 export class ComponentOptionSearchContentModel
   implements ComponentOptionModel<ComponentOptionSearchContentDataModel, ComponentOptionSearchContentActionsModel, ComponentOptionSearchContentMethodsModel> {

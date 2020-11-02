@@ -5,13 +5,8 @@ import {
   ElementRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import {
-  FilterModel,
-  FilterDataModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { NewsContentService } from 'app/@cms/cmsService/news/newsContent.service';
 
 import {
   ColumnMode,
@@ -19,16 +14,15 @@ import {
   SelectionType,
 } from '@swimlane/ngx-datatable';
 import { TREE_ACTIONS, KEYS, ITreeOptions } from 'angular-tree-component';
-import { SortType } from 'app/@cms/cmsModels/Enums/sortType.enum';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NewsContentModel } from 'app/@cms/cmsModels/news/newsContentModel';
-import { NewsCategoryModel } from 'app/@cms/cmsModels/news/newsCategoryModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+
 import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
 import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
 import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ComponentOptionModalModel } from 'app/@cms/cmsComponentModels/base/componentOptionModalModel';
+import { EnumSortType, ErrorExcptionResult, FilterDataModel, FilterModel, NewsCategoryModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
   selector: 'app-news-content-list',
@@ -246,9 +240,9 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
 
     if (sort) {
       if (sort.dir === 'desc') {
-        this.filteModelContent.SortType = SortType.Descending;
+        this.filteModelContent.SortType = EnumSortType.Descending;
       } else {
-        this.filteModelContent.SortType = SortType.Ascending;
+        this.filteModelContent.SortType = EnumSortType.Ascending;
       }
       this.filteModelContent.SortColumn = sort.prop;
     }

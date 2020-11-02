@@ -150,4 +150,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BankPaymentRoutes {}
+export class BankPaymentRoutes { }

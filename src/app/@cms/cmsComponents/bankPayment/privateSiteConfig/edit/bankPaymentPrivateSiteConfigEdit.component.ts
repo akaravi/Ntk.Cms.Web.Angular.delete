@@ -8,13 +8,9 @@ import {
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { FormInfoModel } from "app/@cms/cmsModels/base/formInfoModel";
-import { CoreEnumService } from "app/@cms/cmsService/core/coreEnum.service";
-import { CmsToastrServiceService } from "app/@cms/cmsService/_base/cmsToastrService.service";
-import { ToastrService } from "ngx-toastr";
-import { BankPaymentPrivateSiteConfigService } from 'app/@cms/cmsService/bankPayment/bankPaymentPrivateSiteConfig.service';
-import { BankPaymentPrivateSiteConfigModel } from 'app/@cms/cmsModels/BankPayment/bankPaymentPrivateSiteConfigModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
+
 
 @Component({
   selector: "app-bank-payment-private-site-config-edit",
@@ -40,11 +36,11 @@ export class BankPaymentPrivateSiteConfigEditComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
-    this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-      if (vlaue && vlaue.IsSuccess)
-        this.coreEnumService.resultEnumRecordStatus = vlaue;
-      this.coreEnumService.ServiceEnumRecordStatus();
-    });
+    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //   if (vlaue && vlaue.IsSuccess)
+    //     this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //   this.coreEnumService.ServiceEnumRecordStatus();
+    // });
   }
 
   formInfo: FormInfoModel = new FormInfoModel();

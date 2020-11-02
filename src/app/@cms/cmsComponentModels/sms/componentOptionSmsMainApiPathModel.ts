@@ -1,5 +1,4 @@
-import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
-import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
+import { ComponentOptionModel, SmsMainApiPathModel } from 'ntk-cms-api';
 
 export class ComponentOptionSmsMainApiPathModel
   implements ComponentOptionModel<ComponentOptionSmsMainApiPathDataModel, ComponentOptionSmsMainApiPathActionsModel, ComponentOptionSmsMainApiPathMethodsModel> {

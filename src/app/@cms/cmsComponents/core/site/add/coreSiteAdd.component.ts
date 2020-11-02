@@ -1,27 +1,34 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormControl, FormGroup, Validators, NgForm } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import {
+  CaptchaModel,
+  CoreAuthService,
+  CoreModuleService,
+  CoreSiteCategoryModuleService,
+  CoreSiteCategoryService,
+  CoreSiteService,
+  ErrorExcptionResult,
   FilterModel,
-  FilterDataModel,
-} from "app/@cms/cmsModels/base/filterModel";
-import { ErrorExcptionResult } from "app/@cms/cmsModels/base/errorExcptionResult";
-import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
-import { ToastrService } from "ngx-toastr";
-import { CoreSiteService } from "../../../../cmsService/core/coreSite.service";
-import { CoreSiteCategoryModuleService } from "../../../../cmsService/core/coreSiteCategoryModule.service";
-import { CoreModuleService } from "../../../../cmsService/core/coreModule.service";
-import { CoreSiteCategoryService } from "../../../../cmsService/core/coreSiteCategory.service";
-import { CaptchaModel } from 'app/@cms/cmsModels/base/captchaModel';
-import { CmsAuthService } from 'app/@cms/cmsService/core/auth.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+} from 'ntk-cms-api';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
-  selector: "app-cms-site-add",
-  templateUrl: "./coreSiteAdd.component.html",
-  styleUrls: ["./coreSiteAdd.component.scss"],
+  selector: 'app-cms-site-add',
+  templateUrl: './coreSiteAdd.component.html',
+  styleUrls: ['./coreSiteAdd.component.scss'],
 })
 export class CoreSiteAddComponent implements OnInit {
+
+  @Input()
+  set dateInput(model: any) {
+    this.dateModleInput = model;
+  }
+  get dateInput(): any {
+    return this.dateModleInput;
+  }
   subManager = new Subscription();
   filteModel = new FilterModel();
   dataModel: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
@@ -33,26 +40,18 @@ export class CoreSiteAddComponent implements OnInit {
   selectedDomain: any;
   captchaModel: CaptchaModel = new CaptchaModel();
 
+  private dateModleInput: any;
+
   constructor(
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
-    private cmsAuthService: CmsAuthService,
+    private cmsAuthService: CoreAuthService,
 
     private coreModuleService: CoreModuleService,
     private coreSiteCategoryService: CoreSiteCategoryService
   ) {}
-
-  private dateModleInput: any;
-
-  @Input()
-  set dateInput(model: any) {
-    this.dateModleInput = model;
-  }
-  get dateInput(): any {
-    return this.dateModleInput;
-  }
 
   ngOnInit() {
     this.GetModelInfo();
@@ -70,7 +69,7 @@ export class CoreSiteAddComponent implements OnInit {
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "خطا در دریافت لیست دامنه های قابل استفاده"
+          'خطا در دریافت لیست دامنه های قابل استفاده'
         );
       }
     );
@@ -85,7 +84,7 @@ export class CoreSiteAddComponent implements OnInit {
       (error) => {
         this.toastrService.toastr.error(
           this.publicHelper.CheckError(error),
-          "خطا در دریافت مدل"
+          'خطا در دریافت مدل'
         );
       }
     );
@@ -98,20 +97,20 @@ export class CoreSiteAddComponent implements OnInit {
           if (next.IsSuccess) {
             this.dataModelCategory = next;
             this.dataModelLoad = true;
-            this.toastrService.toastr.info("اطلاعات دریافت شد", "توجه");
+            this.toastrService.toastr.info('اطلاعات دریافت شد', 'توجه');
           }
         },
         (error) => {
           this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
-            "خطا در دریافت اطلاعات وب سایتها"
+            'خطا در دریافت اطلاعات وب سایتها'
           );
         }
       )
     );
   }
   clickSelectSiteCategory(Id: number) {
-    let filterModel: FilterModel = new FilterModel();
+    const filterModel: FilterModel = new FilterModel();
     filterModel.RowPerPage = 50;
 
     this.dataModelModule = new ErrorExcptionResult<any>();
@@ -123,13 +122,13 @@ export class CoreSiteAddComponent implements OnInit {
             if (next2.IsSuccess) {
               this.dataModelModule = next2;
               this.dataModelLoad = true;
-              this.toastrService.toastr.info("اطلاعات دریافت شد", "توجه");
+              this.toastrService.toastr.info('اطلاعات دریافت شد', 'توجه');
             }
           },
           (error2) => {
             this.toastrService.toastr.error(
               this.publicHelper.CheckError(error2),
-              "خطا در دریافت اطلاعات وب سایتها"
+              'خطا در دریافت اطلاعات وب سایتها'
             );
           }
         )
@@ -137,20 +136,21 @@ export class CoreSiteAddComponent implements OnInit {
   }
   onSubmit() {
     let AddFirstSite = false;
-    if (this.dateModleInput && this.dateModleInput.AddFirstSite)
+    if (this.dateModleInput && this.dateModleInput.AddFirstSite) {
       AddFirstSite = true;
-      this.dataModel.Item.captchaKey= this.captchaModel.Key;
+    }
+    this.dataModel.Item.captchaKey = this.captchaModel.Key;
 
     if (AddFirstSite) {
       this.subManager.add(
         this.coreSiteService.ServiceAddFirstSite(this.dataModel.Item).subscribe(
           (next) => {
-            this.dateModleInput. onActionAddFirstSite(next) ;
+            this.dateModleInput.onActionAddFirstSite(next);
           },
           (error) => {
             this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
-              "خطا در ساخت وب سایت"
+              'خطا در ساخت وب سایت'
             );
           }
         )
@@ -165,7 +165,7 @@ export class CoreSiteAddComponent implements OnInit {
           (error) => {
             this.toastrService.toastr.error(
               this.publicHelper.CheckError(error),
-              "خطا در ساخت وب سایت"
+              'خطا در ساخت وب سایت'
             );
           }
         )
@@ -176,12 +176,12 @@ export class CoreSiteAddComponent implements OnInit {
     this.subManager.add(
       this.cmsAuthService.ServiceCaptcha().subscribe(
         (next) => {
-          this.captchaModel =  next.Item;
+          this.captchaModel = next.Item;
         },
         (error) => {
           this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
-            "خطا در دریافت عکس کپچا"
+            'خطا در دریافت عکس کپچا'
           );
         }
       )

@@ -1,15 +1,13 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import {
-  FilterModel,
-} from 'app/@cms/cmsModels/base/filterModel';
-import { ErrorExcptionResult } from 'app/@cms/cmsModels/base/errorExcptionResult';
+
 import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
-import { SmsMainApiPathService } from 'app/@cms/cmsService/sms/smsMainApiPath.service';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/_base/cmsToastrService.service';
+
 import { ComponentOptionSmsMainApiPathModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathModel';
-import { SmsMainApiPathModel } from 'app/@cms/cmsModels/sms/smsMainApiPathModel';
+import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { ErrorExcptionResult, FilterModel, SmsMainApiPathModel, SmsMainApiPathService } from 'ntk-cms-api';
+
 
 @Component({
   selector: 'app-sms-main-api-path-select',

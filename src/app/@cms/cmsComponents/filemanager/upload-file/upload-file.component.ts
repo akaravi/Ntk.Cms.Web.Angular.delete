@@ -6,13 +6,15 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { FlowDirective, Transfer } from '@flowjs/ngx-flow';
 import { ComponentOptionFileUploadModel } from 'app/@cms/cmsComponentModels/files/componentOptionNewsCategoryModel';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs';
 
-const URL = environment.cmsServerConfig.configApiServerPath + 'FileContent/Upload/';
+const URL =
+  environment.cmsServerConfig.configApiServerPath + 'FileContent/Upload/';
 // const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
 @Component({
   selector: 'app-upload-file',
@@ -20,7 +22,7 @@ const URL = environment.cmsServerConfig.configApiServerPath + 'FileContent/Uploa
   styleUrls: ['./upload-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UploadFileComponent implements AfterViewInit, OnInit {
+export class UploadFileComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input()
   set options(model: ComponentOptionFileUploadModel) {
     this.privateOption = model;
@@ -35,7 +37,7 @@ export class UploadFileComponent implements AfterViewInit, OnInit {
   autoUploadSubscription: Subscription;
   flowOption: flowjs.FlowOptions;
   uploadViewImage = false;
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef) {}
   ngOnInit() {
     this.flowOption = {
       target: URL,

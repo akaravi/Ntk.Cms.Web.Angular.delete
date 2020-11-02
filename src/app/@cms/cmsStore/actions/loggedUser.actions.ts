@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { TokenInfoModel } from 'app/@cms/cmsModels/base/tokenInfoModel';
+import { TokenInfoModel } from 'ntk-cms-api';
 
-export enum LoggedUserActionTypes{
+export enum LoggedUserActionTypes {
     LOADLOGGEDUSER = '[Logged User] Load',
     LOADLOGGEDUSER_SUCCESS = '[Logged User] Load success',
     LOADLOGGEDUSER_FAIL = '[Logged User] Load Fail',
@@ -27,9 +27,9 @@ export class LoadLoggedUserFail implements Action {
 }
 
 
-export class EditLoggedUser implements Action{
+export class EditLoggedUser implements Action {
     readonly type = LoggedUserActionTypes.EDIT_LOGGEDUSER;
-    constructor(public payload: TokenInfoModel){}
+    constructor(public payload: TokenInfoModel) { }
 }
 export class ResetLoggedUser implements Action {
     readonly type = LoggedUserActionTypes.RESET_LOGGEDUSER;
@@ -53,4 +53,4 @@ export class UpdateInfoLoggedUserName implements Action {
 export type AllLoggedUserAction =
     EditLoggedUser | ResetLoggedUser | EditLoggedUserPhotoUrl |
     EditLoggedUserName | UpdateInfoLoggedUserName |
-    LoadLoggedUser | LoadLoggedUserSuccess | LoadLoggedUserFail ;
+    LoadLoggedUser | LoadLoggedUserSuccess | LoadLoggedUserFail;

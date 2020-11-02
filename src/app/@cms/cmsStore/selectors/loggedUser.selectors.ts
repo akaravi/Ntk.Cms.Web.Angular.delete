@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TokenInfoModel } from 'app/@cms/cmsModels/base/tokenInfoModel';
+import { TokenInfoModel } from 'ntk-cms-api';
 
 
 export const selectLoggedUserName = (state: TokenInfoModel) => state.Name;

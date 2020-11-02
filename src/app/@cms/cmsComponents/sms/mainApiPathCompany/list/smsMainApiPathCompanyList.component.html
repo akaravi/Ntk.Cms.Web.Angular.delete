@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="card-content">
-                    <span class="ml-3" *ngIf="(loadingStatus)">{{smsMainApiPathCompanyService.loadingText}}</span>
+                    <span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>
                     <div class="card-body" *ngIf="!(loadingStatus)">
 
                         <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems"

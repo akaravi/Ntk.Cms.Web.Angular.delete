@@ -18,6 +18,7 @@ import { ConfigService } from '../../../shared/services/config.service';
 import { LayoutService } from '../../../shared/services/layout.service';
 import { Subscription } from 'rxjs';
 import { CoreAuthService, CoreCpMainMenuModel, CoreCpMainMenuService } from 'ntk-cms-api';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -123,6 +124,8 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loadingStatus = false;
       },
       (error) => {
+
+        this.router.navigate([environment.cmsUiConfig.Pathlogin]);
         this.loadingStatus = false;
       }
     );

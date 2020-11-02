@@ -9,7 +9,7 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
+import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
 
 
 @Component({
@@ -41,7 +41,10 @@ export class BankPaymentPrivateSiteConfigEditComponent implements OnInit {
     //     this.coreEnumService.resultEnumRecordStatus = vlaue;
     //   this.coreEnumService.ServiceEnumRecordStatus();
     // });
+    
   }
+  
+
 
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: BankPaymentPrivateSiteConfigModel = new BankPaymentPrivateSiteConfigModel();
@@ -64,6 +67,14 @@ export class BankPaymentPrivateSiteConfigEditComponent implements OnInit {
     //alert("helo id:"+this.linkCategoryId)
 
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
   loadingStatus = false; // add one more property
 

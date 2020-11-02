@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionSmsMainApiPathModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathModel';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { CoreEnumService, ErrorExcptionResult, FormInfoModel, SmsMainApiPathModel, SmsMainApiPathService } from 'ntk-cms-api';
+import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, SmsMainApiPathModel, SmsMainApiPathService } from 'ntk-cms-api';
 
 
 @Component({
@@ -63,7 +63,16 @@ export class SmsMainApiPathAddComponent implements OnInit {
     // this.smsMainApiPathService.cmsloadingObs.subscribe((vlaue) => {
     //   this.loadingStatus = vlaue;
     // });
+    this.getEnumRecordStatus();
   }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
+  }
+  
 
   onFormSubmit() {
     if (this.formGroup.valid) {

@@ -28,6 +28,7 @@ import { TruncatePipe } from '../cmsCommon/pipe/truncate.pipe';
 import { CmsExportContentListComponent } from '../cmsComponents/_base/cmsExportContentList/cmsExportContentList.component';
 import { CmsStatistContentListComponent } from '../cmsComponents/_base/cmsStatistContentList/cmsStatistContentList.component';
 import { CmsModalComponent } from '../cmsComponents/_base/cmsModal/cmsModal.component';
+import { CoreCpMainMenuService } from 'ntk-cms-api';
 
 
 
@@ -78,5 +79,6 @@ import { CmsModalComponent } from '../cmsComponents/_base/cmsModal/cmsModal.comp
         CmsModalComponent,
         TruncatePipe
     ],
+    providers:[CoreCpMainMenuService]
 })
 export class CmsSharedModule { }

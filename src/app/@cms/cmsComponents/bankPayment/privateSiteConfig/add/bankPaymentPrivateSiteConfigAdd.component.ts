@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormGroup } from "@angular/forms";
-import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
+import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 
@@ -29,6 +29,14 @@ export class BankPaymentPrivateSiteConfigAddComponent implements OnInit {
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
   loadingStatus = false; // add one more property
 

@@ -11,6 +11,7 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { FormGroup } from '@angular/forms';
 import {
   CoreEnumService,
+  EnumModel,
   ErrorExcptionResult,
   FormInfoModel,
   SmsMainApiPathCompanyModel,
@@ -58,6 +59,14 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
 
   DataAddContent() {

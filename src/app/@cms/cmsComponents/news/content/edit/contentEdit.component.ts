@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
+import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-news-content-edit',
@@ -37,13 +37,13 @@ export class NewsContentEditComponent implements OnInit {
     private toastrService: CmsToastrServiceService,
     private publicHelper: PublicHelper
   ) {
-  //   this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-  //     if (vlaue && vlaue.IsSuccess) {
-  //       this.coreEnumService.resultEnumRecordStatus = vlaue;
-  //     }
-  //     this.coreEnumService.ServiceEnumRecordStatus();
-  //   });
-   }
+    //   this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
+    //     if (vlaue && vlaue.IsSuccess) {
+    //       this.coreEnumService.resultEnumRecordStatus = vlaue;
+    //     }
+    //     this.coreEnumService.ServiceEnumRecordStatus();
+    //   });
+  }
 
   ngOnInit() {
     this.id = Number(
@@ -60,7 +60,16 @@ export class NewsContentEditComponent implements OnInit {
     // alert("helo id:"+this.linkCategoryId)
 
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
   }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
+  }
+
 
   onFormSubmit() {
     if (this.formGroup.valid) {

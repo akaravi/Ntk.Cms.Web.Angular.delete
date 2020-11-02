@@ -11,6 +11,7 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 import {
   CoreEnumService,
+  EnumModel,
   ErrorExcptionResult,
   FormInfoModel,
   SmsMainApiPathModel,
@@ -69,9 +70,16 @@ export class SmsMainApiPathEditComponent implements OnInit {
     }
     this.DataGetOneContent();
     // alert("helo id:"+this.linkCategoryId)
-
-    // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
   }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
+  }
+
 
   onFormSubmit() {
     if (this.formGroup.valid) {

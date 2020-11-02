@@ -32,6 +32,7 @@ import {
   NewsShareMainAdminSettingService,
   NewsShareReciverCategoryService,
   NewsShareServerCategoryService,
+  CoreEnumService,
 } from 'ntk-cms-api';
 
 @NgModule({
@@ -76,6 +77,7 @@ import {
     NewsShareMainAdminSettingService,
     NewsShareReciverCategoryService,
     NewsShareServerCategoryService,
+    CoreEnumService
   ],
 })
 export class NewsModule {}

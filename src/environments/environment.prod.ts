@@ -1,7 +1,9 @@
+import { EnumDeviceType, EnumOperatingSystemType } from 'ntk-cms-api';
+
 export const environment = {
   production: true,
-   cmsServerConfig : {
-    configApiRetry:1,
+  cmsServerConfig: {
+    configApiRetry: 1,
     configApiServerPath: 'https://apicms.ir/api/v1/',
     configMvcServerPath: 'https://oco.ir',
     configCpanelImages: '/cpanelv1/images/',
@@ -9,11 +11,18 @@ export const environment = {
     configRouteThumbnails: 'https://oco.ir/imageThumbnails/',
     configRouteUploadFileContent: 'https://apicms.ir/api/v1/FileContent/upload/',
   },
-   cmsUiConfig : {
+  cmsUiConfig: {
     Pathlogin: '/auth/login',
     Pathlogout: '/auth/logout',
     PathRegistery: '/auth/registery',
+    PathSelectSite: '/core/site/select',
     Pathdashboard: '/dashboard/dashboard1',
-  
+  },
+  cmsTokenConfig: {
+    SecurityKey: '123456789',
+    ClientMACAddress: '',
+    OSType: EnumOperatingSystemType.Windows,
+    DeviceType: EnumDeviceType.WebSite,
+    PackageName: '',
   }
 };

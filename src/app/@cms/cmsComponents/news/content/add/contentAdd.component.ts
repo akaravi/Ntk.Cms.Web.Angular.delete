@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
+import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
 
 @Component({
   selector: 'app-news-content-add',
@@ -56,7 +56,16 @@ export class NewsContentAddComponent implements OnInit {
     // alert("helo Id:"+this.linkCategoryId)
 
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
   }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
+  }
+  
 
   onFormSubmit() {
     if (this.formGroup.valid) {

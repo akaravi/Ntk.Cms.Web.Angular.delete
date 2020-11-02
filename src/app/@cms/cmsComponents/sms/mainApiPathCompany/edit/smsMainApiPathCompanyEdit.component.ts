@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { FormGroup } from '@angular/forms';
-import { CoreEnumService, ErrorExcptionResult, FormInfoModel, SmsMainApiPathCompanyModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
+import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, SmsMainApiPathCompanyModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
 
 @Component({
@@ -31,6 +31,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
   dataModelResult: ErrorExcptionResult<SmsMainApiPathCompanyModel> = new ErrorExcptionResult<
     SmsMainApiPathCompanyModel
   >();
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -54,6 +55,13 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
       this.id = this.dateModleInput.id;
     }
     this.DataGetOneContent();
+    this.getEnumRecordStatus();
+  }
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
 
 

@@ -4,7 +4,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormGroup } from "@angular/forms";
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { BankPaymentPublicConfigModel, BankPaymentPublicConfigService, CoreEnumService, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
+import { BankPaymentPublicConfigModel, BankPaymentPublicConfigService, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
 
 
 @Component({
@@ -29,6 +29,14 @@ export class BankPaymentPublicConfigAddComponent implements OnInit {
   }
   ngOnInit() {
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
   loadingStatus = false; // add one more property
 

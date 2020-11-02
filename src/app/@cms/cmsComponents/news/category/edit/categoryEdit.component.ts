@@ -1,4 +1,4 @@
-import { BaseEntityCategory, CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
+import { BaseEntityCategory, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -63,6 +63,14 @@ export class NewsCategoryEditComponent implements OnInit {
       this.id = this.dateModleInput.id;
     }
     this.DataGetOneContent()
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
 
 

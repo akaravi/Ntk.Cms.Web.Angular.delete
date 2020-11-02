@@ -1,4 +1,4 @@
-import { BaseEntityCategory, CoreEnumService, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
+import { BaseEntityCategory, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -62,6 +62,14 @@ export class NewsCategoryAddComponent implements OnInit {
     }
     // alert("helo Id:"+this.parentId)
     // this.DataGetAllCoreEnum();
+    this.getEnumRecordStatus();
+  }
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
+  getEnumRecordStatus(): void {
+    this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
+      this.dataModelEnumRecordStatusResult = res;
+    });
   }
 
 

@@ -12,7 +12,7 @@ import {
   CoreAuthService,
 } from 'ntk-cms-api';
 import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
-import { environment } from '../../../../../../environments/environment.prod';
+import { environment } from '../../../../../../environments/environment';
 @Component({
   selector: 'app-cms-login',
   templateUrl: './login.component.html',
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (next.IsSuccess) {
             this.store.dispatch(new fromStore.InitHub());
             if (this.returnUrl === null || this.returnUrl === undefined) {
-              this.returnUrl = environment.cmsUiConfig.Pathdashboard;
+              this.returnUrl = environment.cmsUiConfig.PathSelectSite;
             }
             this.router.navigate([this.returnUrl]);
           } else {

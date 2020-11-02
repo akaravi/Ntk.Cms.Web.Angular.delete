@@ -1,4 +1,4 @@
-<span class="ml-3" *ngIf="(loadingStatus)">{{newsCategoryService.loadingText}}</span>
+<span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>
 <div class="card-content" *ngIf="!(loadingStatus)">
   <div class="px-3">
 
@@ -27,7 +27,7 @@
             <fieldset class="form-group">
               <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus" #RecordStatus="ngModel" required
                 class="form-control">
-                <option *ngFor="let item of coreEnumService.resultEnumRecordStatus.ListItems; index as i;"
+                <option *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;"
                   value="{{item.Value}}">
                   {{item.Key}}</option>
               </select>

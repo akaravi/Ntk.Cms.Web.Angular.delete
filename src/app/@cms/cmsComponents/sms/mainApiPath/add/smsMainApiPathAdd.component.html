@@ -5,7 +5,7 @@
                 <div class="card-header pb-2">
                     <h4 class="card-title" id="horz-layout-basic">اضافه کردن مسیر جدید</h4>
                     <p class="mb-0">
-                        <span class="ml-3" *ngIf="(loadingStatus)">{{smsMainApiPathService.loadingText}}</span>
+                        <span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>
                     </p>
                 </div>
                 <div class="card-content">
@@ -34,7 +34,7 @@
                                     <div class="col-md-9">
                                         <fieldset class="form-group">
                                             <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus" #RecordStatus="ngModel" required class="form-control">
-                                                <option *ngFor="let item of this.coreEnumService.resultEnumRecordStatus.ListItems; index as i;" value="{{item.Value}}">
+                                                <option *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;" value="{{item.Value}}">
                                                     {{item.Key}}</option>
                                             </select>
                                             <small class="form-text text-muted danger" *ngIf="RecordStatus.errors?.required">

@@ -20,7 +20,7 @@
 <!-- Sidebar Content starts -->
 <div class="sidebar-content" [perfectScrollbar]>
     <div class="nav-container">
-        <span class="ml-3" *ngIf=" loadingStatus">{{cmsAuthService.loadingText}}</span>
+        <span class="ml-3" *ngIf=" loadingStatus">Loding ...</span>
         <ul *ngIf="!loadingStatus" class="navigation" appSidebarList>
             <!-- First level menu -->
             <li appSidebarlink level="{{depth + 1}}" (toggleEmit)="handleToggle($event)" (click)="toggleSlideInOut()"

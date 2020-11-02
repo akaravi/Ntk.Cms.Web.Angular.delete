@@ -1,4 +1,4 @@
-<span class="ml-3" *ngIf=" loadingStatus">{{cmsAuthService.loadingText}}</span>
+<span class="ml-3" *ngIf=" loadingStatus">Loding ...</span>
 <div>
 
     <a (click)="onActionbuttonUserAccessAdminAllowToAllData()" *ngIf="TokenInfo &&( TokenInfo.UserType == 1 || TokenInfo.UserType == 2 || TokenInfo.UserType == 3)" class="btn btn-raised mr-1 shadow-z-2 btn-success" style="width:95%">

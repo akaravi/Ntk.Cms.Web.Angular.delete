@@ -4,6 +4,7 @@ import { CmsRoutes } from "./cms.routing";
 import { CmsFullLayoutComponent } from "./layouts/full/cmsFull-layout.component";
 import { CmsContentLayoutComponent } from "./layouts/content/cmsContent-layout.component";
 import { CmsSharedModule } from "./shared/cmsShared.module";
+import { CoreAuthService } from 'ntk-cms-api';
 
 
 
@@ -11,20 +12,21 @@ import { CmsSharedModule } from "./shared/cmsShared.module";
   imports: [
     CommonModule,
     CmsRoutes,
-    CmsSharedModule,    
-    
+    CmsSharedModule,
 
 
-    
+
+
   ],
   declarations: [
     CmsFullLayoutComponent,
     CmsContentLayoutComponent,
-    
-    
-  ],exports:[
-        
-    
-  ]
+
+
+  ], exports: [
+
+
+  ],
+  
 })
-export class CmsModule {}
+export class CmsModule { }

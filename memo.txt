@@ -27,3 +27,5 @@ git config core.ignorecase false
 git config --global core.ignorecase true
 
 =============================
+ng update --next @angular/cli --force
+npm install typescript@latest

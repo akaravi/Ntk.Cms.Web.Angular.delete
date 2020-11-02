@@ -21,6 +21,7 @@ import {
   declarations: [],
   exports: [],
   providers: [
+
     CoreConfigurationService,
     CoreGuideService,
     CoreLocationService,
@@ -35,4 +36,4 @@ import {
     CoreSiteCategoryModuleService,
   ],
 })
-export class CoreModule {}
+export class CoreModule { }

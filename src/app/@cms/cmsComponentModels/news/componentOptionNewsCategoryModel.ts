@@ -1,4 +1,5 @@
-import { ComponentOptionModel, NewsCategoryModel } from 'ntk-cms-api';
+import {  NewsCategoryModel } from 'ntk-cms-api';
+import { ComponentOptionModel } from 'app/@cms/cmsModels/base/componentOptionModel';
 
 export class ComponentOptionNewsCategoryModel implements ComponentOptionModel<ComponentOptionNewsCategoryDataModel, ComponentOptionNewsCategoryActionsModel, ComponentOptionNewsCategoryMethodsModel> {
   actions: ComponentOptionNewsCategoryActionsModel;

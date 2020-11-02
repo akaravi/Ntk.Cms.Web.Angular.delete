@@ -1,5 +1,5 @@
-import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
 import { ComponentOptionModel } from 'ntk-cms-api';
+import { ComponentModalDataModel } from 'app/@cms/cmsModels/base/componentModalModel';
 
 
 export class ComponentOptionModalModel

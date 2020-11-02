@@ -2,6 +2,7 @@
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
+import { EnumDeviceType, EnumOperatingSystemType } from 'ntk-cms-api';
 
 export const environment = {
   production: false,
@@ -20,6 +21,12 @@ export const environment = {
     Pathlogout: '/auth/logout',
     PathRegistery: '/auth/registery',
     Pathdashboard: '/dashboard/dashboard1',
-
+  },
+  cmsTokenConfig : {
+    SecurityKey: '123456789',
+    ClientMACAddress: '',
+    OSType: EnumOperatingSystemType.Windows,
+    DeviceType: EnumDeviceType.WebSite,
+    PackageName: '',
   }
 };

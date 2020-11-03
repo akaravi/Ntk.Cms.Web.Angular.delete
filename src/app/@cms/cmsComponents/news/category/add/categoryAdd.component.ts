@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { FormGroup } from '@angular/forms';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class NewsCategoryAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public newsCategoryService: NewsCategoryService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
 

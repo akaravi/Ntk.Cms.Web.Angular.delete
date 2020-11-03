@@ -13,7 +13,7 @@ import {
   ErrorExcptionResult,
   FilterModel,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-cms-site-add',
@@ -43,7 +43,7 @@ export class CoreSiteAddComponent implements OnInit {
   private dateModleInput: any;
 
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,

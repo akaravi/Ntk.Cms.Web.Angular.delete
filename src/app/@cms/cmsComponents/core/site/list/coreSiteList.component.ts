@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { DatatableComponent } from '@swimlane/ngx-datatable/release';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import {
   CoreModuleService,
   CoreSiteCategoryModuleService,
@@ -36,7 +36,7 @@ export class CoreSiteListComponent implements OnInit {
   dataModelSite: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
 
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,

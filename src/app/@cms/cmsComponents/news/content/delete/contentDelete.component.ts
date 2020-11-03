@@ -8,7 +8,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { CoreEnumService, FormInfoModel, ItemState, NewsContentModel, NewsContentService } from 'ntk-cms-api';
 
 
@@ -38,7 +38,7 @@ export class NewsContentDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public newsContentService: NewsContentService,
     public coreEnumService: CoreEnumService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {}
 

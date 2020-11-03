@@ -13,7 +13,7 @@ import { ConfigService } from '../../../shared/services/config.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import {
   AuthRenewTokenModel,
   CoreAuthService,
@@ -43,7 +43,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService,
     private router: Router,
     public cmsAuthService: CoreAuthService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
     // const browserLang: string = translate.getBrowserLang();

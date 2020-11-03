@@ -13,7 +13,7 @@ import {
   ErrorExcptionResult,
   FilterModel,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-cms-site-select',
@@ -27,7 +27,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
   constructor(
     private cmsAuthService: CoreAuthService,
     private coreSiteService: CoreSiteService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private router: Router,
     private coreCpMainMenuService: CoreCpMainMenuService

@@ -4,7 +4,7 @@ import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
 import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/news/componentOptionNewsCategoryModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { ErrorExcptionResult, FilterModel, NewsCategoryModel, NewsCategoryService } from 'ntk-cms-api';
 
 @Component({
@@ -67,7 +67,7 @@ export class NewsCategorySelectComponent implements OnInit {
   };
 
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public categoryService: NewsCategoryService
   ) { }

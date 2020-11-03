@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import {
   AuthRenewTokenModel,
   CoreAuthService,
@@ -18,7 +18,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
   UserId: number;
   constructor(
     public cmsAuthService: CoreAuthService,
-    private toastrService: CmsToastrServiceService
+    private toastrService: CmsToastrService
   ) {
     this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
       this.TokenInfo = vlaue;

@@ -3,7 +3,7 @@ import { TREE_ACTIONS, ITreeOptions, KEYS } from 'angular-tree-component';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
 import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import {
   FilterModel,
   ErrorExcptionResult,
@@ -69,7 +69,7 @@ export class SmsMainApiPathCompanySelectComponent implements OnInit {
   };
 
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathCompanyService
   ) {}

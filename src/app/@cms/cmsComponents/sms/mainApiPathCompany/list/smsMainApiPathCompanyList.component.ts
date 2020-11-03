@@ -8,7 +8,7 @@ import {
 } from '@swimlane/ngx-datatable';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { EnumSortType, ErrorExcptionResult, FilterModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
 
 @Component({
@@ -66,7 +66,7 @@ export class SmsMainApiPathCompanyListComponent implements OnInit {
   optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private modalService: NgbModal

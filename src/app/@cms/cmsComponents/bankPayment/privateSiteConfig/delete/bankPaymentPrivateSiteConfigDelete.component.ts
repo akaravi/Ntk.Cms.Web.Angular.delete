@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ActivatedRoute } from '@angular/router';
 import { BankPaymentPrivateSiteConfigService, FormInfoModel } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-bank-payment-private-site-config-delete',
@@ -21,7 +21,7 @@ export class BankPaymentPrivateSiteConfigDeleteComponent implements OnInit{
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: BankPaymentPrivateSiteConfigService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private bankPaymentPrivateSiteConfigService: BankPaymentPrivateSiteConfigService
   ) {}

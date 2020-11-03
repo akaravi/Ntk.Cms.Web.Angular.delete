@@ -5,7 +5,7 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
 import { FormGroup } from '@angular/forms';
 import { BaseEntityCategory, CoreEnumService, ErrorExcptionResult, FilterModel, FormInfoModel, NewsCategoryModel, NewsCategoryService } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-news-category-delete',
@@ -40,7 +40,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private coreEnumService: CoreEnumService,
     private newsCategoryService: NewsCategoryService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) { }
   ngOnInit() {

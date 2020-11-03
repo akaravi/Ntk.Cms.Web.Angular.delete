@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { FormGroup } from '@angular/forms';
 import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, SmsMainApiPathCompanyModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-sms-main-api-path-company-edit',
@@ -37,7 +37,7 @@ export class SmsMainApiPathCompanyEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
     // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {

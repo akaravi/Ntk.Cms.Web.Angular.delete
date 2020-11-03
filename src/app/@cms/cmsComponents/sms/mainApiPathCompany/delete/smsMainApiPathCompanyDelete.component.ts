@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { FormInfoModel, SmsMainApiPathCompanyService } from 'ntk-cms-api';
@@ -30,7 +30,7 @@ export class SmsMainApiPathCompanyDeleteComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: SmsMainApiPathCompanyService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) { }
 

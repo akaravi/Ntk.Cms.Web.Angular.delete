@@ -11,7 +11,7 @@ import {
   CaptchaModel,
   CoreAuthService,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { environment } from '../../../../../../environments/environment';
 @Component({
   selector: 'app-cms-login',
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CoreAuthService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}

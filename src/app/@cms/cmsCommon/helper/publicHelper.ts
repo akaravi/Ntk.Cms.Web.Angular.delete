@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { toArray } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from 'environments/environment';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { EnumRecordStatus, ErrorExcptionResultBase } from 'ntk-cms-api';
 
 @Injectable({
@@ -13,7 +11,7 @@ export class PublicHelper {
   // TokenInfo: TokenInfoModel;
   constructor(
     private router: Router,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     // cmsAuthService: CmsAuthService
   ) {
     // cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
@@ -29,7 +27,7 @@ export class PublicHelper {
     if (model['error']) {
       errorExcptionResult = model['error'];
       if (errorExcptionResult) {
-        if (errorExcptionResult.Status == 401) {
+        if (errorExcptionResult.Status === 401) {
           this.toastrService.toastr.warning(
             'لطفا مجددا وارد حساب کاربری خود شوید',
             'نیاز به ورود مجدد'

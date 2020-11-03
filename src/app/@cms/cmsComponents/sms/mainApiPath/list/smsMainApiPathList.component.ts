@@ -19,7 +19,7 @@ import {
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ComponentOptionSmsMainApiPathCompanyModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathCompanyModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { EnumSortType, ErrorExcptionResult, FilterModel, SmsMainApiPathCompanyModel, FilterDataModel, SmsMainApiPathService } from 'ntk-cms-api';
 
 
@@ -74,7 +74,7 @@ export class SmsMainApiPathListComponent implements OnInit {
   closeResult: string;
   optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private router: Router,
     private publicHelper: PublicHelper,
     public smsMainApiPathService: SmsMainApiPathService,

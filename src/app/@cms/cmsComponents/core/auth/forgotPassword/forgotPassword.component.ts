@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
 import { CaptchaModel, CoreAuthService } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-cms-forgot-password',
@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private cmsAuthService: CoreAuthService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
   ) {}

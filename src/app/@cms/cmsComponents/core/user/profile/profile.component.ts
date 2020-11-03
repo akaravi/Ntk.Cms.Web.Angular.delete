@@ -8,7 +8,7 @@ import {
   CoreUserModel,
   CoreUserService,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +26,7 @@ export class CoreUserProfileComponent implements OnInit {
   currentPage = 'About';
   constructor(
     private coreUserService: CoreUserService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private cmsAuthService: CoreAuthService
   ) {}

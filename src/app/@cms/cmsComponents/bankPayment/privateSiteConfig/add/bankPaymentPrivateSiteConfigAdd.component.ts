@@ -4,7 +4,7 @@ import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormGroup } from "@angular/forms";
 import { BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class BankPaymentPrivateSiteConfigAddComponent implements OnInit {
     private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public bankPaymentPrivateSiteConfigService: BankPaymentPrivateSiteConfigService
   ) {

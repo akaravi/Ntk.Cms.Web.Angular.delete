@@ -8,7 +8,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import {
   CoreEnumService,
   EnumModel,
@@ -47,7 +47,7 @@ export class SmsMainApiPathEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public smsMainApiPathService: SmsMainApiPathService,
     public coreEnumService: CoreEnumService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
     // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {

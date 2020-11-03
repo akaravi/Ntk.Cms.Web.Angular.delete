@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class CmsToastrServiceService {
+export class CmsToastrService {
   constructor(public toastr: ToastrService) {}
 
   // Success Type

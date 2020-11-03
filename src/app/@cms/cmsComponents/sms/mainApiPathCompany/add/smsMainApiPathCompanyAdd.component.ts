@@ -17,7 +17,7 @@ import {
   SmsMainApiPathCompanyModel,
   SmsMainApiPathCompanyService,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-sms-main-api-path-company-add',
@@ -47,7 +47,7 @@ export class SmsMainApiPathCompanyAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
     // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {

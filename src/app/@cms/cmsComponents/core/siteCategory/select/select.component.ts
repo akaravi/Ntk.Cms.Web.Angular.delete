@@ -11,7 +11,7 @@ import {
   FilterDataModel,
   FilterModel,
 } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-core-site-category-select',
@@ -32,7 +32,7 @@ export class CoreSiteCategorySelectComponent implements OnInit {
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
     private coreModuleService: CoreModuleService,
 
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {}
 

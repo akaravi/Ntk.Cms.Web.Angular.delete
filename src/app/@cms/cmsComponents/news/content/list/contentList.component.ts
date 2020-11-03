@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  ChangeDetectorRef,
 } from '@angular/core';
 
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
@@ -13,7 +12,7 @@ import {
   TableColumn,
   SelectionType,
 } from '@swimlane/ngx-datatable';
-import { TREE_ACTIONS, KEYS, ITreeOptions } from 'angular-tree-component';
+
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { BaseComponent } from 'app/@cms/cmsComponents/_base/baseComponent';
@@ -22,7 +21,7 @@ import { ComponentOptionNewsCategoryModel } from 'app/@cms/cmsComponentModels/ne
 import { ComponentOptionSearchContentModel } from 'app/@cms/cmsComponentModels/base/componentOptionSearchContentModel';
 import { ComponentOptionModalModel } from 'app/@cms/cmsComponentModels/base/componentOptionModalModel';
 import { EnumSortType, ErrorExcptionResult, FilterDataModel, FilterModel, NewsCategoryModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 
 @Component({
   selector: 'app-news-content-list',
@@ -32,12 +31,6 @@ import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrServi
 export class NewsContentListComponent extends BaseComponent implements OnInit {
   @ViewChild('contentModal', { static: false })
   contentModal: ElementRef;
-  // @ViewChild('contentContentAdd', { static: false })
-  // contentContentAdd: ElementRef;
-  // @ViewChild('contentContentEdit', { static: false })
-  // contentContentEdit: ElementRef;
-  // @ViewChild('contentContentDelete', { static: false })
-  // contentContentDelete: ElementRef;
   loadingStatus = false; // add one more property
 
 
@@ -93,51 +86,14 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  optionsModelTree: ITreeOptions = {
-    idField: 'id',
-    displayField: 'Title',
-    childrenField: 'Children',
-    actionMapping: {
-      mouse: {
-        dblClick: (tree, node, $event) => {
-          if (node.hasChildren) {
-            TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-          }
-        },
-        click: (tree, node) => {
-          this.onActionCategorySelect(node);
-        },
-      },
-      keys: {
-        [KEYS.ENTER]: (tree, node) => {
-          node.expandAll();
-        },
-      },
-    },
-    // nodeHeight: 23,
-    allowDrag: () => {
-      return false;
-    },
-    allowDrop: () => {
-      return false;
-    },
-    allowDragoverStyling: true,
-    levelPadding: 10,
-    // useVirtualScroll: true,
-    animateExpand: true,
-    scrollOnActivate: true,
-    animateSpeed: 30,
-    animateAcceleration: 1.2,
-    // scrollContainer: document.documentElement, // HTML
-    rtl: true,
-  };
+
   optionsCategorySelect: ComponentOptionNewsCategoryModel = new ComponentOptionNewsCategoryModel();
   optionModelModal: ComponentOptionModalModel = new ComponentOptionModalModel();
 
   closeResult: string;
   optionsSearch: ComponentOptionSearchContentModel = new ComponentOptionSearchContentModel();
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     private modalService: NgbModal,
     public contentService: NewsContentService,
@@ -165,30 +121,11 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
   openModal(content, contentModal: ComponentModalDataModel) {
     this.optionModelModal.methods.openModal(contentModal);
     this.modalModel = contentModal;
-    // this.modalService.open(content).result.then(
-    //   (result) => {
-    //     this.closeResult = `بسته شدن با: ${result}`;
-    //     this.onActionCategoryReload();
-    //   },
-    //   (reason) => {
-    //     this.closeResult = `رها شدن با ${this.getDismissReason(reason)}`;
-    //     this.onActionCategoryReload();
-    //   }
-    // );
   }
   onActionCategoryReload() {
     this.optionsCategorySelect.methods.ActionReload();
   }
-  // This function is used in open
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'با فشردن ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'با کلیک کردن یک backdrop';
-    } else {
-      return `با: ${reason}`;
-    }
-  }
+
 
 
   DataGetAllContent() {

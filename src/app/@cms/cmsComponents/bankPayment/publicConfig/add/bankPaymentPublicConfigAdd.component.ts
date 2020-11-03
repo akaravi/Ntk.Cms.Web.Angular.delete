@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PublicHelper } from "app/@cms/cmsCommon/helper/publicHelper";
 import { FormGroup } from "@angular/forms";
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { BankPaymentPublicConfigModel, BankPaymentPublicConfigService, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel } from 'ntk-cms-api';
 
 
@@ -17,7 +17,7 @@ export class BankPaymentPublicConfigAddComponent implements OnInit {
     private changeDetectorRef:ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public bankPaymentPublicConfigService: BankPaymentPublicConfigService
   ) {

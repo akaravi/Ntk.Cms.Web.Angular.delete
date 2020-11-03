@@ -24,7 +24,7 @@ import { CmsComponent } from './@cms/cms.component';
 import { ThemeComponent } from './@theme/theme.component';
 import { MainSharedModule } from './shared/mainShared.module';
 import { CmsAuthGuard } from './@cms/cmsService/base/auth.guard.service';
-import { CmsToastrServiceService } from './@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from './@cms/cmsService/base/cmsToastr.service';
 import { CoreAuthService } from 'ntk-cms-api';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -85,7 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
     //   provide: ErrorHandler,
     //   useClass: AppErrorHandler
     // }
-    CmsToastrServiceService,
+    CmsToastrService,
   ],
   bootstrap: [AppComponent],
 })

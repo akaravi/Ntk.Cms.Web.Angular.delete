@@ -5,7 +5,7 @@ import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 
 
 import { ComponentOptionSmsMainApiPathModel } from 'app/@cms/cmsComponentModels/sms/componentOptionSmsMainApiPathModel';
-import { CmsToastrServiceService } from 'app/@cms/cmsService/base/cmsToastrService.service';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
 import { ErrorExcptionResult, FilterModel, SmsMainApiPathModel, SmsMainApiPathService } from 'ntk-cms-api';
 
 
@@ -68,7 +68,7 @@ export class SmsMainApiPathSelectComponent implements OnInit {
   };
 
   constructor(
-    private toastrService: CmsToastrServiceService,
+    private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
     public categoryService: SmsMainApiPathService
   ) { }

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-forgot-password-page',
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 
 export class ForgotPasswordPageComponent {
-    @ViewChild('f', {static: false}) forogtPasswordForm: NgForm;
+    @ViewChild('f', { static: false }) forogtPasswordForm: NgForm;
 
     constructor(private router: Router,
         private route: ActivatedRoute) { }

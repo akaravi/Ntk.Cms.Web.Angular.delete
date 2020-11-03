@@ -1,11 +1,10 @@
-export interface TemplateConfig
-{
+export interface TemplateConfig {
     layout: {
         variant: string
         dir: string,
-        customizer: {           
-            hidden: boolean           
-        },       
+        customizer: {
+            hidden: boolean
+        },
         sidebar: {
             collapsed: boolean,
             size: string,

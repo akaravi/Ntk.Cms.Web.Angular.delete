@@ -23,11 +23,11 @@ export const environment = {
     PathSelectSite: '/core/site/select',
     Pathdashboard: '/dashboard/dashboard1',
   },
-  cmsTokenConfig : {
+  cmsTokenConfig: {
     SecurityKey: '123456789',
     ClientMACAddress: '',
     OSType: EnumOperatingSystemType.Windows,
     DeviceType: EnumDeviceType.WebSite,
     PackageName: '',
   }
-};
+}

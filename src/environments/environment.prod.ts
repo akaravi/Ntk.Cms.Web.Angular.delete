@@ -25,4 +25,4 @@ export const environment = {
     DeviceType: EnumDeviceType.WebSite,
     PackageName: '',
   }
-};
+}

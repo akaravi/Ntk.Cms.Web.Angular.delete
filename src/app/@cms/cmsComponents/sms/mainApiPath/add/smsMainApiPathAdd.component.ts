@@ -27,10 +27,11 @@ export class SmsMainApiPathAddComponent implements OnInit {
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: SmsMainApiPathModel = new SmsMainApiPathModel();
   dataModelResult: ErrorExcptionResult<
-  SmsMainApiPathModel
+    SmsMainApiPathModel
   > = new ErrorExcptionResult<SmsMainApiPathModel>();
   linkCategoryId: number;
   loadingStatus = false; // add one more property
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
   constructor(
     private activatedRoute: ActivatedRoute,
     public smsMainApiPathService: SmsMainApiPathService,
@@ -65,14 +66,12 @@ export class SmsMainApiPathAddComponent implements OnInit {
     // });
     this.getEnumRecordStatus();
   }
-  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
 
   getEnumRecordStatus(): void {
     this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
       this.dataModelEnumRecordStatusResult = res;
     });
   }
-  
 
   onFormSubmit() {
     if (this.formGroup.valid) {

@@ -91,7 +91,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
       );
       return;
     }
-    this.dataModel.linkApiPathCompanyid = this.linkCategoryId;
+    this.dataModel.LinkApiPathCompanyid = this.linkCategoryId;
     this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
     this.formInfo.formError = '';
     this.loadingStatus = true;
@@ -125,13 +125,13 @@ export class SmsMainApiPathAddComponent implements OnInit {
     if (model && model.Id > 0) {
 
 
-      const Title = this.dataModel.title;
-      const Description = this.dataModel.description;
+      const Title = this.dataModel.Title;
+      const Description = this.dataModel.Description;
       const RecordStatus = this.dataModel.RecordStatus;
       this.dataModel = Object.assign({}, model); ;
 
-      this.dataModel.title = Title;
-      this.dataModel.description = Description;
+      this.dataModel.Title = Title;
+      this.dataModel.Description = Description;
       this.dataModel.RecordStatus = RecordStatus;
 
     }

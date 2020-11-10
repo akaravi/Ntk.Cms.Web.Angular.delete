@@ -28,7 +28,7 @@ export class CoreUserProfileComponent implements OnInit {
     private coreUserService: CoreUserService,
     private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
-    private cmsAuthService: CoreAuthService
+    private coreAuthService: CoreAuthService
   ) {}
   ngOnInit() {
     // this.CoreUserEditformGroup = new FormGroup({
@@ -83,7 +83,7 @@ export class CoreUserProfileComponent implements OnInit {
     model.NewPassword = this.CoreUserPasswordEditformGroup.get(
       'NewPassword'
     ).value;
-    this.cmsAuthService.ServiceChangePassword(model).subscribe(
+    this.coreAuthService.ServiceChangePassword(model).subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.onSubmitCoreUserPasswordEditRun = true;

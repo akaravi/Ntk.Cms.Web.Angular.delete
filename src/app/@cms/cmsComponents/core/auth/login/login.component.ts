@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cmsAuthService: CoreAuthService,
+    private coreAuthService: CoreAuthService,
     private toastrService: CmsToastrService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.model.captchaKey = this.captchaModel.Key;
     this.subManager.add(
-      this.cmsAuthService.ServiceSigninUser(this.model).subscribe(
+      this.coreAuthService.ServiceSigninUser(this.model).subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.store.dispatch(new fromStore.InitHub());
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   onCaptchaOrder() {
     this.model.captchaText = '';
     this.subManager.add(
-      this.cmsAuthService.ServiceCaptcha().subscribe(
+      this.coreAuthService.ServiceCaptcha().subscribe(
         (next) => {
           this.captchaModel = next.Item;
         },

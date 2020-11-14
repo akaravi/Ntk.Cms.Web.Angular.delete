@@ -32,7 +32,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     AuthModel.UserAccessAdminAllowToAllData = NewToall;
     AuthModel.SiteId = this.TokenInfo.SiteId;
     AuthModel.UserId = this.TokenInfo.UserId;
-    AuthModel.lang = this.TokenInfo.Language;
+    AuthModel.Lang = this.TokenInfo.Language;
 
     const title = 'اطلاعات ';
     let message = '';
@@ -71,7 +71,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     AuthModel.UserAccessAdminAllowToAllData = this.TokenInfo.UserAccessAdminAllowToAllData;
     AuthModel.SiteId = this.TokenInfo.SiteId;
     AuthModel.UserId = this.TokenInfo.UserId;
-    AuthModel.lang = this.TokenInfo.Language;
+    AuthModel.Lang = this.TokenInfo.Language;
 
     const title = 'اطلاعات ';
     let message = '';
@@ -116,7 +116,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     AuthModel.UserAccessAdminAllowToAllData = this.TokenInfo.UserAccessAdminAllowToAllData;
     AuthModel.SiteId = this.TokenInfo.SiteId;
     AuthModel.UserId = this.UserId;
-    AuthModel.lang = this.TokenInfo.Language;
+    AuthModel.Lang = this.TokenInfo.Language;
 
     const title = 'اطلاعات ';
     const message = 'درخواست تغییر کاربر به سرور ارسال شد';
@@ -154,7 +154,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     AuthModel.UserAccessAdminAllowToAllData = this.TokenInfo.UserAccessAdminAllowToAllData;
     AuthModel.UserId = this.TokenInfo.UserId;
     AuthModel.SiteId = this.SiteId;
-    AuthModel.lang = this.TokenInfo.Language;
+    AuthModel.Lang = this.TokenInfo.Language;
 
     const title = 'اطلاعات ';
     const message = 'درخواست تغییر سایت به سرور ارسال شد';

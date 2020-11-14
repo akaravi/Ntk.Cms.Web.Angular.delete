@@ -160,7 +160,7 @@ export class CmsSearchContentListComponent implements OnInit {
     const searchType = this.getSearchType(rule.operator);
     const Filter = new FilterDataModel();
     Filter.PropertyName = rule.field;
-    Filter.value = rule.value;
+    Filter.Value = rule.value;
     Filter.SearchType = searchType;
     return Filter;
   }

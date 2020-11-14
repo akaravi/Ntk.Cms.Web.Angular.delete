@@ -10,7 +10,15 @@ import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
   templateUrl: './bankPaymentPrivateSiteConfigDelete.component.html',
   styleUrls: ['./bankPaymentPrivateSiteConfigDelete.component.scss']
 })
-export class BankPaymentPrivateSiteConfigDeleteComponent implements OnInit{
+export class BankPaymentPrivateSiteConfigDeleteComponent implements OnInit {
+  id: any;
+
+  private dateModleInput: any;
+  @ViewChild('vform', { static: false })
+  formGroup: FormGroup;
+
+  formInfo: FormInfoModel = new FormInfoModel();
+
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -25,27 +33,20 @@ export class BankPaymentPrivateSiteConfigDeleteComponent implements OnInit{
     private publicHelper: PublicHelper,
     private bankPaymentPrivateSiteConfigService: BankPaymentPrivateSiteConfigService
   ) {}
-  id: any;
-
-  private dateModleInput: any;
-  @ViewChild("vform", { static: false })
-  formGroup: FormGroup;
-
-  formInfo: FormInfoModel = new FormInfoModel();
 
   ngOnInit() {
-    this.id = Number.parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.activatedRoute.queryParams.subscribe((params) => {
       // Defaults to 0 if no query param provided.
-      this.id = +params["id"] || 0;
+      this.id = +params['id'] || 0;
     });
     if (this.dateModleInput && this.dateModleInput.id) {
       this.id = this.dateModleInput.id;
     }
-    if (!this.id || this.id == 0) {
-      this.formInfo.formAlert = "برروز خطا";
-      this.formInfo.formError = "شناسه دسته بندی مشخص نمی باشد";
-      this.formInfo.disabledButtonSubmitted = true;
+    if (!this.id || this.id === 0) {
+      this.formInfo.FormAlert = 'برروز خطا';
+      this.formInfo.FormError = 'شناسه دسته بندی مشخص نمی باشد';
+      this.formInfo.DisabledButtonSubmitted = true;
       return;
     }
   }

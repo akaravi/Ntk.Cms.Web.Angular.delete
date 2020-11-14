@@ -1,4 +1,4 @@
-import { BaseEntityCategory, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
+import { NewsCategoryModel, CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCategoryService } from 'ntk-cms-api';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +13,8 @@ import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
   styleUrls: ['./categoryAdd.component.scss'],
 })
 export class NewsCategoryAddComponent implements OnInit {
+  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+
   @Input()
   set options(model: any) {
     this.dateModleInput = model;
@@ -21,13 +23,8 @@ export class NewsCategoryAddComponent implements OnInit {
     return this.dateModleInput;
   }
   private dateModleInput: any;
-  // dataModelResultCoreEnum: ErrorExcptionResult<any> = new ErrorExcptionResult<any>();
-  dataModelResultCategory: ErrorExcptionResult<
-    BaseEntityCategory<number>
-  > = new ErrorExcptionResult<BaseEntityCategory<number>>();
-  dataModelCategory: BaseEntityCategory<number> = new BaseEntityCategory<
-    number
-  >();
+  dataModelResultCategory: ErrorExcptionResult<NewsCategoryModel> = new ErrorExcptionResult<NewsCategoryModel>();
+  dataModelCategory: NewsCategoryModel = new NewsCategoryModel();
   parentId: number;
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
 
@@ -41,12 +38,6 @@ export class NewsCategoryAddComponent implements OnInit {
     private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
-
-    // this.coreEnumService.resultEnumRecordStatusObs.subscribe((vlaue) => {
-    //   if (vlaue && vlaue.IsSuccess) { this.coreEnumService.resultEnumRecordStatus = vlaue; }
-    //   this.coreEnumService.ServiceEnumRecordStatus() ;
-    // });
-
   }
 
   ngOnInit() {
@@ -60,11 +51,8 @@ export class NewsCategoryAddComponent implements OnInit {
     if (this.dateModleInput && this.dateModleInput.parentId) {
       this.parentId = this.dateModleInput.parentId;
     }
-    // alert("helo Id:"+this.parentId)
-    // this.DataGetAllCoreEnum();
     this.getEnumRecordStatus();
   }
-  dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
 
   getEnumRecordStatus(): void {
     this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
@@ -75,26 +63,26 @@ export class NewsCategoryAddComponent implements OnInit {
 
   DataAddContent() {
     if (this.parentId > 0) { this.dataModelCategory.LinkParentId = this.parentId; }
-    this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
-    this.formInfo.formError = '';
+    this.formInfo.FormAlert = 'در حال ارسال اطلاعات به سرور';
+    this.formInfo.FormError = '';
     this.loadingStatus = true;
     this.newsCategoryService
       .ServiceAdd(this.dataModelCategory)
       .subscribe(
         (next) => {
           this.loadingStatus = false;
-          this.formInfo.formAllowSubmit = !next.IsSuccess;
+          this.formInfo.FormAllowSubmit = !next.IsSuccess;
           this.dataModelResultCategory = next;
           if (next.IsSuccess) {
-          this.formInfo.formAlert = 'ثبت با موفقت انجام شد';
+          this.formInfo.FormAlert = 'ثبت با موفقت انجام شد';
           } else {
-          this.formInfo.formAlert = 'برروز خطا';
-          this.formInfo.formError = next.ErrorMessage;
+          this.formInfo.FormAlert = 'برروز خطا';
+          this.formInfo.FormError = next.ErrorMessage;
           }
         },
         (error) => {
           this.loadingStatus = false;
-          this.formInfo.formAllowSubmit = true;
+          this.formInfo.FormAllowSubmit = true;
           this.toastrService.toastr.error(
             this.publicHelper.CheckError(error),
             'برروی خطا در دریافت اطلاعات'
@@ -104,7 +92,7 @@ export class NewsCategoryAddComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formAllowSubmit = false;
+      this.formInfo.FormAllowSubmit = false;
       this.DataAddContent();
     }
   }

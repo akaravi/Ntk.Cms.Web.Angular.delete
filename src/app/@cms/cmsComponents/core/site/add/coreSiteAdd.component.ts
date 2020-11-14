@@ -47,7 +47,7 @@ export class CoreSiteAddComponent implements OnInit {
     private publicHelper: PublicHelper,
     private coreSiteService: CoreSiteService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
-    private cmsAuthService: CoreAuthService,
+    private coreAuthService: CoreAuthService,
 
     private coreModuleService: CoreModuleService,
     private coreSiteCategoryService: CoreSiteCategoryService
@@ -174,7 +174,7 @@ export class CoreSiteAddComponent implements OnInit {
   }
   onCaptchaOrder() {
     this.subManager.add(
-      this.cmsAuthService.ServiceCaptcha().subscribe(
+      this.coreAuthService.ServiceCaptcha().subscribe(
         (next) => {
           this.captchaModel = next.Item;
         },

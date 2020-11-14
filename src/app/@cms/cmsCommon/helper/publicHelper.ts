@@ -12,9 +12,9 @@ export class PublicHelper {
   constructor(
     private router: Router,
     private toastrService: CmsToastrService,
-    // cmsAuthService: CmsAuthService
+    // coreAuthService: CmsAuthService
   ) {
-    // cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
+    // coreAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
     //   this.TokenInfo = vlaue;
     // });
   }

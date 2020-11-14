@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService,
     private router: Router,
     private route: ActivatedRoute,
-    private cmsAuthService: CoreAuthService,
+    private coreAuthService: CoreAuthService,
     private toastrService: ToastrService,
     private publicHelper: PublicHelper
   ) {
@@ -104,7 +104,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   ActionLogOut() {
-    this.cmsAuthService.ServiceLogout().subscribe(
+    this.coreAuthService.ServiceLogout().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.router.navigate([environment.cmsUiConfig.Pathlogin]);

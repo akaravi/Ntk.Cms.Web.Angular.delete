@@ -48,7 +48,7 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService,
     private layoutService: LayoutService,
     private coreCpMainMenuService: CoreCpMainMenuService,
-    public cmsAuthService: CoreAuthService
+    public coreAuthService: CoreAuthService
   ) {
     if (this.depth === undefined) {
       this.depth = 0;
@@ -57,7 +57,7 @@ export class CmsSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.coreCpMainMenuService.coreCpMainMenuObs.subscribe((value) => {
       this.menuItems = this.menuConvertor(value);
     });
-    this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
+    this.coreAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
       // console.log("TokenInfo Navbar:",vlaue);
       this.DataGetCpMenu();
     });

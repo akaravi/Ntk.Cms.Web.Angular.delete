@@ -23,7 +23,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
   filteModel = new FilterModel();
   dataModel: ErrorExcptionResult<any>;
   constructor(
-    private cmsAuthService: CoreAuthService,
+    private coreAuthService: CoreAuthService,
     private coreSiteService: CoreSiteService,
     private toastrService: CmsToastrService,
     private publicHelper: PublicHelper,
@@ -61,7 +61,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
     AuthModel = new AuthRenewTokenModel();
     AuthModel.SiteId = model['Id'];
     this.subManager.add(
-      this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+      this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.router.navigate([environment.cmsUiConfig.Pathdashboard]);
@@ -82,7 +82,7 @@ export class CoreSiteSelectComponent implements OnInit, OnDestroy {
       AuthModel = new AuthRenewTokenModel();
       AuthModel.SiteId = model['Id'];
       this.subManager.add(
-        this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+        this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
           (next) => {
             if (next.IsSuccess) {
               this.router.navigate([environment.cmsUiConfig.Pathdashboard]);

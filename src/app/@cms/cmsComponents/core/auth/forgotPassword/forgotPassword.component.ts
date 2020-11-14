@@ -26,7 +26,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cmsAuthService: CoreAuthService,
+    private coreAuthService: CoreAuthService,
     private toastrService: CmsToastrService,
     private store: Store<fromStore.State>,
     private publicHelper: PublicHelper
@@ -48,7 +48,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.model.captchaKey = this.captchaModel.Key;
     this.subManager.add(
-      this.cmsAuthService.ServiceForgetPassword(this.model).subscribe(
+      this.coreAuthService.ServiceForgetPassword(this.model).subscribe(
         (next) => {
           if (next.IsSuccess) {
             this.store.dispatch(new fromStore.InitHub());
@@ -69,7 +69,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
   onCaptchaOrder() {
     this.subManager.add(
-      this.cmsAuthService.ServiceCaptcha().subscribe(
+      this.coreAuthService.ServiceCaptcha().subscribe(
         (next) => {
           this.captchaModel = next.Item;
         },

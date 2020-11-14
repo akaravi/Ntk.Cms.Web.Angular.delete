@@ -17,10 +17,10 @@ export class CmsTokenAccessAdminComponent implements OnInit {
   SiteId: number;
   UserId: number;
   constructor(
-    public cmsAuthService: CoreAuthService,
+    public coreAuthService: CoreAuthService,
     private toastrService: CmsToastrService
   ) {
-    this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
+    this.coreAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
       this.TokenInfo = vlaue;
     });
   }
@@ -43,7 +43,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     }
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
-    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+    this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {
@@ -82,7 +82,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     }
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
-    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+    this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {
@@ -122,7 +122,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     const message = 'درخواست تغییر کاربر به سرور ارسال شد';
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
-    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+    this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {
@@ -160,7 +160,7 @@ export class CmsTokenAccessAdminComponent implements OnInit {
     const message = 'درخواست تغییر سایت به سرور ارسال شد';
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
-    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+    this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {

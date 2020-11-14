@@ -42,7 +42,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private layoutService: LayoutService,
     private configService: ConfigService,
     private router: Router,
-    public cmsAuthService: CoreAuthService,
+    public coreAuthService: CoreAuthService,
     private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {
@@ -58,7 +58,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.placement = 'bottom-right';
       }
     });
-    this.cmsAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
+    this.coreAuthService.CorrectTokenInfoBSObs.subscribe((vlaue) => {
       // console.log("TokenInfo Navbar:",vlaue);
       this.TokenInfo = vlaue;
     });
@@ -71,7 +71,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.TokenInfo.UserId == null ||
       this.TokenInfo.UserId === 0
     ) {
-      this.cmsAuthService.CorrectTokenInfoBSRenew();
+      this.coreAuthService.CorrectTokenInfoBSRenew();
     }
   }
   ngAfterViewInit() {
@@ -107,7 +107,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     let message = 'درخواست تغییر زبان به سرور ارسال شد';
     this.toastrService.toastr.info(message, title);
     this.loadingStatus = true;
-    this.cmsAuthService.ServiceRenewToken(AuthModel).subscribe(
+    this.coreAuthService.ServiceRenewToken(AuthModel).subscribe(
       (next) => {
         this.loadingStatus = false;
         if (next.IsSuccess) {
@@ -151,7 +151,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   ActionLogOut() {
     this.loadingStatus = true;
 
-    this.cmsAuthService.ServiceLogout().subscribe(
+    this.coreAuthService.ServiceLogout().subscribe(
       (next) => {
         if (next.IsSuccess) {
           this.router.navigate([environment.cmsUiConfig.Pathlogin]);

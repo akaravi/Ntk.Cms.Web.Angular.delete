@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../cmsStore';
-import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import {
   AuthUserSignInModel,
@@ -24,7 +23,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   model: AuthUserSignInModel = new AuthUserSignInModel();
   returnUrl: any = '';
   captchaModel: CaptchaModel = new CaptchaModel();
-  // emit value in sequence every 10 second
   source = interval(1000 * 60 * 5);
 
   constructor(
@@ -45,15 +43,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
     );
     this.onCaptchaOrder();
-    this.subManager = this.source.subscribe((val) => this.onCaptchaOrder());
+    this.subManager = this.source.subscribe(() => this.onCaptchaOrder());
   }
   ngOnDestroy() {
     this.subManager.unsubscribe();
   }
 
-  // On submit button click
   onSubmit() {
-    this.model.captchaKey = this.captchaModel.Key;
+    this.model.CaptchaKey = this.captchaModel.Key;
     this.subManager.add(
       this.coreAuthService.ServiceSigninUser(this.model).subscribe(
         (next) => {
@@ -78,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
   onCaptchaOrder() {
-    this.model.captchaText = '';
+    this.model.CaptchaText = '';
     this.subManager.add(
       this.coreAuthService.ServiceCaptcha().subscribe(
         (next) => {

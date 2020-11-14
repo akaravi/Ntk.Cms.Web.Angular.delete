@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
-import { ToastrService } from 'ngx-toastr';
 import {
   CoreModuleService,
   CoreSiteCategoryModuleService,
@@ -31,7 +29,6 @@ export class CoreSiteCategorySelectComponent implements OnInit {
     private coreSiteCategoryService: CoreSiteCategoryService,
     private coreSiteCategoryModuleService: CoreSiteCategoryModuleService,
     private coreModuleService: CoreModuleService,
-
     private toastrService: CmsToastrService,
     private publicHelper: PublicHelper
   ) {}

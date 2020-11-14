@@ -12,7 +12,6 @@ import {
   CoreSiteService,
   CoreSiteCategoryService,
   CoreSiteCategoryCmsModuleService,
-  CoreUserBadLoginService,
   CoreSiteCategoryModuleService,
 } from 'ntk-cms-api';
 
@@ -32,7 +31,6 @@ import {
     CoreSiteService,
     CoreSiteCategoryService,
     CoreSiteCategoryCmsModuleService,
-    CoreUserBadLoginService,
     CoreSiteCategoryModuleService,
   ],
 })

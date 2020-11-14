@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';

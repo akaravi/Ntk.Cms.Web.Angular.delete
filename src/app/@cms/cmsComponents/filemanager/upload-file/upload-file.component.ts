@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 
 const URL =
   environment.cmsServerConfig.configApiServerPath + 'FileContent/Upload/';
-// const URL = "http://localhost:2390/api/v1/FileContent/Upload/";
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
@@ -45,9 +44,6 @@ export class UploadFileComponent implements AfterViewInit, OnInit, OnDestroy {
         if (flowFile.myparams) {
           return flowFile.myparams;
         }
-        // console.log(flowChunk.offset)
-
-        // generate some values
         flowFile.myparams = {
           Filename: flowChunk.fileObj.name,
           Identifier: flowChunk.fileObj.uniqueIdentifier,
@@ -61,7 +57,6 @@ export class UploadFileComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit() {
     this.autoUploadSubscription = this.flow.events$.subscribe((event) => {
-      // console.log("event",event);
       switch (event.type) {
         case 'filesSubmitted':
           return this.flow.upload();

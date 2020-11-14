@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../cmsStore';
-import { ToastrService } from 'ngx-toastr';
 import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
 import { environment } from 'environments/environment';
 import { CaptchaModel, CoreAuthService } from 'ntk-cms-api';

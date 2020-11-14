@@ -16,14 +16,12 @@ const appRoutes: Routes = [
     component: CmsFullLayoutComponent,
     data: { title: 'full Views' },
     children: FullLayoutROUTES,
-    //canActivate: [CmsAuthGuard],
   },
   {
     path: '',
     component: CmsContentLayoutComponent,
     data: { title: 'content Views' },
     children: ContentLayoutROUTES,
-    //canActivate: [CmsAuthGuard],
   }
 ];
 

@@ -12,7 +12,7 @@ import { NewsCategoryListComponent } from './category/list/categoryList.componen
 import { NewsCategorySelectComponent } from './category/select/categorySelect.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NewsCategoryDeleteComponent } from './category/delete/categoryDelete.component';
 import { QuillModule } from 'ngx-quill';
 import { NewsContentDeleteComponent } from './content/delete/contentDelete.component';
@@ -33,6 +33,9 @@ import {
   NewsShareServerCategoryService,
   CoreEnumService,
 } from 'ntk-cms-api';
+import {ArchwizardModule} from 'angular-archwizard';
+import {TagInputModule} from 'ngx-chips';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   imports: [
@@ -43,6 +46,10 @@ import {
     TreeModule.forRoot(),
     QuillModule,
     CmsSharedModule,
+    ArchwizardModule,
+    ReactiveFormsModule,
+    TagInputModule,
+    CKEditorModule,
   ],
   declarations: [
     //

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FormsRoutingModule } from "./forms-routing.module";
+import { FormsRoutingModule } from './forms-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NGXFormWizardModule } from "./ngx-wizard/ngx-wizard.module";
+import { NGXFormWizardModule } from './ngx-wizard/ngx-wizard.module';
 import { CustomFormsModule } from 'ng2-validation';
-import { MatchHeightModule } from "../../shared/directives/match-height.directive";
+import { MatchHeightModule } from '../../shared/directives/match-height.directive';
 import { ArchwizardModule } from 'angular-archwizard';
 
-import { ValidationFormsComponent } from "./validation/validation-forms.component";
+import { ValidationFormsComponent } from './validation/validation-forms.component';
 import { BasicComponent } from './layouts/basic/basic.component';
 import { HorizontalComponent } from './layouts/horizontal/horizontal.component';
 import { HiddenLabelsComponent } from './layouts/hidden-labels/hidden-labels.component';

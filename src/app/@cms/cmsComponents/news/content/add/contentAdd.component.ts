@@ -1,24 +1,32 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {PublicHelper} from 'app/@cms/cmsCommon/helper/publicHelper';
 import {CmsToastrService} from 'app/@cms/cmsService/base/cmsToastr.service';
 import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService} from 'ntk-cms-api';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as Leaflet from 'leaflet';
 
 @Component({
     selector: 'app-news-content-add',
-    templateUrl: './contentAdd.component.html',
+    templateUrl: './add.component.html',
     styleUrls: ['./contentAdd.component.scss'],
 })
-export class NewsContentAddComponent implements OnInit {
+export class NewsContentAddComponent implements OnInit, AfterViewInit {
+
+    name = 'Angular';
+    editor = ClassicEditor;
+    data: any = `<p>Hello, world!</p>`;
 
     @Input()
     set options(model: any) {
         this.dateModleInput = model;
     }
+
     get options(): any {
         return this.dateModleInput;
     }
+
     @ViewChild('vform', {static: false}) formGroup: FormGroup;
     private dateModleInput: any;
     formInfo: FormInfoModel = new FormInfoModel();
@@ -27,6 +35,11 @@ export class NewsContentAddComponent implements OnInit {
     linkCategoryId: number;
     loadingStatus = false; // add one more property
     dataModelEnumRecordStatusResult: ErrorExcptionResult<EnumModel> = new ErrorExcptionResult<EnumModel>();
+    map: any;
+    theMarker: any;
+    lat: any;
+    lon: any;
+    parentId = 0;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -38,6 +51,9 @@ export class NewsContentAddComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((params) => {
+            this.parentId = +params.parentId || 0;
+        });
         this.linkCategoryId = Number(
             this.activatedRoute.snapshot.paramMap.get('id')
         );
@@ -50,6 +66,21 @@ export class NewsContentAddComponent implements OnInit {
         this.getEnumRecordStatus();
     }
 
+    ngAfterViewInit(): void {
+        this.map = Leaflet.map('map', {center: [32.684985, 51.6359425], zoom: 16});
+        Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+        this.map.on('click', (e) => {
+            // @ts-ignore
+            this.lat = e.latlng.lat;
+            // @ts-ignore
+            this.lon = e.latlng.lng;
+            if (this.theMarker !== undefined) {
+                this.map.removeLayer(this.theMarker);
+            }
+            this.theMarker = Leaflet.marker([this.lat, this.lon]).addTo(this.map);
+        });
+    }
+
     getEnumRecordStatus(): void {
         this.coreEnumService.ServiceEnumRecordStatus().subscribe((res) => {
             this.dataModelEnumRecordStatusResult = res;
@@ -57,10 +88,11 @@ export class NewsContentAddComponent implements OnInit {
     }
 
     onFormSubmit() {
-        if (this.formGroup.valid) {
-            this.formInfo.FormAllowSubmit = false;
-            this.DataAddContent();
-        }
+        // if (this.formGroup.valid) {
+        //     this.formInfo.FormAllowSubmit = false;
+        //     this.DataAddContent();
+        // }
+        this.DataAddContent();
     }
 
     onFormCancel() {
@@ -68,14 +100,14 @@ export class NewsContentAddComponent implements OnInit {
     }
 
     DataAddContent() {
-        if (this.linkCategoryId <= 0) {
-            this.toastrService.toastr.error(
-                'دسته بندی را مشخص کنید',
-                'دسته بندی اطلاعات مشخص نیست'
-            );
-            return;
-        }
-        this.dataModel.LinkCategoryId = this.linkCategoryId;
+        this.dataModel.LinkCategoryId = this.parentId;
+        // if (this.linkCategoryId <= 0) {
+        //     this.toastrService.toastr.error(
+        //         'دسته بندی را مشخص کنید',
+        //         'دسته بندی اطلاعات مشخص نیست'
+        //     );
+        //     return;
+        // }
         this.formInfo.FormAlert = 'در حال ارسال اطلاعات به سرور';
         this.formInfo.FormError = '';
         this.loadingStatus = true;
@@ -107,5 +139,9 @@ export class NewsContentAddComponent implements OnInit {
 
     setFocus($event) {
         $event.focus();
+    }
+
+    onValueChange(model: any): any {
+        return model.value;
     }
 }

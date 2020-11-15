@@ -7,7 +7,7 @@ import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCont
 
 @Component({
     selector: 'app-news-content-edit',
-    templateUrl: './contentEdit.component.html',
+    templateUrl: './edit.component.html',
     styleUrls: ['./contentEdit.component.scss'],
 })
 export class NewsContentEditComponent implements OnInit {

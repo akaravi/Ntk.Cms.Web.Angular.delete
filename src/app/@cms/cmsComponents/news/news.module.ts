@@ -19,7 +19,6 @@ import { NewsContentDeleteComponent } from './content/delete/contentDelete.compo
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 import {
   NewsCategoryService,
-  NewsCategoryTagService,
   NewsCommentService,
   NewsConfigurationService,
   NewsContentService,
@@ -42,8 +41,6 @@ import {
     NewsRoutes,
     NgxDatatableModule,
     TreeModule.forRoot(),
-    // NgxQueryBuilderModule,
-
     QuillModule,
     CmsSharedModule,
   ],
@@ -64,7 +61,6 @@ import {
   exports: [],
   providers: [
     NewsCategoryService,
-    NewsCategoryTagService,
     NewsCommentService,
     NewsConfigurationService,
     NewsContentService,

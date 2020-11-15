@@ -44,9 +44,9 @@ export class SmsMainApiPathCompanyDeleteComponent implements OnInit {
       this.id = this.dateModleInput.id;
     }
     if (!this.id || this.id === 0) {
-      this.formInfo.formAlert = 'برروز خطا';
-      this.formInfo.formError = 'شناسه دسته بندی مشخص نمی باشد';
-      this.formInfo.disabledButtonSubmitted = true;
+      this.formInfo.FormAlert = 'برروز خطا';
+      this.formInfo.FormError = 'شناسه دسته بندی مشخص نمی باشد';
+      this.formInfo.DisabledButtonSubmitted = true;
       return;
     }
   }

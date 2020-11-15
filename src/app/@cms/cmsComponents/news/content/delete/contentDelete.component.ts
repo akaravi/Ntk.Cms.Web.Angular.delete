@@ -57,7 +57,7 @@ export class NewsContentDeleteComponent implements OnInit {
       return;
     }
 
-    this.formInfo.formError = '';
+    this.formInfo.FormError = '';
     this.dataModelContents.forEach((element) => {
       this.dataModelItemStates.push({
         ActionStart: false,
@@ -76,8 +76,8 @@ export class NewsContentDeleteComponent implements OnInit {
       return;
     }
 
-    this.formInfo.formError = '';
-    this.formInfo.formAllowSubmit = false;
+    this.formInfo.FormError = '';
+    this.formInfo.FormAllowSubmit = false;
     this.dataModelItemStates.forEach((element) => {
       //
       element.ActionStart = true;

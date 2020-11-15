@@ -75,7 +75,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
 
   onFormSubmit() {
     if (this.formGroup.valid) {
-      this.formInfo.formAllowSubmit = false;
+      this.formInfo.FormAllowSubmit = false;
       this.DataAddContent();
     }
   }
@@ -91,17 +91,17 @@ export class SmsMainApiPathAddComponent implements OnInit {
       return;
     }
     this.dataModel.LinkApiPathCompanyid = this.linkCategoryId;
-    this.formInfo.formAlert = 'در حال ارسال اطلاعات به سرور';
-    this.formInfo.formError = '';
+    this.formInfo.FormAlert = 'در حال ارسال اطلاعات به سرور';
+    this.formInfo.FormError = '';
     this.loadingStatus = true;
     this.smsMainApiPathService
       .ServiceAdd(this.dataModel)
       .subscribe(
         (next) => {
-          this.formInfo.formAllowSubmit = !next.IsSuccess;
+          this.formInfo.FormAllowSubmit = !next.IsSuccess;
           this.dataModelResult = next;
           if (next.IsSuccess) {
-            this.formInfo.formAlert = 'ثبت با موفقت انجام شد';
+            this.formInfo.FormAlert = 'ثبت با موفقت انجام شد';
           } else {
             const title = 'برروز خطا ';
             const message = next.ErrorMessage;
@@ -110,7 +110,7 @@ export class SmsMainApiPathAddComponent implements OnInit {
           this.loadingStatus = false;
         },
         (error) => {
-          this.formInfo.formAllowSubmit = true;
+          this.formInfo.FormAllowSubmit = true;
 
           const title = 'برروی خطا در دریافت اطلاعات';
           const message = this.publicHelper.CheckError(error);

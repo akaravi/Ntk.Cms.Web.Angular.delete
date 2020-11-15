@@ -101,7 +101,7 @@ export class CmsNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     AuthModel.UserAccessAdminAllowToAllData = this.TokenInfo.UserAccessAdminAllowToAllData;
     AuthModel.SiteId = this.TokenInfo.SiteId;
     AuthModel.UserId = this.TokenInfo.UserId;
-    AuthModel.lang = language;
+    AuthModel.Lang = language;
 
     let title = 'اطلاعات ';
     let message = 'درخواست تغییر زبان به سرور ارسال شد';

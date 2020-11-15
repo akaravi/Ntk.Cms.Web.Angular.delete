@@ -83,7 +83,7 @@ export class NewsContentDeleteComponent implements OnInit {
       element.ActionStart = true;
       this.newsContentService.ServiceDelete(element.Item.Id).subscribe(
         (next) => {
-          // this.formInfo.formAllowSubmit = true;
+          // this.formInfo.FormAllowSubmit = true;
           // this.dataModelResult = next;
           element.ActionEnd = true;
           if (next.IsSuccess) {
@@ -96,7 +96,7 @@ export class NewsContentDeleteComponent implements OnInit {
         },
         (error) => {
           element.ActionEnd = true;
-          // this.formInfo.formAllowSubmit = true;
+          // this.formInfo.FormAllowSubmit = true;
           const title = 'برروی خطا در دریافت اطلاعات';
           const message = this.publicHelper.CheckError(error);
           element.Message = title + ' : ' + message;

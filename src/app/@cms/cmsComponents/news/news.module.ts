@@ -46,6 +46,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {AutofillMonitor} from '@angular/cdk/text-field';
 import {ContentObserver} from '@angular/cdk/observers';
+import {CmsModule} from '../../cms.module';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import {ContentObserver} from '@angular/cdk/observers';
     MatTableModule,
     MatCommonModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    CmsModule
   ],
   declarations: [
     //

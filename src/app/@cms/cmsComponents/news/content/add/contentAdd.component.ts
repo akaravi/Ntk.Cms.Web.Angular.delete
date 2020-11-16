@@ -40,6 +40,8 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
     lat: any;
     lon: any;
     parentId = 0;
+    public viewModel: any
+    flagAccess: boolean;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -67,6 +69,9 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        this.newsContentService.ServiceViewModel().subscribe((res) => {
+            this.viewModel = res.Access;
+        });
         this.map = Leaflet.map('map', {center: [32.684985, 51.6359425], zoom: 16});
         Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
         this.map.on('click', (e) => {
@@ -136,5 +141,8 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
 
     onValueChange(model: any): any {
         return model.value;
+    }
+    role(flag): void {
+        this.flagAccess = flag;
     }
 }

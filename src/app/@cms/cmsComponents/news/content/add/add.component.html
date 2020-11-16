@@ -29,7 +29,10 @@
                                         <div class="justify-content-between">
                                             <label class="lbl-status" for="exampleFormControlInput1">عنوان : </label>
                                         </div>
-                                        <input [(ngModel)]="dataModel.Title" name="Title" type="text"
+                                        <input [appAccessField]="viewModel"
+                                               [fieldName]="'Title'" (access)="role($event)"
+                                               [disabled]="!flagAccess"
+                                               [(ngModel)]="dataModel.Title" name="Title" type="text"
                                                class="form-control" id="exampleFormControlInput1" required="required">
                                     </div>
                                     <div class="d-flex mt-4">
@@ -42,7 +45,9 @@
                                                   rows="3" required="required"></textarea>
                                     </div>
                                     <div class="form-group text-center">
-                                        <button class="btn btn-secondary btn-raised mt-2" [routerLink]="'/news/content'"> برگشت به صفحه اصلی</button>
+                                        <button class="btn btn-secondary btn-raised mt-2"
+                                                [routerLink]="'/news/content'"> برگشت به صفحه اصلی
+                                        </button>
                                         <button type="button" uiSref="work" class="btn btn-info btn-raised mt-2 mr-2"
                                                 [disabled]="!personalForm.valid" awNextStep>
                                             بعدی
@@ -78,7 +83,8 @@
                                 <div class="justify-content-between">
                                     <label class="lbl-status">توضیحات : </label>
                                 </div>
-                                <ckeditor [(ngModel)]="dataModel.Body" name="Body" [editor]="editor" [data]="data" required></ckeditor>
+                                <ckeditor [(ngModel)]="dataModel.Body" name="Body" [editor]="editor" [data]="data"
+                                          required></ckeditor>
                             </div>
                             <div class="form-group text-center space-20">
                                 <button uiSref="personal" type="button" class="btn btn-raised btn-secondary mr-1 mt-2"
@@ -87,7 +93,8 @@
                                       <i class="ft-chevron-right"></i>
                                   </span> قبلی
                                 </button>
-                                <button (click)="onFormSubmit()" uiSref="address" type="submit" class="btn btn-raised btn-info mt-2"
+                                <button (click)="onFormSubmit()" uiSref="address" type="submit"
+                                        class="btn btn-raised btn-info mt-2"
                                         [disabled]="!workForm.valid">
                                     ذخیره
                                 </button>

@@ -7,25 +7,30 @@ import { CmsSharedModule } from './shared/cmsShared.module';
 import {UploadFileComponent} from './cmsComponents/filemanager/upload-file/upload-file.component';
 import { FlowInjectionToken, NgxFlowModule } from '@flowjs/ngx-flow';
 import Flow from '@flowjs/flow.js';
+import { AccessFieldDirective } from './cmsCommon/directive/access-field.directive';
 @NgModule({
-  imports: [
-    CommonModule,
-    CmsRoutes,
-    CmsSharedModule,
-    NgxFlowModule
-  ],
-  declarations: [
-    CmsFullLayoutComponent,
-    CmsContentLayoutComponent,
-    UploadFileComponent
+    imports: [
+        CommonModule,
+        CmsRoutes,
+        CmsSharedModule,
+        NgxFlowModule
+    ],
+    declarations: [
+        CmsFullLayoutComponent,
+        CmsContentLayoutComponent,
+        UploadFileComponent,
+        AccessFieldDirective
 
-  ],
-  providers:[
+    ],
+    exports: [
+        AccessFieldDirective
+    ],
+    providers: [
 
-    {
-      provide: FlowInjectionToken,
-      useValue: Flow,
-    },
-  ]
+        {
+            provide: FlowInjectionToken,
+            useValue: Flow,
+        },
+    ]
 })
 export class CmsModule { }

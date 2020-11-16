@@ -10,7 +10,7 @@
         <div class="form-group row">
           <label class="col-md-3 label-control" for="Title">عنوان : </label>
           <div class="col-md-9">
-            <input [(ngModel)]="dataModelCategory.Title" type="text" class="form-control" name="Title" #Title="ngModel"
+            <input [(ngModel)]="dataModelCategory.Title" type="text" id="Title" class="form-control" name="Title" #Title="ngModel"
               required minlength="5" maxlength="50" placeholder="عنوان" />
             <small class="form-text text-muted danger" *ngIf="Title.errors?.required"> الزامی</small>
             <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength"> حداقل پنج
@@ -25,7 +25,7 @@
           <label class="col-md-3 label-control" for="Status">وضعیت:</label>
           <div class="col-md-9">
             <fieldset class="form-group">
-              <select [(ngModel)]="dataModelCategory.RecordStatus" name="RecordStatus" #RecordStatus="ngModel" required
+              <select [(ngModel)]="dataModelCategory.RecordStatus" id="Status" name="RecordStatus" #RecordStatus="ngModel" required
                 class="form-control">
                 <option *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;"
                   value="{{item.Value}}">
@@ -41,7 +41,7 @@
         <div class="form-group row">
           <label class="col-md-3 label-control" for="Description">توضیحات : </label>
           <div class="col-md-9">
-            <textarea [(ngModel)]="dataModelCategory.Description" name="Description" #Description="ngModel" rows="5"
+            <textarea [(ngModel)]="dataModelCategory.Description" id="Description" name="Description" #Description="ngModel" rows="5"
               class="form-control"></textarea>
             <small class="form-text text-muted danger" *ngIf="Description.errors?.required"> الزامی</small>
 
@@ -61,12 +61,12 @@
       </div>
 
       <div class="form-actions">
-        <small class="form-text text-muted ">{{formInfo.formAlert}} </small>
-        <small class="form-text text-muted danger">{{formInfo.formError}} </small>
+        <small class="form-text text-muted ">{{formInfo.FormAlert}} </small>
+        <small class="form-text text-muted danger">{{formInfo.FormError}} </small>
       </div>
       <div class="form-actions" *ngIf="formInfo.FormAllowSubmit">
 
-        <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">
+        <button type="button" class="btn btn-raised btn-warning mr-1">
           <i class="ft-x"></i> انصراف
         </button>
         <button type="submit" class="btn btn-raised btn-primary" [disabled]="!vform.form.valid">

@@ -1,105 +1,224 @@
-<span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>
-<div class="card-content" *ngIf="!(loadingStatus)">
-    <div class="px-3">
+<!--<span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>-->
+<!--<div class="card-content" *ngIf="!(loadingStatus)">-->
+<!--    <div class="px-3">-->
 
-        <form (ngSubmit)="onFormSubmit()" #vform="ngForm" class="form form-horizontal">
+<!--        <form (ngSubmit)="onFormSubmit()" #vform="ngForm" class="form form-horizontal">-->
 
-            <div class="form-body">
-                <h4 class="form-section"><i class="ft-user"></i> اطلاعات الزامی</h4>
+<!--            <div class="form-body">-->
+<!--                <h4 class="form-section"><i class="ft-user"></i> اطلاعات الزامی</h4>-->
 
-                <div class="form-group row">
-                    <label class="col-md-3 label-control">عنوان : </label>
-                    <div class="col-md-9">
-                        <input [(ngModel)]="dataModel.Title" type="text" class="form-control" name="Title"
-                               #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان"/>
-                        <small class="form-text text-muted danger" *ngIf="Title.errors?.required"> الزامی</small>
-                        <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength"> حداقل پنج
-                            کاراکتر</small>
-                        <small class="form-text text-muted danger" *ngIf="Title.errors?.maxlength"> حداکثر پنجاه
-                            کاراکتر</small>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-md-3 label-control">وضعیت:</label>
-                    <div class="col-md-9">
-                        <fieldset class="form-group">
-                            <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus" #RecordStatus="ngModel"
-                                    required class="form-control">
-                                <option
-                                        *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;"
-                                        value="{{item.Value}}">
-                                    {{item.Key}}</option>
-                            </select>
-                            <small class="form-text text-muted danger" *ngIf="RecordStatus.errors?.required">
-                                الزامی</small>
-                        </fieldset>
-                    </div>
-                </div>
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control">عنوان : </label>-->
+<!--                    <div class="col-md-9">-->
+<!--                        <input [(ngModel)]="dataModel.Title" type="text" class="form-control" name="Title"-->
+<!--                               #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان"/>-->
+<!--                        <small class="form-text text-muted danger" *ngIf="Title.errors?.required"> الزامی</small>-->
+<!--                        <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength"> حداقل پنج-->
+<!--                            کاراکتر</small>-->
+<!--                        <small class="form-text text-muted danger" *ngIf="Title.errors?.maxlength"> حداکثر پنجاه-->
+<!--                            کاراکتر</small>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
-                <div class="form-group row">
-                    <label class="col-md-3 label-control">توضیحات : </label>
-                    <div class="col-md-9">
-                            <textarea [(ngModel)]="dataModel.Description" name="Description" #Description="ngModel"
-                                      rows="5" class="form-control"></textarea>
-                        <small class="form-text text-muted danger" *ngIf="Description.errors?.required">
-                            الزامی</small>
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control">وضعیت:</label>-->
+<!--                    <div class="col-md-9">-->
+<!--                        <fieldset class="form-group">-->
+<!--                            <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus" #RecordStatus="ngModel"-->
+<!--                                    required class="form-control">-->
+<!--                                <option-->
+<!--                                        *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;"-->
+<!--                                        value="{{item.Value}}">-->
+<!--                                    {{item.Key}}</option>-->
+<!--                            </select>-->
+<!--                            <small class="form-text text-muted danger" *ngIf="RecordStatus.errors?.required">-->
+<!--                                الزامی</small>-->
+<!--                        </fieldset>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                    </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-md-3 label-control">متن : </label>
-                    <div class="col-md-12">
-                        <!-- Default Quill Editor starts -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12">
-                                    <quill-editor [style]="{height: '200px'}" (onEditorCreated)="setFocus($event)">
-                                    </quill-editor>
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control">توضیحات : </label>-->
+<!--                    <div class="col-md-9">-->
+<!--                            <textarea [(ngModel)]="dataModel.Description" name="Description" #Description="ngModel"-->
+<!--                                      rows="5" class="form-control"></textarea>-->
+<!--                        <small class="form-text text-muted danger" *ngIf="Description.errors?.required">-->
+<!--                            الزامی</small>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control">متن : </label>-->
+<!--                    <div class="col-md-12">-->
+<!--                        &lt;!&ndash; Default Quill Editor starts &ndash;&gt;-->
+<!--                        <div class="card-body">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-12 col-lg-12">-->
+<!--                                    <quill-editor [style]="{height: '200px'}" (onEditorCreated)="setFocus($event)">-->
+<!--                                    </quill-editor>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Default Quill Editor Ends &ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<!--                <h4 class="form-section"><i class="ft-file-text"></i> اطلاعات تکمیلی</h4>-->
+
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control" for="projectinput5">فایل آیکن : </label>-->
+<!--                    <div class="col-md-9">-->
+<!--                        <input type="text" id="projectinput5" class="form-control" name="company">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-3 label-control" for="projectinput5">vfds آیکن : </label>-->
+<!--                    <div class="col-md-9">-->
+<!--                        <input type="text" [(ngModel)]="dataModel.Id" name="Description" class="form-control"-->
+<!--                               name="company">-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="form-actions">-->
+<!--                <small class="form-text text-muted ">{{formInfo.FormAlert}} </small>-->
+<!--                <small class="form-text text-muted danger">{{formInfo.FormError}} </small>-->
+<!--            </div>-->
+<!--            <div class="form-actions" *ngIf="formInfo.FormAllowSubmit">-->
+
+<!--                <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">-->
+<!--                    <i class="ft-x"></i> انصراف-->
+<!--                </button>-->
+<!--                <button type="submit" class="btn btn-raised btn-primary" [disabled]="!vform.form.valid">-->
+<!--                    <i class="fa fa-check-square-o"></i> ذخیره-->
+<!--                </button>-->
+
+<!--            </div>-->
+<!--        </form>-->
+<!--   </div>-->
+<!--</div>-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="content-header">Angular فرم ویزاردی</div>
+    </div>
+</div>
+<section id="ngx">
+    <div class="card">
+        <div class="card-content">
+            <div class="card-body">
+                <aw-wizard #wizard navBarLayout="large-empty-symbols">
+                    <aw-wizard-step [stepTitle]="'Steptitle 1'"
+                                    [navigationSymbol]="{ symbol: '&#xf007;', fontFamily: 'FontAwesome' }">
+                        <form #personalForm="ngForm" class="editForm" novalidate>
+                            <h4 class="head text-center">لطفا در مورد خودتان به ما بگویید.</h4>
+                            <br/>
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <div class="d-flex">
+                                        <div class="justify-content-between">
+                                            <label class="lbl-status" for="exampleFormControlSelect1">وضعیت : </label>
+                                        </div>
+                                        <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus"
+                                                class="form-control" id="exampleFormControlSelect1">
+                                            <option *ngFor="let item of dataModelEnumRecordStatusResult.ListItems;"
+                                                    value="{{item.Value}}">{{item.Key}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex mt-4">
+                                        <div class="justify-content-between">
+                                            <label class="lbl-status" for="exampleFormControlInput1">عنوان : </label>
+                                        </div>
+                                        <input [(ngModel)]="dataModel.Title" name="Title" type="text"
+                                               class="form-control" id="exampleFormControlInput1" required="required">
+                                    </div>
+                                    <div class="d-flex mt-4">
+                                        <div class="justify-content-between">
+                                            <label class="lbl-status" for="exampleFormControlTextarea1">توضیحات
+                                                : </label>
+                                        </div>
+                                        <textarea [(ngModel)]="dataModel.Description" name="Description"
+                                                  class="form-control" id="exampleFormControlTextarea1"
+                                                  rows="3" required="required"></textarea>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-secondary btn-raised mt-2" [routerLink]="'/news/content'"> برگشت به صفحه اصلی</button>
+                                        <button type="button" uiSref="work" class="btn btn-info btn-raised mt-2 mr-2"
+                                                [disabled]="!personalForm.valid" awNextStep>
+                                            بعدی
+                                            <span style="margin-left:10px;">
+                                              <i class="ft-chevron-left"></i>
+                                          </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Default Quill Editor Ends -->
-                    </div>
-                </div>
-
-
-                <h4 class="form-section"><i class="ft-file-text"></i> اطلاعات تکمیلی</h4>
-
-                <div class="form-group row">
-                    <label class="col-md-3 label-control" for="projectinput5">فایل آیکن : </label>
-                    <div class="col-md-9">
-                        <input type="text" id="projectinput5" class="form-control" name="company">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-md-3 label-control" for="projectinput5">vfds آیکن : </label>
-                    <div class="col-md-9">
-                        <input type="text" [(ngModel)]="dataModel.Id" name="Description" class="form-control"
-                               name="company">
-                    </div>
-
-                </div>
+                        </form>
+                    </aw-wizard-step>
+                    <aw-wizard-step [stepTitle]="'Steptitle 2'"
+                                    [navigationSymbol]="{ symbol: '&#xf0b1;', fontFamily: 'FontAwesome' }">
+                        <form #workForm="ngForm" class="editForm" novalidate>
+                            <h4 class="head text-center">چه کار میکنی؟</h4>
+                            <br/>
+                            <div>
+                                <div class="justify-content-between">
+                                    <label class="lbl-content" for="exampleFormControlInput1">برچسب : </label>
+                                </div>
+                                <tag-input [modelAsStrings]="true">
+                                </tag-input>
+                            </div>
+                            <div class="pb-10">
+                                <div class="justify-content-between">
+                                    <label class="lbl-content" for="exampleFormControlInput1">کلمات کلیدی : </label>
+                                </div>
+                                <tag-input [modelAsStrings]="true">
+                                </tag-input>
+                            </div>
+                            <div class="d-flex mt-4">
+                                <div class="justify-content-between">
+                                    <label class="lbl-status">توضیحات : </label>
+                                </div>
+                                <ckeditor [(ngModel)]="dataModel.Body" name="Body" [editor]="editor" [data]="data" required></ckeditor>
+                            </div>
+                            <div class="form-group text-center space-20">
+                                <button uiSref="personal" type="button" class="btn btn-raised btn-secondary mr-1 mt-2"
+                                        awPreviousStep>
+                                  <span style="margin-right:10px;">
+                                      <i class="ft-chevron-right"></i>
+                                  </span> قبلی
+                                </button>
+                                <button (click)="onFormSubmit()" uiSref="address" type="submit" class="btn btn-raised btn-info mt-2"
+                                        [disabled]="!workForm.valid">
+                                    ذخیره
+                                </button>
+                            </div>
+                            <
+                        </form>
+                    </aw-wizard-step>
+                    <aw-wizard-step [stepTitle]="'Steptitle 3'"
+                                    [navigationSymbol]="{ symbol: '&#xf0ac;', fontFamily: 'FontAwesome' }">
+                        <form #addressForm="ngForm" class="editForm" novalidate>
+                            <h4 class="head text-center">کجا زندگی می کنید؟</h4>
+                            <br/>
+                            <div class='row'>
+                                <div class='col-sm-12'>
+                                    <h4 class="mb-10 font-weight-bold text-dark">موقعیت مکانی</h4>
+                                    <div class="map-container">
+                                        <div class="map-frame">
+                                            <div id="map"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </aw-wizard-step>
+                </aw-wizard>
             </div>
-
-            <div class="form-actions">
-                <small class="form-text text-muted ">{{formInfo.FormAlert}} </small>
-                <small class="form-text text-muted danger">{{formInfo.FormError}} </small>
-            </div>
-            <div class="form-actions" *ngIf="formInfo.FormAllowSubmit">
-
-                <button type="button" (click)="onFormCancel()" class="btn btn-raised btn-warning mr-1">
-                    <i class="ft-x"></i> انصراف
-                </button>
-                <button type="submit" class="btn btn-raised btn-primary" [disabled]="!vform.form.valid">
-                    <i class="fa fa-check-square-o"></i> ذخیره
-                </button>
-
-            </div>
-        </form>
-   </div>
-</div>
+        </div>
+    </div>
+</section>

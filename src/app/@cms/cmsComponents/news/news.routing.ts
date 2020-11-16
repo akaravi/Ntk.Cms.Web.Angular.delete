@@ -8,6 +8,7 @@ import { NewsCategoryListComponent } from './category/list/categoryList.componen
 import { NewsCategoryAddComponent } from './category/add/categoryAdd.component';
 import { NewsCategoryEditComponent } from './category/edit/categoryEdit.component';
 import { NewsCategorySelectComponent } from './category/select/categorySelect.component';
+import {CommentComponent} from './content/comment/comment.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,13 @@ const routes: Routes = [
           {
             path: 'edit',
             component: NewsContentEditComponent,
+            data: {
+              title: 'forgot password You Acount',
+            },
+          },
+          {
+            path: 'comment/:id',
+            component: CommentComponent,
             data: {
               title: 'forgot password You Acount',
             },

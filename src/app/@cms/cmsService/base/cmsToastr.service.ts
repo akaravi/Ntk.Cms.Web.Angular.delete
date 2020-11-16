@@ -48,4 +48,11 @@ export class CmsToastrService {
     }
     this.toastr.error(_message, 'Error!');
   }
+  typeWarningComment(str: string = ''): void {
+    let message = 'برای این خبر دیدگاهی وجود نداره';
+    if (str && str.length > 0) {
+      message = message + ' error: ' + str;
+    }
+    this.toastr.error(message, 'Error!');
+  }
 }

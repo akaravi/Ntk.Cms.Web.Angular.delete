@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {PublicHelper} from 'app/@cms/cmsCommon/helper/publicHelper';
 import {CmsToastrService} from 'app/@cms/cmsService/base/cmsToastr.service';
 import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService} from 'ntk-cms-api';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-news-content-edit',
@@ -11,6 +12,10 @@ import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsCont
     styleUrls: ['./contentEdit.component.scss'],
 })
 export class NewsContentEditComponent implements OnInit {
+    name = 'Angular';
+    editor = ClassicEditor;
+    data: any;
+
     @Input()
     set options(model: any) {
         this.dateModleInput = model;
@@ -72,10 +77,7 @@ export class NewsContentEditComponent implements OnInit {
     }
 
     onFormSubmit() {
-        if (this.formGroup.valid) {
-            this.formInfo.FormAllowSubmit = false;
-            this.DataEditContent();
-        }
+        this.DataEditContent();
     }
 
     onFormCancel() {

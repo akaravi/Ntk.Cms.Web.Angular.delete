@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+    font-family: IRANSansWeb;
+    src: url(assets/fonts/fonts/IRANSansWeb.ttf);
+
+}
+
 /*  RTL Styles */
 @import '~angular-tree-component/dist/angular-tree-component.css';
 

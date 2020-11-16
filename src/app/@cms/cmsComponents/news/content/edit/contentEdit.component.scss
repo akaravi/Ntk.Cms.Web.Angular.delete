@@ -1,0 +1,29 @@
+.lbl-status{
+  width: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 5px;
+}
+.lbl-content{
+  width: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 25px;
+}
+::ng-deep .ck-editor {
+  width: 100% !important;
+}
+.tab-content .tab-pane{
+  padding-top: 20px;
+}
+
+.alert {
+  padding: 8px;
+  margin-bottom: 8px;
+}
+#map {
+  width: 60%;
+  height: 600px;
+}

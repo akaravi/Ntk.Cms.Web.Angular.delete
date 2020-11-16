@@ -301,4 +301,7 @@ export class NewsContentListComponent extends BaseComponent implements OnInit {
     ActionEdit(): void {
         this.router.navigate(['edit'], {relativeTo: this.activatedRoute, queryParams: {id: this.getId}});
     }
+    onClickComment(): void {
+        this.router.navigate(['comment/', this.getId], {relativeTo: this.activatedRoute});
+    }
 }

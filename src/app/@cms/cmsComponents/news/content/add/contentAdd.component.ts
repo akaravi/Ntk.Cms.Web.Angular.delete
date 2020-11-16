@@ -101,13 +101,6 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
 
     DataAddContent() {
         this.dataModel.LinkCategoryId = this.parentId;
-        // if (this.linkCategoryId <= 0) {
-        //     this.toastrService.toastr.error(
-        //         'دسته بندی را مشخص کنید',
-        //         'دسته بندی اطلاعات مشخص نیست'
-        //     );
-        //     return;
-        // }
         this.formInfo.FormAlert = 'در حال ارسال اطلاعات به سرور';
         this.formInfo.FormError = '';
         this.loadingStatus = true;

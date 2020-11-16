@@ -36,6 +36,16 @@ import {
 import {ArchwizardModule} from 'angular-archwizard';
 import {TagInputModule} from 'ngx-chips';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import {CommentComponent} from './content/comment/comment.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
+import {MatCommonModule} from '@angular/material/core';
+import {A11yModule, HighContrastModeDetector} from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {AutofillMonitor} from '@angular/cdk/text-field';
+import {ContentObserver} from '@angular/cdk/observers';
 
 @NgModule({
   imports: [
@@ -50,6 +60,11 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     ReactiveFormsModule,
     TagInputModule,
     CKEditorModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatCommonModule,
+    MatInputModule,
+    MatDialogModule
   ],
   declarations: [
     //
@@ -64,8 +79,8 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     NewsCategoryDeleteComponent,
     NewsCategoryListComponent,
     NewsCategorySelectComponent,
+    CommentComponent
   ],
-  exports: [],
   providers: [
     NewsCategoryService,
     NewsCommentService,
@@ -80,7 +95,11 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     NewsShareMainAdminSettingService,
     NewsShareReciverCategoryService,
     NewsShareServerCategoryService,
-    CoreEnumService
+    CoreEnumService,
+    HighContrastModeDetector,
+    Platform,
+    AutofillMonitor,
+    ContentObserver
   ],
 })
 export class NewsModule {}

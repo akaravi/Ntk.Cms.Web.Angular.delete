@@ -40,10 +40,8 @@
         <div class="col-md-10 col-lg-10">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">لیست اخبار <span
-                            *ngIf="optionsCategorySelect &&
-            optionsCategorySelect?.data?.SelectId>0">({{optionsCategorySelect && optionsCategorySelect?.data?.Select?.Title}}
-                        )</span>
+                    <h4 class="card-title">لیست اخبار
+                         <span *ngIf="optionsCategorySelect && optionsCategorySelect?.data?.SelectId>0">({{optionsCategorySelect && optionsCategorySelect?.data?.Select?.Title}})</span>
                     </h4>
                     <hr>
                     <div>
@@ -52,6 +50,8 @@
                         <a *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0"
                            (click)="ActionEdit()"
                            class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a>
+                        <a  *ngIf="dataModelResult?.Access?.AccessEditRow && tableContentSelected?.length>0"
+                            (click)="onClickComment()" class="btn btn-secondary">اظهار نظر</a>
                         <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
                            (click)="onActionbuttonDeleteRow()" class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
                         <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
@@ -91,8 +91,7 @@
                                        [sortType]="'single'"
                                        [selected]="tableContentSelected" [selectionType]="selectionType.single"
                                        (page)="onActionSetPage($event)"
-                                       (sort)="onActionSort($event)" (select)="onActionSelect($event)">
-
+                                       (sort)="onActionSort($event)" (select)="onActionSelect($event)" style="cursor: pointer">
                         </ngx-datatable>
                         <hr>
                     </div>
@@ -122,10 +121,7 @@
         </app-news-content-edit>
         <app-news-content-delete *ngSwitchCase="'contentContentDelete'" [options]="{Contents:tableContentSelected}">
         </app-news-content-delete>
-
     </div>
-
-
 </app-cms-modal>
 <ng-template #contentModal let-c="close" let-d="dismiss">
     <div class="modal-header">

@@ -32,7 +32,7 @@ export class SmsMainApiPathListComponent implements OnInit {
   contentContentAdd: ElementRef;
   @ViewChild('contentContentEdit', { static: false })
   contentContentEdit: ElementRef;
-
+  getId: number;
   optionsCategorySelect: ComponentOptionSmsMainApiPathCompanyModel = new ComponentOptionSmsMainApiPathCompanyModel();
 
   filteModelContent = new FilterModel();
@@ -229,9 +229,10 @@ export class SmsMainApiPathListComponent implements OnInit {
     this.DataGetAllContent();
   }
 
-  onActionSelect() {
-    // your code here
-    // console.log("onActionSelect Event", event);
-    // console.log("tableContentSelected Event", this.tableContentSelected);
+  onActionSelect(event) {
+    this.getId = event.selected[0].Id;
+  }
+  goToApiPathSuperSide() {
+    this.router.navigate(['/sms/superSide'],  {queryParams: {'LinkApiPathId': this.getId} });
   }
 }

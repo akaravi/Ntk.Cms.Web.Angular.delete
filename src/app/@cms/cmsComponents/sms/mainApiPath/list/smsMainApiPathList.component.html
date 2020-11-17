@@ -19,11 +19,15 @@
                         </app-sms-main-api-path-company-select>
                         <hr>
                         <p>
-                            <a (click)='onActionCategorySelect()'
+                            <a (click)='onActionCategorySelect(model)'
                                 *ngIf="optionsCategorySelect?.data && optionsCategorySelect?.data?.SelectId>0"
                                 class="btn btn-raised mr-1 shadow-z-2 btn-success">همه</a> |
                             <a (click)="openModal(contentCategoryAdd)"
                                 class="btn btn-raised mr-1 shadow-z-2 btn-info">اضافه</a>
+
+
+
+
                             <a (click)="openModal(contentCategoryEdit)"
                                 *ngIf="optionsCategorySelect?.data && optionsCategorySelect?.data?.SelectId>0"
                                 class="btn btn-raised mr-1 shadow-z-2 btn-warning">ویرایش</a> |
@@ -62,6 +66,12 @@
                         <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
                             (click)="onActionbuttonDeleteRow()"
                             class="btn btn-raised mr-1 shadow-z-2 btn-danger">جستجو</a>
+
+                        <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
+                           (click)="goToApiPathSuperSide()"
+                           class="btn btn-raised mr-1 shadow-z-2 btn-danger">SuperSide</a>
+
+
                         <a *ngIf="dataModelResult?.Access?.AccessWatchRow"
                             (click)="optionsSearch.data.hidden=!optionsSearch.data.hidden"
                             class="btn btn-raised mr-1 shadow-z-2 btn-success">
@@ -98,7 +108,7 @@
                             [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading"
                             [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected"
                             [selectionType]="selectionType.single" (page)="onActionSetPage($event)"
-                            (sort)="onActionSort($event)" (select)="onActionSelect($event)">
+                            (sort)="onActionSort($event)" (select)="onActionSelect($event)" style="cursor: pointer">
 
                         </ngx-datatable>
 

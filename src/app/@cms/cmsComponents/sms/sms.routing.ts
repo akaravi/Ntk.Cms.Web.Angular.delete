@@ -6,6 +6,7 @@ import { SmsMainApiPathListComponent } from './mainApiPath/list/smsMainApiPathLi
 import { SmsMainApiPathCompanyAddComponent } from './mainApiPathCompany/add/smsMainApiPathCompanyAdd.component';
 import { SmsMainApiPathCompanyEditComponent } from './mainApiPathCompany/edit/smsMainApiPathCompanyEdit.component';
 import { SmsMainApiPathCompanyListComponent } from './mainApiPathCompany/list/smsMainApiPathCompanyList.component';
+import {SmsMainApiPathSuperSederListComponent} from './mainApiPathSuperSeder/list/smsMainApiPathSuperSederList.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,15 @@ const routes: Routes = [
           }
         ],
       },
+      {
+        path: 'superSide',
+        children: [
+          {
+            path: '',
+            component: SmsMainApiPathSuperSederListComponent
+          }
+        ]
+      }
     ],
   }
 ];

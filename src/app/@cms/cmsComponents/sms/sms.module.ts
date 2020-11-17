@@ -2,15 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmsRoutes } from './sms.routing';
 import { TreeModule } from 'angular-tree-component';
-
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
-import { NgxQueryBuilderModule } from 'ngx-query-builder';
 import { FormsModule } from '@angular/forms';
-
 import { QuillModule } from 'ngx-quill';
-
-
 import { CmsSharedModule } from 'app/@cms/shared/cmsShared.module';
 import { SmsMainApiPathAddComponent } from './mainApiPath/add/smsMainApiPathAdd.component';
 import { SmsMainApiPathDeleteComponent } from './mainApiPath/delete/smsMainApiPathDelete.component';
@@ -59,8 +53,7 @@ import { SmsMainCustomerNumberDeleteComponent } from './mainCustomerNumber/delet
 import { SmsMainCustomerNumberEditComponent } from './mainCustomerNumber/edit/smsMainCustomerNumberEdit.component';
 import { SmsMainCustomerNumberListComponent } from './mainCustomerNumber/list/smsMainCustomerNumberList.component';
 import { SmsMainCustomerNumberSelectComponent } from './mainCustomerNumber/select/smsMainCustomerNumberSelect.component';
-import { SmsMainApiPathCompanyService, SmsMainApiPathService } from 'ntk-cms-api';
-
+import {CoreEnumService, SmsMainApiPathCompanyService, SmsMainApiPathService, SmsMainApiPathSuperSederService} from 'ntk-cms-api';
 
 @NgModule({
   imports: [
@@ -124,8 +117,6 @@ import { SmsMainApiPathCompanyService, SmsMainApiPathService } from 'ntk-cms-api
     SmsMainApiPathSuperSederEditComponent,
     SmsMainApiPathSuperSederDeleteComponent,
     SmsMainApiPathSuperSederSelectComponent,
-
-
     //
     SmsMainCustomerNumberListComponent,
     SmsMainCustomerNumberAddComponent,
@@ -133,21 +124,7 @@ import { SmsMainApiPathCompanyService, SmsMainApiPathService } from 'ntk-cms-api
     SmsMainCustomerNumberDeleteComponent,
     SmsMainCustomerNumberSelectComponent,
 
-
-
-
-
-
-
-
-
-
   ],
-  exports: [
-
-
-  ],
-  providers: [SmsMainApiPathCompanyService, SmsMainApiPathService],
-  // ,schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  providers: [SmsMainApiPathCompanyService, SmsMainApiPathService, CoreEnumService, SmsMainApiPathSuperSederService],
 })
 export class SmsModule { }

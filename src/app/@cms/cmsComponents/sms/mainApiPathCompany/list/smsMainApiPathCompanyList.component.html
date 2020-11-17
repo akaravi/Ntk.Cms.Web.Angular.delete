@@ -22,6 +22,10 @@
                         <a *ngIf="dataModelResult?.Access?.AccessDeleteRow && tableContentSelected?.length>0"
                             (click)="onActionbuttonDeleteRow()"
                             class="btn btn-raised mr-1 shadow-z-2 btn-danger">حذف</a>
+
+
+
+
                         <a *ngIf="dataModelResult?.Access?.AccessWatchRow"
                             (click)="optionsSearch.data.hidden=!optionsSearch.data.hidden"
                             class="btn btn-raised mr-1 shadow-z-2 btn-success">
@@ -51,14 +55,27 @@
                     <span class="ml-3" *ngIf="(loadingStatus)">Loding ...</span>
                     <div class="card-body" *ngIf="!(loadingStatus)">
 
-                        <ngx-datatable #tableContent class="bootstrap" [rows]="dataModelResult.ListItems"
-                            [columns]="columnsContent" [columnMode]="columnMode.force" [headerHeight]="50"
-                            [footerHeight]="50" rowHeight="auto" [externalPaging]="true"
-                            [count]="dataModelResult.TotalRowCount" [offset]="dataModelResult.CurrentPageNumber-1"
-                            [limit]="dataModelResult.RowPerPage" [loadingIndicator]="tableContentloading"
-                            [externalSorting]="true" [sortType]="'single'" [selected]="tableContentSelected"
-                            [selectionType]="selectionType.single" (page)="onActionSetPage($event)"
-                            (sort)="onActionSort($event)" (select)="onActionSelect($event)">
+                        <ngx-datatable
+                            #tableContent
+                            class="bootstrap"
+                            [rows]="dataModelResult.ListItems"
+                            [columns]="columnsContent"
+                            [columnMode]="columnMode.force"
+                            [headerHeight]="50"
+                            [footerHeight]="50"
+                            rowHeight="auto"
+                            [externalPaging]="true"
+                            [count]="dataModelResult.TotalRowCount"
+                            [offset]="dataModelResult.CurrentPageNumber-1"
+                            [limit]="dataModelResult.RowPerPage"
+                            [loadingIndicator]="tableContentloading"
+                            [externalSorting]="true"
+                            [sortType]="'single'"
+                            [selected]="tableContentSelected"
+                            [selectionType]="selectionType.single"
+                            (page)="onActionSetPage($event)"
+                            (sort)="onActionSort($event)"
+                            (select)="onActionSelect($event)" style="cursor: pointer">
                         </ngx-datatable>
                         <hr>
 

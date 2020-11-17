@@ -22,7 +22,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="Title">عنوان : </label>
                                     <div class="col-md-9">
-                                        <input [(ngModel)]="dataModel.title" type="text" class="form-control" name="Title" #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان" />
+                                        <input [(ngModel)]="dataModel.Title" id="Title" type="text" class="form-control" name="Title" #Title="ngModel" required minlength="5" maxlength="50" placeholder="عنوان" />
                                         <small class="form-text text-muted danger" *ngIf="Title.errors?.required"> الزامی</small>
                                         <small class="form-text text-muted danger" *ngIf="Title.errors?.minlength"> حداقل پنج
                                             کاراکتر</small>
@@ -36,7 +36,7 @@
                                     <label class="col-md-3 label-control" for="Status">وضعیت:</label>
                                     <div class="col-md-9">
                                         <fieldset class="form-group">
-                                            <select [(ngModel)]="dataModel.RecordStatus" name="RecordStatus" #RecordStatus="ngModel" required class="form-control">
+                                            <select [(ngModel)]="dataModel.RecordStatus" id="Status" name="RecordStatus" #RecordStatus="ngModel" required class="form-control">
                                                 <option *ngFor="let item of dataModelEnumRecordStatusResult.ListItems; index as i;" value="{{item.Value}}">
                                                     {{item.Key}}</option>
                                             </select>
@@ -50,7 +50,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="Description">توضیحات : </label>
                                     <div class="col-md-9">
-                                        <textarea [(ngModel)]="dataModel.description" name="Description" #Description="ngModel" rows="5" class="form-control"></textarea>
+                                        <textarea [(ngModel)]="dataModel.Description" id="Description" name="Description" #Description="ngModel" rows="5" class="form-control"></textarea>
                                         <small class="form-text text-muted danger" *ngIf="Description.errors?.required"> الزامی</small>
   
                                     </div>
@@ -130,8 +130,8 @@
 
 
                           <div class="form-actions">
-                              <small class="form-text text-muted ">{{formInfo.formAlert}} </small>
-                              <small class="form-text text-muted danger">{{formInfo.formError}} </small>
+                              <small class="form-text text-muted ">{{formInfo.FormAlert}} </small>
+                              <small class="form-text text-muted danger">{{formInfo.FormError}} </small>
                           </div>
                           <div class="form-actions" *ngIf="formInfo.FormAllowSubmit">
 

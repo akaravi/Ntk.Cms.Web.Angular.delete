@@ -47,6 +47,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {AutofillMonitor} from '@angular/cdk/text-field';
 import {ContentObserver} from '@angular/cdk/observers';
 import {CmsModule} from '../../cms.module';
+import {LocalAccessHelper} from '../../cmsCommon/helper/localAccessHelper';
 
 @NgModule({
   imports: [
@@ -101,7 +102,8 @@ import {CmsModule} from '../../cms.module';
     HighContrastModeDetector,
     Platform,
     AutofillMonitor,
-    ContentObserver
+    ContentObserver,
+    LocalAccessHelper
   ],
 })
 export class NewsModule {}

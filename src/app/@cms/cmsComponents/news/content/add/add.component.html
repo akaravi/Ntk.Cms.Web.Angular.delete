@@ -29,11 +29,10 @@
                                         <div class="justify-content-between">
                                             <label class="lbl-status" for="exampleFormControlInput1">عنوان : </label>
                                         </div>
-                                        <input [appAccessField]="viewModel"
-                                               [fieldName]="'Title'" (access)="role($event)"
-                                               [disabled]="!flagAccess"
-                                               [(ngModel)]="dataModel.Title" name="Title" type="text"
+                                        <input [(ngModel)]="dataModel.Title" name="Title" type="text"
+                                               *ngIf="accessHelper.AccessAddField(   'Title')"
                                                class="form-control" id="exampleFormControlInput1" required="required">
+                                        aaa{{accessHelper.AccessAddField(   'Title')}}bb
                                     </div>
                                     <div class="d-flex mt-4">
                                         <div class="justify-content-between">

@@ -6,6 +6,7 @@ import {CmsToastrService} from 'app/@cms/cmsService/base/cmsToastr.service';
 import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService} from 'ntk-cms-api';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Leaflet from 'leaflet';
+import {LocalAccessHelper} from '../../../../cmsCommon/helper/localAccessHelper';
 
 @Component({
     selector: 'app-news-content-add',
@@ -41,18 +42,20 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
     lon: any;
     parentId = 0;
     public viewModel: any
-    flagAccess: boolean;
+    filterName: any [] = [];
 
     constructor(
         private activatedRoute: ActivatedRoute,
         public newsContentService: NewsContentService,
         public coreEnumService: CoreEnumService,
         private toastrService: CmsToastrService,
-        private publicHelper: PublicHelper
+        private publicHelper: PublicHelper,
+        public  accessHelper: LocalAccessHelper
     ) {
     }
 
     ngOnInit() {
+
         this.activatedRoute.queryParams.subscribe((params) => {
             this.parentId = +params.parentId || 0;
         });
@@ -70,7 +73,7 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.newsContentService.ServiceViewModel().subscribe((res) => {
-            this.viewModel = res.Access;
+            this.accessHelper.setAccessValue(res.Access);
         });
         this.map = Leaflet.map('map', {center: [32.684985, 51.6359425], zoom: 16});
         Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
@@ -142,7 +145,5 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
     onValueChange(model: any): any {
         return model.value;
     }
-    role(flag): void {
-        this.flagAccess = flag;
-    }
+
 }

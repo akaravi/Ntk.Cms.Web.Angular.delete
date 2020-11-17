@@ -7,7 +7,7 @@ import { CmsSharedModule } from './shared/cmsShared.module';
 import {UploadFileComponent} from './cmsComponents/filemanager/upload-file/upload-file.component';
 import { FlowInjectionToken, NgxFlowModule } from '@flowjs/ngx-flow';
 import Flow from '@flowjs/flow.js';
-import { AccessFieldDirective } from './cmsCommon/directive/access-field.directive';
+// import { AccessFieldDirective } from './cmsCommon/directive/access-field.directive';
 @NgModule({
     imports: [
         CommonModule,
@@ -19,11 +19,11 @@ import { AccessFieldDirective } from './cmsCommon/directive/access-field.directi
         CmsFullLayoutComponent,
         CmsContentLayoutComponent,
         UploadFileComponent,
-        AccessFieldDirective
+        // AccessFieldDirective
 
     ],
     exports: [
-        AccessFieldDirective
+        // AccessFieldDirective
     ],
     providers: [
 

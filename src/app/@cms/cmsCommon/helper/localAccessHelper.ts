@@ -1,32 +1,29 @@
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {AccessModel, ErrorExcptionResult} from 'ntk-cms-api';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { AccessModel, ErrorExcptionResult } from 'ntk-cms-api';
 
 
 export class LocalAccessHelper {
+    static Access: AccessModel;
     AccessBS = new BehaviorSubject<AccessModel>(new AccessModel());
     AccessBSObs = this.AccessBS.asObservable();
+    static AccessAddField(nameField: string): boolean {
+        if (!this.Access) {
+            return false;
+        }
+        if (!this.Access.FieldsInfo) {
+            return false;
+        }
 
+        this.Access.FieldsInfo.filter((item) => {
+            if (nameField.toLowerCase() === item.FieldName.toLowerCase()) {
+                // debugger;
+                return item.AccessAddField;
+            }
+        });
+        return false;
+    }
     setAccessValue(access: AccessModel): void {
         this.AccessBS.next(access);
-    }
-
-    AccessAddField(nameField: string): any {
-       return  this.AccessBSObs.subscribe((model) => {
-            if (!model) {
-                return false;
-            }
-            if (!model.FieldsInfo) {
-                return false;
-            }
-
-            model.FieldsInfo.filter((item) => {
-                if (nameField.toLowerCase() === item.FieldName.toLowerCase()) {
-                    // debugger;
-                    return item.AccessAddField;
-                }
-            });
-            return model.AccessDeleteRow;
-        });
     }
 
     AccessEditField(nameField: string): any {

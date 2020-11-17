@@ -32,6 +32,7 @@ import {
   NewsShareReciverCategoryService,
   NewsShareServerCategoryService,
   CoreEnumService,
+  AccessHelper
 } from 'ntk-cms-api';
 import {ArchwizardModule} from 'angular-archwizard';
 import {TagInputModule} from 'ngx-chips';
@@ -47,7 +48,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {AutofillMonitor} from '@angular/cdk/text-field';
 import {ContentObserver} from '@angular/cdk/observers';
 import {CmsModule} from '../../cms.module';
-import {LocalAccessHelper} from '../../cmsCommon/helper/localAccessHelper';
 
 @NgModule({
   imports: [
@@ -103,7 +103,7 @@ import {LocalAccessHelper} from '../../cmsCommon/helper/localAccessHelper';
     Platform,
     AutofillMonitor,
     ContentObserver,
-    LocalAccessHelper
+    AccessHelper
   ],
 })
 export class NewsModule {}

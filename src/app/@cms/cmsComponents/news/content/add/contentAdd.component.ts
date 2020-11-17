@@ -1,12 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {PublicHelper} from 'app/@cms/cmsCommon/helper/publicHelper';
-import {CmsToastrService} from 'app/@cms/cmsService/base/cmsToastr.service';
-import {CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService} from 'ntk-cms-api';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PublicHelper } from 'app/@cms/cmsCommon/helper/publicHelper';
+import { CmsToastrService } from 'app/@cms/cmsService/base/cmsToastr.service';
+import { CoreEnumService, EnumModel, ErrorExcptionResult, FormInfoModel, NewsContentModel, NewsContentService, AccessModel, AccessHelper } from 'ntk-cms-api';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Leaflet from 'leaflet';
-import {LocalAccessHelper} from '../../../../cmsCommon/helper/localAccessHelper';
 
 @Component({
     selector: 'app-news-content-add',
@@ -14,10 +13,6 @@ import {LocalAccessHelper} from '../../../../cmsCommon/helper/localAccessHelper'
     styleUrls: ['./contentAdd.component.scss'],
 })
 export class NewsContentAddComponent implements OnInit, AfterViewInit {
-
-    name = 'Angular';
-    editor = ClassicEditor;
-    data: any = `<p>Hello, world!</p>`;
 
     @Input()
     set options(model: any) {
@@ -28,7 +23,11 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
         return this.dateModleInput;
     }
 
-    @ViewChild('vform', {static: false}) formGroup: FormGroup;
+    name = 'Angular';
+    editor = ClassicEditor;
+    data: any = `<p>Hello, world!</p>`;
+
+    @ViewChild('vform', { static: false }) formGroup: FormGroup;
     private dateModleInput: any;
     formInfo: FormInfoModel = new FormInfoModel();
     dataModel: NewsContentModel = new NewsContentModel();
@@ -42,7 +41,8 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
     lon: any;
     parentId = 0;
     public viewModel: any
-    filterName: any [] = [];
+    filterName: any[] = [];
+    dataModelAccess: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -50,7 +50,8 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
         public coreEnumService: CoreEnumService,
         private toastrService: CmsToastrService,
         private publicHelper: PublicHelper,
-        public  accessHelper: LocalAccessHelper
+        public accessHelper: AccessHelper,
+
     ) {
     }
 
@@ -69,13 +70,13 @@ export class NewsContentAddComponent implements OnInit, AfterViewInit {
             this.linkCategoryId = this.dateModleInput.linkCategoryId;
         }
         this.getEnumRecordStatus();
-    }
-
-    ngAfterViewInit(): void {
         this.newsContentService.ServiceViewModel().subscribe((res) => {
-            this.accessHelper.setAccessValue(res.Access);
+            this.accessHelper.AccessFieldsSet(res.Access);
         });
-        this.map = Leaflet.map('map', {center: [32.684985, 51.6359425], zoom: 16});
+    }
+    ngAfterViewInit(): void {
+
+        this.map = Leaflet.map('map', { center: [32.684985, 51.6359425], zoom: 16 });
         Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
         this.map.on('click', (e) => {
             // @ts-ignore
